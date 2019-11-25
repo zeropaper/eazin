@@ -1,5 +1,5 @@
 {
-  "name": "@eazin/server",
+  "name": "eazin-server",
   "version": "0.0.1-alpha.1",
   "description": "EAZIN Server",
   "repository": {
@@ -38,5 +38,5 @@
     "socket.io": "^2.3.0",
     "validator": "^12.1.0"
   },
-  "gitHead": "316bf281f42cc571f2c6b9709a8c0cd4d77a23ff"
+  "gitHead": "cc69cfb06f12b71dd6e4f7286b9f862a90f342dd"
 }
