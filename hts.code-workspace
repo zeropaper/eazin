@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": ".",
+			"name": "core"
+		},
+		{
+			"name": "packages/server",
+			"path": "packages/server"
+		},
+		{
+			"name": "packages/ui",
+			"path": "packages/ui"
+		},
+		// {
+		// 	"name": "swag",
+		// 	"path": "projects/swag"
+		// },
+		{
+			"name": "demo/server",
+			"path": "demo/server"
+		},
+		{
+			"name": "demo/ui",
+			"path": "demo/ui"
+		},
+	]
+}

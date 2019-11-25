@@ -1,0 +1,51 @@
+{
+  "name": "eazin",
+  "private": true,
+  "scripts": {
+    "predemo": "kill-port 3001 3000",
+    "demo": "lerna run --parallel demo",
+    "lint": "lerna run --parallel lint",
+    "lint:fix": "lerna run --parallel lint:fix",
+    "predev": "kill-port 5001 5000",
+    "dev": "lerna run --parallel dev",
+    "build": "lerna run build",
+    "prestart": "npm run build",
+    "start": "lerna run start ",
+    "test": "run-p test:*",
+    "test:unit": "jest --coverage --config jest.unit.config.js",
+    "test:e2e": "jest --config jest.e2e.config.js",
+    "watch:test:unit": "jest --watch --config jest.unit.config.js",
+    "watch:test:e2e": "jest --watch --config jest.e2e.config.js",
+    "postinstall": "lerna bootstrap"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.4.3",
+    "@neutrinojs/airbnb": "^9.0.0-rc.5",
+    "@neutrinojs/airbnb-base": "^9.0.0-rc.5",
+    "@neutrinojs/jest": "^9.0.0-rc.5",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "eslint": "^6.6.0",
+    "eslint-plugin-jest": "^23.0.4",
+    "husky": "^3.0.4",
+    "jest": "^24.8.0",
+    "jest-circus": "^24.9.0",
+    "jest-environment-node": "^24.9.0",
+    "jest-junit": "^8.0.0",
+    "kill-port": "^1.6.0",
+    "lerna": "^3.18.4",
+    "neutrino": "^9.0.0-rc.5",
+    "nodemon": "^1.19.4",
+    "npm-run-all": "^4.1.5",
+    "supertest": "^4.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm test"
+    }
+  },
+  "engines": {
+    "npm": "^6.13.0",
+    "node": "^12.13.0"
+  }
+}

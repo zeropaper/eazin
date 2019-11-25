@@ -1,0 +1,36 @@
+const storeName = 'hts-1';
+
+const store = (data) => {
+  localStorage[storeName] = JSON.stringify(data || {});
+  return data;
+};
+
+const restore = () => JSON.parse(localStorage[storeName] || '{}');
+
+export default (state = restore(), { type, payload } = {}) => {
+  switch (type) {
+    case 'SET_SETTING':
+      return store({
+        ...state,
+        [payload.key]: payload.value,
+      });
+
+    case 'RESET_SETTING':
+      return store({
+        ...state,
+        [payload.key]: null,
+      });
+
+    case 'SET_SETTINGS':
+      return store({
+        ...state,
+        ...payload,
+      });
+
+    case 'RESET_SETTINGS':
+      return store({});
+
+    default:
+      return state;
+  }
+};
