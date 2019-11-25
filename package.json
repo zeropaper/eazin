@@ -12,7 +12,7 @@
     "prestart": "npm run build",
     "start": "lerna run start ",
     "test": "run-p test:*",
-    "test:unit": "jest --coverage --config jest.unit.config.js",
+    "test:unit": "jest --config jest.unit.config.js",
     "test:e2e": "jest --config jest.e2e.config.js",
     "watch:test:unit": "jest --watch --config jest.unit.config.js",
     "watch:test:e2e": "jest --watch --config jest.e2e.config.js",
