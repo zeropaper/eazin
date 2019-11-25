@@ -15,8 +15,8 @@ import PluginPoint from './components/PluginPoint';
 const Content = () => (
   <>
     <Helmet
-      titleTemplate="137 | %s"
-      defaultTitle="Hundred Thirty Seven"
+      titleTemplate="Eazin | %s"
+      defaultTitle="Eazin"
     />
 
     <Router history={history}>
