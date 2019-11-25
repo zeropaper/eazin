@@ -1,5 +1,6 @@
 {
-  "name": "hts-demo-server",
+  "private": true,
+  "name": "eazin-demo-server",
   "version": "0.0.0",
   "description": "Demo server made with the EAZIN SDK",
   "repository": {

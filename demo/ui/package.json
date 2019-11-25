@@ -1,5 +1,6 @@
 {
-  "name": "hts-demo-ui",
+  "private": true,
+  "name": "eazin-demo-ui",
   "version": "0.0.0",
   "description": "Demo ui made with the EAZIN SDK",
   "repository": {
