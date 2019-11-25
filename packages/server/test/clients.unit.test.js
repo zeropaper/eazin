@@ -34,7 +34,7 @@ beforeAll(async () => {
 describe('client', () => {
   it('can be created by an authenticated user', () => utils
     .post('/api/clients')
-    .send({ name: 'ACME', redirectURI: 'hts://auth' })
+    .send({ name: 'ACME', redirectURI: 'eazin://auth' })
     .set('Authorization', `Bearer ${creator.token}`)
     .expect(201)
     .then(async (res) => {

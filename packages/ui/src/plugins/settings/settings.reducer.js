@@ -1,4 +1,4 @@
-const storeName = 'hts-1';
+const storeName = 'eazin-1';
 
 const store = (data) => {
   localStorage[storeName] = JSON.stringify(data || {});

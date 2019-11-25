@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const storageName = 'hts-1';
+const storageName = 'eazin-1';
 
 // eslint-disable-next-line no-unused-vars
 const readLocalStorageState = () => {

@@ -13,7 +13,7 @@ describe('user', () => {
     expect(true).toBeTruthy();
     return request()
       .post('/api/user/register')
-      .send({ email: 'john@hts-sdk.dev', password: '1234567890Aa!' })
+      .send({ email: 'john@eazin.dev', password: '1234567890Aa!' })
       // .expect((res) => console.info(res.body))
       .expect(201)
       .then((res) => {
