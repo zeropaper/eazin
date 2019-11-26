@@ -2,8 +2,6 @@
   "name": "eazin",
   "private": true,
   "scripts": {
-    "predemo": "kill-port 3001 3000",
-    "demo": "lerna run --parallel demo",
     "lint": "lerna run --parallel lint",
     "lint:fix": "lerna run --parallel lint:fix",
     "predev": "kill-port 5001 5000",
@@ -16,7 +14,9 @@
     "test:e2e": "jest --config jest.e2e.config.js",
     "watch:test:unit": "jest --watch --config jest.unit.config.js",
     "watch:test:e2e": "jest --watch --config jest.e2e.config.js",
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "prepublish-all": "npm run build",
+    "publish-all": "lerna publish"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
