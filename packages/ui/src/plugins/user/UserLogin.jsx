@@ -5,7 +5,7 @@ import isEmail from 'validator/es/lib/isEmail';
 
 import Link from '../../components/Link';
 // import queryAPI from '../../core/util/queryAPI';
-import Form from '../../components/form/Form';
+import Form from '../../components/Form/FormBase';
 import { setUser } from './user.actions';
 import { setSetting } from '../settings/settings.actions';
 

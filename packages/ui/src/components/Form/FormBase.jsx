@@ -5,7 +5,7 @@ import { Form as Informed } from 'informed';
 import queryAPI from '../../core/util/queryAPI';
 import Fields from './Fields';
 
-class Form extends React.Component {
+class FormBase extends React.Component {
   state = {
     errors: null,
     error: null,
@@ -85,7 +85,7 @@ class Form extends React.Component {
   }
 }
 
-Form.propTypes = {
+FormBase.propTypes = {
   method: PropTypes.string,
   url: PropTypes.string,
   processFields: PropTypes.func,
@@ -98,7 +98,7 @@ Form.propTypes = {
   userToken: PropTypes.string,
 };
 
-Form.defaultProps = {
+FormBase.defaultProps = {
   method: null,
   url: null,
   processFields: null,
@@ -110,4 +110,4 @@ Form.defaultProps = {
   userToken: null,
 };
 
-export default Form;
+export default FormBase;

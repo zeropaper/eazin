@@ -4,7 +4,7 @@ import isEmail from 'validator/es/lib/isEmail';
 
 import Link from '../../components/Link';
 import queryAPI from '../../core/util/queryAPI';
-import Form from '../../components/form/Form';
+import Form from '../../components/Form/FormBase';
 import connect from './UserRegister.connect';
 
 const required = {

@@ -5,8 +5,8 @@ import { Button } from '@material-ui/core';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
-import Form from '../../src/components/form/Form';
-import Fields from '../../src/components/form/Fields';
+import Form from '../../src/components/Form/FormBase';
+import Fields from '../../src/components/Form/Fields';
 
 const stories = storiesOf('Form', module);
 stories.addDecorator(withKnobs);

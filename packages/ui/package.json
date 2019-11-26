@@ -11,7 +11,7 @@
   "scripts": {
     "lint": "eslint --quiet --ext jsx,js src test",
     "lint:fix": "eslint --quiet --fix --cache --format codeframe --ext jsx,js src test",
-    "build": "BUILD_ENV=production webpack --mode production",
+    "build": "BUILD_TYPE=components webpack --mode production",
     "dev": "webpack-dev-server --mode development",
     "test": "echo \"Run tests from root\" && exit 1"
   },
@@ -44,6 +44,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
     "@neutrinojs/react": "^9.0.0-rc.5",
+    "@neutrinojs/react-components": "^9.0.0-rc.5",
     "@storybook/addon-actions": "^5.2.6",
     "@storybook/addon-knobs": "^5.2.6",
     "@storybook/addon-links": "^5.2.6",

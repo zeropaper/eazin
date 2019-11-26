@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 import { View as ViewPropTypes } from '../../core/plugins.propTypes';
 import { upsertCompanies, upsertCompany } from './companies.actions';
 import queryAPI from '../../core/util/queryAPI';
-import Form from '../../components/form/Form';
+import Form from '../../components/Form/FormBase';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 

@@ -2,7 +2,7 @@ import React from 'react';
 import isEmail from 'validator/es/lib/isEmail';
 
 import Link from '../../components/Link';
-import Form from '../../components/form/Form';
+import Form from '../../components/Form/FormBase';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 

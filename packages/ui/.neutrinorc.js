@@ -1,7 +1,8 @@
 const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
+const reactComponents = require('@neutrinojs/react-components');
 
-const { BUILD_ENV } = process.env;
+const { NODE_ENV, BUILD_TYPE = 'app' } = process.env;
 
 const appPlugin = require('app-manifest-webpack-plugin');
 const neutrinoAppPlugin = (conf = {}) => (neutrino) => {
@@ -17,7 +18,10 @@ const neutrinoGenerateSW = (conf = {}) => (neutrino) => {
     .use(GenerateSW, [conf]);
 };
 
-const useInProd = plugin => BUILD_ENV === 'production' ? plugin : null;
+const useInProd = plugin => (NODE_ENV === 'production'
+  && BUILD_TYPE !== 'components')
+  ? plugin
+  : null;
 
 module.exports = {
   options: {
@@ -29,6 +33,7 @@ module.exports = {
         .set('react-dom', '@hot-loader/react-dom')
         .end();
     },
+
     airbnb({
       eslint: {
         baseConfig: {
@@ -53,39 +58,42 @@ module.exports = {
         },
       },
     }),
-    react({
-      env: {
-        NODE_ENV: 'development',
-        BUILD_ENV: 'development',
-        CIRCLE_BUILD_NUM: null,
-        CIRCLE_BRANCH: null,
-        CIRCLE_SHA1: null,
-      },
 
-      devServer: {
-        port: 5000,
-        // host: '0.0.0.0',
-        // historyApiFallback: false,
-        proxy: {
-          '/api': 'http://localhost:5001',
-          '/socket.io': 'http://localhost:5001',
+    BUILD_TYPE !== 'components'
+      ? react({
+        env: {
+          NODE_ENV: 'development',
+          NODE_ENV: 'development',
+          CIRCLE_BUILD_NUM: null,
+          CIRCLE_BRANCH: null,
+          CIRCLE_SHA1: null,
         },
-      },
-      html: {
-        title: 'EAZIN',
-        lang: 'en',
-        meta: {
-          viewport: 'width=device-width, initial-scale=1',
+
+        devServer: {
+          port: 5000,
+          // host: '0.0.0.0',
+          // historyApiFallback: false,
+          proxy: {
+            '/api': 'http://localhost:5001',
+            '/socket.io': 'http://localhost:5001',
+          },
         },
-        favicon: './src/static/icon.png',
-      },
-      babel: {
-        presets: [
-          '@babel/preset-react',
-          '@babel/preset-env',
-        ],
-      },
-    }),
+        html: {
+          title: 'EAZIN',
+          lang: 'en',
+          meta: {
+            viewport: 'width=device-width, initial-scale=1',
+          },
+          favicon: './src/static/icon.png',
+        },
+        babel: {
+          presets: [
+            '@babel/preset-react',
+            '@babel/preset-env',
+          ],
+        },
+      })
+      : reactComponents(),
 
     useInProd(neutrinoAppPlugin({
       // Your source logo
@@ -138,14 +146,7 @@ module.exports = {
         },
       }
     })),
-    // useInProd(neutrino => {
-    //   neutrino.config.optimization.merge({
-    //     splitChunks: {
-    //       // Decrease the minimum size before extra chunks are created, to 10KB
-    //       minSize: 10000,
-    //     },
-    //   });
-    // }),
+
     useInProd(neutrinoGenerateSW({
       importWorkboxFrom: 'local',
       // skipWaiting: true,
