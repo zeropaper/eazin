@@ -1,3 +1,4 @@
+const path = require('path');
 const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
 const reactComponents = require('@neutrinojs/react-components');
@@ -26,6 +27,7 @@ const useInProd = plugin => (NODE_ENV === 'production'
 module.exports = {
   options: {
     root: __dirname,
+    output: 'dist',
   },
   use: [
     (neutrino) => {
@@ -151,5 +153,28 @@ module.exports = {
       importWorkboxFrom: 'local',
       // skipWaiting: true,
     })),
+
+    BUILD_TYPE === 'components' && ((neutrino) => {
+      console.info('neutrino.config.entry', neutrino.config.entry);
+      // neutrino.config.merge({
+      //   entry: {
+      //     'activity/index': [
+      //       path.resolve(__dirname, './src/plugins/activity/index.js'),
+      //     ],
+      //     'activity/actions': [
+      //       path.resolve(__dirname, './src/plugins/activity/activity.actions.js'),
+      //     ],
+      //     'activity/Drawer': [
+      //       path.resolve(__dirname, './src/plugins/activity/ActivityDrawer.jsx'),
+      //     ],
+      //     'activity/LandingView': [
+      //       path.resolve(__dirname, './src/plugins/activity/ActivityLandingView.jsx'),
+      //     ],
+      //     'activity/View': [
+      //       path.resolve(__dirname, './src/plugins/activity/ActivityView.jsx'),
+      //     ],
+      //   },
+      // });
+    }),
   ].filter(Boolean),
 };

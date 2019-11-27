@@ -11,8 +11,8 @@ import {
 } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { withAppContext, appContextShape } from '../core/AppContext';
-import PluginPoint from './PluginPoint';
+import { withAppContext, appContextShape } from '../../core/AppContext';
+import PluginPoint from '../PluginPoint';
 
 const Header = ({
   className,

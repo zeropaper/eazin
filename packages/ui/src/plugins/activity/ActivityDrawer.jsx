@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Drawer as DrawerPropTypes } from '../../core/plugins.propTypes';
-import Link from '../../components/Layout.Drawer.Link';
+import Link from '../../components/Layout/Layout.Drawer.Link';
 
 const ActivityDrawer = () => (
   <Link to="/activity">

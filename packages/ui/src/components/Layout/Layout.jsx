@@ -12,7 +12,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import Header from './Layout.Header';
 import DrawerContent from './Layout.Drawer';
-import PluginPoint from './PluginPoint';
+import PluginPoint from '../PluginPoint';
 
 const fullHeight = {
   display: 'flex',

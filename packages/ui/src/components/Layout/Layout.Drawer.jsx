@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
 import { NavLink, withRouter } from 'react-router-dom';
 
-import PluginPoint from './PluginPoint';
+import PluginPoint from '../PluginPoint';
 // eslint-disable-next-line
 import styles from './Layout.Drawer.styles';
 
