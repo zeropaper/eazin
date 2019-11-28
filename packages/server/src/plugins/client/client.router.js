@@ -47,7 +47,7 @@ router.post(
     const handleCreation = (err, created) => {
       if (err) return next(err);
 
-      res.send(sanitizeAPIClientOutput(created), 201);
+      res.status(201).send(sanitizeAPIClientOutput(created));
     };
 
     APIClient.findOne({ name }, (err, client) => {

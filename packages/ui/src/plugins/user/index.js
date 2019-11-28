@@ -1,8 +1,11 @@
-import { lazy } from 'react';
 
 import queryAPI from '../../core/util/queryAPI';
 import * as actions from './user.actions';
 import reducer from './user.reducer';
+
+import UserRegister from /* webpackChunkName: "UserRegister" */ './UserRegister';
+import UserLogin from /* webpackChunkName: "UserLogin" */ './UserLogin';
+import UserReset from /* webpackChunkName: "UserReset" */ './UserReset';
 
 export const bootstrap = ({ settings: { userToken } }) => {
   if (!userToken) return;
@@ -18,10 +21,6 @@ export const bootstrap = ({ settings: { userToken } }) => {
     })
     .catch((err) => { throw err; });
 };
-
-const UserRegister = lazy(() => import(/* webpackChunkName: "UserRegister" */ './UserRegister'));
-const UserLogin = lazy(() => import(/* webpackChunkName: "UserLogin" */ './UserLogin'));
-const UserReset = lazy(() => import(/* webpackChunkName: "UserReset" */ './UserReset'));
 
 const routes = [
   {

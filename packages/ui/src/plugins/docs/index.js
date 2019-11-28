@@ -1,11 +1,7 @@
-import { lazy } from 'react';
-
-// import * as actions from './docs.actions';
-
-const DocsView = lazy(() => import(/* webpackChunkName: "DocsView" */ './DocsView'));
-const DocsHeaderTabs = lazy(() => import(/* webpackChunkName: "DocsHeaderTabs" */ './DocsHeaderTabs'));
-const DocsDrawer = lazy(() => import(/* webpackChunkName: "DocsDrawer" */ './DocsDrawer'));
-const DocsLandingView = lazy(() => import(/* webpackChunkName: "DocsLandingView" */ './DocsLandingView'));
+import DocsView from /* webpackChunkName: "DocsView" */ './DocsView';
+import DocsHeaderTabs from /* webpackChunkName: "DocsHeaderTabs" */ './DocsHeaderTabs';
+import DocsDrawer from /* webpackChunkName: "DocsDrawer" */ './DocsDrawer';
+import DocsLandingView from /* webpackChunkName: "DocsLandingView" */ './DocsLandingView';
 
 const store = {
   docs: {},

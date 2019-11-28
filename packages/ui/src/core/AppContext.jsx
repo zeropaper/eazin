@@ -43,17 +43,20 @@ export class AppContextProvider extends React.Component {
     super(props);
     this.theme = makeTheme('light');
 
-    Promise.all(Object.values(props.plugins)).then((loaded) => {
-      const loadedObj = {};
-      Object.keys(props.plugins)
-        .forEach((key, k) => { loadedObj[key] = loaded[k].default; });
+    Promise.all(Object.values(props.plugins))
+      .then((loaded) => {
+        const loadedObj = {};
+        Object.keys(props.plugins)
+          .forEach((key, k) => {
+            loadedObj[key] = loaded[k].default || loaded[k];
+          });
 
-      this.store = makeStore(loadedObj);
+        this.store = makeStore(loadedObj);
 
-      this.storeUnsubscribe = this.store.subscribe(this.handleStoreChange);
+        this.storeUnsubscribe = this.store.subscribe(this.handleStoreChange);
 
-      return this.bootstrap(loadedObj);
-    });
+        return this.bootstrap(loadedObj);
+      });
   }
 
   componentWillUnmount() {

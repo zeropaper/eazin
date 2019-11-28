@@ -32,11 +32,11 @@ export default (plugins, preloaded = {}) => {
     .forEach((name) => {
       pluginReducers = {
         ...pluginReducers,
-        ...(plugins[name].reducers || {}),
+        ...((plugins[name] || {}).reducers || {}),
       };
       pluginStores = {
         ...pluginStores,
-        ...(plugins[name].store || {}),
+        ...((plugins[name] || {}).store || {}),
       };
     });
 

@@ -13,7 +13,9 @@
     "lint": "eslint --quiet --ext jsx,js src test",
     "lint:fix": "eslint --quiet --fix --cache --format codeframe --ext jsx,js src test",
     "build": "BUILD_TYPE=components webpack --mode production",
-    "dev": "webpack-dev-server --mode development",
+    "dev": "npm-run-all --parallel devstart devbuild",
+    "devstart": "webpack-dev-server --mode development",
+    "devbuild": "nodemon -e js,jsx -w src -w .neutrinorc.js -x \"npx rimraf dist/* && npx webpack --mode production\"",
     "test": "echo \"Run tests from root\" && exit 1"
   },
   "dependencies": {
@@ -54,7 +56,11 @@
     "@storybook/react": "^5.2.6",
     "app-manifest-webpack-plugin": "^1.2.0",
     "eslint-plugin-react-hooks": "^2.3.0",
+    "glob": "^7.1.6",
+    "nodemon": "^2.0.1",
+    "npm-run-all": "^4.1.5",
     "puppeteer": "^1.19.0",
+    "rimraf": "^3.0.0",
     "webpack": "^4.41.2",
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",

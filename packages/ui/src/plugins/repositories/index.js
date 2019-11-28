@@ -1,6 +1,5 @@
-import { lazy } from 'react';
 
-const ReposLandingView = lazy(() => import(/* webpackChunkName: "ReposLandingView" */ './ReposLandingView'));
+import ReposLandingView from /* webpackChunkName: "ReposLandingView" */ './ReposLandingView';
 
 const routes = [
   {

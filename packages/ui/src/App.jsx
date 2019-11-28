@@ -12,8 +12,8 @@ import Layout from './components/Layout';
 
 import PluginPoint from './components/PluginPoint';
 
-const Content = () => (
-  <>
+const App = ({ children, plugins }) => (plugins && (
+  <AppContextProvider plugins={plugins}>
     <Helmet
       titleTemplate="Eazin | %s"
       defaultTitle="Eazin"
@@ -21,15 +21,9 @@ const Content = () => (
 
     <Router history={history}>
       <Layout>
-        <PluginPoint name="View" switchRoutes />
+        {children || <PluginPoint name="View" switchRoutes />}
       </Layout>
     </Router>
-  </>
-);
-
-const App = ({ children, plugins }) => (plugins && (
-  <AppContextProvider plugins={plugins}>
-    {children || <Content />}
   </AppContextProvider>
 ));
 

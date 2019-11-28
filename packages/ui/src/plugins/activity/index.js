@@ -1,9 +1,8 @@
-import { lazy } from 'react';
 
-const ActivityDrawer = lazy(() => import(/* webpackChunkName: "ActivityDrawer" */ './ActivityDrawer'));
+import ActivityDrawer from /* webpackChunkName: "ActivityDrawer" */ './ActivityDrawer';
 // eslint-disable-next-line max-len
-const ActivityLandingView = lazy(() => import(/* webpackChunkName: "ActivityLandingView" */ './ActivityLandingView'));
-const ActivityView = lazy(() => import(/* webpackChunkName: "ActivityView" */ './ActivityView'));
+import ActivityLandingView from /* webpackChunkName: "ActivityLandingView" */ './ActivityLandingView';
+import ActivityView from /* webpackChunkName: "ActivityView" */ './ActivityView';
 
 
 const wsBootstrap = (socket, dispatch, getState) => {

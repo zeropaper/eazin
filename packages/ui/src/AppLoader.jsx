@@ -11,7 +11,7 @@ const AppLoader = () => (
       user: import(/* webpackChunkName: "plugin.user" */'./plugins/user'),
       settings: import(/* webpackChunkName: "plugin.settings" */'./plugins/settings'),
       activity: import(/* webpackChunkName: "plugin.activity" */'./plugins/activity'),
-      companies: import(/* webpackChunkName: "plugin.companies" */'./plugins/companies'),
+      // companies: import(/* webpackChunkName: "plugin.companies" */'./plugins/companies'),
       docs: import(/* webpackChunkName: "plugin.docs" */'./plugins/docs'),
       ws: import(/* webpackChunkName: "plugin.ws" */'./plugins/ws'),
       // a: import(/* webpackChunkName: "plugin.a" */'./plugins/p-a'),

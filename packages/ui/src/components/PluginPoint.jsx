@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
 import Fallback from './LoadingFallback';
+import ErrorBoundary from './ErrorBoundary';
 
 const PluginsContext = React.createContext({ plugins: {} });
 
@@ -18,10 +19,12 @@ const RoutePlugin = ({
   wrapIn: WrapIn,
   wrapOut: WrapOut,
 }) => {
-  const render = (Comp) => (props) => {
+  const render = (Comp, pluginName) => (props) => {
     const content = (
       <React.Suspense fallback={loadingFallback || <Fallback />}>
-        <Comp {...props} wrapIn={WrapIn} />
+        <ErrorBoundary errorMessage={`${name} - ${pluginName}`}>
+          <Comp {...props} wrapIn={WrapIn} />
+        </ErrorBoundary>
       </React.Suspense>
     );
 
@@ -37,7 +40,7 @@ const RoutePlugin = ({
         if (!route[name]) return null;
 
         const Comp = route[name];
-        Comp.name = Comp.name || `Plugin.${name}.${val}`;
+
         return {
           val,
           Comp,
@@ -62,7 +65,7 @@ const RoutePlugin = ({
         key={`${val}-${!!exact}-${path}-${name}`}
         path={path}
         exact={exact}
-        render={render(Comp)}
+        render={render(Comp, val, path)}
       />
     ));
 

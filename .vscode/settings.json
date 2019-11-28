@@ -1,12 +1,10 @@
 {
   "files.exclude": {
+    "**/.github": true,
     "**/.directory": true,
     "**/.eslintcache": true,
     "**/.vscode": true,
-    "**/demo": true,
-    "**/node_modules": true,
-    "**/packages": true,
-    "**/projects": true
+    "**/node_modules": true
   },
   "eslint.configFile": "packages/server/.eslintrc.js",
   "eslint.autoFixOnSave": true

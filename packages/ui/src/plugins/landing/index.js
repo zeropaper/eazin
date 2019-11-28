@@ -1,9 +1,7 @@
-import { lazy } from 'react';
-
 import * as actions from './landing.actions';
 
 // eslint-disable-next-line import/no-cycle
-const LandingView = lazy(() => import(/* webpackChunkName: "LandingView" */ './LandingView'));
+import LandingView from /* webpackChunkName: "LandingView" */ './LandingView';
 
 const routes = [
   {

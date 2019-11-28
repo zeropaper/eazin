@@ -4,4 +4,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const neutrino = require('neutrino');
 
-module.exports = neutrino().webpack();
+const config = neutrino().webpack();
+
+// config.devtool = false;
+config.optimization.minimize = false;
+
+module.exports = config;

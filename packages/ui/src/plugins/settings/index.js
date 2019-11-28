@@ -1,10 +1,10 @@
-import { lazy } from 'react';
 
 import reducer from './settings.reducer';
 
-const SettingsView = lazy(() => import(/* webpackChunkName: "Settingsview" */ './SettingsView'));
-const SettingsHeaderLinks = lazy(() => import(/* webpackChunkName: "SettingsHeaderLinks" */ './SettingsHeaderLinks'));
-const SettingsDrawer = lazy(() => import(/* webpackChunkName: "SettingsDrawer" */ './SettingsDrawer'));
+import SettingsView from /* webpackChunkName: "Settingsview" */ './SettingsView';
+import SettingsHeaderLinks from /* webpackChunkName: "SettingsHeaderLinks" */ './SettingsHeaderLinks';
+import SettingsDrawer from /* webpackChunkName: "SettingsDrawer" */ './SettingsDrawer';
+
 SettingsDrawer.weight = 10;
 
 const routes = [
