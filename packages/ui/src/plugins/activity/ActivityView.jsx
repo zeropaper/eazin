@@ -43,7 +43,7 @@ ActivityView.propTypes = {
 
 const mapStateToProps = ({
   activities,
-  settings: { userToken },
+  settings: { userToken } = {},
 }) => ({
   activities,
   userToken,

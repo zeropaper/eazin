@@ -40,11 +40,13 @@ export default (plugins, preloaded = {}) => {
       };
     });
 
-  const appReducer = combineReducers(pluginReducers);
+  const appReducer = Object.keys(pluginReducers).length
+    ? combineReducers(pluginReducers)
+    : (state = {}) => (state);
 
   pluginStores = { ...pluginStores, ...(preloaded || {}) };
 
-  const rootReducer = (state, action) => {
+  const rootReducer = (state = {}, action = {}) => {
     if (action.type === 'CORE_RELOAD') return pluginStores;
     return appReducer(state, action);
   };

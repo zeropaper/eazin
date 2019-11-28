@@ -155,11 +155,6 @@ Layout.defaultProps = {
   passThru: null,
 };
 
-const mapStateToProps = ({ settings: { userToken } }) => ({ passThru: !!userToken });
-// const mapStateToProps = (store) => {
-//   const { settings: { userToken } } = store;
-//   console.info('store', store, userToken);
-//   return ({ passThru: !!userToken });
-// };
+const mapStateToProps = ({ settings: { userToken } = {} }) => ({ passThru: !!userToken });
 
 export default connect(mapStateToProps)(withStyles(styles)(Layout));

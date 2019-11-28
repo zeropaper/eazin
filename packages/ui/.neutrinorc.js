@@ -58,20 +58,19 @@ module.exports = {
         .add(absPath('./src/components/Layout/Layout.Drawer.Link.jsx'))
         .end();
 
-      // [
-      //   'activity',
-      //   'companies',
-      //   'docs',
-      //   'landing',
-      //   'repositories',
-      //   'settings',
-      //   'user',
-      //   'ws',
-      // ].forEach((name) => {
-      //   neutrino.config.entry(`plugins/${name}`)
-      //     .add(absPath(`./src/plugins/${name}/index.js`))
-      //     .end();
-      // });
+      [
+        'activity',
+        'docs',
+        'landing',
+        'repositories',
+        'settings',
+        'user',
+        'ws',
+      ].forEach((name) => {
+        neutrino.config.entry(`plugins/${name}`)
+          .add(absPath(`./src/plugins/${name}/index.js`))
+          .end();
+      });
 
       [
         'util/logger',

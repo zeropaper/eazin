@@ -1,13 +1,13 @@
 (window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[23],{
 
-/***/ 26:
+/***/ 15:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export View */
 /* unused harmony export HeaderTabs */
 /* unused harmony export Drawer */
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -29,7 +29,7 @@ var Drawer = _objectSpread({}, View);
 
 /***/ }),
 
-/***/ 27:
+/***/ 20:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -38,9 +38,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(17);
+/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
 
 
 
@@ -57,7 +57,46 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 43:
+/***/ 30:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return setSetting; });
+/* unused harmony export resetSetting */
+/* unused harmony export setSettings */
+/* unused harmony export resetSettings */
+var setSetting = function setSetting(key, value) {
+  return {
+    type: 'SET_SETTING',
+    payload: {
+      key: key,
+      value: value
+    }
+  };
+};
+var resetSetting = function resetSetting(key) {
+  return {
+    type: 'RESET_SETTING',
+    payload: {
+      key: key
+    }
+  };
+};
+var setSettings = function setSettings(payload) {
+  return {
+    type: 'SET_SETTINGS',
+    payload: payload
+  };
+};
+var resetSettings = function resetSettings() {
+  return {
+    type: 'RESET_SETTINGS'
+  };
+};
+
+/***/ }),
+
+/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -110,7 +149,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(26);
+var plugins_propTypes = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsView.jsx
 
@@ -122,7 +161,7 @@ var SettingsView_SettingsView = function SettingsView() {
 
 /* harmony default export */ var settings_SettingsView = (SettingsView_SettingsView);
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(5);
+var external_react_redux_ = __webpack_require__(6);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
@@ -131,7 +170,7 @@ var core_ = __webpack_require__(1);
 var icons_ = __webpack_require__(21);
 
 // EXTERNAL MODULE: ./src/plugins/settings/settings.actions.js
-var settings_actions = __webpack_require__(49);
+var settings_actions = __webpack_require__(30);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsHeaderLinks.jsx
 
@@ -170,7 +209,7 @@ var SettingsHeaderLinks_mapDispatchToProps = function mapDispatchToProps(dispatc
 
 /* harmony default export */ var SettingsHeaderLinks = (Object(external_react_redux_["connect"])(mapStateToProps, SettingsHeaderLinks_mapDispatchToProps)(SettingsHeaderLinks_SettingsDrawer));
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
-var Layout_Drawer_Link = __webpack_require__(27);
+var Layout_Drawer_Link = __webpack_require__(20);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsDrawer.jsx
 
@@ -205,45 +244,6 @@ var routes = [{
     settings: settings_reducer
   }
 });
-
-/***/ }),
-
-/***/ 49:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return setSetting; });
-/* unused harmony export resetSetting */
-/* unused harmony export setSettings */
-/* unused harmony export resetSettings */
-var setSetting = function setSetting(key, value) {
-  return {
-    type: 'SET_SETTING',
-    payload: {
-      key: key,
-      value: value
-    }
-  };
-};
-var resetSetting = function resetSetting(key) {
-  return {
-    type: 'RESET_SETTING',
-    payload: {
-      key: key
-    }
-  };
-};
-var setSettings = function setSettings(payload) {
-  return {
-    type: 'SET_SETTINGS',
-    payload: payload
-  };
-};
-var resetSettings = function resetSettings() {
-  return {
-    type: 'RESET_SETTINGS'
-  };
-};
 
 /***/ })
 

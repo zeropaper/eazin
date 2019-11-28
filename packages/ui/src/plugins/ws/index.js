@@ -30,7 +30,7 @@ const wsBootstrap = (socket, dispatch, getState) => {
 };
 
 const bootstrap = ({
-  settings: { userToken },
+  settings: { userToken } = {},
 }, dispatch, getState, plugins) => {
   log('bootstrap ws', !!userToken);
   if (!userToken) return;

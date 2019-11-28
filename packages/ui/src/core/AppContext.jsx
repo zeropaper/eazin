@@ -65,7 +65,7 @@ export class AppContextProvider extends React.Component {
 
   get Authorization() {
     const { store: { getState } } = this;
-    const { settings: { userToken } } = getState();
+    const { settings: { userToken } = {} } = getState();
     return userToken;
   }
 

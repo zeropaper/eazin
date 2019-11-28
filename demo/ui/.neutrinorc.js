@@ -1,8 +1,7 @@
 const path = require('path');
 const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
-
-const { BUILD_ENV } = process.env;
+const copy = require('@neutrinojs/copy');
 
 const appPlugin = require('app-manifest-webpack-plugin');
 const neutrinoAppPlugin = (conf = {}) => (neutrino) => {
@@ -17,8 +16,6 @@ const neutrinoGenerateSW = (conf = {}) => (neutrino) => {
     .plugin('workbox')
     .use(GenerateSW, [conf]);
 };
-
-const useInProd = plugin => BUILD_ENV === 'production' ? plugin : null;
 
 module.exports = {
   options: {
@@ -59,15 +56,16 @@ module.exports = {
 
       devServer: {
         port: 3000,
-        // host: '0.0.0.0',
-        // historyApiFallback: false,
         proxy: {
           '/api': 'http://localhost:3001',
           '/socket.io': 'http://localhost:3001',
         },
       },
       html: {
-        title: 'EAZIN',
+        // template: path.resolve(__dirname, 'src/index.ejs'),
+        baseHref: '/',
+        appMountHtmlSnippet: 'Loading',
+        title: 'eazin demo',
         lang: 'en',
         meta: {
           viewport: 'width=device-width, initial-scale=1',
@@ -82,13 +80,13 @@ module.exports = {
       },
     }),
 
-    useInProd(neutrinoAppPlugin({
+    neutrinoAppPlugin({
       // Your source logo
       logo: __dirname + '/src/static/icon.png',
       // Prefix for file names
       prefix: './', // prefix: '/assets/icons-[hash:8]/', // default '/'
       // // Output path for icons (icons will be saved to output.path(webpack config) + this key)
-      output: './', // output: 'assets/icons/', // default '/'. Can be absolute or relative
+      output: './assets/icons/', // output: 'assets/icons/', // default '/'. Can be absolute or relative
       // Emit all stats of the generated icons
       emitStats: false,
       // The name of the json containing all favicon information
@@ -102,7 +100,7 @@ module.exports = {
       inject: true,
       // favicons configuration object. Support all keys of favicons (see https://github.com/haydenbleasel/favicons)
       config: {
-        appName: 'EAZIN', // Your application's name. `string`
+        appName: 'eazin demo', // Your application's name. `string`
         appDescription: 'App scaffolding', // Your application's description. `string`
         developerName: null, // Your (or your developer's) name. `string`
         developerURL: null, // Your (or your developer's) URL. `string`
@@ -132,20 +130,18 @@ module.exports = {
           yandex: false, // Create Yandex browser icon. `boolean` or `{ background }`
         },
       }
-    })),
-    useInProd(neutrinoGenerateSW({
+    }),
+    neutrinoGenerateSW({
       importWorkboxFrom: 'local',
-    })),
+    }),
     (neutrino) => {
       neutrino.config.resolve.modules
-        .add(path.join(__dirname, 'node_modules'))
-        // .add(path.join(__dirname, 'packages'))
+        .add(path.join(__dirname, '../../node_modules'))
+        .add(path.join(__dirname, '../../packages/ui'))
+        .add(path.join(__dirname, '../../packages/ui/node_modules'))
         .end();
-      // neutrino.config.module.rule('compile').include
-      //   .add(path.resolve(__dirname, '../../packages/server/src'))
-      //   .end();
       neutrino.config.resolve.alias
-        // .set('eazin-ui', path.resolve(__dirname, '../../packages/ui'))
+        .set('eazin-ui', path.resolve(__dirname, '../../packages/ui'))
         .set('react-dom', '@hot-loader/react-dom')
         .end();
     },

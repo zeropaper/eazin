@@ -91,26 +91,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 71);
+/******/ 	return __webpack_require__(__webpack_require__.s = 80);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 16:
+/***/ 19:
 /***/ (function(module, exports) {
 
 module.exports = require("redux-devtools-extension");
 
 /***/ }),
 
-/***/ 18:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(redux__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
+/* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19);
 /* harmony import */ var redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(redux_devtools_extension__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -152,10 +152,15 @@ var writeLocalStorageState = function writeLocalStorageState(toStore) {
     pluginReducers = _objectSpread({}, pluginReducers, {}, (plugins[name] || {}).reducers || {});
     pluginStores = _objectSpread({}, pluginStores, {}, (plugins[name] || {}).store || {});
   });
-  var appReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(pluginReducers);
+  var appReducer = Object.keys(pluginReducers).length ? Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])(pluginReducers) : function () {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    return state;
+  };
   pluginStores = _objectSpread({}, pluginStores, {}, preloaded || {});
 
-  var rootReducer = function rootReducer(state, action) {
+  var rootReducer = function rootReducer() {
+    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+    var action = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     if (action.type === 'CORE_RELOAD') return pluginStores;
     return appReducer(state, action);
   };
@@ -165,18 +170,18 @@ var writeLocalStorageState = function writeLocalStorageState(toStore) {
 
 /***/ }),
 
-/***/ 7:
-/***/ (function(module, exports) {
+/***/ 80:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("redux");
+module.exports = __webpack_require__(22);
+
 
 /***/ }),
 
-/***/ 71:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 9:
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(18);
-
+module.exports = require("redux");
 
 /***/ })
 

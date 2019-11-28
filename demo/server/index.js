@@ -1,6 +1,6 @@
 /* eslint-env node */
-const server = require('@eazin/server');
-const plugins = require('@eazin/server/src/plugins');
+const server = require('eazin-server');
+const plugins = require('eazin-server/src/plugins');
 
 const { PORT = 3000 } = process.env;
 

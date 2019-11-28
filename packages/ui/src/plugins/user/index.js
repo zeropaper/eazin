@@ -7,7 +7,7 @@ import UserRegister from /* webpackChunkName: "UserRegister" */ './UserRegister'
 import UserLogin from /* webpackChunkName: "UserLogin" */ './UserLogin';
 import UserReset from /* webpackChunkName: "UserReset" */ './UserReset';
 
-export const bootstrap = ({ settings: { userToken } }) => {
+export const bootstrap = ({ settings: { userToken } = {} }) => {
   if (!userToken) return;
   queryAPI('/api/user/me', {
     headers: {

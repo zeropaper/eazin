@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const series = require('async-series');
 
 const initWS = require('./ws');
+const errorHandler = require('./errorHandler');
 
 const {
   PUBLIC_DIR,
@@ -104,8 +105,8 @@ const makeApp = async ({
           next();
           return;
         }
-        res.write(indexHTML);
-        res.end();
+        res.set('Content-Type', 'text/html');
+        res.send(indexHTML);
       });
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -115,45 +116,7 @@ const makeApp = async ({
 
   app.use('/api', apiRouter);
 
-  // eslint-disable-next-line consistent-return
-  app.use((err, req, res, next) => {
-    if (res.statusCode < 400) res.status(err.status || 500);
-
-    // eslint-disable-next-line
-    console.warn(
-      'Server Error %s %s, %s "%s"',
-      req.method,
-      req.originalUrl,
-      res.statusCode,
-      // err.stack,
-      err[NODE_ENV === 'development' ? 'stack' : 'message'],
-    );
-
-    if (res.headerSent) return next();
-
-    if (req.accepts('json')) {
-      return res.send({
-        error: {
-          message: err.message,
-        },
-        fields: {},
-      });
-    }
-
-    if (req.accepts('html')) {
-      return res.send(`<html>
-      <head>
-        <title>Error</title>
-      </head>
-      <body>${err.message}</body>
-    </html>`);
-    }
-
-    res.send(err.message);
-
-    // does that make sense?
-    // next(err);
-  });
+  app.use(errorHandler);
 
   httpServer.db = await mongoose.connect(dbURL, {
     useNewUrlParser: true,
