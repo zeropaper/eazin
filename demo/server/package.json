@@ -1,6 +1,6 @@
 {
   "name": "eazin-demo-server",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-rc.0",
   "description": "Demo server made with the EAZIN SDK",
   "repository": {
     "type": "git",
