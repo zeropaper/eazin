@@ -24,6 +24,7 @@ const {
 
 const makeApp = async ({
   dbURL = `mongodb://localhost:27017/${APP_ID}-${NODE_ENV}`,
+  publicDir = PUBLIC_DIR,
   plugins,
 } = {}) => {
   const app = express();
@@ -93,7 +94,7 @@ const makeApp = async ({
 
   if (NODE_ENV === 'production') app.use(compression());
 
-  const publicDirAbsPath = !!PUBLIC_DIR && path.resolve(PUBLIC_DIR);
+  const publicDirAbsPath = !!publicDir && path.resolve(publicDir);
   if (publicDirAbsPath) {
     app.use(express.static(publicDirAbsPath, { dotfiles: 'allow' }));
 

@@ -31,10 +31,6 @@ module.exports = {
     (neutrino) => {
       neutrino.config.resolve.modules
         .add(path.join(__dirname, 'node_modules'))
-        // .add(path.join(__dirname, 'packages'))
-        .end();
-      neutrino.config.module.rule('compile').include
-        // .add(path.resolve(__dirname, '../../packages/server/src'))
         .end();
     },
   ],
