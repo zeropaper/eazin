@@ -5,17 +5,17 @@ const {
   floor,
 } = Math;
 
-const escapeRegex = (val) => (new RegExp(val
-  .replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&')));
+const escapeRegexp = (val = '') => (val
+  ? (new RegExp(val.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&')))
+  : null);
 
 const parseFilters = (filtersJSON) => {
   const returned = {};
   try {
     const queryfilter = JSON.parse(filtersJSON || '[]');
     queryfilter.forEach((filter) => {
-      returned[filter.column] = {
-        $regex: escapeRegex(filter.value),
-      };
+      const val = escapeRegexp(filter.value);
+      if (val) returned[filter.column] = { $regex: val };
     });
   } catch (err) {
     console.warn('parseFilters', err.message, filtersJSON);
@@ -32,8 +32,8 @@ module.exports = function modelSearchPlugin(schema, options) {
       limit,
       offset: skip,
       // search,
-      // orderBy,
-      // orderDirection,
+      orderBy,
+      orderDirection,
     } = query;
 
     const filter = parseFilters(query.filters);
@@ -42,24 +42,27 @@ module.exports = function modelSearchPlugin(schema, options) {
 
       const absLimit = min(1000, abs(parseInt(limit, 10)) || 0);
 
-      Model.find(filter, null, {
-        skip: min(abs(parseInt(skip, 10)) || 0, totalCount),
-        limit: absLimit,
-      }, (err, data) => {
-        if (err) return next(err);
+      Model
+        .find(filter, null, {
+          skip: min(abs(parseInt(skip, 10)) || 0, totalCount),
+          limit: absLimit,
+        })
+        .sort(`${orderDirection === 'asc' ? '' : '-'}${orderBy || 'updatedAt'}`)
+        .exec((err, data) => {
+          if (err) return next(err);
 
-        try {
-          next(null, {
-            data: Model.sanitizeOutput
-              ? data.map(Model.sanitizeOutput)
-              : data,
-            page: min(max(0, floor(skip / absLimit)), floor(totalCount / absLimit)),
-            totalCount,
-          });
-        } catch (err) {
-          next(err);
-        }
-      });
+          try {
+            next(null, {
+              data: Model.sanitizeOutput
+                ? data.map(Model.sanitizeOutput)
+                : data,
+              page: min(max(0, floor(skip / absLimit)), floor(totalCount / absLimit)),
+              totalCount,
+            });
+          } catch (err) {
+            next(err);
+          }
+        });
     });
   });
 };
