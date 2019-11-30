@@ -12,6 +12,7 @@ export const bootstrap = ({ settings: { userToken } = {} }) => {
   queryAPI('/api/user/me', {
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
       Authorization: `Bearer ${userToken}`,
     },
   })

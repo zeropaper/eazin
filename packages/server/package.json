@@ -9,10 +9,10 @@
   },
   "main": "src/server.js",
   "scripts": {
-    "lint": "eslint --quiet --ext jsx,js src test",
-    "lint:fix": "eslint --quiet --fix --cache --format codeframe --ext jsx,js src test",
+    "lint": "eslint --quiet --ext js src test",
+    "lint:fix": "eslint --quiet --fix --cache --ext js src test",
     "start": "PUBLIC_DIR=../ui/build NODE_ENV=production PORT=5050 node ./index.js",
-    "dev": "PORT=5001 nodemon -w src  -x \"kill-port --port 5001 && node ./index.js\"",
+    "dev": "PORT=5001 nodemon -w src  -x \"npx kill-port --port 5001 && node ./index.js\"",
     "test": "echo \"Run tests from root\" && exit 1"
   },
   "author": "",

@@ -107,6 +107,7 @@ export class AppContextProvider extends React.Component {
   } = {}) => {
     const newHeaders = {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
       ...(headers || {}),
     };
     const { Authorization } = this;

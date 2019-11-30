@@ -170,6 +170,7 @@ function (_React$Component) {
               return regeneratorRuntime.awrap(Object(queryAPI["default"])('/api/activities', {
                 headers: {
                   'content-type': 'application/json',
+                  Accept: 'application/json',
                   Authorization: "Bearer ".concat(userToken)
                 }
               }));

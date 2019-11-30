@@ -31,6 +31,14 @@ const schema = {
     type: 'password',
     ...required,
   },
+  buttons: {
+    buttons: [
+      {
+        text: 'Login',
+        type: 'submit',
+      },
+    ],
+  },
 };
 
 const UserLogin = ({ dispatch }) => (

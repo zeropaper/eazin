@@ -38,9 +38,18 @@ module.exports = {
     reactComponents(),
 
     ((neutrino) => {
-      // neutrino.config.entryPoints
-      //   .clear()
-      //   .end();
+      neutrino.config
+        .when(process.env.NODE_ENV !== 'production', config => config.resolve.alias
+          .set('react-dom', '@hot-loader/react-dom')
+          .end());
+
+      neutrino.config
+        .when(process.env.NODE_ENV !== 'production', config => config.devServer
+          .proxy({
+            '/api': 'http://localhost:5001',
+            '/socket.io': 'http://localhost:5001',
+          })
+          .end());
 
       neutrino.config.entry('App')
         .add(absPath('./src/App.jsx'))

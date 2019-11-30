@@ -32,7 +32,10 @@ class FormBase extends React.Component {
       }
 
       if (method && url) {
-        const headers = { 'Content-Type': 'application/json' };
+        const headers = {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        };
         if (userToken) headers.Authorization = `Bearer ${userToken}`;
         const result = await queryAPI(url, {
           method: method.toUpperCase(),

@@ -781,7 +781,8 @@ function (_React$Component) {
             case 0:
               _ref = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {}, headers = _ref.headers, options = _objectWithoutProperties(_ref, ["headers"]);
               newHeaders = _objectSpread({
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
               }, headers || {});
               _assertThisInitialize2 = _assertThisInitialized(_this), Authorization = _assertThisInitialize2.Authorization;
               if (Authorization) newHeaders.Authorization = "Bearer ".concat(Authorization);
@@ -1656,7 +1657,8 @@ var DocsView_mapDispatchToProps = function mapDispatchToProps(dispatch) {
               _context2.next = 4;
               return regeneratorRuntime.awrap(Object(queryAPI["default"])('/api/docs', {
                 headers: {
-                  'content-type': 'application/json'
+                  'content-type': 'application/json',
+                  Accept: 'application/json'
                 }
               }));
 
@@ -1869,6 +1871,7 @@ function (_React$Component) {
               return regeneratorRuntime.awrap(Object(queryAPI["default"])('/api/activities', {
                 headers: {
                   'content-type': 'application/json',
+                  Accept: 'application/json',
                   Authorization: "Bearer ".concat(userToken)
                 }
               }));

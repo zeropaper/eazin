@@ -262,7 +262,8 @@ function (_React$Component) {
               }
 
               headers = {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
               };
               if (userToken) headers.Authorization = "Bearer ".concat(userToken);
               _context.next = 12;
@@ -717,28 +718,24 @@ var schema = {
       var vals = arguments.length > 1 ? arguments[1] : undefined;
       if (val !== vals.password) return 'Passwords don\'t match';
     }
-  })
+  }),
+  buttons: {
+    buttons: [{
+      text: 'Register',
+      type: 'submit'
+    }]
+  }
 };
 
 var UserRegister_UserRegister = function UserRegister(_ref) {
   var setUser = _ref.setUser;
-  return external_react_default.a.createElement(external_react_default.a.Fragment, null, external_react_default.a.createElement(FormBase["a" /* default */] // method="post"
-  // url="/api/user/register"
-  // processFields={({
-  //   fieldC,
-  //   fieldA,
-  // }) => ({
-  //   password: fieldC,
-  //   email: fieldA,
-  // })}
-  // onSuccess={setUser}
-  // onFailure={}
-  , {
+  return external_react_default.a.createElement(external_react_default.a.Fragment, null, external_react_default.a.createElement(FormBase["a" /* default */], {
     onSubmit: function onSubmit(fields) {
       Object(queryAPI["default"])('/api/user/register', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
         },
         body: JSON.stringify({
           password: fields.passwordConfirm,
@@ -796,7 +793,13 @@ var UserLogin_schema = {
   password: UserLogin_objectSpread({
     label: 'Password',
     type: 'password'
-  }, UserLogin_required)
+  }, UserLogin_required),
+  buttons: {
+    buttons: [{
+      text: 'Login',
+      type: 'submit'
+    }]
+  }
 };
 
 var UserLogin_UserLogin = function UserLogin(_ref) {
@@ -880,6 +883,7 @@ var user_bootstrap = function bootstrap(_ref) {
   Object(queryAPI["default"])('/api/user/me', {
     headers: {
       'Content-Type': 'application/json',
+      Accept: 'application/json',
       Authorization: "Bearer ".concat(userToken)
     }
   }).then(function (res) {

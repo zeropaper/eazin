@@ -206,7 +206,8 @@ var DocsView_mapDispatchToProps = function mapDispatchToProps(dispatch) {
               _context2.next = 4;
               return regeneratorRuntime.awrap(Object(queryAPI["default"])('/api/docs', {
                 headers: {
-                  'content-type': 'application/json'
+                  'content-type': 'application/json',
+                  Accept: 'application/json'
                 }
               }));
 

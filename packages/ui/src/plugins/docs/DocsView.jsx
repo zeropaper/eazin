@@ -94,6 +94,7 @@ const mapDispatchToProps = (dispatch) => ({
   loadDocs: async () => dispatch(getDocs(await queryAPI('/api/docs', {
     headers: {
       'content-type': 'application/json',
+      Accept: 'application/json',
     },
   }))),
 });

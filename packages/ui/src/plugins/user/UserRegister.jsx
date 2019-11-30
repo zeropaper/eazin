@@ -41,27 +41,25 @@ const schema = {
       if (val !== vals.password) return 'Passwords don\'t match';
     },
   },
+  buttons: {
+    buttons: [
+      {
+        text: 'Register',
+        type: 'submit',
+      },
+    ],
+  },
 };
 
 const UserRegister = ({ setUser }) => (
   <>
     <Form
-      // method="post"
-      // url="/api/user/register"
-      // processFields={({
-      //   fieldC,
-      //   fieldA,
-      // }) => ({
-      //   password: fieldC,
-      //   email: fieldA,
-      // })}
-      // onSuccess={setUser}
-      // onFailure={}
       onSubmit={(fields) => {
         queryAPI('/api/user/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            Accept: 'application/json',
           },
           body: JSON.stringify({
             password: fields.passwordConfirm,

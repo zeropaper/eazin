@@ -403,7 +403,8 @@ function (_React$Component) {
               }
 
               headers = {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
               };
               if (userToken) headers.Authorization = "Bearer ".concat(userToken);
               _context.next = 12;

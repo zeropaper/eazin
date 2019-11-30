@@ -4,8 +4,9 @@
     "**/.directory": true,
     "**/.eslintcache": true,
     "**/.vscode": true,
-    "**/node_modules": true
+    "**/node_modules": true,
+    "**/demo/ui/build": true,
+    "**/packages/ui/dist": true
   },
-  "eslint.configFile": "packages/server/.eslintrc.js",
   "eslint.autoFixOnSave": true
 }
