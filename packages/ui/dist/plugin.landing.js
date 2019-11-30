@@ -1,6 +1,6 @@
-(window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[21],{
+(window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[24],{
 
-/***/ 50:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,16 +21,16 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(6);
+var external_react_redux_ = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external "@material-ui/core/styles"
-var styles_ = __webpack_require__(3);
+var styles_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/components/PluginPoint.jsx
-var PluginPoint = __webpack_require__(4);
+var PluginPoint = __webpack_require__(5);
 
 // EXTERNAL MODULE: ./src/components/LoadingFallback.jsx
 var LoadingFallback = __webpack_require__(11);

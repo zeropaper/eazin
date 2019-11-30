@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("core/theme", [], factory);
+		define("Table", [], factory);
 	else if(typeof exports === 'object')
-		exports["core/theme"] = factory();
+		exports["Table"] = factory();
 	else
-		root["core/theme"] = factory();
+		root["Table"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,72 +91,90 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 67);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
+/***/ 0:
 /***/ (function(module, exports) {
 
-module.exports = require("@material-ui/core/colors");
+module.exports = require("react");
 
 /***/ }),
 
-/***/ 15:
+/***/ 3:
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/icons");
+
+/***/ }),
+
+/***/ 34:
+/***/ (function(module, exports) {
+
+module.exports = require("material-table");
+
+/***/ }),
+
+/***/ 38:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTheme", function() { return makeTheme; });
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var material_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34);
+/* harmony import */ var material_table__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(material_table__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var _material_ui_icons__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons__WEBPACK_IMPORTED_MODULE_2__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
-var primary = _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__["amber"],
-    accent = _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__["deepOrange"];
-var makeTheme = function makeTheme(type) {
-  return Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__["createMuiTheme"])({
-    palette: {
-      primary: primary,
-      accent: accent,
-      type: type
-    },
-    typography: {
-      useNextVariants: true
-    }
-  });
+
+
+var icons = {
+  Add: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["AddBox"],
+  Check: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["Check"],
+  Clear: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["Clear"],
+  Delete: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["DeleteOutline"],
+  DetailPanel: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["ChevronRight"],
+  Edit: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["Edit"],
+  Export: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["SaveAlt"],
+  Filter: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["FilterList"],
+  FirstPage: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["FirstPage"],
+  LastPage: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["LastPage"],
+  NextPage: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["ChevronRight"],
+  PreviousPage: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["ChevronLeft"],
+  ResetSearch: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["Clear"],
+  Search: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["Search"],
+  SortArrow: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["ArrowDownward"],
+  ThirdStateCheck: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["Remove"],
+  ViewColumn: _material_ui_icons__WEBPACK_IMPORTED_MODULE_2__["ViewColumn"]
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__["createMuiTheme"])({
-  palette: {
-    primary: primary,
-    accent: accent,
-    type: 'dark'
-  },
-  typography: {
-    useNextVariants: true
-  }
-}));
+
+var Table = function Table(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(material_table__WEBPACK_IMPORTED_MODULE_1___default.a, _objectSpread({
+    icons: icons
+  }, props));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Table);
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/styles");
-
-/***/ }),
-
-/***/ 90:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(38);
 
 
 /***/ })
 
 /******/ });
 });
-//# sourceMappingURL=theme.js.map
+//# sourceMappingURL=Table.js.map

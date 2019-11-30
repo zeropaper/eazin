@@ -10,29 +10,27 @@ const clientIdParam = require('./client.param');
 
 const router = express.Router();
 
-const sanitizeAPIClientInput = ({
-  name,
-  redirectURI,
-}) => ({
-  name,
-  redirectURI,
-});
-
-const sanitizeAPIClientOutput = ({
-  name,
-  redirectURI,
-  _id: id,
-  createdAt,
-  updatedAt,
-} = {}) => ({
-  name,
-  redirectURI,
-  id,
-  createdAt,
-  updatedAt,
-});
-
 router.param('clientId', clientIdParam);
+
+router.get(
+  '/',
+  bearer,
+  check(['get:activities']),
+  requestHook,
+  (req, res, next) => {
+    const APIClient = req.db.model('APIClient');
+
+    const handle = (err, activities) => {
+      if (err) return next(err);
+      res.send(activities);
+    };
+
+    if (req.user.isAdmin) return APIClient.search(req.query, handle);
+
+    // !!!!!!!
+    handle(null, { data: [], page: 0, totalCount: 0 });
+  },
+);
 
 router.post(
   '/',
@@ -41,13 +39,13 @@ router.post(
   requestHook,
   (req, res, next) => {
     const APIClient = req.db.model('APIClient');
-    const { name, redirectURI } = sanitizeAPIClientInput(req.body);
+    const { name, redirectURI } = APIClient.sanitizeInput(req.body);
     const clientSecret = uid(20);
 
     const handleCreation = (err, created) => {
       if (err) return next(err);
 
-      res.status(201).send(sanitizeAPIClientOutput(created));
+      res.status(201).send(APIClient.sanitizeOutput(created));
     };
 
     APIClient.findOne({ name }, (err, client) => {
@@ -69,7 +67,7 @@ router.get(
   bearer,
   check(['get:clients/:clientId']),
   requestHook,
-  (req, res) => res.send(sanitizeAPIClientOutput(req.loadedParams.clientId)),
+  (req, res) => res.send(req.db.model('APIClient').sanitizeOutput(req.loadedParams.clientId)),
 );
 
 router.patch(
@@ -79,7 +77,8 @@ router.patch(
   requestHook,
   (req, res, next) => {
     const { clientId: client } = (req.loadedParams || {});
-    const sanitized = sanitizeAPIClientInput(req.body);
+    const APIClient = req.db.model('APIClient');
+    const sanitized = APIClient.sanitizeInput(req.body);
 
     Object.keys(sanitized)
       .forEach((key) => {
@@ -88,7 +87,7 @@ router.patch(
 
     client.save((err, updated) => {
       if (err) return next(err);
-      res.send(sanitizeAPIClientOutput(updated));
+      res.send(APIClient.sanitizeOutput(updated));
     });
   },
 );
@@ -98,7 +97,7 @@ router.delete(
   bearer,
   check(['delete:clients/:clientId']),
   requestHook,
-  (req, res, next) => req.loadedParams.client.remove((err) => {
+  (req, res, next) => req.loadedParams.clientId.remove((err) => {
     if (err) return next(err);
     res.send({});
   }),

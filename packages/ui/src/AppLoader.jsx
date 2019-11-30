@@ -13,6 +13,7 @@ const AppLoader = () => (
       activity: import(/* webpackChunkName: "plugin.activity" */'./plugins/activity'),
       // companies: import(/* webpackChunkName: "plugin.companies" */'./plugins/companies'),
       docs: import(/* webpackChunkName: "plugin.docs" */'./plugins/docs'),
+      clients: import(/* webpackChunkName: "plugin.clients" */'./plugins/clients'),
       ws: import(/* webpackChunkName: "plugin.ws" */'./plugins/ws'),
       // a: import(/* webpackChunkName: "plugin.a" */'./plugins/p-a'),
       // b: import(/* webpackChunkName: "plugin.b" */'./plugins/p-b'),

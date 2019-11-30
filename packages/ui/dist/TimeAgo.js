@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("core/theme", [], factory);
+		define("TimeAgo", [], factory);
 	else if(typeof exports === 'object')
-		exports["core/theme"] = factory();
+		exports["TimeAgo"] = factory();
 	else
-		root["core/theme"] = factory();
+		root["TimeAgo"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,72 +91,70 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 90);
+/******/ 	return __webpack_require__(__webpack_require__.s = 68);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
+/***/ 0:
 /***/ (function(module, exports) {
 
-module.exports = require("@material-ui/core/colors");
+module.exports = require("react");
 
 /***/ }),
 
-/***/ 15:
+/***/ 35:
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
+
+/***/ }),
+
+/***/ 39:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTheme", function() { return makeTheme; });
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
-/* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(35);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
 
 
-var primary = _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__["amber"],
-    accent = _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_1__["deepOrange"];
-var makeTheme = function makeTheme(type) {
-  return Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__["createMuiTheme"])({
-    palette: {
-      primary: primary,
-      accent: accent,
-      type: type
-    },
-    typography: {
-      useNextVariants: true
-    }
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_0__["createMuiTheme"])({
-  palette: {
-    primary: primary,
-    accent: accent,
-    type: 'dark'
-  },
-  typography: {
-    useNextVariants: true
+
+var TimeAgo = function TimeAgo(_ref) {
+  var date = _ref.date,
+      component = _ref.component;
+  if (!date) return null;
+  var mom = moment__WEBPACK_IMPORTED_MODULE_1___default()(date);
+
+  if (component === 'div') {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      title: mom.format('YYYY-MM-DD HH:mm')
+    }, mom.fromNow());
   }
-}));
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    title: mom.format('YYYY-MM-DD HH:mm')
+  }, mom.fromNow());
+};
+
+TimeAgo.defaultProps = {
+  date: null,
+  component: null
+};
+/* harmony default export */ __webpack_exports__["default"] = (TimeAgo);
 
 /***/ }),
 
-/***/ 4:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/styles");
-
-/***/ }),
-
-/***/ 90:
+/***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(15);
+module.exports = __webpack_require__(39);
 
 
 /***/ })
 
 /******/ });
 });
-//# sourceMappingURL=theme.js.map
+//# sourceMappingURL=TimeAgo.js.map
