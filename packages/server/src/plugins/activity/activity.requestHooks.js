@@ -8,7 +8,14 @@ const message = (method, url) => {
     }
     if (method === 'DELETE') msg = '<%= user.email %> (ID "<%= user._id %>") deletes company <%= companyId.name %>';
     if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads company <%= companyId.name %>';
-  } else if (url.includes('/api/companies')) {
+  } else if (url.includes('/api/clients')) {
+    if (method === 'POST') msg = '<%= user.email %> (ID "<%= user._id %>") creates API client <%= body.name %>';
+    if (method === 'PATCH' || method === 'PATCH') {
+      msg = '<%= user.email %> (user ID "<%= user._id %>") updates API client <%= clientId.name %>';
+    }
+    if (method === 'DELETE') msg = '<%= user.email %> (ID "<%= user._id %>") deletes client <%= clientId.name %>';
+    if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads client <%= clientId.name %>';
+  } else if (url.includes('/api/activity')) {
     if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads activity';
   } else if (url.includes('/api/user/register')) {
     msg = '<%= body.email %> registers';
