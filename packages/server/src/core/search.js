@@ -14,7 +14,7 @@ const parseFilters = (filtersJSON) => {
     const queryfilter = JSON.parse(filtersJSON || '[]');
     queryfilter.forEach((filter) => {
       returned[filter.column] = {
-        '$regex': escapeRegex(filter.value),
+        $regex: escapeRegex(filter.value),
       };
     });
   } catch (err) {
@@ -23,16 +23,17 @@ const parseFilters = (filtersJSON) => {
   return returned;
 };
 
+// eslint-disable-next-line no-unused-vars
 module.exports = function modelSearchPlugin(schema, options) {
-  schema.statics.search = function search(query, next) {
+  schema.static('search', function modelSearch(query, next) {
     const Model = this;
 
     const {
       limit,
       offset: skip,
-      search,
-      orderBy,
-      orderDirection,
+      // search,
+      // orderBy,
+      // orderDirection,
     } = query;
 
     const filter = parseFilters(query.filters);
@@ -60,5 +61,5 @@ module.exports = function modelSearchPlugin(schema, options) {
         }
       });
     });
-  };
+  });
 };

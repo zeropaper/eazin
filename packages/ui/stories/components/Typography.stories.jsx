@@ -10,7 +10,7 @@ import {
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, select } from '@storybook/addon-knobs';
 
-import { AppContextProvider, withAppContext } from '../../src/contexts/AppContext';
+import { AppContextProvider, withAppContext } from '../../src/core/AppContext';
 import makeStore from '../../src/core/store';
 
 const store = makeStore({});

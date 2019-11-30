@@ -50,7 +50,39 @@ const schema = {
   },
 };
 
-stories.add('Elements', () => {
+stories.add('default renderer', () => {
+  const [state, setState] = useState({});
+  return (
+    <>
+      <Form
+        onSubmit={(values) => setState({ ...values })}
+        fields={{
+          ...schema,
+          buttons: {
+            buttons: [
+              {
+                variant: 'default',
+                type: 'reset',
+                text: 'Reset'
+              },
+              {
+                type: 'submit',
+                text: 'Save'
+              },
+            ],
+          }
+        }}
+      />
+
+      <div>
+        Submited:
+        <pre>{JSON.stringify(state, null, 2)}</pre>
+      </div>
+    </>
+  );
+});
+
+stories.add('custom renderer', () => {
   const [state, setState] = useState({});
   return (
     <Form
@@ -72,7 +104,7 @@ stories.add('Elements', () => {
             </div>
 
             <div>
-              Component State:
+              Submited:
               <pre>{JSON.stringify(state, null, 2)}</pre>
             </div>
           </div>

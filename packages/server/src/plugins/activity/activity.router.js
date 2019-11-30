@@ -6,18 +6,6 @@ const requestHook = require('../../util/requestHook');
 
 const router = express.Router();
 
-const sanitizeActivityOutput = ({
-  message,
-  _id: id,
-  createdAt,
-  updatedAt,
-} = {}) => ({
-  message,
-  id,
-  createdAt,
-  updatedAt,
-});
-
 router.get(
   '/',
   bearer,

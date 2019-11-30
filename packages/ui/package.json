@@ -19,6 +19,7 @@
     "dev": "npm-run-all --parallel devstart devbuild",
     "devstart": "webpack-dev-server --mode development",
     "devbuild": "nodemon -e js,jsx -w src -w .neutrinorc.js -x \"npx rimraf dist/* && npm run build\"",
+    "storybook": "start-storybook -p 5006",
     "test": "echo \"Run tests from root\" && exit 1"
   },
   "dependencies": {
