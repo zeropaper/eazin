@@ -1,36 +1,106 @@
+import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import MaterialTable from 'material-table';
+import {
+  AddBox as Add,
+  Check,
+  Clear,
+  DeleteOutline as Delete,
+  ChevronRight as DetailPanel,
+  Edit,
+  SaveAlt as Export,
+  FilterList as Filter,
+  FirstPage,
+  LastPage,
+  ChevronRight as NextPage,
+  ChevronLeft as PreviousPage,
+  Clear as ResetSearch,
+  Search,
+  ArrowDownward as SortArrow,
+  Remove as ThirdStateCheck,
+  ViewColumn,
+} from '@material-ui/icons';
 
 import { Typography } from '@material-ui/core';
 import { View as ViewPropTypes } from '../../core/plugins.propTypes';
-import { upsertActivities } from './activity.actions';
 import queryAPI from '../../core/util/queryAPI';
 
-class ActivityView extends React.Component {
-  async componentDidMount() {
-    const { userToken, dispatch } = this.props;
+const icons = {
+  Add,
+  Check,
+  Clear,
+  Delete,
+  DetailPanel,
+  Edit,
+  Export,
+  Filter,
+  FirstPage,
+  LastPage,
+  NextPage,
+  PreviousPage,
+  ResetSearch,
+  Search,
+  SortArrow,
+  ThirdStateCheck,
+  ViewColumn,
+};
 
-    const loaded = await queryAPI('/api/activities', {
+class ActivityView extends React.Component {
+  query = async (query) => {
+    const { userToken } = this.props;
+
+    console.info('query', query);
+    const url = `/api/activities?${toQuerystring({
+      limit: query.pageSize,
+      offset: query.pageSize * query.page,
+      orderDirection: query.orderDirection,
+      orderBy: query.orderBy,
+      search: query.search,
+      filters: JSON.stringify((query.filters || []).map((filter) => ({
+        ...filter,
+        column: filter.column.field,
+      }))),
+    })}`;
+
+    return queryAPI(url, {
       headers: {
         'content-type': 'application/json',
         Accept: 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
     });
-
-    dispatch(upsertActivities(loaded));
-  }
+  };
 
   render() {
-    const { activities } = this.props;
-
     return (
       <>
         <header>
           <Typography variant="h2">Activity</Typography>
         </header>
-        <pre>{JSON.stringify(activities, null, 2)}</pre>
+
+        <MaterialTable
+          title={null}
+          columns={[
+            {
+              title: 'Date',
+              filtering: false,
+              field: 'createdAt',
+              render: (row) => moment(row.createdAt).format(),
+            },
+            { title: 'Message', field: 'message' },
+          ]}
+          icons={icons}
+          data={this.query}
+          options={{
+            search: false,
+            filtering: true,
+            sorting: true,
+            pageSize: 20,
+            pageSizeOptions: [10, 20, 50, 100],
+          }}
+        />
       </>
     );
   }
@@ -38,15 +108,15 @@ class ActivityView extends React.Component {
 
 ActivityView.propTypes = {
   ...ViewPropTypes,
-  activities: PropTypes.objectOf(PropTypes.object).isRequired,
-  dispatch: PropTypes.func.isRequired,
+  // activities: PropTypes.objectOf(PropTypes.object).isRequired,
+  // dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = ({
-  activities,
+  // activities,
   settings: { userToken } = {},
 }) => ({
-  activities,
+  // activities,
   userToken,
 });
 

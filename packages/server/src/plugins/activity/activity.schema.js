@@ -14,4 +14,16 @@ schema.pre('save', async function preSaveActivity() {
   this.message = tmpl(this.data || {});
 });
 
+schema.statics.sanitizeOutput = ({
+  _id: id,
+  message,
+  createdAt,
+  updatedAt,
+} = {}) => ({
+  id,
+  message,
+  createdAt,
+  updatedAt,
+});
+
 module.exports = schema;

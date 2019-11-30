@@ -28,16 +28,13 @@ router.get(
 
     const handle = (err, activities) => {
       if (err) return next(err);
-      res.send(activities.map(sanitizeActivityOutput));
+      res.send(activities);
     };
 
-    if (req.user.isAdmin) {
-      Activity.find({}, handle);
-      return;
-    }
+    if (req.user.isAdmin) return Activity.search(req.query, handle);
 
     // !!!!!!!
-    handle(null, []);
+    handle(null, { data: [], page: 0, totalCount: 0 });
   },
 );
 
