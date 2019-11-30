@@ -11,8 +11,9 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const series = require('async-series');
 
-const initWS = require('./ws');
-const errorHandler = require('./errorHandler');
+const initWS = require('./core/ws');
+const searchPlugin = require('./core/search');
+const errorHandler = require('./core/errorHandler');
 
 const {
   PUBLIC_DIR,
@@ -42,7 +43,12 @@ const makeApp = async ({
   plugins.forEach(({
     schemas = [],
   } = {}) => {
-    schemas.forEach(({ modelName, schema }) => {
+    schemas.forEach(({
+      modelName,
+      schema,
+      noSearch,
+      searchOptions = {},
+    }) => {
       if (!modelName || !schema) return;
 
       plugins.forEach(({ schemaPlugins = [] }) => {
@@ -55,6 +61,7 @@ const makeApp = async ({
         });
       });
 
+      if (!noSearch) searchPlugin(schema, searchOptions);
       mongoose.model(modelName, schema);
     });
   });

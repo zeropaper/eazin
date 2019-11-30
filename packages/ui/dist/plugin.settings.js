@@ -1,6 +1,6 @@
 (window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[23],{
 
-/***/ 15:
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29,7 +29,7 @@ var Drawer = _objectSpread({}, View);
 
 /***/ }),
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40,7 +40,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 
 
 
@@ -96,7 +96,7 @@ var resetSettings = function resetSettings() {
 
 /***/ }),
 
-/***/ 47:
+/***/ 48:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -149,7 +149,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(15);
+var plugins_propTypes = __webpack_require__(16);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsView.jsx
 
@@ -167,7 +167,7 @@ var external_react_redux_ = __webpack_require__(6);
 var core_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external "@material-ui/icons"
-var icons_ = __webpack_require__(21);
+var icons_ = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/plugins/settings/settings.actions.js
 var settings_actions = __webpack_require__(30);
@@ -209,7 +209,7 @@ var SettingsHeaderLinks_mapDispatchToProps = function mapDispatchToProps(dispatc
 
 /* harmony default export */ var SettingsHeaderLinks = (Object(external_react_redux_["connect"])(mapStateToProps, SettingsHeaderLinks_mapDispatchToProps)(SettingsHeaderLinks_SettingsDrawer));
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
-var Layout_Drawer_Link = __webpack_require__(20);
+var Layout_Drawer_Link = __webpack_require__(21);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsDrawer.jsx
 

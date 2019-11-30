@@ -1,6 +1,6 @@
 (window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[21],{
 
-/***/ 48:
+/***/ 50:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -33,7 +33,7 @@ var styles_ = __webpack_require__(3);
 var PluginPoint = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/components/LoadingFallback.jsx
-var LoadingFallback = __webpack_require__(10);
+var LoadingFallback = __webpack_require__(11);
 
 // CONCATENATED MODULE: ./src/plugins/landing/LandingView.Wrapper.jsx
 

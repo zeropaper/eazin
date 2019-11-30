@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 66);
+/******/ 	return __webpack_require__(__webpack_require__.s = 71);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -110,7 +110,7 @@ module.exports = require("@material-ui/core");
 
 /***/ }),
 
-/***/ 11:
+/***/ 12:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -139,7 +139,7 @@ module.exports = require("@material-ui/core");
 
 /***/ }),
 
-/***/ 15:
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -175,7 +175,7 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 
-/***/ 20:
+/***/ 21:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -186,7 +186,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(11);
+/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
 
 
 
@@ -203,7 +203,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 46:
+/***/ 43:
+/***/ (function(module, exports) {
+
+module.exports = require("moment");
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports) {
+
+module.exports = require("material-table");
+
+/***/ }),
+
+/***/ 49:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -214,10 +228,10 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(15);
+var plugins_propTypes = __webpack_require__(16);
 
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
-var Layout_Drawer_Link = __webpack_require__(20);
+var Layout_Drawer_Link = __webpack_require__(21);
 
 // CONCATENATED MODULE: ./src/plugins/activity/ActivityDrawer.jsx
 
@@ -243,30 +257,37 @@ var ActivityLandingView_ActivityLandingView = function ActivityLandingView(props
 };
 
 /* harmony default export */ var activity_ActivityLandingView = (ActivityLandingView_ActivityLandingView);
+// EXTERNAL MODULE: /home/vale/Repos/eazin/node_modules/querystring-es3/index.js
+var querystring_es3 = __webpack_require__(52);
+
 // EXTERNAL MODULE: external "react-redux"
 var external_react_redux_ = __webpack_require__(6);
+
+// EXTERNAL MODULE: external "moment"
+var external_moment_ = __webpack_require__(43);
+var external_moment_default = /*#__PURE__*/__webpack_require__.n(external_moment_);
+
+// EXTERNAL MODULE: external "material-table"
+var external_material_table_ = __webpack_require__(44);
+var external_material_table_default = /*#__PURE__*/__webpack_require__.n(external_material_table_);
+
+// EXTERNAL MODULE: external "@material-ui/icons"
+var icons_ = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
 
-// CONCATENATED MODULE: ./src/plugins/activity/activity.actions.js
-var upsertActivity = function upsertActivity(payload) {
-  return {
-    type: 'UPSERT_ACTIVITY',
-    payload: payload
-  };
-};
-var upsertActivities = function upsertActivities(payload) {
-  return {
-    type: 'UPSERT_ACTIVITIES',
-    payload: payload
-  };
-};
 // EXTERNAL MODULE: ./src/core/util/queryAPI.js
-var queryAPI = __webpack_require__(7);
+var queryAPI = __webpack_require__(8);
 
 // CONCATENATED MODULE: ./src/plugins/activity/ActivityView.jsx
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -291,29 +312,67 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
+var icons = {
+  Add: icons_["AddBox"],
+  Check: icons_["Check"],
+  Clear: icons_["Clear"],
+  Delete: icons_["DeleteOutline"],
+  DetailPanel: icons_["ChevronRight"],
+  Edit: icons_["Edit"],
+  Export: icons_["SaveAlt"],
+  Filter: icons_["FilterList"],
+  FirstPage: icons_["FirstPage"],
+  LastPage: icons_["LastPage"],
+  NextPage: icons_["ChevronRight"],
+  PreviousPage: icons_["ChevronLeft"],
+  ResetSearch: icons_["Clear"],
+  Search: icons_["Search"],
+  SortArrow: icons_["ArrowDownward"],
+  ThirdStateCheck: icons_["Remove"],
+  ViewColumn: icons_["ViewColumn"]
+};
+
 var ActivityView_ActivityView =
 /*#__PURE__*/
 function (_React$Component) {
   _inherits(ActivityView, _React$Component);
 
   function ActivityView() {
+    var _getPrototypeOf2;
+
+    var _this;
+
     _classCallCheck(this, ActivityView);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ActivityView).apply(this, arguments));
-  }
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
 
-  _createClass(ActivityView, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this$props, userToken, dispatch, loaded;
+    _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(ActivityView)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
-      return regeneratorRuntime.async(function componentDidMount$(_context) {
+    _this.query = function _callee(query) {
+      var userToken, url;
+      return regeneratorRuntime.async(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this$props = this.props, userToken = _this$props.userToken, dispatch = _this$props.dispatch;
-              _context.next = 3;
-              return regeneratorRuntime.awrap(Object(queryAPI["default"])('/api/activities', {
+              userToken = _this.props.userToken;
+              console.info('query', query);
+              url = "/api/activities?".concat(Object(querystring_es3["stringify"])({
+                limit: query.pageSize,
+                offset: query.pageSize * query.page,
+                orderDirection: query.orderDirection,
+                orderBy: query.orderBy,
+                search: query.search,
+                filters: JSON.stringify((query.filters || []).map(function (filter) {
+                  return _objectSpread({}, filter, {
+                    column: filter.column.field
+                  });
+                }))
+              }));
+              return _context.abrupt("return", Object(queryAPI["default"])(url, {
                 headers: {
                   'content-type': 'application/json',
                   Accept: 'application/json',
@@ -321,24 +380,45 @@ function (_React$Component) {
                 }
               }));
 
-            case 3:
-              loaded = _context.sent;
-              dispatch(upsertActivities(loaded));
-
-            case 5:
+            case 4:
             case "end":
               return _context.stop();
           }
         }
-      }, null, this);
-    }
-  }, {
+      });
+    };
+
+    return _this;
+  }
+
+  _createClass(ActivityView, [{
     key: "render",
     value: function render() {
-      var activities = this.props.activities;
       return external_react_default.a.createElement(external_react_default.a.Fragment, null, external_react_default.a.createElement("header", null, external_react_default.a.createElement(core_["Typography"], {
         variant: "h2"
-      }, "Activity")), external_react_default.a.createElement("pre", null, JSON.stringify(activities, null, 2)));
+      }, "Activity")), external_react_default.a.createElement(external_material_table_default.a, {
+        title: null,
+        columns: [{
+          title: 'Date',
+          filtering: false,
+          field: 'createdAt',
+          render: function render(row) {
+            return external_moment_default()(row.createdAt).format();
+          }
+        }, {
+          title: 'Message',
+          field: 'message'
+        }],
+        icons: icons,
+        data: this.query,
+        options: {
+          search: false,
+          filtering: true,
+          sorting: true,
+          pageSize: 20,
+          pageSizeOptions: [10, 20, 50, 100]
+        }
+      }));
     }
   }]);
 
@@ -346,23 +426,22 @@ function (_React$Component) {
 }(external_react_default.a.Component);
 
 var mapStateToProps = function mapStateToProps(_ref) {
-  var activities = _ref.activities,
-      _ref$settings = _ref.settings;
+  var _ref$settings = _ref.settings;
   _ref$settings = _ref$settings === void 0 ? {} : _ref$settings;
   var userToken = _ref$settings.userToken;
   return {
-    activities: activities,
+    // activities,
     userToken: userToken
   };
 };
 
 /* harmony default export */ var activity_ActivityView = (Object(external_react_redux_["connect"])(mapStateToProps)(ActivityView_ActivityView));
 // CONCATENATED MODULE: ./src/plugins/activity/index.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function activity_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function activity_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { activity_ownKeys(source, true).forEach(function (key) { activity_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { activity_ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function activity_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
  // eslint-disable-next-line max-len
 
@@ -385,7 +464,7 @@ var reducer = function reducer() {
   switch (action.type) {
     case 'UPSERT_ACTIVITY':
       if (!action.payload.id) return state;
-      return _objectSpread({}, state, _defineProperty({}, action.payload.id, _objectSpread({}, state[action.payload.id] || {}, {}, action.payload)));
+      return activity_objectSpread({}, state, activity_defineProperty({}, action.payload.id, activity_objectSpread({}, state[action.payload.id] || {}, {}, action.payload)));
 
     case 'UPSERT_ACTIVITIES':
       return (Array.isArray(action.payload) ? action.payload : Object.values(action.payload)).reduce(function (acc, payload) {
@@ -426,6 +505,203 @@ module.exports = require("prop-types");
 
 /***/ }),
 
+/***/ 52:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.decode = exports.parse = __webpack_require__(55);
+exports.encode = exports.stringify = __webpack_require__(56);
+
+
+/***/ }),
+
+/***/ 55:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+
+/***/ }),
+
+/***/ 56:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return map(obj[k], function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
+      }
+    }).join(sep);
+
+  }
+
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
+
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
+  return res;
+};
+
+
+/***/ }),
+
 /***/ 6:
 /***/ (function(module, exports) {
 
@@ -433,20 +709,27 @@ module.exports = require("react-redux");
 
 /***/ }),
 
-/***/ 66:
+/***/ 7:
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/icons");
+
+/***/ }),
+
+/***/ 71:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(46);
+module.exports = __webpack_require__(49);
 
 
 /***/ }),
 
-/***/ 7:
+/***/ 8:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _simpleFetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
+/* harmony import */ var _simpleFetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
@@ -520,7 +803,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 /***/ }),
 
-/***/ 8:
+/***/ 9:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
