@@ -12,7 +12,7 @@
     "eazin-server": "*"
   },
   "scripts": {
-    "start": "PUBLIC_DIR=../ui/build NODE_ENV=production PORT=3030 node ./index.js",
+    "start": "NODE_ENV=production PORT=3030 node ./index.js",
     "demo": "PORT=3001 nodemon -w src ./index.js",
     "test": "jest"
   },

@@ -1,7 +1,6 @@
 const path = require('path');
 const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
-const copy = require('@neutrinojs/copy');
 
 const appPlugin = require('app-manifest-webpack-plugin');
 const neutrinoAppPlugin = (conf = {}) => (neutrino) => {
@@ -48,10 +47,6 @@ module.exports = {
     react({
       env: {
         NODE_ENV: 'development',
-        BUILD_ENV: 'development',
-        CIRCLE_BUILD_NUM: null,
-        CIRCLE_BRANCH: null,
-        CIRCLE_SHA1: null,
       },
 
       devServer: {

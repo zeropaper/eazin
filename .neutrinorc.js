@@ -1,5 +1,6 @@
 const path = require('path');
 const airbnb = require('@neutrinojs/airbnb');
+const react = require('@neutrinojs/react');
 const jest = require('@neutrinojs/jest');
 
 const absPath = str => `${__dirname}/${str}`;
@@ -11,9 +12,9 @@ const jestCommon = {
   testRunner: 'jest-circus/runner',
   testRegex: null,
   verbose: true,
-  // moduleNameMapper: {
-  //   '^react-dom$': `${require.resolve('@hot-loader/react-dom')}`,
-  // },
+  moduleNameMapper: {
+    '^react-dom$': `${require.resolve('@hot-loader/react-dom')}`,
+  },
 };
 
 const jestConfig = jest(TEST_TYPE === 'unit'
@@ -35,9 +36,9 @@ const jestConfig = jest(TEST_TYPE === 'unit'
     ],
     coverageDirectory: path.join(`${__dirname}/test-results/unit`),
     testEnvironment: 'node',
-    // setupFiles: [
-    //   absPath('test/unit.init'),
-    // ],
+    setupFiles: [
+      absPath('test/unit.init'),
+    ],
   }
   : {
     ...jestCommon,
@@ -54,10 +55,10 @@ const jestConfig = jest(TEST_TYPE === 'unit'
     ],
     testMatch: ['**/test/**/*e2e.test.js'],
     coverageDirectory: path.join(`${__dirname}/test-results/e2e`),
-    // testEnvironment: absPath('test/e2e.environment.js'),
-    // setupFiles: [
-    //   absPath('test/e2e.init'),
-    // ],
+    testEnvironment: absPath('test/e2e.environment.js'),
+    setupFiles: [
+      absPath('test/e2e.init'),
+    ],
   });
 
 module.exports = {
@@ -66,5 +67,39 @@ module.exports = {
   },
   use: [
     jestConfig,
+    airbnb({
+      eslint: {
+        baseConfig: {
+          extends: [
+            'plugin:jest/recommended',
+          ],
+        },
+        envs: ['browser', 'jest', 'node'],
+        rules: {
+          'max-len': ['error', {
+            code: 120,
+            ignoreComments: true,
+            ignoreTrailingComments: true,
+          }],
+          'react/prop-types': ['warn'],
+          'jest/no-disabled-tests': ['warn'],
+          'max-classes-per-file': ['warn'],
+          'no-underscore-dangle': ['off'],
+          'react/jsx-props-no-spreading': ['off'],
+          'consistent-return': ['off'],
+        },
+      },
+    }),
+    react(),
+    (neutrino) => {
+      neutrino.config.module.rule('lint')
+        .include
+        .add(path.resolve(__dirname, './packages/ui/src'))
+        .add(path.resolve(__dirname, './packages/ui/test'))
+        .add(path.resolve(__dirname, './packages/ui/storie'))
+        .add(path.resolve(__dirname, './packages/server/src'))
+        .add(path.resolve(__dirname, './packages/server/test'))
+        .end();
+    },
   ].filter(Boolean),
 };

@@ -1,7 +1,6 @@
 /* eslint-env node */
 /* eslint-disable global-require */
 const express = require('express');
-// const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const http = require('http');
 const fs = require('fs');
@@ -20,7 +19,6 @@ const {
   NO_WS,
   NODE_ENV = 'development',
   APP_ID = 'HTS',
-  // COOKIE_SECRET = 'B4d_1d3a_)*/!!!iuehiuenieinolkmélw90w287',
 } = process.env;
 
 const makeApp = async ({
@@ -28,6 +26,7 @@ const makeApp = async ({
   publicDir = PUBLIC_DIR,
   plugins,
 } = {}) => {
+  console.info('[Eazin] prepare', publicDir, dbURL);
   const app = express();
   const httpServer = http.Server(app);
 
@@ -126,6 +125,7 @@ const makeApp = async ({
 
   app.use(errorHandler);
 
+  console.info('[Eazin] connect to db %s', dbURL);
   httpServer.db = await mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
