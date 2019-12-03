@@ -17,6 +17,7 @@ const transporter = nodemailer.createTransport({
 module.exports = (options, next) => {
   if (!EAZIN_MAIL_ADDRESS || !EAZIN_MAIL_PASS) return next(new Error('Missing mailer setup'));
   return transporter.sendMail({
+    ...options,
     from: EAZIN_MAIL_ADDRESS,
   });
 };

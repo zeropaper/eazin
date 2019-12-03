@@ -241,7 +241,15 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 
-/***/ 5:
+/***/ 66:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(7);
+
+
+/***/ }),
+
+/***/ 7:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -356,14 +364,6 @@ PluginPoint.defaultProps = {
   switchRoutes: null
 };
 /* harmony default export */ __webpack_exports__["default"] = (PluginPoint);
-
-/***/ }),
-
-/***/ 66:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(5);
-
 
 /***/ })
 

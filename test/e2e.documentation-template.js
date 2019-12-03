@@ -5,7 +5,7 @@ const renderScreenshot = ({
   screenshotPath = '',
   description = '',
 }) => `<figure id="${slug}-${pageIndex}">
-  <img src="${screenshotPath}" title="${title}" />
+  <img src="./${screenshotPath}" title="${title}" />
   <figcaption>${description}</figcaption>
 </figure>`;
 

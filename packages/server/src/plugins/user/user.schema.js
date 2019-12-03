@@ -4,26 +4,21 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const passportLocalMongoose = require('passport-local-mongoose');
 
+const uid = require('../../util/uid');
+
 const schema = new Schema({
-  isVerified: Boolean,
-  verificationCode: String,
-  isAdmin: Boolean,
   token: String,
+  isAdmin: { type: Boolean, default: false },
+  isVerified: { type: Boolean, default: false },
+  verifToken: String,
   roles: [String],
+  firstName: String,
+  lastName: String,
 }, { timestamps: true });
 
-const allowed = '1234567890abcdefghijklmnopqrstuvwxyz!?@#()-._+/[]{}ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-const randString = (length = 36) => {
-  let str = '';
-  const s = () => allowed[Math.floor(Math.random() * allowed.length)];
-  for (; str.length <= length;) {
-    str += s();
-  }
-  return str;
-};
-
 schema.pre('save', function preSave(next) {
-  this.token = this.token || randString();
+  this.verifToken = this.verifToken || uid(16);
+  this.token = this.token || uid(16);
   next();
 });
 
@@ -34,14 +29,18 @@ schema.plugin(passportLocalMongoose, {
 
 schema.statics.sanitizeOutput = ({
   _id: id,
-  username,
+  email,
   roles,
+  firstName,
+  lastName,
   companies,
   isVerified,
 }) => ({
   id,
-  username,
+  email,
   roles,
+  firstName,
+  lastName,
   companies,
   isVerified,
 });

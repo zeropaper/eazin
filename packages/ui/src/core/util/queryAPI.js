@@ -15,6 +15,7 @@ export default (url, {
       } catch (e) {
         const err = new Error(`API query error: ${res.statusText}`);
         err.fields = {};
+        err.object = {};
         throw err;
       }
 
@@ -25,6 +26,7 @@ export default (url, {
         console.warn(`${options.method || 'GET'} ${url}: ${message}`);
         const err = new Error(message);
         err.fields = json.fields || {};
+        err.object = json.error;
         throw err;
       }
 

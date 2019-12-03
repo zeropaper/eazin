@@ -1,10 +1,11 @@
 /* eslint-env node */
-const server = require('eazin-server');
-const plugins = require('eazin-server/src/plugins');
+const path = require('path');
+const server = require('../../packages/server');
+const plugins = require('../../packages/server/src/plugins');
 
 const {
   PORT = 3000,
-  PUBLIC_DIR = '../ui/build',
+  PUBLIC_DIR = path.resolve(__dirname, '../ui/build'),
   MONGODB_URL = 'mongodb://localhost:27017/eazin-demo',
 } = process.env;
 

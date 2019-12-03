@@ -255,125 +255,7 @@ module.exports = require("@material-ui/core/styles");
 
 /***/ }),
 
-/***/ 5:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PluginsProvider", function() { return PluginsProvider; });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_router_dom__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _LoadingFallback__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
-/* harmony import */ var _ErrorBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
-
-function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-/* eslint-disable react/jsx-props-no-spreading */
-
-
-
-
-var PluginsContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext({
-  plugins: {}
-});
-var PluginsProvider = PluginsContext.Provider;
-
-var RoutePlugin = function RoutePlugin(_ref) {
-  var plugins = _ref.plugins,
-      name = _ref.name,
-      loadingFallback = _ref.loadingFallback,
-      emptyFallback = _ref.emptyFallback,
-      switchRoutes = _ref.switchRoutes,
-      WrapIn = _ref.wrapIn,
-      WrapOut = _ref.wrapOut;
-
-  var render = function render(Comp, pluginName) {
-    return function (props) {
-      var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Suspense, {
-        fallback: loadingFallback || react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LoadingFallback__WEBPACK_IMPORTED_MODULE_2__["default"], null)
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorBoundary__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        errorMessage: "".concat(name, " - ").concat(pluginName)
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Comp, _objectSpread({}, props, {
-        wrapIn: WrapIn
-      }))));
-      return WrapOut ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrapOut, null, content) : content;
-    };
-  };
-
-  var routes = Object.keys(plugins).reduce(function (acc, val) {
-    return [].concat(_toConsumableArray(acc), _toConsumableArray((plugins[val].routes || []).map(function (route) {
-      if (!route[name]) return null;
-      var Comp = route[name];
-      return {
-        val: val,
-        Comp: Comp,
-        exact: route.exact,
-        path: route.path
-      };
-    })));
-  }, []).filter(Boolean).sort(function (_ref2, _ref3) {
-    var _ref2$Comp$weight = _ref2.Comp.weight,
-        a = _ref2$Comp$weight === void 0 ? 0 : _ref2$Comp$weight;
-    var _ref3$Comp$weight = _ref3.Comp.weight,
-        b = _ref3$Comp$weight === void 0 ? 0 : _ref3$Comp$weight;
-    if (a > b) return 1;
-    if (a < b) return -1;
-    return 0;
-  }).map(function (_ref4) {
-    var val = _ref4.val,
-        Comp = _ref4.Comp,
-        exact = _ref4.exact,
-        path = _ref4.path;
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
-      key: "".concat(val, "-").concat(!!exact, "-").concat(path, "-").concat(name),
-      path: path,
-      exact: exact,
-      render: render(Comp, val, path)
-    });
-  });
-  if (!routes.length && emptyFallback) return emptyFallback;
-  return switchRoutes ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, routes) : routes;
-};
-
-RoutePlugin.defaultProps = {
-  loadingFallback: null,
-  emptyFallback: null,
-  switchRoutes: null,
-  wrapIn: null,
-  wrapOut: null
-};
-
-var PluginPoint = function PluginPoint(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PluginsContext.Consumer, null, function (state) {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RoutePlugin, _objectSpread({}, props, {
-      plugins: (state || {}).plugins || {}
-    }));
-  });
-};
-
-PluginPoint.defaultProps = {
-  loadingFallback: null,
-  emptyFallback: null,
-  switchRoutes: null
-};
-/* harmony default export */ __webpack_exports__["default"] = (PluginPoint);
-
-/***/ }),
-
-/***/ 53:
+/***/ 55:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -394,7 +276,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(7);
+var external_react_redux_ = __webpack_require__(6);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
@@ -403,7 +285,7 @@ var core_ = __webpack_require__(1);
 var styles_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/components/PluginPoint.jsx
-var PluginPoint = __webpack_require__(5);
+var PluginPoint = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./src/components/LoadingFallback.jsx
 var LoadingFallback = __webpack_require__(11);
@@ -550,17 +432,135 @@ var landing = function landing() {
 
 /***/ }),
 
-/***/ 7:
+/***/ 6:
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
 
 /***/ }),
 
+/***/ 7:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PluginsProvider", function() { return PluginsProvider; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_router_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _LoadingFallback__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var _ErrorBoundary__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/* eslint-disable react/jsx-props-no-spreading */
+
+
+
+
+var PluginsContext = react__WEBPACK_IMPORTED_MODULE_0___default.a.createContext({
+  plugins: {}
+});
+var PluginsProvider = PluginsContext.Provider;
+
+var RoutePlugin = function RoutePlugin(_ref) {
+  var plugins = _ref.plugins,
+      name = _ref.name,
+      loadingFallback = _ref.loadingFallback,
+      emptyFallback = _ref.emptyFallback,
+      switchRoutes = _ref.switchRoutes,
+      WrapIn = _ref.wrapIn,
+      WrapOut = _ref.wrapOut;
+
+  var render = function render(Comp, pluginName) {
+    return function (props) {
+      var content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Suspense, {
+        fallback: loadingFallback || react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_LoadingFallback__WEBPACK_IMPORTED_MODULE_2__["default"], null)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ErrorBoundary__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        errorMessage: "".concat(name, " - ").concat(pluginName)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Comp, _objectSpread({}, props, {
+        wrapIn: WrapIn
+      }))));
+      return WrapOut ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(WrapOut, null, content) : content;
+    };
+  };
+
+  var routes = Object.keys(plugins).reduce(function (acc, val) {
+    return [].concat(_toConsumableArray(acc), _toConsumableArray((plugins[val].routes || []).map(function (route) {
+      if (!route[name]) return null;
+      var Comp = route[name];
+      return {
+        val: val,
+        Comp: Comp,
+        exact: route.exact,
+        path: route.path
+      };
+    })));
+  }, []).filter(Boolean).sort(function (_ref2, _ref3) {
+    var _ref2$Comp$weight = _ref2.Comp.weight,
+        a = _ref2$Comp$weight === void 0 ? 0 : _ref2$Comp$weight;
+    var _ref3$Comp$weight = _ref3.Comp.weight,
+        b = _ref3$Comp$weight === void 0 ? 0 : _ref3$Comp$weight;
+    if (a > b) return 1;
+    if (a < b) return -1;
+    return 0;
+  }).map(function (_ref4) {
+    var val = _ref4.val,
+        Comp = _ref4.Comp,
+        exact = _ref4.exact,
+        path = _ref4.path;
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+      key: "".concat(val, "-").concat(!!exact, "-").concat(path, "-").concat(name),
+      path: path,
+      exact: exact,
+      render: render(Comp, val, path)
+    });
+  });
+  if (!routes.length && emptyFallback) return emptyFallback;
+  return switchRoutes ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Switch"], null, routes) : routes;
+};
+
+RoutePlugin.defaultProps = {
+  loadingFallback: null,
+  emptyFallback: null,
+  switchRoutes: null,
+  wrapIn: null,
+  wrapOut: null
+};
+
+var PluginPoint = function PluginPoint(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(PluginsContext.Consumer, null, function (state) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(RoutePlugin, _objectSpread({}, props, {
+      plugins: (state || {}).plugins || {}
+    }));
+  });
+};
+
+PluginPoint.defaultProps = {
+  loadingFallback: null,
+  emptyFallback: null,
+  switchRoutes: null
+};
+/* harmony default export */ __webpack_exports__["default"] = (PluginPoint);
+
+/***/ }),
+
 /***/ 77:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(53);
+module.exports = __webpack_require__(55);
 
 
 /***/ })

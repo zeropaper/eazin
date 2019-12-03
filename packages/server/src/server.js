@@ -26,12 +26,12 @@ const makeApp = async ({
   publicDir = PUBLIC_DIR,
   plugins,
 } = {}) => {
-  console.info('[Eazin] prepare', publicDir, dbURL);
   const app = express();
   const httpServer = http.Server(app);
 
   const callRequestHooks = (req, res, next) => {
     let hooks = [];
+    // call requestHooks plugin point
     plugins.forEach(({ requestHooks = [] } = {}) => {
       hooks = [...hooks, ...requestHooks];
     });
@@ -39,6 +39,7 @@ const makeApp = async ({
     series(hooks.map((hook) => (cb) => hook(req, res, cb)), next);
   };
 
+  // call schema plugin point
   plugins.forEach(({
     schemas = [],
   } = {}) => {
@@ -65,10 +66,12 @@ const makeApp = async ({
     });
   });
 
+  // call dbReadyHooks plugin point
   plugins.forEach(({ dbReadyHooks = [] } = {}) => {
     dbReadyHooks.forEach((fn) => fn(mongoose));
   });
 
+  // call passportPrepareHooks plugin point
   plugins.forEach(({ passportPrepareHooks = [] } = {}) => {
     passportPrepareHooks.forEach((fn) => fn(passport, mongoose));
   });
@@ -89,6 +92,7 @@ const makeApp = async ({
     next();
   });
 
+  // call apiRouter plugin point
   plugins.forEach(({ apiRouter: apiPlugins = [] } = {}) => {
     apiPlugins.forEach(({ path: apiPath, router }) => {
       if (!apiPath || !router) return;
@@ -96,7 +100,7 @@ const makeApp = async ({
     });
   });
 
-  if (!NO_WS) initWS(httpServer);
+  if (!NO_WS) initWS(httpServer, plugins);
 
   if (NODE_ENV === 'production') app.use(compression());
 
@@ -125,12 +129,13 @@ const makeApp = async ({
 
   app.use(errorHandler);
 
-  console.info('[Eazin] connect to db %s', dbURL);
-  httpServer.db = await mongoose.connect(dbURL, {
+  const db = await mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  app.db = httpServer.db;
+
+  app.db = db;
+  httpServer.db = db;
 
   return httpServer;
 };

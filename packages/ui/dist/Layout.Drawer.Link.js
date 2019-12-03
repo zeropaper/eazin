@@ -114,7 +114,11 @@ module.exports = require("@material-ui/core");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ __webpack_exports__["a"] = (function (theme) {
+  var _menuLink;
+
   return {
     root: {
       minWidth: '20vw',
@@ -124,16 +128,16 @@ module.exports = require("@material-ui/core");
       flexGrow: 1,
       overflow: 'auto'
     },
-    menuLink: {
+    menuLink: (_menuLink = {
       color: 'currentColor',
       textDecoration: 'none',
       cursor: 'pointer',
-      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px"),
-      display: 'block',
-      '&.active': {
-        textDecoration: 'underline'
-      }
-    }
+      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px")
+    }, _defineProperty(_menuLink, theme.breakpoints.up('md'), {
+      padding: theme.spacing(2)
+    }), _defineProperty(_menuLink, "display", 'block'), _defineProperty(_menuLink, '&.active', {
+      textDecoration: 'underline'
+    }), _menuLink)
   };
 });
 
@@ -146,7 +150,7 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -177,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ 74:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(21);
+module.exports = __webpack_require__(22);
 
 
 /***/ })

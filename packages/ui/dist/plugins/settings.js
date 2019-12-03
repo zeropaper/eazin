@@ -114,7 +114,11 @@ module.exports = require("@material-ui/core");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ __webpack_exports__["a"] = (function (theme) {
+  var _menuLink;
+
   return {
     root: {
       minWidth: '20vw',
@@ -124,16 +128,16 @@ module.exports = require("@material-ui/core");
       flexGrow: 1,
       overflow: 'auto'
     },
-    menuLink: {
+    menuLink: (_menuLink = {
       color: 'currentColor',
       textDecoration: 'none',
       cursor: 'pointer',
-      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px"),
-      display: 'block',
-      '&.active': {
-        textDecoration: 'underline'
-      }
-    }
+      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px")
+    }, _defineProperty(_menuLink, theme.breakpoints.up('md'), {
+      padding: theme.spacing(2)
+    }), _defineProperty(_menuLink, "display", 'block'), _defineProperty(_menuLink, '&.active', {
+      textDecoration: 'underline'
+    }), _menuLink)
   };
 });
 
@@ -146,7 +150,7 @@ module.exports = require("@material-ui/core");
 /* unused harmony export View */
 /* unused harmony export HeaderTabs */
 /* unused harmony export Drawer */
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -175,7 +179,7 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -210,7 +214,7 @@ module.exports = require("@material-ui/icons");
 
 /***/ }),
 
-/***/ 30:
+/***/ 31:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -249,7 +253,14 @@ var resetSettings = function resetSettings() {
 
 /***/ }),
 
-/***/ 51:
+/***/ 5:
+/***/ (function(module, exports) {
+
+module.exports = require("prop-types");
+
+/***/ }),
+
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -314,7 +325,7 @@ var SettingsView_SettingsView = function SettingsView() {
 
 /* harmony default export */ var settings_SettingsView = (SettingsView_SettingsView);
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(7);
+var external_react_redux_ = __webpack_require__(6);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
@@ -323,7 +334,7 @@ var core_ = __webpack_require__(1);
 var icons_ = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./src/plugins/settings/settings.actions.js
-var settings_actions = __webpack_require__(30);
+var settings_actions = __webpack_require__(31);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsHeaderLinks.jsx
 
@@ -362,7 +373,7 @@ var SettingsHeaderLinks_mapDispatchToProps = function mapDispatchToProps(dispatc
 
 /* harmony default export */ var SettingsHeaderLinks = (Object(external_react_redux_["connect"])(mapStateToProps, SettingsHeaderLinks_mapDispatchToProps)(SettingsHeaderLinks_SettingsDrawer));
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
-var Layout_Drawer_Link = __webpack_require__(21);
+var Layout_Drawer_Link = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsDrawer.jsx
 
@@ -403,13 +414,6 @@ var routes = [{
 /***/ 6:
 /***/ (function(module, exports) {
 
-module.exports = require("prop-types");
-
-/***/ }),
-
-/***/ 7:
-/***/ (function(module, exports) {
-
 module.exports = require("react-redux");
 
 /***/ }),
@@ -417,7 +421,7 @@ module.exports = require("react-redux");
 /***/ 79:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(51);
+module.exports = __webpack_require__(53);
 
 
 /***/ })

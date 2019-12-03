@@ -114,7 +114,11 @@ module.exports = require("@material-ui/core");
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /* harmony default export */ __webpack_exports__["a"] = (function (theme) {
+  var _menuLink;
+
   return {
     root: {
       minWidth: '20vw',
@@ -124,16 +128,16 @@ module.exports = require("@material-ui/core");
       flexGrow: 1,
       overflow: 'auto'
     },
-    menuLink: {
+    menuLink: (_menuLink = {
       color: 'currentColor',
       textDecoration: 'none',
       cursor: 'pointer',
-      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px"),
-      display: 'block',
-      '&.active': {
-        textDecoration: 'underline'
-      }
-    }
+      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px")
+    }, _defineProperty(_menuLink, theme.breakpoints.up('md'), {
+      padding: theme.spacing(2)
+    }), _defineProperty(_menuLink, "display", 'block'), _defineProperty(_menuLink, '&.active', {
+      textDecoration: 'underline'
+    }), _menuLink)
   };
 });
 
@@ -146,7 +150,7 @@ module.exports = require("@material-ui/core");
 /* unused harmony export View */
 /* unused harmony export HeaderTabs */
 /* unused harmony export Drawer */
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -175,7 +179,7 @@ module.exports = require("react-router-dom");
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -203,7 +207,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 50:
+/***/ 5:
+/***/ (function(module, exports) {
+
+module.exports = require("prop-types");
+
+/***/ }),
+
+/***/ 52:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -214,7 +225,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(7);
+var external_react_redux_ = __webpack_require__(6);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
@@ -383,7 +394,7 @@ var DocsHeaderTabs_DocsHeaderTabs = function DocsHeaderTabs() {
 
 /* harmony default export */ var docs_DocsHeaderTabs = (DocsHeaderTabs_DocsHeaderTabs);
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
-var Layout_Drawer_Link = __webpack_require__(21);
+var Layout_Drawer_Link = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./src/plugins/docs/DocsDrawer.jsx
 
@@ -457,13 +468,6 @@ var reducer = function reducer() {
 /***/ 6:
 /***/ (function(module, exports) {
 
-module.exports = require("prop-types");
-
-/***/ }),
-
-/***/ 7:
-/***/ (function(module, exports) {
-
 module.exports = require("react-redux");
 
 /***/ }),
@@ -471,7 +475,7 @@ module.exports = require("react-redux");
 /***/ 76:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(50);
+module.exports = __webpack_require__(52);
 
 
 /***/ }),
@@ -504,7 +508,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
         switch (_context.prev = _context.next) {
           case 0:
             if (!(res.status >= 400)) {
-              _context.next = 21;
+              _context.next = 23;
               break;
             }
 
@@ -514,7 +518,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
           case 4:
             json = _context.sent;
-            _context.next = 12;
+            _context.next = 13;
             break;
 
           case 7:
@@ -522,11 +526,12 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
             _context.t0 = _context["catch"](1);
             err = new Error("API query error: ".concat(res.statusText));
             err.fields = {};
+            err.object = {};
             throw err;
 
-          case 12:
+          case 13:
             if (!json.error) {
-              _context.next = 20;
+              _context.next = 22;
               break;
             }
 
@@ -536,15 +541,16 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
             console.warn("".concat(options.method || 'GET', " ").concat(url, ": ").concat(message));
             _err = new Error(message);
             _err.fields = json.fields || {};
+            _err.object = json.error;
             throw _err;
 
-          case 20:
+          case 22:
             return _context.abrupt("return", json);
 
-          case 21:
+          case 23:
             return _context.abrupt("return", res[parser]());
 
-          case 22:
+          case 24:
           case "end":
             return _context.stop();
         }

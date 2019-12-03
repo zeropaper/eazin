@@ -20,8 +20,8 @@ function errorHandler(err, req, res, next) {
     return res.send({
       error: {
         message: err.message,
+        fields: err.fields || {},
       },
-      // fields: {},
     });
   }
 

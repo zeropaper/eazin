@@ -1,9 +1,9 @@
-export const testid = (id) => `[data-testid="${id}"]`;
+export const testidSelector = (id) => `[data-testid="${id}"]`;
 
 export const waitMs = (ms) => new Promise((resolve) => setTimeout(resolve, ms || 1000));
 
 export const getTextareaValue = (page, testId) => page
-  .$eval(`${testid(testId)} textarea:not([aria-hidden="true"])`, (el) => el.value);
+  .$eval(`${testidSelector(testId)} textarea:not([aria-hidden="true"])`, (el) => el.value);
 
 export const noop = async () => {};
 
@@ -39,13 +39,13 @@ export const waitFor = (check, timeout = 1000) => (new Promise((res, rej) => {
   }, 1);
 }));
 
-export const typeFast = (page, testId, value) => page.$eval(testid(testId), (el, val) => {
+export const typeFast = (page, testId, value) => page.$eval(testidSelector(testId), (el, val) => {
   // eslint-disable-next-line no-param-reassign
   el.value = val || '';
 }, value);
 
 export default {
-  testid,
+  testidSelector,
   waitMs,
   getTextareaValue,
   noop,

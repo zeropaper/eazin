@@ -5,7 +5,7 @@ const jest = require('@neutrinojs/jest');
 
 const absPath = str => `${__dirname}/${str}`;
 
-const { TEST_TYPE } = process.env;
+const { TEST_TYPE, TEST_SENDER } = process.env;
 
 const jestCommon = {
   moduleFileExtensions: ['js', 'jsx'],
@@ -16,6 +16,10 @@ const jestCommon = {
     '^react-dom$': `${require.resolve('@hot-loader/react-dom')}`,
   },
 };
+
+if (TEST_TYPE && !TEST_SENDER) {
+  throw new Error('No TEST_SENDER set');
+}
 
 const jestConfig = jest(TEST_TYPE === 'unit'
   ? {
@@ -37,7 +41,7 @@ const jestConfig = jest(TEST_TYPE === 'unit'
     coverageDirectory: path.join(`${__dirname}/test-results/unit`),
     testEnvironment: 'node',
     setupFiles: [
-      absPath('test/unit.init'),
+      // absPath('test/unit.init'),
     ],
   }
   : {

@@ -110,7 +110,7 @@ module.exports = require("moment");
 
 /***/ }),
 
-/***/ 39:
+/***/ 40:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -150,7 +150,7 @@ TimeAgo.defaultProps = {
 /***/ 68:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(39);
+module.exports = __webpack_require__(40);
 
 
 /***/ })

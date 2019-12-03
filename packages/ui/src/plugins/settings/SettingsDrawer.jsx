@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { Drawer as DrawerPropTypes } from '../../core/plugins.propTypes';
 import Link from '../../components/Layout/Layout.Drawer.Link';
 
 const SettingsDrawer = () => (
@@ -8,7 +7,5 @@ const SettingsDrawer = () => (
     Settings
   </Link>
 );
-
-SettingsDrawer.propTypes = DrawerPropTypes;
 
 export default SettingsDrawer;

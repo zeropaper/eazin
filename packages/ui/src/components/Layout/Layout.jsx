@@ -34,8 +34,6 @@ const styles = (theme) => ({
     position: 'relative',
     padding: theme.spacing(1),
     [theme.breakpoints.up('md')]: {
-      left: '20vw',
-      width: '80vw',
       padding: theme.spacing(2),
     },
   },
@@ -129,13 +127,7 @@ const Layout = ({
           [classes.justifyBottom]: justify === 'bottom',
         })}
       >
-        {auth ? children : (
-          <>
-            <PluginPoint name="Login" />
-            <PluginPoint name="Reset" />
-            <PluginPoint name="Register" />
-          </>
-        )}
+        {auth ? children : (<PluginPoint name="AnonymousView" />)}
       </div>
     </Typography>
   );

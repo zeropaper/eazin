@@ -7,7 +7,7 @@
 /* unused harmony export View */
 /* unused harmony export HeaderTabs */
 /* unused harmony export Drawer */
-/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
+/* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -29,7 +29,7 @@ var Drawer = _objectSpread({}, View);
 
 /***/ }),
 
-/***/ 21:
+/***/ 22:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -57,7 +57,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 50:
+/***/ 52:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -68,7 +68,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(7);
+var external_react_redux_ = __webpack_require__(6);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
@@ -237,7 +237,7 @@ var DocsHeaderTabs_DocsHeaderTabs = function DocsHeaderTabs() {
 
 /* harmony default export */ var docs_DocsHeaderTabs = (DocsHeaderTabs_DocsHeaderTabs);
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
-var Layout_Drawer_Link = __webpack_require__(21);
+var Layout_Drawer_Link = __webpack_require__(22);
 
 // CONCATENATED MODULE: ./src/plugins/docs/DocsDrawer.jsx
 

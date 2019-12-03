@@ -14,7 +14,7 @@ const message = (method, url) => {
       msg = '<%= user.email %> (user ID "<%= user._id %>") updates API client <%= clientId.name %>';
     }
     if (method === 'DELETE') msg = '<%= user.email %> (ID "<%= user._id %>") deletes client <%= clientId.name %>';
-    if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads client <%= clientId.name %>';
+    if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") lists';
   } else if (url.includes('/api/activity')) {
     if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads activity';
   } else if (url.includes('/api/user/register')) {
@@ -50,7 +50,7 @@ module.exports = [
         },
       }, (err) => {
         // eslint-disable-next-line no-console
-        if (err) console.error('Activity error "%s"', err.message);
+        if (err) console.error('Activity error "%s"', req.originalUrl, err.message);
       });
     });
     next();

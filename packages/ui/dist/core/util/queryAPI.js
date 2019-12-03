@@ -124,7 +124,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
         switch (_context.prev = _context.next) {
           case 0:
             if (!(res.status >= 400)) {
-              _context.next = 21;
+              _context.next = 23;
               break;
             }
 
@@ -134,7 +134,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
           case 4:
             json = _context.sent;
-            _context.next = 12;
+            _context.next = 13;
             break;
 
           case 7:
@@ -142,11 +142,12 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
             _context.t0 = _context["catch"](1);
             err = new Error("API query error: ".concat(res.statusText));
             err.fields = {};
+            err.object = {};
             throw err;
 
-          case 12:
+          case 13:
             if (!json.error) {
-              _context.next = 20;
+              _context.next = 22;
               break;
             }
 
@@ -156,15 +157,16 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
             console.warn("".concat(options.method || 'GET', " ").concat(url, ": ").concat(message));
             _err = new Error(message);
             _err.fields = json.fields || {};
+            _err.object = json.error;
             throw _err;
 
-          case 20:
+          case 22:
             return _context.abrupt("return", json);
 
-          case 21:
+          case 23:
             return _context.abrupt("return", res[parser]());
 
-          case 22:
+          case 24:
           case "end":
             return _context.stop();
         }

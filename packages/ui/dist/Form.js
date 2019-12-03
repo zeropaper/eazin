@@ -117,107 +117,16 @@ module.exports = require("classnames");
 
 /***/ }),
 
-/***/ 29:
+/***/ 26:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _FieldSet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(40);
-/* harmony import */ var _TextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(41);
-/* harmony import */ var _ButtonsGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(42);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-
-// eslint-disable-next-line import/no-cycle
-
-
-
-
-var Fields = function Fields(_ref) {
-  var fields = _ref.fields,
-      _ref$field = _ref.field,
-      prefix = _ref$field === void 0 ? '' : _ref$field,
-      state = _ref.state,
-      api = _ref.api;
-  return Object.keys(fields).map(function (field) {
-    var props = fields[field];
-    var type = props.type,
-        label = props.label,
-        _props$fields = props.fields,
-        subFields = _props$fields === void 0 ? {} : _props$fields,
-        buttons = props.buttons,
-        className = props.className;
-    var subField = prefix ? "".concat(prefix, ".").concat(field) : field;
-
-    if (type === 'fieldset') {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FieldSet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
-        key: field,
-        label: label,
-        fields: subFields,
-        field: subField,
-        state: state,
-        api: api,
-        className: className
-      });
-    }
-
-    if (type === 'fields') {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Fields, {
-        key: field,
-        label: label,
-        fields: subFields,
-        field: subField,
-        state: state,
-        api: api,
-        className: className
-      });
-    }
-
-    if (buttons) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ButtonsGroup__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
-        key: field,
-        buttons: typeof buttons === 'function' ? buttons(state, api, field, fields) : buttons,
-        className: className
-      });
-    }
-
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TextField__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], _objectSpread({}, props, {
-      key: field,
-      field: subField
-    }));
-  }).filter(Boolean);
-};
-
-Fields.defaultProps = {
-  field: undefined,
-  className: null
-};
-/* harmony default export */ __webpack_exports__["a"] = (Fields);
-
-/***/ }),
-
-/***/ 31:
-/***/ (function(module, exports) {
-
-module.exports = require("informed");
-
-/***/ }),
-
-/***/ 33:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
 /* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(informed__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _core_util_queryAPI__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(8);
-/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(29);
+/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(30);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -384,6 +293,97 @@ FormBase.defaultProps = {
 
 /***/ }),
 
+/***/ 30:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _FieldSet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(41);
+/* harmony import */ var _TextField__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(42);
+/* harmony import */ var _ButtonsGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(43);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+// eslint-disable-next-line import/no-cycle
+
+
+
+
+var Fields = function Fields(_ref) {
+  var fields = _ref.fields,
+      _ref$field = _ref.field,
+      prefix = _ref$field === void 0 ? '' : _ref$field,
+      state = _ref.state,
+      api = _ref.api;
+  return Object.keys(fields).map(function (field) {
+    var props = fields[field];
+    var type = props.type,
+        label = props.label,
+        _props$fields = props.fields,
+        subFields = _props$fields === void 0 ? {} : _props$fields,
+        buttons = props.buttons,
+        className = props.className;
+    var subField = prefix ? "".concat(prefix, ".").concat(field) : field;
+
+    if (type === 'fieldset') {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FieldSet__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"], {
+        key: field,
+        label: label,
+        fields: subFields,
+        field: subField,
+        state: state,
+        api: api,
+        className: className
+      });
+    }
+
+    if (type === 'fields') {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Fields, {
+        key: field,
+        label: label,
+        fields: subFields,
+        field: subField,
+        state: state,
+        api: api,
+        className: className
+      });
+    }
+
+    if (buttons) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ButtonsGroup__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], {
+        key: field,
+        buttons: typeof buttons === 'function' ? buttons(state, api, field, fields) : buttons,
+        className: className
+      });
+    }
+
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_TextField__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], _objectSpread({}, props, {
+      key: field,
+      field: subField
+    }));
+  }).filter(Boolean);
+};
+
+Fields.defaultProps = {
+  field: undefined,
+  className: null
+};
+/* harmony default export */ __webpack_exports__["a"] = (Fields);
+
+/***/ }),
+
+/***/ 32:
+/***/ (function(module, exports) {
+
+module.exports = require("informed");
+
+/***/ }),
+
 /***/ 4:
 /***/ (function(module, exports) {
 
@@ -391,7 +391,7 @@ module.exports = require("@material-ui/core/styles");
 
 /***/ }),
 
-/***/ 40:
+/***/ 41:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -403,7 +403,7 @@ module.exports = require("@material-ui/core/styles");
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(18);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
+/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(30);
 
 
 
@@ -455,13 +455,13 @@ FieldSet.defaultProps = {
 
 /***/ }),
 
-/***/ 41:
+/***/ 42:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(31);
+/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(32);
 /* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(informed__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_2__);
@@ -534,17 +534,17 @@ InformedTextField.defaultProps = {
 
 /***/ }),
 
-/***/ 42:
+/***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(45);
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(46);
 /* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(18);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(46);
+/* harmony import */ var _material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(47);
 /* harmony import */ var _material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -616,14 +616,14 @@ ButtonsGroup.defaultProps = {
 
 /***/ }),
 
-/***/ 45:
+/***/ 46:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/Button");
 
 /***/ }),
 
-/***/ 46:
+/***/ 47:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/styles/withStyles");
@@ -643,17 +643,17 @@ module.exports = __webpack_require__(62);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FormBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(33);
-/* harmony import */ var _ButtonsGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(42);
+/* harmony import */ var _FormBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
+/* harmony import */ var _ButtonsGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonsGroup", function() { return _ButtonsGroup__WEBPACK_IMPORTED_MODULE_1__["a"]; });
 
-/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(29);
+/* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(30);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Fields", function() { return _Fields__WEBPACK_IMPORTED_MODULE_2__["a"]; });
 
-/* harmony import */ var _FieldSet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(40);
+/* harmony import */ var _FieldSet__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(41);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FieldSet", function() { return _FieldSet__WEBPACK_IMPORTED_MODULE_3__["a"]; });
 
-/* harmony import */ var _TextField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(41);
+/* harmony import */ var _TextField__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(42);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextField", function() { return _TextField__WEBPACK_IMPORTED_MODULE_4__["a"]; });
 
 
@@ -693,7 +693,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
         switch (_context.prev = _context.next) {
           case 0:
             if (!(res.status >= 400)) {
-              _context.next = 21;
+              _context.next = 23;
               break;
             }
 
@@ -703,7 +703,7 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
           case 4:
             json = _context.sent;
-            _context.next = 12;
+            _context.next = 13;
             break;
 
           case 7:
@@ -711,11 +711,12 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
             _context.t0 = _context["catch"](1);
             err = new Error("API query error: ".concat(res.statusText));
             err.fields = {};
+            err.object = {};
             throw err;
 
-          case 12:
+          case 13:
             if (!json.error) {
-              _context.next = 20;
+              _context.next = 22;
               break;
             }
 
@@ -725,15 +726,16 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
             console.warn("".concat(options.method || 'GET', " ").concat(url, ": ").concat(message));
             _err = new Error(message);
             _err.fields = json.fields || {};
+            _err.object = json.error;
             throw _err;
 
-          case 20:
+          case 22:
             return _context.abrupt("return", json);
 
-          case 21:
+          case 23:
             return _context.abrupt("return", res[parser]());
 
-          case 22:
+          case 24:
           case "end":
             return _context.stop();
         }

@@ -1,11 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import { Typography } from '@material-ui/core';
 import isEmail from 'validator/es/lib/isEmail';
 
 import Link from '../../components/Link';
 import queryAPI from '../../core/util/queryAPI';
 import Form from '../../components/Form/FormBase';
-import connect from './UserRegister.connect';
 
 const required = {
   required: true,
@@ -51,35 +50,55 @@ const schema = {
   },
 };
 
-const UserRegister = ({ setUser }) => (
-  <>
-    <Form
-      onSubmit={(fields) => {
-        queryAPI('/api/user/register', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            password: fields.passwordConfirm,
-            email: fields.email,
-          }),
-        })
-          // eslint-disable-next-line no-console
-          .then(setUser)
-          .catch((err) => { throw err; });
-      }}
-      fields={schema}
-    />
+const UserRegister = () => {
+  const [state, setState] = useState({});
 
-    <Link to="/reset">Password reset</Link>
-    <Link to="/login">Login</Link>
-  </>
-);
+  const handleSubmit = (fields) => queryAPI('/api/user/register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+    body: JSON.stringify({
+      password: fields.passwordConfirm,
+      email: fields.email,
+    }),
+  })
+    // eslint-disable-next-line no-console
+    .then(() => setState({ email: fields.email, showVerifInstruction: true }))
+    .catch((err) => setState({
+      error: (err.object || {}).message || err.message,
+    }));
 
-UserRegister.propTypes = {
-  setUser: PropTypes.func.isRequired,
+  if (state.showVerifInstruction) {
+    return (
+      <Typography component="div" color="textPrimary">
+        A verification email has been sent to&nbsp;
+        {state.email}
+        .
+      </Typography>
+    );
+  }
+
+  return (
+    <>
+      <Typography variant="h5">Register</Typography>
+
+      {state.error && (
+        <Typography component="div" color="error">
+          {state.error}
+        </Typography>
+      )}
+
+      <Form
+        onSubmit={handleSubmit}
+        fields={schema}
+      />
+
+      <Link to="/reset">Password reset</Link>
+      <Link to="/login">Login</Link>
+    </>
+  );
 };
 
-export default connect(UserRegister);
+export default UserRegister;

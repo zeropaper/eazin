@@ -1,4 +1,5 @@
 import React from 'react';
+import { Typography } from '@material-ui/core';
 import isEmail from 'validator/es/lib/isEmail';
 
 import Link from '../../components/Link';
@@ -20,10 +21,20 @@ const schema = {
       if (!isEmail(val)) return 'Not a valid email address';
     },
   },
+  buttons: {
+    buttons: [
+      {
+        type: 'submit',
+        text: 'Send reset email',
+      },
+    ],
+  },
 };
 
 export default () => (
   <>
+    <Typography variant="h5">Password reset</Typography>
+
     <Form
       onSubmit={(fields) => {
         // eslint-disable-next-line no-console

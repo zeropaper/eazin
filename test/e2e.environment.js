@@ -6,6 +6,7 @@ const rimraf = require('rimraf');
 const mkdirp = require('mkdirp');
 const { promisify } = require('util');
 const { writeFile: fsWriteFile } = require('fs');
+const tcpPortUsed = require('tcp-port-used');
 
 const makeApp = require('../packages/server/src/server');
 const plugins = require('../packages/server/src/plugins');
@@ -79,10 +80,14 @@ const processDocsScreenshot = ({
   };
 };
 
+const app = makeApp({
+  publicDir: 'demo/ui/build',
+  dbURL: 'mongodb://localhost:27017/eazin-e2e-test',
+  plugins,
+});
+
 class PuppeteerEnvironment extends NodeEnvironment {
   async setup() {
-    console.info('[E2E] setup');
-
     await super.setup();
 
     this.counter = 0;
@@ -90,25 +95,23 @@ class PuppeteerEnvironment extends NodeEnvironment {
     this.docsInfo = [];
 
     this.global.baseURL = `http://localhost:${PORT}`;
+    const PORTint = parseInt(PORT, 10);
 
     if (JEST_SERVE || !watching) {
-      this.app = await makeApp({
-        publicDir: 'demo/ui/build',
-        dbURL: 'mongodb://localhost:27017/eazin-e2e-test',
-        plugins,
-      });
-      await new Promise((res, rej) => this.app.listen(PORT, (err) => (err ? rej(err) : res())));
+      this.app = await app;
+      this.global.db = app.db;
 
-      console.info('[E2E] serving on %s', this.global.baseURL);
-    } else {
-      console.info('[E2E] served from %s', this.global.baseURL);
+      if (!await tcpPortUsed.check(PORTint)) this.app.listen(PORTint);
     }
+    await tcpPortUsed.waitUntilUsed(PORTint, 500, 4000);
 
     rimraf.sync(screenshotsPath);
     mkdirp.sync(screenshotsPath);
 
-    rimraf.sync(docsOutputDir);
-    mkdirp.sync(path.join(docsOutputDir, 'screenshots'));
+    if (!watching) {
+      rimraf.sync(docsOutputDir);
+      mkdirp.sync(path.join(docsOutputDir, 'screenshots'));
+    }
 
     const commonOptions = {
       headless: !watching,
@@ -117,21 +120,24 @@ class PuppeteerEnvironment extends NodeEnvironment {
       handleSIGTERM: !TEST_KEEP_BROWSER,
       handleSIGHUP: !TEST_KEEP_BROWSER,
     };
-
-    this.global.testSlowMo = commonOptions.slowMo;
-    this.global.testWatching = commonOptions.watching;
-
     const browser = await puppeteer.launch({
       ...commonOptions,
     });
 
+    this.global.testSlowMo = commonOptions.slowMo;
+    this.global.testWatching = commonOptions.watching;
+
     this.global.testPages = [
       await browser.newPage(),
     ];
-    this.global.keepBrowserOpen = () => {
-      if (TEST_KEEP_BROWSER) throw new Error('Keep open!');
-      // browser.disconnect();
-    };
+
+    // this.global.keepBrowserOpen = () => {
+    //   // browser.disconnect();
+    //   // this.teardown();
+    //   if (TEST_KEEP_BROWSER) throw new Error('Keep open!');
+    //   // process.abort();
+    //   // process.exit(1);
+    // };
 
     const addNewPageWithNewContext = async () => {
       const page = await newPageWithNewContext(browser);
@@ -139,7 +145,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
     };
     this.global.addNewPageWithNewContext = addNewPageWithNewContext;
 
-    await addNewPageWithNewContext();
+    // await addNewPageWithNewContext();
 
     this.global.writeDocs = async ({
       info = {},
@@ -166,50 +172,51 @@ class PuppeteerEnvironment extends NodeEnvironment {
       this.docsInfo.push(generated);
     };
 
-    this.global.testPages.forEach((page, p) => page.on('console', (msg) => {
-      for (let i = 0; i < msg.args().length; i += 1) {
-        console.log(`${p} ${i}: ${msg.args()[i]}`);
-      }
-    }));
+    // this.global.testPages.forEach((page, p) => page.on('console', (msg) => {
+    //   for (let i = 0; i < msg.args().length; i += 1) {
+    //     console.log(`${p} ${i}: ${msg.args()[i]}`);
+    //   }
+    // }));
   }
 
   async teardown() {
-    console.info('[E2E] tearing down');
+    try {
+      await new Promise((res) => setTimeout(res, 200 * (this.global.slowMo + 1)));
 
-    await new Promise((res) => setTimeout(res, 200 * (this.global.slowMo + 1)));
+      const report = await reportTemplate({
+        title: 'Eazin E2E Test Report',
+        outputDirectory: e2eOutputDir,
+        info: this.screenshots,
+      });
+      await writeFile(path.join(e2eOutputDir, 'index.html'), report, 'utf8');
 
-    await writeFile(path.join(e2eOutputDir, 'index.html'), await reportTemplate({
-      title: 'Eazin E2E Test Report',
-      outputDirectory: e2eOutputDir,
-      info: this.screenshots,
-    }), 'utf8');
+      if (!watching) {
+        const docs = await documentationTemplate({
+          title: 'Eazin Documenation',
+          info: this.docsInfo,
+        });
+        await writeFile(path.join(docsOutputDir, 'index.html'), docs, 'utf8');
+      }
 
+      if (this.app && typeof this.app.close === 'function') this.app.close();
 
-    await writeFile(path.join(docsOutputDir, 'index.html'), await documentationTemplate({
-      title: 'Eazin Documenation',
-      info: this.docsInfo,
-    }), 'utf8');
-
-
-    if (this.app && typeof this.app.close === 'function') this.app.close();
-
-
-    await Promise.all((this.global.testPages || [])
-      .map(async (page) => {
-        try {
-          const br = await page.browser();
-          if (!TEST_KEEP_BROWSER) {
-            console.info('[E2E] kill browser...');
-            await closePage(br, page);
-            await br.close();
-          } else {
-            console.info('[E2E] keep browser');
-            // br.disconnect();
+      await Promise.all((this.global.testPages || [])
+        .map(async (page) => {
+          try {
+            const br = await page.browser();
+            if (!TEST_KEEP_BROWSER) {
+              await closePage(br, page);
+              await br.close();
+            } else {
+              // br.disconnect();
+            }
+          } catch (err) {
+            console.warn(err.message);
           }
-        } catch (err) {
-          console.warn(err.message);
-        }
-      }));
+        }));
+    } catch (err) {
+      console.error(err.stack);
+    }
 
     await super.teardown();
   }

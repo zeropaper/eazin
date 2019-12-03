@@ -3,9 +3,7 @@ import queryAPI from '../../core/util/queryAPI';
 import * as actions from './user.actions';
 import reducer from './user.reducer';
 
-import UserRegister from /* webpackChunkName: "UserRegister" */ './UserRegister';
-import UserLogin from /* webpackChunkName: "UserLogin" */ './UserLogin';
-import UserReset from /* webpackChunkName: "UserReset" */ './UserReset';
+import AnonForms from /* webpackChunkName: "AnonForms" */ './AnonForms';
 
 export const bootstrap = ({ settings: { userToken } = {} }) => {
   if (!userToken) return;
@@ -25,19 +23,8 @@ export const bootstrap = ({ settings: { userToken } = {} }) => {
 
 const routes = [
   {
-    exact: true,
-    path: ['/', '/login'],
-    Login: UserLogin,
-  },
-  {
-    exact: true,
-    path: '/register',
-    Register: UserRegister,
-  },
-  {
-    exact: true,
-    path: '/reset',
-    Reset: UserReset,
+    path: '/',
+    AnonymousView: AnonForms,
   },
 ];
 
