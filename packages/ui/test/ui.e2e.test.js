@@ -1,10 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jest/expect-expect */
-/* global keepBrowserOpen, writeDocs, testPages, testSlowMo, addNewPageWithNewContext, baseURL */
+/* global keepBrowserOpen, writeDocs, testPages, testSlowMo, addNewPageWithNewContext, baseURL, db */
 
 import faker from 'faker';
 
+import { beforeAll } from 'jest-circus';
 import {
   waitMs,
   testidSelector,
@@ -17,6 +18,10 @@ import {
 import sneak from '../../server/src/plugins/test-sender/sneak';
 
 jest.setTimeout(20000 * (testSlowMo + 1));
+
+beforeAll(async () => {
+  await db.model('User').remove({});
+});
 
 // some timeout is needed for clean screenshots
 // and I couldn't find how to move that to the environment file :/
@@ -59,8 +64,10 @@ describe('user', () => {
     });
 
     await page.goto(`${baseURL}${message.message}`);
+    // await page.waitForNavigation();
 
-    await page.waitForSelector('input[name="firstName"]');
+    await page.waitForSelector('input[name="firstName"]', { timeout: 3000 });
+
     await page.type('input[name="firstName"]', faker.name.firstName());
     await page.type('input[name="lastName"]', faker.name.lastName());
 
