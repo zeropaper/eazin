@@ -1,6 +1,6 @@
 (window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[25],{
 
-/***/ 16:
+/***/ 17:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40,7 +40,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(16);
+var plugins_propTypes = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./src/plugins/repositories/ReposLandingView.jsx
 

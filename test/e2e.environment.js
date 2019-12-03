@@ -97,10 +97,10 @@ class PuppeteerEnvironment extends NodeEnvironment {
     this.global.baseURL = `http://localhost:${PORT}`;
     const PORTint = parseInt(PORT, 10);
 
-    if (JEST_SERVE || !watching) {
-      this.app = await app;
-      this.global.db = app.db;
+    this.app = await app;
+    this.global.db = this.app.db;
 
+    if (JEST_SERVE || !watching) {
       if (!await tcpPortUsed.check(PORTint)) this.app.listen(PORTint);
     }
     await tcpPortUsed.waitUntilUsed(PORTint, 500, 4000);
@@ -130,6 +130,11 @@ class PuppeteerEnvironment extends NodeEnvironment {
     this.global.testPages = [
       await browser.newPage(),
     ];
+    this.global.testPages[0].on('console', (msg) => {
+      for (let i = 0; i < msg.args().length; i += 1) {
+        console.log(`0 ${i}: ${msg.args()[i]}`);
+      }
+    });
 
     // this.global.keepBrowserOpen = () => {
     //   // browser.disconnect();
@@ -142,6 +147,11 @@ class PuppeteerEnvironment extends NodeEnvironment {
     const addNewPageWithNewContext = async () => {
       const page = await newPageWithNewContext(browser);
       this.global.testPages.push(page);
+      page.on('console', (msg) => {
+        for (let i = 0; i < msg.args().length; i += 1) {
+          console.log(`${this.global.testPages.length} ${i}: ${msg.args()[i]}`);
+        }
+      });
     };
     this.global.addNewPageWithNewContext = addNewPageWithNewContext;
 
@@ -171,12 +181,6 @@ class PuppeteerEnvironment extends NodeEnvironment {
 
       this.docsInfo.push(generated);
     };
-
-    // this.global.testPages.forEach((page, p) => page.on('console', (msg) => {
-    //   for (let i = 0; i < msg.args().length; i += 1) {
-    //     console.log(`${p} ${i}: ${msg.args()[i]}`);
-    //   }
-    // }));
   }
 
   async teardown() {

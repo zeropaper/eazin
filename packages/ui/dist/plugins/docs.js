@@ -143,7 +143,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ 16:
+/***/ 17:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -231,7 +231,7 @@ var external_react_redux_ = __webpack_require__(6);
 var core_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(16);
+var plugins_propTypes = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./src/plugins/docs/docs.actions.js
 // eslint-disable-next-line import/prefer-default-export

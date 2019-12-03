@@ -557,6 +557,27 @@ var makeTheme = function makeTheme(type) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (function (scope) {
+  var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'black';
+  var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+  return function () {
+    var _console;
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return ( false || force) && // eslint-disable-next-line no-console
+    (_console = console).info.apply(_console, ["%c[".concat(scope, "]"), "color: ".concat(color)].concat(args));
+  };
+});
+
+/***/ }),
+/* 17 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* unused harmony export View */
 /* unused harmony export HeaderTabs */
 /* unused harmony export Drawer */
@@ -579,27 +600,6 @@ var View = {
 };
 var HeaderTabs = _objectSpread({}, View);
 var Drawer = _objectSpread({}, View);
-
-/***/ }),
-/* 17 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (function (scope) {
-  var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'black';
-  var force = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
-  return function () {
-    var _console;
-
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return ( false || force) && // eslint-disable-next-line no-console
-    (_console = console).info.apply(_console, ["%c[".concat(scope, "]"), "color: ".concat(color)].concat(args));
-  };
-});
 
 /***/ }),
 /* 18 */
@@ -687,7 +687,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(23);
 /* harmony import */ var typeface_roboto__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(29);
 /* harmony import */ var typeface_roboto__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(typeface_roboto__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _util_logger__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(17);
+/* harmony import */ var _util_logger__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(16);
 /* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(15);
 /* harmony import */ var _util_queryAPI__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(8);
 /* harmony import */ var _components_PluginPoint__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(7);
@@ -1728,7 +1728,7 @@ var objectKeys = Object.keys || function (obj) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(48);
 /* harmony import */ var socket_io_client__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(socket_io_client__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _core_util_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
+/* harmony import */ var _core_util_logger__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(16);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -1816,7 +1816,7 @@ var external_react_redux_ = __webpack_require__(6);
 var core_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(16);
+var plugins_propTypes = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./src/plugins/docs/docs.actions.js
 // eslint-disable-next-line import/prefer-default-export
@@ -2102,7 +2102,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(16);
+var plugins_propTypes = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./src/plugins/settings/SettingsView.jsx
 
@@ -2168,7 +2168,6 @@ var Layout_Drawer_Link = __webpack_require__(22);
 
 
 
-
 var SettingsDrawer_SettingsDrawer = function SettingsDrawer() {
   return external_react_default.a.createElement(Layout_Drawer_Link["default"], {
     to: "/settings"
@@ -2210,7 +2209,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(16);
+var plugins_propTypes = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
 var Layout_Drawer_Link = __webpack_require__(22);
@@ -2636,7 +2635,7 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
-var plugins_propTypes = __webpack_require__(16);
+var plugins_propTypes = __webpack_require__(17);
 
 // CONCATENATED MODULE: ./src/plugins/repositories/ReposLandingView.jsx
 
