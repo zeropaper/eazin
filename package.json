@@ -20,7 +20,7 @@
     "postinstall": "lerna bootstrap && lerna link",
     "prepublish-all": "npm run build",
     "publish-all": "lerna publish",
-    "push": "lerna run --scope eazin-ui build && git add packages/ui/dist && git commit --no-verify --ignore-empty -m \"auto update ui dist\" && git push"
+    "push": "lerna run --scope eazin-ui build && git add packages/ui/dist && git commit --no-verify --allow-empty -m \"auto update ui dist\" && git push"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
