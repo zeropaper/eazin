@@ -19,7 +19,8 @@
     "watch:test:e2e": "NODE_WATCH=1 jest --watch --runInBand --config jest.e2e.config.js",
     "postinstall": "lerna bootstrap && lerna link",
     "prepublish-all": "npm run build",
-    "publish-all": "lerna publish"
+    "publish-all": "lerna publish",
+    "push": "lerna run --scope eazin-ui build && git add packages/ui/dist && git commit --no-verify -m \"auto update ui dist\" && git push"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.4.3",
@@ -65,8 +66,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run --scope eazin-ui build && npm run lint && npm test",
-      "pre-push": "lerna run --scope eazin-ui build && git add packages/ui/dist && git commit --no-verify -m \"auto update ui dist\""
+      "pre-commit": "lerna run --scope eazin-ui build && npm run lint && npm test"
     }
   },
   "engines": {
