@@ -28,5 +28,5 @@ if (process.env.NODE_ENV === 'production' && ('serviceWorker' in navigator)) {
 }
 
 if (module.hot) {
-  module.hot.accept('./App', () => { render(App); });
+  module.hot.accept('./AppLoader', () => { render(App); });
 }

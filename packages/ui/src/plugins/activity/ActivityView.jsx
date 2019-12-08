@@ -26,8 +26,6 @@ class ActivityView extends React.Component {
 
     return queryAPI(url, {
       headers: {
-        'content-type': 'application/json',
-        Accept: 'application/json',
         Authorization: `Bearer ${userToken}`,
       },
     });

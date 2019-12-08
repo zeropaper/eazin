@@ -5,23 +5,21 @@
 
 import faker from 'faker';
 
-import { beforeAll } from 'jest-circus';
 import {
-  waitMs,
-  testidSelector,
   getTextareaValue,
   noop,
   ifHeadless,
   typeFast,
+  waitMs,
+  testidSelector,
   waitFor,
+  sneakMessage,
+  clearFixtures,
 } from '../../../test/e2e.utils';
-import sneak from '../../server/src/plugins/test-sender/sneak';
 
 jest.setTimeout(20000 * (testSlowMo + 1));
 
-beforeAll(async () => {
-  await db.model('User').remove({});
-});
+beforeAll(clearFixtures);
 
 // some timeout is needed for clean screenshots
 // and I couldn't find how to move that to the environment file :/
@@ -56,15 +54,9 @@ describe('user', () => {
   it('verifies a newly registered user', async () => {
     const [page] = testPages;
 
-    let message;
-    await waitFor(async () => {
-      const messages = await sneak();
-      message = messages.find(({ recipient }) => (email === recipient));
-      return !!message;
-    });
+    const message = await sneakMessage(email);
 
-    await page.goto(`${baseURL}${message.message}`);
-    // await page.waitForNavigation();
+    await page.goto(`${baseURL}${message.message.split(/\s/g).pop()}`);
 
     await page.waitForSelector('input[name="firstName"]', { timeout: 3000 });
 

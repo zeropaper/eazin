@@ -27,22 +27,40 @@ schema.plugin(passportLocalMongoose, {
   usernameField: 'email',
 });
 
+schema.statics.sanitizeInput = ({
+  email,
+  roles,
+  firstName,
+  lastName,
+  organisations,
+}) => ({
+  email,
+  roles,
+  firstName,
+  lastName,
+  organisations,
+});
+
 schema.statics.sanitizeOutput = ({
   _id: id,
   email,
   roles,
   firstName,
   lastName,
-  companies,
+  organisations,
   isVerified,
+  createdAt,
+  updatedAt,
 }) => ({
   id,
   email,
   roles,
   firstName,
   lastName,
-  companies,
+  organisations,
   isVerified,
+  createdAt,
+  updatedAt,
 });
 
 module.exports = schema;

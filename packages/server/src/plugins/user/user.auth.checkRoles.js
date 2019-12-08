@@ -6,7 +6,7 @@ module.exports = (rolesToCheck) => (req, res, next) => {
   const {
     isAdmin,
     isVerified,
-    companies,
+    organisations,
   } = req.user;
   if (isAdmin) return next();
   if (!isVerified) {
@@ -24,9 +24,9 @@ module.exports = (rolesToCheck) => (req, res, next) => {
   // });
 
   const {
-    companyId: { _id: companyId } = {},
+    organisationId: { _id: organisationId } = {},
   } = (req.loadedParams || {});
-  if (companyId && !companies.includes(companyId)) {
+  if (organisationId && !organisations.includes(organisationId)) {
     return next(httperrors.Forbidden());
   }
 

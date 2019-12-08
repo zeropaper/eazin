@@ -48,6 +48,7 @@ module.exports = function modelSearchPlugin(schema, options) {
           limit: absLimit,
         })
         .sort(`${orderDirection === 'asc' ? '' : '-'}${orderBy || 'updatedAt'}`)
+        // eslint-disable-next-line no-shadow
         .exec((err, data) => {
           if (err) return next(err);
 
@@ -56,9 +57,10 @@ module.exports = function modelSearchPlugin(schema, options) {
               data: Model.sanitizeOutput
                 ? data.map(Model.sanitizeOutput)
                 : data,
-              page: min(max(0, floor(skip / absLimit)), floor(totalCount / absLimit)),
+              page: min(max(0, floor(skip / absLimit)), floor(totalCount / absLimit)) || 0,
               totalCount,
             });
+          // eslint-disable-next-line no-shadow
           } catch (err) {
             next(err);
           }

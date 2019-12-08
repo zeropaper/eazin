@@ -91,12 +91,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadDocs: async () => dispatch(getDocs(await queryAPI('/api/docs', {
-    headers: {
-      'content-type': 'application/json',
-      Accept: 'application/json',
-    },
-  }))),
+  loadDocs: async () => dispatch(getDocs(await queryAPI('/api/docs'))),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DocsView);

@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Fallback from './LoadingFallback';
 import ErrorBoundary from './ErrorBoundary';
+import * as api from '../core/util/queryAPI';
 
 const PluginsContext = React.createContext({ plugins: {} });
 
@@ -23,7 +24,7 @@ const RoutePlugin = ({
     const content = (
       <React.Suspense fallback={loadingFallback || <Fallback />}>
         <ErrorBoundary errorMessage={`${name} - ${pluginName}`}>
-          <Comp {...props} wrapIn={WrapIn} />
+          <Comp {...props} api={api} wrapIn={WrapIn} />
         </ErrorBoundary>
       </React.Suspense>
     );

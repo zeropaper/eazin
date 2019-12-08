@@ -36,15 +36,6 @@ class ClientsView extends React.Component {
     ].filter(({ field }) => !hiddenColumns.includes(field));
   }
 
-  get queryHeaders() {
-    return {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      // eslint-disable-next-line react/destructuring-assignment
-      Authorization: `Bearer ${this.props.userToken}`,
-    };
-  }
-
   handleHideColumn = (field) => this.setState((prev) => ({
     hiddenColumns: [
       ...prev.hiddenColumns,
@@ -69,14 +60,12 @@ class ClientsView extends React.Component {
       }))),
     })}`;
 
-    return queryAPI(url, {
-      headers: this.queryHeaders,
-    });
+    // eslint-disable-next-line react/destructuring-assignment
+    return this.props.api.get(url);
   };
 
   handleRowAdd = (newData) => queryAPI('/api/clients', {
     method: 'POST',
-    headers: this.queryHeaders,
     body: JSON.stringify(newData),
   });
 
@@ -84,16 +73,13 @@ class ClientsView extends React.Component {
     id,
     name,
     redirectURI,
-  }) => queryAPI(`/api/clients/${id}`, {
-    method: 'PATCH',
-    headers: this.queryHeaders,
-    body: JSON.stringify({ name, redirectURI }),
+  // eslint-disable-next-line react/destructuring-assignment
+  }) => this.props.api.patch(`/api/clients/${id}`, {
+    body: { name, redirectURI },
   });
 
-  handleRowDelete = ({ id }) => queryAPI(`/api/clients/${id}`, {
-    method: 'DELETE',
-    headers: this.queryHeaders,
-  });
+  // eslint-disable-next-line react/destructuring-assignment
+  handleRowDelete = ({ id }) => this.props.api.delete(`/api/clients/${id}`);
 
   renderdetailPanel = (rowData, ...rest) => (
     <div>{console.info('details', rowData, ...rest)}</div>
@@ -125,16 +111,9 @@ class ClientsView extends React.Component {
 
 ClientsView.propTypes = {
   ...ViewPropTypes,
-  // clients: PropTypes.objectOf(PropTypes.object).isRequired,
   // dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({
-  // clients,
-  settings: { userToken } = {},
-}) => ({
-  // clients,
-  userToken,
-});
+const mapStateToProps = () => ({});
 
 export default connect(mapStateToProps)(ClientsView);

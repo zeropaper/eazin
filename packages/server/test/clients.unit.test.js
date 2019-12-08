@@ -31,6 +31,10 @@ beforeAll(async () => {
   }, '1234567890Aa!!!');
 });
 
+afterAll(async () => {
+  utils.app.db.connection.close();
+});
+
 describe('client', () => {
   it('can be created by an authenticated user', () => utils
     .post('/api/clients')

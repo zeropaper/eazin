@@ -7,47 +7,51 @@ const plugins = require('../src/plugins');
 let creator;
 let verifiedUser;
 let admin;
-let company;
+let organisation;
 let utils;
 beforeAll(async () => {
   utils = await prepare({ plugins });
   const { app: { db: { models: { User } } } } = utils;
   await User.deleteMany({});
   creator = await User.register({
-    email: 'company.creator@eazin.dev',
+    email: 'organisation.creator@eazin.dev',
     isVerified: true,
-    roles: ['post:companies'],
+    roles: ['post:organisations'],
   }, '1234567890Aa!!!');
   verifiedUser = await User.register({
-    email: 'company.verified@eazin.dev',
+    email: 'organisation.verified@eazin.dev',
     isVerified: true,
-    roles: ['post:companies'],
+    roles: ['post:organisations'],
   }, '1234567890Aa!!!');
   admin = await User.register({
-    email: 'company.admin@eazin.dev',
+    email: 'organisation.admin@eazin.dev',
     isAdmin: true,
     isVerified: true,
-    roles: ['post:companies'],
+    roles: ['post:organisations'],
   }, '1234567890Aa!!!');
 });
 
-describe('company', () => {
+afterAll(async () => {
+  utils.app.db.connection.close();
+});
+
+describe('organisation', () => {
   it('can be created by an authenticated user', () => utils
-    .post('/api/companies')
+    .post('/api/organisations')
     .send({ name: 'ACME' })
     .set('Authorization', `Bearer ${creator.token}`)
     .expect(201)
     .then(async (res) => {
       expect(res.body).toHaveProperty('id');
       expect(res.body).toHaveProperty('name', 'ACME');
-      company = res.body;
+      organisation = res.body;
 
       const user = await utils.app.db.models.User.findOne({ _id: creator.id });
-      expect(user.companies.includes(company.id)).toBe(true);
+      expect(user.organisations.includes(organisation.id)).toBe(true);
     }));
 
   it('can be read by its creator', () => utils
-    .get(`/api/companies/${company.id}`)
+    .get(`/api/organisations/${organisation.id}`)
     .set('Authorization', `Bearer ${creator.token}`)
     .expect(200)
     .then(async (res) => {
@@ -55,7 +59,7 @@ describe('company', () => {
     }));
 
   it('lists its members', () => utils
-    .get(`/api/companies/${company.id}/users`)
+    .get(`/api/organisations/${organisation.id}/users`)
     .set('Authorization', `Bearer ${creator.token}`)
     .expect(200)
     .then((res) => {
@@ -63,21 +67,21 @@ describe('company', () => {
     }));
 
   it('can be read by an admin', () => utils
-    .get(`/api/companies/${company.id}`)
+    .get(`/api/organisations/${organisation.id}`)
     .set('Authorization', `Bearer ${admin.token}`)
     .expect(200));
 
   it('can be updated by its creator', async () => {
-    let res = await utils.patch(`/api/companies/${company.id}`)
+    let res = await utils.patch(`/api/organisations/${organisation.id}`)
       .send({ name: 'ACME-2' })
       .set('Authorization', `Bearer ${creator.token}`)
       .expect(200);
 
-    expect(res.body).toHaveProperty('id', company.id);
+    expect(res.body).toHaveProperty('id', organisation.id);
     expect(res.body).toHaveProperty('name', 'ACME-2');
-    company = res.body;
+    organisation = res.body;
 
-    res = await utils.patch(`/api/companies/${company.id}`)
+    res = await utils.patch(`/api/organisations/${organisation.id}`)
       .send({ name: 'ACME-3' })
       .set('Authorization', `Bearer ${admin.token}`)
       .expect(200);
@@ -85,8 +89,8 @@ describe('company', () => {
     expect(res.body).toHaveProperty('name', 'ACME-3');
   });
 
-  it('can be updated by a member of the company or an admin', async () => {
-    const res = await utils.patch(`/api/companies/${company.id}`)
+  it('can be updated by a member of the organisation or an admin', async () => {
+    const res = await utils.patch(`/api/organisations/${organisation.id}`)
       .send({ name: 'ACME-4' })
       .set('Authorization', `Bearer ${verifiedUser.token}`)
       .expect(403);

@@ -8,7 +8,7 @@ const {
 
 const { TEST_SENDER = '/tmp/test-sender-messages.json' } = process.env;
 
-const send = async (recipient, message) => {
+const send = async ({ to: recipient, text: message }) => {
   // eslint-disable-next-line no-console
   console.info('send', recipient, message, TEST_SENDER);
 

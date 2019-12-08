@@ -11,8 +11,8 @@ module.exports = async ({ plugins = [] } = {}) => {
 
   const app = await server({ plugins });
 
-  await Promise.all(Object.keys(app.db.models)
-    .map((modelName) => app.db.models[modelName].deleteMany({})));
+  // await Promise.all(Object.keys(app.db.models)
+  //   .map((modelName) => app.db.models[modelName].deleteMany({})));
 
   return {
     app,

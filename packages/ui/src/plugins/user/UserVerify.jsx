@@ -59,14 +59,8 @@ const UserVerify = ({
 
       <Form
         onSubmit={async (fields) => {
-          const headers = {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          };
-
           const info = await queryAPI('/api/user/verify', {
             method: 'POST',
-            headers,
             body: JSON.stringify({
               ...fields,
               verifToken: query.token,
@@ -75,7 +69,6 @@ const UserVerify = ({
 
           const user = await queryAPI('/api/user/me', {
             headers: {
-              ...headers,
               Authorization: `Bearer ${info.token}`,
             },
           });

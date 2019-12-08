@@ -11,6 +11,7 @@ const helmet = require('helmet');
 const series = require('async-series');
 
 const initWS = require('./core/ws');
+const fixtures = require('./core/fixtures');
 const searchPlugin = require('./core/search');
 const errorHandler = require('./core/errorHandler');
 
@@ -18,7 +19,7 @@ const {
   PUBLIC_DIR,
   NO_WS,
   NODE_ENV = 'development',
-  APP_ID = 'HTS',
+  APP_ID = 'eazin',
 } = process.env;
 
 const makeApp = async ({
@@ -31,7 +32,7 @@ const makeApp = async ({
 
   const callRequestHooks = (req, res, next) => {
     let hooks = [];
-    // call requestHooks plugin point
+    // ##### call requestHooks plugin point
     plugins.forEach(({ requestHooks = [] } = {}) => {
       hooks = [...hooks, ...requestHooks];
     });
@@ -39,7 +40,7 @@ const makeApp = async ({
     series(hooks.map((hook) => (cb) => hook(req, res, cb)), next);
   };
 
-  // call schema plugin point
+  // ##### call schema plugin point
   plugins.forEach(({
     schemas = [],
   } = {}) => {
@@ -66,12 +67,12 @@ const makeApp = async ({
     });
   });
 
-  // call dbReadyHooks plugin point
+  // ##### call dbReadyHooks plugin point
   plugins.forEach(({ dbReadyHooks = [] } = {}) => {
     dbReadyHooks.forEach((fn) => fn(mongoose));
   });
 
-  // call passportPrepareHooks plugin point
+  // ##### call passportPrepareHooks plugin point
   plugins.forEach(({ passportPrepareHooks = [] } = {}) => {
     passportPrepareHooks.forEach((fn) => fn(passport, mongoose));
   });
@@ -92,7 +93,7 @@ const makeApp = async ({
     next();
   });
 
-  // call apiRouter plugin point
+  // ##### call apiRouter plugin point
   plugins.forEach(({ apiRouter: apiPlugins = [] } = {}) => {
     apiPlugins.forEach(({ path: apiPath, router }) => {
       if (!apiPath || !router) return;
@@ -127,8 +128,6 @@ const makeApp = async ({
 
   app.use('/api', apiRouter);
 
-  app.use(errorHandler);
-
   const db = await mongoose.connect(dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -136,6 +135,10 @@ const makeApp = async ({
 
   app.db = db;
   httpServer.db = db;
+
+  if (NODE_ENV !== 'production') app.use('/fixtures', fixtures(db));
+
+  app.use(errorHandler);
 
   return httpServer;
 };

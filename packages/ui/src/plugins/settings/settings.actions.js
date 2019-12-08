@@ -8,6 +8,11 @@ export const resetSetting = (key) => ({
   payload: { key },
 });
 
+export const clearSetting = (key) => ({
+  type: 'CLEAR_SETTING',
+  payload: { key },
+});
+
 export const setSettings = (payload) => ({
   type: 'SET_SETTINGS',
   payload,

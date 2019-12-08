@@ -5,7 +5,7 @@ const store = (data) => {
   return data;
 };
 
-const restore = () => JSON.parse(localStorage[storeName] || '{}');
+export const restore = () => JSON.parse(localStorage[storeName] || '{}');
 
 export default (state = restore(), { type, payload } = {}) => {
   switch (type) {
@@ -15,6 +15,7 @@ export default (state = restore(), { type, payload } = {}) => {
         [payload.key]: payload.value,
       });
 
+    case 'CLEAR_SETTING':
     case 'RESET_SETTING':
       return store({
         ...state,

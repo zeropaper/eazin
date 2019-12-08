@@ -6,7 +6,7 @@ import { InvertColors } from '@material-ui/icons';
 
 import { setSetting } from './settings.actions';
 
-const SettingsDrawer = ({ toggleDarkMode, darkMode }) => (
+const SettingsHeaderLinks = ({ toggleDarkMode, darkMode }) => (
   <IconButton
     size="small"
     color="inherit"
@@ -17,15 +17,15 @@ const SettingsDrawer = ({ toggleDarkMode, darkMode }) => (
   </IconButton>
 );
 
-SettingsDrawer.propTypes = {
+SettingsHeaderLinks.propTypes = {
   toggleDarkMode: PropTypes.func.isRequired,
   darkMode: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({ settings: { darkMode } }) => ({ darkMode });
+const mapStateToProps = ({ settings: { darkMode = false } }) => ({ darkMode });
 
 const mapDispatchToProps = (dispatch) => ({
   toggleDarkMode: (bool) => () => dispatch(setSetting('darkMode', !!bool)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SettingsDrawer);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsHeaderLinks);

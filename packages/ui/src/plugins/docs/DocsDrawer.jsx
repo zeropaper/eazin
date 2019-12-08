@@ -3,12 +3,12 @@ import React from 'react';
 import { Drawer as DrawerPropTypes } from '../../core/plugins.propTypes';
 import Link from '../../components/Layout/Layout.Drawer.Link';
 
-const DcosDrawer = () => (
+const DocsDrawer = () => (
   <Link to="/docs">
     Docs
   </Link>
 );
 
-DcosDrawer.propTypes = DrawerPropTypes;
+DocsDrawer.propTypes = DrawerPropTypes;
 
-export default DcosDrawer;
+export default DocsDrawer;

@@ -17,10 +17,18 @@ function errorHandler(err, req, res, next) {
   if (res.headerSent) return next();
 
   if (req.accepts('json')) {
+    let fields;
+    if (err.errors) {
+      fields = Object.keys(err.errors)
+        .reduce((acc, val) => ({
+          ...acc,
+          [val]: err.errors[val].kind,
+        }), {});
+    }
     return res.send({
       error: {
         message: err.message,
-        fields: err.fields || {},
+        fields: fields || err.fields || {},
       },
     });
   }

@@ -2,71 +2,73 @@ const prepare = require('./util');
 
 const plugins = require('../src/plugins');
 
-let utils;
+const email = 'john@eazin.dev';
+
+let post;
+let db;
 beforeAll(async () => {
-  utils = await prepare({ plugins });
+  const utils = await prepare({ plugins });
+  post = utils.post;
+  db = utils.app.db;
+});
+
+afterAll(async () => {
+  db.connection.close();
 });
 
 describe('user', () => {
   let user;
 
   it('can register', async () => {
-    const { request, app: { db } } = utils;
+    let res = await post('/api/user/register')
+      .send({ email, password: '1234567890Aa!' })
+      .expect(204);
 
-    await request()
-      .post('/api/user/register')
-      .send({ email: 'john@eazin.dev', password: '1234567890Aa!' })
-      .expect(201)
-      .then(async (res) => {
-        expect(res.body).toHaveProperty('id');
-        expect(res.body).not.toHaveProperty('token');
-        expect(res.body).not.toHaveProperty('verifToken');
+    user = await db.model('User').findByUsername(email);
 
-        user = await db.model('User').findById(res.body.id);
+    expect(user).toHaveProperty('verifToken');
+    expect(user).toHaveProperty('isVerified', false);
 
-        expect(user).toHaveProperty('verifToken');
-        expect(user).toHaveProperty('isVerified', false);
-      });
+    res = await post('/api/user/register')
+      .send({ email, password: 'Aa!1234567890' })
+      .expect(400);
 
-    await request()
-      .post('/api/user/register')
-      .send({ email: 'john@eazin.dev', password: 'Aa!1234567890' })
-      .expect(400)
-      .then((res) => {
-        expect(res.body).toHaveProperty('error.fields.email');
-      });
+    expect(res.body).toHaveProperty('error.fields.email');
   });
 
   it('can verify', async () => {
-    const { request, app: { db } } = utils;
-
-    await request()
-      .post('/api/user/verify')
+    let res = await post('/api/user/verify')
       .send({
-        id: user.id,
+        id: user._id,
         verifToken: user.verifToken,
       })
-      .expect(400)
-      .then((res) => {
-        expect(res.body).toHaveProperty('error.fields.firstName', 'Cannot be empty');
-        expect(res.body).toHaveProperty('error.fields.lastName', 'Cannot be empty');
-      });
+      .expect(400);
 
-    return request()
-      .post('/api/user/verify')
+    expect(res.body).toHaveProperty('error.fields.firstName', 'Cannot be empty');
+    expect(res.body).toHaveProperty('error.fields.lastName', 'Cannot be empty');
+
+
+    // let message;
+    // await waitFor(async () => {
+    //   const messages = await sneak();
+    //   message = messages.find(({ recipient }) => (email === recipient));
+    //   return !!message;
+    // });
+
+
+    res = await post('/api/user/verify')
       .send({
-        id: user.id,
+        id: user._id,
         verifToken: user.verifToken,
         firstName: 'first',
         lastName: 'last',
       })
-      .expect(200)
-      .then(async (res) => {
-        expect(res.body).toHaveProperty('token');
+      .expect(200);
 
-        user = await db.model('User').findById(user.id);
+    expect(res.body).toHaveProperty('token');
 
-        expect(user).toHaveProperty('isVerified', true);
-      });
+    user = await db.model('User').findById(user._id);
+
+    expect(user).toHaveProperty('isVerified', true);
   });
 });

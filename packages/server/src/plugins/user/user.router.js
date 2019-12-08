@@ -7,13 +7,16 @@ const local = require('./user.auth.local');
 const requestHook = require('../../util/requestHook');
 const uid = require('../../util/uid');
 
-const sendMessage = require('../test-sender');
+const testSend = require('../test-sender');
+const mailSend = require('../mailer');
 
-const { SITE_URL } = process.env;
+const { SITE_URL, TEST_SENDER } = process.env;
+
+const sendMessage = TEST_SENDER ? testSend : mailSend;
 
 const router = express.Router();
 
-router.post('/register', requestHook, (req, res, next) => {
+const addUser = (additionMethod, req, res, next) => {
   if (!req.body) return next(new Error('No Body'));
 
   const { email, password } = req.body;
@@ -23,7 +26,7 @@ router.post('/register', requestHook, (req, res, next) => {
   User.register({
     email,
     verifToken,
-  }, password, (err, user) => {
+  }, password, (err) => {
     if (err) {
       if (err.name === 'UserExistsError') {
         // eslint-disable-next-line no-param-reassign
@@ -37,15 +40,31 @@ router.post('/register', requestHook, (req, res, next) => {
       return next(err);
     }
 
-    const message = `${SITE_URL || ''}/verify?token=${verifToken}`;
-    sendMessage(email, message)
-      .then(() => {
-        res.status(201);
-        res.send({ id: user._id });
-      })
+    const message = `${additionMethod} ${SITE_URL || ''}/verify?token=${verifToken}`;
+
+    sendMessage({
+      to: email,
+      text: message,
+      subject: additionMethod === 'invite'
+        ? 'You have been invited'
+        : 'Your registration',
+    })
+      .then(() => next())
       .catch(next);
   });
-});
+};
+
+router.post('/', requestHook, (req, res, next) => addUser('invite', req, res, (err) => {
+  if (err) return next(err);
+  res.status(201);
+  res.send();
+}));
+
+router.post('/register', requestHook, (req, res, next) => addUser('register', req, res, (err) => {
+  if (err) return next(err);
+  res.status(204);
+  res.send();
+}));
 
 router.post('/verify', requestHook, async (req, res, next) => {
   if (!req.body) return next(new Error('No Body'));

@@ -1,11 +1,25 @@
-export const testidSelector = (id) => `[data-testid="${id}"]`;
+import http from 'http';
 
-export const waitMs = (ms) => new Promise((resolve) => setTimeout(resolve, ms || 1000));
+import {
+  testidSelector,
+  waitMs,
+  waitFor,
+  sneakMessage,
+  // fixtures,
+  noop,
+} from './util';
+
+export {
+  testidSelector,
+  waitMs,
+  waitFor,
+  sneakMessage,
+  // fixtures,
+  noop,
+};
 
 export const getTextareaValue = (page, testId) => page
   .$eval(`${testidSelector(testId)} textarea:not([aria-hidden="true"])`, (el) => el.value);
-
-export const noop = async () => {};
 
 export const ifHeadless = async (yes, no) => {
   const {
@@ -20,25 +34,6 @@ export const ifHeadless = async (yes, no) => {
   }
 };
 
-export const waitFor = (check, timeout = 1000) => (new Promise((res, rej) => {
-  const started = Date.now();
-  const err = new Error(`waitFor() timeout of ${timeout}ms exceeded`);
-  const interval = setInterval(async () => {
-    if (Date.now() > started + timeout) {
-      rej(err);
-      clearInterval(interval);
-      return;
-    }
-
-    try {
-      if (await check()) {
-        res();
-        clearInterval(interval);
-      }
-    } catch (e) { /* */ }
-  }, 1);
-}));
-
 export const typeFast = (page, testId, value) => page.$eval(testidSelector(testId), (el, val) => {
   // eslint-disable-next-line no-param-reassign
   el.value = val || '';
@@ -51,4 +46,43 @@ export default {
   noop,
   ifHeadless,
   typeFast,
+  waitFor,
+  sneakMessage,
 };
+
+export const request = (path, data, method = 'post') => {
+  const { PORT } = process.env;
+
+  const json = JSON.stringify(data);
+
+  const options = {
+    hostname: 'localhost',
+    port: PORT,
+    path,
+    method: method.toUpperCase(),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Content-Length': json.length,
+    },
+  };
+
+  return new Promise((res, rej) => {
+    let receieved = '';
+    const httpRequest = http.request(options, (response) => {
+      response.on('data', (d) => { receieved += d; });
+      response.on('end', () => { res(receieved); });
+    });
+
+    httpRequest.on('error', rej);
+
+    httpRequest.write(json);
+    httpRequest.end();
+  });
+};
+
+export const fixtures = async (data) => request('/fixtures', typeof data === 'string'
+  ? { file: data }
+  : data);
+
+export const clearFixtures = () => request('/fixtures', {}, 'delete');

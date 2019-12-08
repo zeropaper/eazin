@@ -7,6 +7,10 @@ module.exports = {
       path: '/user',
       router: require('./user.router'),
     },
+    {
+      path: '/users',
+      router: require('./users.router'),
+    },
   ],
   schemas: [
     {

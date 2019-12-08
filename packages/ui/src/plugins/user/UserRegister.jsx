@@ -55,10 +55,6 @@ const UserRegister = () => {
 
   const handleSubmit = (fields) => queryAPI('/api/user/register', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
     body: JSON.stringify({
       password: fields.passwordConfirm,
       email: fields.email,

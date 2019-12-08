@@ -72,6 +72,8 @@ module.exports = {
         'docs',
         'landing',
         'repositories',
+        'organisations',
+        'groups',
         'settings',
         'user',
         'ws',

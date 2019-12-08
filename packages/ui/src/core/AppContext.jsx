@@ -9,24 +9,35 @@ import 'typeface-roboto';
 
 import logger from './util/logger';
 import { makeTheme } from './theme';
-import queryAPI from './util/queryAPI';
+import * as api from './util/queryAPI';
 import { PluginsProvider } from '../components/PluginPoint';
 
 export const appContextShape = {
   darkMode: PropTypes.bool.isRequired,
   log: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
-  query: PropTypes.func.isRequired,
+  api: PropTypes.shape({
+    get: PropTypes.func.isRequired,
+    head: PropTypes.func.isRequired,
+    post: PropTypes.func.isRequired,
+    put: PropTypes.func.isRequired,
+    patch: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
+    connect: PropTypes.func.isRequired,
+    options: PropTypes.func.isRequired,
+    trace: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-export const log = logger('HTS', 'lime');
+export const log = logger('eazin', 'lime');
 
 const defaultValue = {
   loading: 0,
   darkMode: true,
   log,
   dispatch: () => {},
-  query: () => Promise.reject(new Error('Not yet ready')),
+  api,
+  // strings: { en: {} },
 };
 
 const AppContext = React.createContext(defaultValue);
@@ -41,6 +52,7 @@ export class AppContextProvider extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.theme = makeTheme('light');
 
     Promise.all(Object.values(props.plugins))
@@ -61,12 +73,6 @@ export class AppContextProvider extends React.Component {
 
   componentWillUnmount() {
     if (typeof this.storeUnsubscribe === 'function') this.storeUnsubscribe();
-  }
-
-  get Authorization() {
-    const { store: { getState } } = this;
-    const { settings: { userToken } = {} } = getState();
-    return userToken;
   }
 
   handleStoreChange = () => {
@@ -101,29 +107,11 @@ export class AppContextProvider extends React.Component {
     return new Promise((res) => this.setState({ plugins }, res));
   };
 
-  query = async (url, {
-    headers,
-    ...options
-  } = {}) => {
-    const newHeaders = {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-      ...(headers || {}),
-    };
-    const { Authorization } = this;
-    if (Authorization) newHeaders.Authorization = `Bearer ${Authorization}`;
-    return queryAPI(url, {
-      ...options,
-      headers: newHeaders,
-    });
-  };
-
   render() {
     const {
       props: { children },
       store,
       state: { plugins, ...state },
-      query,
     } = this;
 
     if (!plugins) {
@@ -151,7 +139,8 @@ export class AppContextProvider extends React.Component {
           ...state,
           dispatch: store.dispatch,
           log,
-          query,
+          api,
+          // strings,
         }}
       >
         <PluginsProvider value={{ plugins }}>

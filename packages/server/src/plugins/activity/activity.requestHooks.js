@@ -1,13 +1,14 @@
+/* eslint-disable max-len */
 const message = (method, url) => {
   let msg = `Missing activity message for "${method} ${url}"`;
 
-  if (url.includes('/api/companies')) {
-    if (method === 'POST') msg = '<%= user.email %> (ID "<%= user._id %>") creates company <%= body.name %>';
+  if (url.includes('/api/organisations')) {
+    if (method === 'POST') msg = '<%= user.email %> (ID "<%= user._id %>") creates organisation <%= body.name %>';
     if (method === 'PATCH' || method === 'PATCH') {
-      msg = '<%= user.email %> (user ID "<%= user._id %>") updates company <%= companyId.name %>';
+      msg = '<%= user.email %> (user ID "<%= user._id %>") updates organisation <%= organisationId.name %>';
     }
-    if (method === 'DELETE') msg = '<%= user.email %> (ID "<%= user._id %>") deletes company <%= companyId.name %>';
-    if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads company <%= companyId.name %>';
+    if (method === 'DELETE') msg = '<%= user.email %> (ID "<%= user._id %>") deletes organisation <%= organisationId.name %>';
+    if (method === 'GET') msg = '<%= user.email %> (ID "<%= user._id %>") reads organisation <%= organisationId.name %>';
   } else if (url.includes('/api/clients')) {
     if (method === 'POST') msg = '<%= user.email %> (ID "<%= user._id %>") creates API client <%= body.name %>';
     if (method === 'PATCH' || method === 'PATCH') {

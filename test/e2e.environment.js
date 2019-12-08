@@ -54,7 +54,6 @@ async function closePage(browser, page) {
   }
 }
 
-
 const processDocsScreenshot = ({
   title,
   slug,
@@ -80,38 +79,41 @@ const processDocsScreenshot = ({
   };
 };
 
-const app = makeApp({
-  publicDir: 'demo/ui/build',
-  dbURL: 'mongodb://localhost:27017/eazin-e2e-test',
-  plugins,
-});
+const docsInfo = [];
+const screenshots = [];
+
+rimraf.sync(screenshotsPath);
+mkdirp.sync(screenshotsPath);
+
+if (!watching) {
+  rimraf.sync(docsOutputDir);
+  mkdirp.sync(path.join(docsOutputDir, 'screenshots'));
+}
+
 
 class PuppeteerEnvironment extends NodeEnvironment {
   async setup() {
+    // console.info('######### setup');
     await super.setup();
 
     this.counter = 0;
-    this.screenshots = [];
-    this.docsInfo = [];
 
     this.global.baseURL = `http://localhost:${PORT}`;
     const PORTint = parseInt(PORT, 10);
 
-    this.app = await app;
-    this.global.db = this.app.db;
-
     if (JEST_SERVE || !watching) {
+      const app = makeApp({
+        publicDir: 'demo/ui/build',
+        dbURL: 'mongodb://localhost:27017/eazin-e2e-test',
+        plugins,
+      });
+
+      this.app = await app;
+      this.global.db = this.app.db;
       if (!await tcpPortUsed.check(PORTint)) this.app.listen(PORTint);
     }
+
     await tcpPortUsed.waitUntilUsed(PORTint, 500, 4000);
-
-    rimraf.sync(screenshotsPath);
-    mkdirp.sync(screenshotsPath);
-
-    if (!watching) {
-      rimraf.sync(docsOutputDir);
-      mkdirp.sync(path.join(docsOutputDir, 'screenshots'));
-    }
 
     const commonOptions = {
       headless: !watching,
@@ -127,31 +129,24 @@ class PuppeteerEnvironment extends NodeEnvironment {
     this.global.testSlowMo = commonOptions.slowMo;
     this.global.testWatching = commonOptions.watching;
 
+    const pages = await browser.pages();
     this.global.testPages = [
-      await browser.newPage(),
+      ...pages,
     ];
-    this.global.testPages[0].on('console', (msg) => {
-      for (let i = 0; i < msg.args().length; i += 1) {
-        console.log(`0 ${i}: ${msg.args()[i]}`);
-      }
-    });
-
-    // this.global.keepBrowserOpen = () => {
-    //   // browser.disconnect();
-    //   // this.teardown();
-    //   if (TEST_KEEP_BROWSER) throw new Error('Keep open!');
-    //   // process.abort();
-    //   // process.exit(1);
-    // };
+    // this.global.testPages[0].on('console', (msg) => {
+    //   for (let i = 0; i < msg.args().length; i += 1) {
+    //     console.log(`0 ${i}: ${msg.args()[i]}`);
+    //   }
+    // });
 
     const addNewPageWithNewContext = async () => {
       const page = await newPageWithNewContext(browser);
       this.global.testPages.push(page);
-      page.on('console', (msg) => {
-        for (let i = 0; i < msg.args().length; i += 1) {
-          console.log(`${this.global.testPages.length} ${i}: ${msg.args()[i]}`);
-        }
-      });
+      // page.on('console', (msg) => {
+      //   for (let i = 0; i < msg.args().length; i += 1) {
+      //     console.log(`${this.global.testPages.length} ${i}: ${msg.args()[i]}`);
+      //   }
+      // });
     };
     this.global.addNewPageWithNewContext = addNewPageWithNewContext;
 
@@ -159,7 +154,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
 
     this.global.writeDocs = async ({
       info = {},
-      screenshots = [],
+      screenshots: shots = [],
     } = {}) => {
       const {
         title = 'Missing title',
@@ -170,39 +165,49 @@ class PuppeteerEnvironment extends NodeEnvironment {
         title,
         description,
         screenshots: await Promise
-          .all(screenshots
+          .all(shots
             .map(processDocsScreenshot({
               title,
               slug: slugify(title),
               testPages: this.global.testPages,
-              number: this.docsInfo.length,
+              number: docsInfo.length,
             }))),
       };
 
-      this.docsInfo.push(generated);
+      docsInfo.push(generated);
     };
   }
 
   async teardown() {
+    // console.info('######### teardown');
+
+    if (JEST_SERVE && !TEST_KEEP_BROWSER) {
+      console.info('closing server', !!this.app);
+      try {
+        this.app.db.connection.close();
+        this.app.close();
+      } catch (err) {
+        console.warn('Could not close app', err.stack);
+      }
+    }
+
     try {
       await new Promise((res) => setTimeout(res, 200 * (this.global.slowMo + 1)));
 
       const report = await reportTemplate({
         title: 'Eazin E2E Test Report',
         outputDirectory: e2eOutputDir,
-        info: this.screenshots,
+        info: screenshots,
       });
       await writeFile(path.join(e2eOutputDir, 'index.html'), report, 'utf8');
 
       if (!watching) {
         const docs = await documentationTemplate({
           title: 'Eazin Documenation',
-          info: this.docsInfo,
+          info: docsInfo,
         });
         await writeFile(path.join(docsOutputDir, 'index.html'), docs, 'utf8');
       }
-
-      if (this.app && typeof this.app.close === 'function') this.app.close();
 
       await Promise.all((this.global.testPages || [])
         .map(async (page) => {
@@ -223,6 +228,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
     }
 
     await super.teardown();
+    // console.info('######### teardown over');
   }
 
   runScript(script) {
@@ -231,6 +237,8 @@ class PuppeteerEnvironment extends NodeEnvironment {
 
   handleTestEvent(event, state) {
     this.global.currentlyRunningTest = (state || {}).currentlyRunningTest;
+    // console.info('[e2e]', event.name, state.currentDescribeBlock ? state.currentDescribeBlock.name : null, state.currentlyRunningTest ? state.currentlyRunningTest.name : null);
+    // if (event.name === 'setup') console.info('setup state', state);
 
     if (['test_fn_success', 'test_fn_failure'].indexOf(event.name) < 0) return;
     this.counter += 1;
@@ -248,7 +256,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
       screenshotPaths: [],
       state: { ...state.currentlyRunningTest },
     };
-    this.screenshots.push(info);
+    screenshots.push(info);
     Promise.all(this.global.testPages.map((page, p) => {
       const screenshotPath = makePath(p);
       info.screenshotPaths.push(screenshotPath);
