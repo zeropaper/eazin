@@ -1,6 +1,6 @@
-(window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[24],{
+(window["webpackJsonp_name_"] = window["webpackJsonp_name_"] || []).push([[4],{
 
-/***/ 55:
+/***/ 54:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,19 +21,19 @@ var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(6);
+var external_react_redux_ = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "@material-ui/core"
-var core_ = __webpack_require__(1);
+var core_ = __webpack_require__(2);
 
 // EXTERNAL MODULE: external "@material-ui/core/styles"
 var styles_ = __webpack_require__(4);
 
 // EXTERNAL MODULE: ./src/components/PluginPoint.jsx
-var PluginPoint = __webpack_require__(7);
+var PluginPoint = __webpack_require__(8);
 
 // EXTERNAL MODULE: ./src/components/LoadingFallback.jsx
-var LoadingFallback = __webpack_require__(11);
+var LoadingFallback = __webpack_require__(13);
 
 // CONCATENATED MODULE: ./src/plugins/landing/LandingView.Wrapper.jsx
 
@@ -178,4 +178,4 @@ var landing = function landing() {
 /***/ })
 
 }]);
-//# sourceMappingURL=plugin.landing.js.map
+//# sourceMappingURL=Apploader.plugin.landing.js.map

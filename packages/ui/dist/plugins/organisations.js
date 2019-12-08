@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("plugins/repositories", [], factory);
+		define("plugins/organisations", [], factory);
 	else if(typeof exports === 'object')
-		exports["plugins/repositories"] = factory();
+		exports["plugins/organisations"] = factory();
 	else
-		root["plugins/repositories"] = factory();
+		root["plugins/organisations"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 81);
+/******/ 	return __webpack_require__(__webpack_require__.s = 82);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -107,6 +107,74 @@ module.exports = require("react");
 /***/ (function(module, exports) {
 
 module.exports = require("prop-types");
+
+/***/ }),
+
+/***/ 12:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+/* harmony default export */ __webpack_exports__["a"] = (function (theme) {
+  var _menuLink;
+
+  return {
+    root: {
+      minWidth: '20vw',
+      maxWidth: '45vw',
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
+      overflow: 'auto'
+    },
+    menuLink: (_menuLink = {
+      color: 'currentColor',
+      textDecoration: 'none',
+      cursor: 'pointer',
+      padding: "".concat(theme.spacing(1), "px ").concat(theme.spacing(2), "px")
+    }, _defineProperty(_menuLink, theme.breakpoints.up('md'), {
+      padding: theme.spacing(2)
+    }), _defineProperty(_menuLink, "display", 'block'), _defineProperty(_menuLink, '&.active', {
+      textDecoration: 'underline'
+    }), _menuLink)
+  };
+});
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/core");
+
+/***/ }),
+
+/***/ 20:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_router_dom__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(12);
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core__WEBPACK_IMPORTED_MODULE_1__["withStyles"])(_Layout_Drawer_styles__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"])(function (_ref) {
+  var classes = _ref.classes,
+      children = _ref.children,
+      to = _ref.to;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["NavLink"], {
+    className: classes.menuLink,
+    to: to
+  }, children);
+}));
 
 /***/ }),
 
@@ -156,15 +224,14 @@ var LandingView = _objectSpread({}, View);
 
 /***/ }),
 
-/***/ 81:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 3:
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(99);
-
+module.exports = require("react-router-dom");
 
 /***/ }),
 
-/***/ 99:
+/***/ 56:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -177,34 +244,58 @@ var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_)
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
 var plugins_propTypes = __webpack_require__(25);
 
-// CONCATENATED MODULE: ./src/plugins/repositories/ReposLandingView.jsx
+// CONCATENATED MODULE: ./src/plugins/organisations/OrganisationsLandingView.jsx
 
 
 
-var ReposLandingView_ReposLandingView = function ReposLandingView(props) {
+var OrganisationsLandingView_OrganisationsLandingView = function OrganisationsLandingView(props) {
   // eslint-disable-next-line no-console
-  // console.info('ReposLandingView props', props);
+  // console.info('OrganisationsLandingView props', props);
   var WrapIn = props.wrapIn;
   return [external_react_default.a.createElement(WrapIn, {
     key: "a"
-  }, "Repo View A"), external_react_default.a.createElement(WrapIn, {
+  }, "Organisation View A"), external_react_default.a.createElement(WrapIn, {
     key: "b"
-  }, "Repo View B")];
+  }, "Organisation View B")];
 };
 
-/* harmony default export */ var repositories_ReposLandingView = (ReposLandingView_ReposLandingView);
-// CONCATENATED MODULE: ./src/plugins/repositories/index.js
+/* harmony default export */ var organisations_OrganisationsLandingView = (OrganisationsLandingView_OrganisationsLandingView);
+// EXTERNAL MODULE: ./src/components/Layout/Layout.Drawer.Link.jsx
+var Layout_Drawer_Link = __webpack_require__(20);
+
+// CONCATENATED MODULE: ./src/plugins/organisations/OrganisationsDrawer.jsx
+
+
+
+var OrganisationsDrawer_OrganisationsDrawer = function OrganisationsDrawer() {
+  return external_react_default.a.createElement(Layout_Drawer_Link["default"], {
+    to: "/organisations"
+  }, "Organisations");
+};
+
+/* harmony default export */ var organisations_OrganisationsDrawer = (OrganisationsDrawer_OrganisationsDrawer);
+// CONCATENATED MODULE: ./src/plugins/organisations/index.js
+
 
 var routes = [{
   path: '/',
-  LandingView: repositories_ReposLandingView
+  Drawer: organisations_OrganisationsDrawer,
+  LandingView: organisations_OrganisationsLandingView
 }];
-/* harmony default export */ var repositories = __webpack_exports__["default"] = ({
+/* harmony default export */ var organisations = __webpack_exports__["default"] = ({
   routes: routes
 });
+
+/***/ }),
+
+/***/ 82:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(56);
+
 
 /***/ })
 
 /******/ });
 });
-//# sourceMappingURL=repositories.js.map
+//# sourceMappingURL=organisations.js.map
