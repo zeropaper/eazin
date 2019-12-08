@@ -65,7 +65,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lerna run --scope eazin-ui build && npm run lint && npm test && git add packages/ui/dist && git commit --no-verify -m \"auto update ui dist\""
+      "pre-commit": "lerna run --scope eazin-ui build && npm run lint && npm test",
+      "pre-push": "lerna run --scope eazin-ui build && git add packages/ui/dist && git commit --no-verify -m \"auto update ui dist\""
     }
   },
   "engines": {
