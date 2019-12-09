@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 71);
+/******/ 	return __webpack_require__(__webpack_require__.s = 72);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -163,7 +163,9 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 var readUserToken = function readUserToken() {
-  return Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])().userToken;
+  var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
+  console.info('Auth', store);
+  return store.userToken;
 };
 
 var queryAPI = function queryAPI(url) {
@@ -175,7 +177,8 @@ var queryAPI = function queryAPI(url) {
       options = _objectWithoutProperties(_ref, ["parser"]);
 
   var auth = readUserToken();
-  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, _objectSpread({}, options, {
+
+  var opts = _objectSpread({}, options, {
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -183,7 +186,9 @@ var queryAPI = function queryAPI(url) {
       Authorization: "Bearer ".concat(auth)
     } : {}, {}, options.headers || {}),
     body: typeof options.body === 'string' ? options.body : JSON.stringify(options.body)
-  })).then(function _callee(res) {
+  });
+
+  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, opts).then(function _callee(res) {
     var json, err, message, _err;
 
     return regeneratorRuntime.async(function _callee$(_context) {
@@ -1452,7 +1457,8 @@ module.exports = require("@material-ui/core/Link");
 /* 55 */,
 /* 56 */,
 /* 57 */,
-/* 58 */
+/* 58 */,
+/* 59 */
 /***/ (function(module, exports) {
 
 // export { default as activity } from './activity';
@@ -1465,7 +1471,6 @@ module.exports = require("@material-ui/core/Link");
 // export { default as kitchenSink } from './kitchen-sink';
 
 /***/ }),
-/* 59 */,
 /* 60 */,
 /* 61 */,
 /* 62 */,
@@ -1477,14 +1482,15 @@ module.exports = require("@material-ui/core/Link");
 /* 68 */,
 /* 69 */,
 /* 70 */,
-/* 71 */
+/* 71 */,
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(72);
+module.exports = __webpack_require__(73);
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1510,7 +1516,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _PluginPoint__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginPoint", function() { return _PluginPoint__WEBPACK_IMPORTED_MODULE_6__["default"]; });
 
-/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(58);
+/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59);
 /* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_plugins__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _plugins__WEBPACK_IMPORTED_MODULE_7__) if(["LayoutDrawer","LayoutDrawerLink","LayoutHeader","Layout","Link","LoadingFallback","PluginPoint","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _plugins__WEBPACK_IMPORTED_MODULE_7__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 

@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 85);
+/******/ 	return __webpack_require__(__webpack_require__.s = 86);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -163,7 +163,9 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 var readUserToken = function readUserToken() {
-  return Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])().userToken;
+  var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
+  console.info('Auth', store);
+  return store.userToken;
 };
 
 var queryAPI = function queryAPI(url) {
@@ -175,7 +177,8 @@ var queryAPI = function queryAPI(url) {
       options = _objectWithoutProperties(_ref, ["parser"]);
 
   var auth = readUserToken();
-  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, _objectSpread({}, options, {
+
+  var opts = _objectSpread({}, options, {
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -183,7 +186,9 @@ var queryAPI = function queryAPI(url) {
       Authorization: "Bearer ".concat(auth)
     } : {}, {}, options.headers || {}),
     body: typeof options.body === 'string' ? options.body : JSON.stringify(options.body)
-  })).then(function _callee(res) {
+  });
+
+  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, opts).then(function _callee(res) {
     var json, err, message, _err;
 
     return regeneratorRuntime.async(function _callee$(_context) {
@@ -1910,6 +1915,14 @@ var styles = function styles(theme) {
     component: user_UserLogin
   })))));
 }));
+// CONCATENATED MODULE: ./src/plugins/user/UserAccountView.jsx
+
+
+var UserAccountView_AccountView = function AccountView() {
+  return external_react_default.a.createElement("div", null, "Account");
+};
+
+/* harmony default export */ var UserAccountView = (UserAccountView_AccountView);
 // EXTERNAL MODULE: ./src/core/plugins.propTypes.js
 var plugins_propTypes = __webpack_require__(25);
 
@@ -2070,8 +2083,8 @@ var Layout_Drawer_Link = __webpack_require__(20);
 
 var UserDrawer_UserDrawer = function UserDrawer() {
   return external_react_default.a.createElement(Layout_Drawer_Link["default"], {
-    to: "/users"
-  }, "Users");
+    to: "/account"
+  }, "Account");
 };
 
 /* harmony default export */ var user_UserDrawer = (UserDrawer_UserDrawer);
@@ -2084,9 +2097,10 @@ var UserDrawer_UserDrawer = function UserDrawer() {
 
 
 
+
 var user_bootstrap = function bootstrap(state, dispatch) {
   return Object(queryAPI["get"])('/api/user/me').then(function (res) {
-    if (!res.username) throw new Error('No username');
+    if (!res.id) throw new Error('No id');
     dispatch(setUser(res));
   }).catch(function () {
     dispatch(clearUser());
@@ -2094,6 +2108,9 @@ var user_bootstrap = function bootstrap(state, dispatch) {
   });
 };
 var routes = [{
+  path: '/account',
+  View: UserAccountView
+}, {
   path: '/users',
   View: user_UsersView
 }, {
@@ -2155,7 +2172,8 @@ var user_wsBootstrap = function wsBootstrap(socket, dispatch, getState) {
 /* 82 */,
 /* 83 */,
 /* 84 */,
-/* 85 */
+/* 85 */,
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(53);

@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 89);
+/******/ 	return __webpack_require__(__webpack_require__.s = 90);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -137,7 +137,9 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 var readUserToken = function readUserToken() {
-  return Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])().userToken;
+  var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
+  console.info('Auth', store);
+  return store.userToken;
 };
 
 var queryAPI = function queryAPI(url) {
@@ -149,7 +151,8 @@ var queryAPI = function queryAPI(url) {
       options = _objectWithoutProperties(_ref, ["parser"]);
 
   var auth = readUserToken();
-  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, _objectSpread({}, options, {
+
+  var opts = _objectSpread({}, options, {
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -157,7 +160,9 @@ var queryAPI = function queryAPI(url) {
       Authorization: "Bearer ".concat(auth)
     } : {}, {}, options.headers || {}),
     body: typeof options.body === 'string' ? options.body : JSON.stringify(options.body)
-  })).then(function _callee(res) {
+  });
+
+  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, opts).then(function _callee(res) {
     var json, err, message, _err;
 
     return regeneratorRuntime.async(function _callee$(_context) {
@@ -248,14 +253,6 @@ var get = api.get,
 
 /***/ }),
 
-/***/ 89:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(6);
-
-
-/***/ }),
-
 /***/ 9:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -302,6 +299,14 @@ var restore = function restore() {
       return state;
   }
 });
+
+/***/ }),
+
+/***/ 90:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(6);
+
 
 /***/ })
 

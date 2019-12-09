@@ -1,4 +1,5 @@
 packages/ui/build
+packages/ui/dist
 demo/ui/build
 projects
 

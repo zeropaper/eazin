@@ -53,7 +53,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "" + ({"2":"Apploader.plugin.clients","3":"Apploader.plugin.groups","4":"Apploader.plugin.landing","5":"Apploader.plugin.organisations","6":"Apploader.plugin.settings","7":"Apploader.plugin.user"}[chunkId]||chunkId) + ".js"
+/******/ 		return __webpack_require__.p + "" + ({"21":"eazin.plugin.activity","22":"eazin.plugin.clients","23":"eazin.plugin.groups","24":"eazin.plugin.kitchenSink","25":"eazin.plugin.landing","26":"eazin.plugin.organisations","27":"eazin.plugin.settings","28":"eazin.plugin.user"}[chunkId]||chunkId) + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -206,7 +206,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 74);
+/******/ 	return __webpack_require__(__webpack_require__.s = 75);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -278,7 +278,9 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 var readUserToken = function readUserToken() {
-  return Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])().userToken;
+  var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
+  console.info('Auth', store);
+  return store.userToken;
 };
 
 var queryAPI = function queryAPI(url) {
@@ -290,7 +292,8 @@ var queryAPI = function queryAPI(url) {
       options = _objectWithoutProperties(_ref, ["parser"]);
 
   var auth = readUserToken();
-  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, _objectSpread({}, options, {
+
+  var opts = _objectSpread({}, options, {
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -298,7 +301,9 @@ var queryAPI = function queryAPI(url) {
       Authorization: "Bearer ".concat(auth)
     } : {}, {}, options.headers || {}),
     body: typeof options.body === 'string' ? options.body : JSON.stringify(options.body)
-  })).then(function _callee(res) {
+  });
+
+  return Object(_simpleFetch__WEBPACK_IMPORTED_MODULE_0__["default"])(url, opts).then(function _callee(res) {
     var json, err, message, _err;
 
     return regeneratorRuntime.async(function _callee$(_context) {
@@ -1602,14 +1607,15 @@ App.defaultProps = {
 /* 71 */,
 /* 72 */,
 /* 73 */,
-/* 74 */
+/* 74 */,
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(75);
+module.exports = __webpack_require__(76);
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1625,17 +1631,17 @@ var AppLoader = function AppLoader() {
     /* eslint-disable max-len */
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_1__["default"], {
       plugins: {
-        landing: __webpack_require__.e(/* import() | Apploader.plugin.landing */ 4).then(__webpack_require__.bind(null, 54)),
-        user: __webpack_require__.e(/* import() | Apploader.plugin.user */ 7).then(__webpack_require__.bind(null, 53)),
-        settings: __webpack_require__.e(/* import() | Apploader.plugin.settings */ 6).then(__webpack_require__.bind(null, 55)),
-        // repositories: import(/* webpackChunkName: "Apploader.plugin.repositories" */'./plugins/repositories'),
-        // activity: import(/* webpackChunkName: "Apploader.plugin.activity" */'./plugins/activity'),
-        // docs: import(/* webpackChunkName: "Apploader.plugin.docs" */'./plugins/docs'),
-        organisations: __webpack_require__.e(/* import() | Apploader.plugin.organisations */ 5).then(__webpack_require__.bind(null, 56)),
-        groups: __webpack_require__.e(/* import() | Apploader.plugin.groups */ 3).then(__webpack_require__.bind(null, 57)),
-        clients: __webpack_require__.e(/* import() | Apploader.plugin.clients */ 2).then(__webpack_require__.bind(null, 100)) // ws: import(/* webpackChunkName: "Apploader.plugin.ws" */'./plugins/ws'),
-        // kitchenSink: import(/* webpackChunkName: "Apploader.plugin.kitchenSink" */'./plugins/kitchen-sink'),
-
+        landing: __webpack_require__.e(/* import() | eazin.plugin.landing */ 25).then(__webpack_require__.bind(null, 55)),
+        user: __webpack_require__.e(/* import() | eazin.plugin.user */ 28).then(__webpack_require__.bind(null, 53)),
+        settings: __webpack_require__.e(/* import() | eazin.plugin.settings */ 27).then(__webpack_require__.bind(null, 56)),
+        // repositories: import(/* webpackChunkName: "eazin.plugin.repositories" */'./plugins/repositories'),
+        activity: __webpack_require__.e(/* import() | eazin.plugin.activity */ 21).then(__webpack_require__.bind(null, 54)),
+        // docs: import(/* webpackChunkName: "eazin.plugin.docs" */'./plugins/docs'),
+        organisations: __webpack_require__.e(/* import() | eazin.plugin.organisations */ 26).then(__webpack_require__.bind(null, 57)),
+        groups: __webpack_require__.e(/* import() | eazin.plugin.groups */ 23).then(__webpack_require__.bind(null, 58)),
+        clients: __webpack_require__.e(/* import() | eazin.plugin.clients */ 22).then(__webpack_require__.bind(null, 100)),
+        // ws: import(/* webpackChunkName: "eazin.plugin.ws" */'./plugins/ws'),
+        kitchenSink: __webpack_require__.e(/* import() | eazin.plugin.kitchenSink */ 24).then(__webpack_require__.bind(null, 101))
       }
     })
     /* eslint-enable max-len */
