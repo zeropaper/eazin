@@ -20,7 +20,7 @@ module.exports = {
         },
         envs: ['browser', 'jest'],
         rules: {
-          'max-len': ['error', {
+          'max-len': ['warn', {
             code: 120,
             ignoreComments: true,
             ignoreTrailingComments: true,

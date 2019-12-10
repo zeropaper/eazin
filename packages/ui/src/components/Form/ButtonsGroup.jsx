@@ -4,6 +4,18 @@ import Button from '@material-ui/core/Button';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+const styles = (theme) => ({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: theme.spacing(1),
+    '& > button': {
+      marginLeft: theme.spacing(2),
+    },
+  },
+});
+
 const ButtonsGroup = ({
   style = null,
   className = null,
@@ -17,7 +29,7 @@ const ButtonsGroup = ({
 }) => (
   <div
     style={style}
-    className={classNames(className, classes.root)}
+    className={classNames(classes.root, className)}
   >
     {buttons.map((info) => {
       const {
@@ -31,7 +43,7 @@ const ButtonsGroup = ({
         key: key || text,
         variant: 'contained',
         type: 'button',
-        color: 'primary',
+        color: rest.type === 'submit' ? 'primary' : 'default',
         ...rest,
       };
 
@@ -63,13 +75,4 @@ ButtonsGroup.defaultProps = {
   buttons: [],
 };
 
-export default withStyles((theme) => ({
-  root: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    '& > button': {
-      marginLeft: theme.spacing(2),
-    },
-  },
-}))(ButtonsGroup);
+export default withStyles(styles)(ButtonsGroup);

@@ -159,7 +159,6 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var readUserToken = function readUserToken() {
   var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
-  console.info('Auth', store);
   return store.userToken;
 };
 
@@ -174,6 +173,7 @@ var queryAPI = function queryAPI(url) {
   var auth = readUserToken();
 
   var opts = _objectSpread({}, options, {
+    method: options.method.toUpperCase(),
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -251,15 +251,13 @@ var queryAPI = function queryAPI(url) {
 };
 
 
-var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (acc, val) {
-  acc[val] = function (url) {
+var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (result, method) {
+  return _objectSpread({}, result, _defineProperty({}, method, function (url) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return queryAPI(url, _objectSpread({}, options, {
-      method: val.toUpperCase()
+      method: method
     }));
-  };
-
-  return acc;
+  }));
 }, {});
 var get = api.get,
     head = api.head,

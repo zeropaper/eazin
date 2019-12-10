@@ -126,7 +126,7 @@ module.exports = require("classnames");
 
 /***/ }),
 
-/***/ 27:
+/***/ 26:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -181,53 +181,92 @@ function (_React$Component) {
       error: null
     };
 
+    _this.handlePrepareRequest = function (fields) {
+      return new Promise(function (res) {
+        _this.setState({
+          error: null,
+          errors: null
+        }, function () {
+          var processFields = _this.props.processFields;
+          res(typeof processFields === 'function' ? processFields(fields) : fields);
+        });
+      });
+    };
+
+    _this.handleSuccess = function (result) {
+      return _this.setState({
+        error: null,
+        errors: null
+      }, function () {
+        var onSuccess = _this.props.onSuccess;
+        if (typeof onSuccess === 'function') onSuccess(result);
+      });
+    };
+
+    _this.handleFailure = function (err) {
+      return _this.setState({
+        errors: err.fields || {},
+        error: err.message
+      }, function () {
+        var onFailure = _this.props.onFailure;
+        if (typeof onFailure === 'function') onFailure(err);
+      });
+    };
+
     _this.handleSubmit = function _callee(fields) {
-      var _this$props, onSubmit, onSuccess, onFailure, method, url, processFields, userToken, processed, headers, result;
+      var _this$props, onSubmit, onFailure, method, url, processed, result, _result;
 
       return regeneratorRuntime.async(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _this$props = _this.props, onSubmit = _this$props.onSubmit, onSuccess = _this$props.onSuccess, onFailure = _this$props.onFailure, method = _this$props.method, url = _this$props.url, processFields = _this$props.processFields, userToken = _this$props.userToken;
+              _this$props = _this.props, onSubmit = _this$props.onSubmit, onFailure = _this$props.onFailure, method = _this$props.method, url = _this$props.url;
               _context.prev = 1;
-              processed = typeof processFields === 'function' ? processFields(fields) : fields;
+              _context.next = 4;
+              return regeneratorRuntime.awrap(_this.handlePrepareRequest(fields));
 
-              if (!onSubmit) {
-                _context.next = 7;
+            case 4:
+              processed = _context.sent;
+
+              if (!(typeof onSubmit === 'function')) {
+                _context.next = 11;
                 break;
               }
 
-              _context.next = 6;
+              _context.next = 8;
               return regeneratorRuntime.awrap(onSubmit(processed));
 
-            case 6:
+            case 8:
+              result = _context.sent;
+
+              _this.handleSuccess(result);
+
               return _context.abrupt("return");
 
-            case 7:
+            case 11:
               if (!(method && url)) {
-                _context.next = 14;
+                _context.next = 17;
                 break;
               }
 
-              headers = {};
-              if (userToken) headers.Authorization = "Bearer ".concat(userToken);
-              _context.next = 12;
+              _context.next = 14;
               return regeneratorRuntime.awrap(Object(_core_util_queryAPI__WEBPACK_IMPORTED_MODULE_2__["default"])(url, {
-                method: method.toUpperCase(),
-                body: JSON.stringify(processed),
-                headers: headers
+                method: method,
+                body: processed
               }));
 
-            case 12:
-              result = _context.sent;
-              if (typeof onSuccess === 'function') onSuccess(result);
-
             case 14:
-              _context.next = 21;
-              break;
+              _result = _context.sent;
 
-            case 16:
-              _context.prev = 16;
+              _this.handleSuccess(_result);
+
+              return _context.abrupt("return");
+
+            case 17:
+              throw new Error('Missing either "onSubmit" or "method" + "url"');
+
+            case 20:
+              _context.prev = 20;
               _context.t0 = _context["catch"](1);
 
               _this.setState({
@@ -238,12 +277,12 @@ function (_React$Component) {
               if (typeof onFailure === 'function') onFailure(_context.t0);
               throw _context.t0;
 
-            case 21:
+            case 25:
             case "end":
               return _context.stop();
           }
         }
-      }, null, null, [[1, 16]]);
+      }, null, null, [[1, 20]]);
     };
 
     _this.renderFields = function (_ref) {
@@ -292,8 +331,7 @@ FormBase.defaultProps = {
   onSuccess: null,
   onFailure: null,
   render: null,
-  fieldClassName: null,
-  userToken: null
+  fieldClassName: null
 };
 /* harmony default export */ __webpack_exports__["a"] = (FormBase);
 
@@ -567,6 +605,20 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 
 
+var styles = function styles(theme) {
+  return {
+    root: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      marginTop: theme.spacing(1),
+      '& > button': {
+        marginLeft: theme.spacing(2)
+      }
+    }
+  };
+};
+
 var ButtonsGroup = function ButtonsGroup() {
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
     style: null,
@@ -584,7 +636,7 @@ var ButtonsGroup = function ButtonsGroup() {
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     style: style,
-    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(className, classes.root)
+    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()(classes.root, className)
   }, buttons.map(function (info) {
     var children = info.children,
         text = info.text,
@@ -595,7 +647,7 @@ var ButtonsGroup = function ButtonsGroup() {
       key: key || text,
       variant: 'contained',
       type: 'button',
-      color: 'primary'
+      color: rest.type === 'submit' ? 'primary' : 'default'
     }, rest);
 
     return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_1___default.a, _objectSpread({}, props), children || text);
@@ -607,18 +659,7 @@ ButtonsGroup.defaultProps = {
   className: null,
   buttons: []
 };
-/* harmony default export */ __webpack_exports__["a"] = (_material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_3___default()(function (theme) {
-  return {
-    root: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-end',
-      '& > button': {
-        marginLeft: theme.spacing(2)
-      }
-    }
-  };
-})(ButtonsGroup));
+/* harmony default export */ __webpack_exports__["a"] = (_material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_3___default()(styles)(ButtonsGroup));
 
 /***/ }),
 
@@ -669,7 +710,6 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var readUserToken = function readUserToken() {
   var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
-  console.info('Auth', store);
   return store.userToken;
 };
 
@@ -684,6 +724,7 @@ var queryAPI = function queryAPI(url) {
   var auth = readUserToken();
 
   var opts = _objectSpread({}, options, {
+    method: options.method.toUpperCase(),
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -761,15 +802,13 @@ var queryAPI = function queryAPI(url) {
 };
 
 
-var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (acc, val) {
-  acc[val] = function (url) {
+var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (result, method) {
+  return _objectSpread({}, result, _defineProperty({}, method, function (url) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return queryAPI(url, _objectSpread({}, options, {
-      method: val.toUpperCase()
+      method: method
     }));
-  };
-
-  return acc;
+  }));
 }, {});
 var get = api.get,
     head = api.head,
@@ -797,7 +836,7 @@ module.exports = __webpack_require__(63);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _FormBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(27);
+/* harmony import */ var _FormBase__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(26);
 /* harmony import */ var _ButtonsGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(44);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "ButtonsGroup", function() { return _ButtonsGroup__WEBPACK_IMPORTED_MODULE_1__["a"]; });
 

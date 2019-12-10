@@ -279,7 +279,6 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var readUserToken = function readUserToken() {
   var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
-  console.info('Auth', store);
   return store.userToken;
 };
 
@@ -294,6 +293,7 @@ var queryAPI = function queryAPI(url) {
   var auth = readUserToken();
 
   var opts = _objectSpread({}, options, {
+    method: options.method.toUpperCase(),
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -371,15 +371,13 @@ var queryAPI = function queryAPI(url) {
 };
 
 
-var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (acc, val) {
-  acc[val] = function (url) {
+var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (result, method) {
+  return _objectSpread({}, result, _defineProperty({}, method, function (url) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return queryAPI(url, _objectSpread({}, options, {
-      method: val.toUpperCase()
+      method: method
     }));
-  };
-
-  return acc;
+  }));
 }, {});
 var get = api.get,
     head = api.head,
@@ -1147,7 +1145,8 @@ module.exports = require("@material-ui/core/CssBaseline");
 
 /***/ }),
 /* 25 */,
-/* 26 */
+/* 26 */,
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1242,7 +1241,6 @@ var styled = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["withS
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps)(Object(_core_AppContext__WEBPACK_IMPORTED_MODULE_6__["withAppContext"])(styled)));
 
 /***/ }),
-/* 27 */,
 /* 28 */
 /***/ (function(module, exports) {
 
@@ -1305,7 +1303,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _Layout_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
+/* harmony import */ var _Layout_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
 /* harmony import */ var _Layout_Drawer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(29);
 /* harmony import */ var _PluginPoint__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
@@ -1586,7 +1584,12 @@ App.defaultProps = {
 /***/ }),
 /* 51 */,
 /* 52 */,
-/* 53 */,
+/* 53 */
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/styles");
+
+/***/ }),
 /* 54 */,
 /* 55 */,
 /* 56 */,
@@ -1631,14 +1634,14 @@ var AppLoader = function AppLoader() {
     /* eslint-disable max-len */
     react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_1__["default"], {
       plugins: {
-        landing: __webpack_require__.e(/* import() | eazin.plugin.landing */ 25).then(__webpack_require__.bind(null, 55)),
-        user: __webpack_require__.e(/* import() | eazin.plugin.user */ 28).then(__webpack_require__.bind(null, 53)),
-        settings: __webpack_require__.e(/* import() | eazin.plugin.settings */ 27).then(__webpack_require__.bind(null, 56)),
+        landing: __webpack_require__.e(/* import() | eazin.plugin.landing */ 25).then(__webpack_require__.bind(null, 56)),
+        user: __webpack_require__.e(/* import() | eazin.plugin.user */ 28).then(__webpack_require__.bind(null, 54)),
+        settings: __webpack_require__.e(/* import() | eazin.plugin.settings */ 27).then(__webpack_require__.bind(null, 57)),
         // repositories: import(/* webpackChunkName: "eazin.plugin.repositories" */'./plugins/repositories'),
-        activity: __webpack_require__.e(/* import() | eazin.plugin.activity */ 21).then(__webpack_require__.bind(null, 54)),
+        activity: __webpack_require__.e(/* import() | eazin.plugin.activity */ 21).then(__webpack_require__.bind(null, 55)),
         // docs: import(/* webpackChunkName: "eazin.plugin.docs" */'./plugins/docs'),
-        organisations: __webpack_require__.e(/* import() | eazin.plugin.organisations */ 26).then(__webpack_require__.bind(null, 57)),
-        groups: __webpack_require__.e(/* import() | eazin.plugin.groups */ 23).then(__webpack_require__.bind(null, 58)),
+        organisations: __webpack_require__.e(/* import() | eazin.plugin.organisations */ 26).then(__webpack_require__.bind(null, 58)),
+        groups: __webpack_require__.e(/* import() | eazin.plugin.groups */ 23).then(__webpack_require__.bind(null, 59)),
         clients: __webpack_require__.e(/* import() | eazin.plugin.clients */ 22).then(__webpack_require__.bind(null, 100)),
         // ws: import(/* webpackChunkName: "eazin.plugin.ws" */'./plugins/ws'),
         kitchenSink: __webpack_require__.e(/* import() | eazin.plugin.kitchenSink */ 24).then(__webpack_require__.bind(null, 101))

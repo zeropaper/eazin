@@ -164,7 +164,6 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var readUserToken = function readUserToken() {
   var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
-  console.info('Auth', store);
   return store.userToken;
 };
 
@@ -179,6 +178,7 @@ var queryAPI = function queryAPI(url) {
   var auth = readUserToken();
 
   var opts = _objectSpread({}, options, {
+    method: options.method.toUpperCase(),
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -256,15 +256,13 @@ var queryAPI = function queryAPI(url) {
 };
 
 
-var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (acc, val) {
-  acc[val] = function (url) {
+var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (result, method) {
+  return _objectSpread({}, result, _defineProperty({}, method, function (url) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return queryAPI(url, _objectSpread({}, options, {
-      method: val.toUpperCase()
+      method: method
     }));
-  };
-
-  return acc;
+  }));
 }, {});
 var get = api.get,
     head = api.head,
@@ -996,7 +994,8 @@ module.exports = require("@material-ui/core/CssBaseline");
 
 /***/ }),
 /* 25 */,
-/* 26 */
+/* 26 */,
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1091,7 +1090,6 @@ var styled = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["withS
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps)(Object(_core_AppContext__WEBPACK_IMPORTED_MODULE_6__["withAppContext"])(styled)));
 
 /***/ }),
-/* 27 */,
 /* 28 */
 /***/ (function(module, exports) {
 
@@ -1149,7 +1147,7 @@ module.exports = require("typeface-roboto");
 /* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(27);
 
 
 /***/ })

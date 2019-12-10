@@ -2,37 +2,6 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
-
-// const authServer = oauth2orize.createServer();
-
-// authServer.serializeClient(function(client, done) {
-//   return done(null, client.name);
-// });
-
-// authServer.deserializeClient(function(name, done) {
-//   APIClient.findOne({ name }, done);
-// });
-
-// authServer.grant(oauth2orize.grant.token(function (client, user, ares, done) {
-//   const token = uid(256);
-//   const tokenHash = crypto.createHash('sha1').update(token).digest('hex');
-//   const expirationDate = new Date(new Date().getTime() + (60 * 60 * 24 * 1000));
-
-//   AccessToken.create({
-//     user,
-//     client,
-//     scope: '*',
-//     token: tokenHash,
-//     expirationDate: expirationDate,
-//   }, function (err) {
-//     if (err) return done(err);
-
-//     return done(null, token, {
-//       expires_in: expirationDate.toISOString()
-//     });
-//   });
-// }));
-
 const tokenSchema = new Schema({
   note: { type: String, required: true },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true },

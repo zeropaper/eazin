@@ -3,7 +3,10 @@ import f from './simpleFetch';
 
 import { restore } from '../../plugins/settings/settings.reducer';
 
-const readUserToken = () => restore().userToken;
+const readUserToken = () => {
+  const store = restore();
+  return store.userToken;
+};
 
 const queryAPI = (url, {
   parser = 'json',
@@ -12,8 +15,9 @@ const queryAPI = (url, {
   method: 'GET',
 }) => {
   const auth = readUserToken();
-  return f(url, {
+  const opts = {
     ...options,
+    method: options.method.toUpperCase(),
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -23,7 +27,8 @@ const queryAPI = (url, {
     body: typeof options.body === 'string'
       ? options.body
       : JSON.stringify(options.body),
-  })
+  };
+  return f(url, opts)
     .then(async (res) => {
       let json;
 
@@ -70,13 +75,13 @@ const api = [
   'connect',
   'options',
   'trace',
-].reduce((acc, val) => {
-  acc[val] = (url, options = {}) => queryAPI(url, {
+].reduce((result, method) => ({
+  ...result,
+  [method]: (url, options = {}) => queryAPI(url, {
     ...options,
-    method: val.toUpperCase(),
-  });
-  return acc;
-}, {});
+    method,
+  }),
+}), {});
 
 const {
   get,

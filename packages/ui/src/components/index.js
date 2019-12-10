@@ -5,4 +5,3 @@ export { default as Layout } from './Layout';
 export { default as Link } from './Link';
 export { default as LoadingFallback } from './LoadingFallback';
 export { default as PluginPoint } from './PluginPoint';
-export * from '../plugins';

@@ -11,36 +11,60 @@ class FormBase extends React.Component {
     error: null,
   };
 
+  handlePrepareRequest = (fields) => (new Promise((res) => {
+    this.setState({
+      error: null,
+      errors: null,
+    }, () => {
+      const { processFields } = this.props;
+      res(typeof processFields === 'function'
+        ? processFields(fields)
+        : fields);
+    });
+  }));
+
+  handleSuccess = (result) => this.setState({
+    error: null,
+    errors: null,
+  }, () => {
+    const { onSuccess } = this.props;
+    if (typeof onSuccess === 'function') onSuccess(result);
+  });
+
+  handleFailure = (err) => this.setState({
+    errors: err.fields || {},
+    error: err.message,
+  }, () => {
+    const { onFailure } = this.props;
+    if (typeof onFailure === 'function') onFailure(err);
+  });
+
   handleSubmit = async (fields) => {
     const {
       onSubmit,
-      onSuccess,
       onFailure,
       method,
       url,
-      processFields,
-      userToken,
     } = this.props;
     try {
-      const processed = typeof processFields === 'function'
-        ? processFields(fields)
-        : fields;
+      const processed = await this.handlePrepareRequest(fields);
 
-      if (onSubmit) {
-        await onSubmit(processed);
+      if (typeof onSubmit === 'function') {
+        const result = await onSubmit(processed);
+        this.handleSuccess(result);
         return;
       }
 
       if (method && url) {
-        const headers = {};
-        if (userToken) headers.Authorization = `Bearer ${userToken}`;
         const result = await queryAPI(url, {
-          method: method.toUpperCase(),
-          body: JSON.stringify(processed),
-          headers,
+          method,
+          body: processed,
         });
-        if (typeof onSuccess === 'function') onSuccess(result);
+        this.handleSuccess(result);
+        return;
       }
+
+      throw new Error('Missing either "onSubmit" or "method" + "url"');
     } catch (err) {
       this.setState({
         errors: err.fields || {},
@@ -95,7 +119,6 @@ FormBase.propTypes = {
   fields: PropTypes.objectOf(PropTypes.object).isRequired,
   render: PropTypes.func,
   fieldClassName: PropTypes.string,
-  userToken: PropTypes.string,
 };
 
 FormBase.defaultProps = {
@@ -107,7 +130,6 @@ FormBase.defaultProps = {
   onFailure: null,
   render: null,
   fieldClassName: null,
-  userToken: null,
 };
 
 export default FormBase;

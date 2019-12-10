@@ -8,4 +8,6 @@ const SettingsDrawer = () => (
   </Link>
 );
 
+SettingsDrawer.weight = 10;
+
 export default SettingsDrawer;

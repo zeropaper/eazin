@@ -18,7 +18,7 @@
     "postbuild": "node ./scripts/fix-html.js && node ./scripts/fix-manifest.js",
     "demo": "",
     "copy-eazin-ui": "cp -rf ../../packages/ui/dist node_modules/eazin-ui/ && cp -rf ../../packages/ui/package.json node_modules/eazin-ui/",
-    "dev": "npm-run-all --parallel devcopy devbuild",
+    "_dev": "npm-run-all --parallel devcopy devbuild",
     "devcopy": "nodemon -d 0.5 -w ../../packages/ui/dist -x \"npm run copy-eazin-ui\"",
     "devbuild": "webpack-dev-server --mode development",
     "test": "jest"

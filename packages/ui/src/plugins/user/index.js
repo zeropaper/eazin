@@ -4,13 +4,14 @@ import { setUser, clearUser } from './user.actions';
 import { clearSetting } from '../settings/settings.actions';
 import reducer from './user.reducer';
 
-import AnonForms from /* webpackChunkName: "AnonForms" */ './AnonForms';
-import UsersView from /* webpackChunkName: "UserView" */ './UsersView';
-import UserDrawer from /* webpackChunkName: "UserDrawer" */ './UserDrawer';
+import AnonForms from './AnonForms';
+import UserAccountView from './UserAccountView';
+import UsersView from './UsersView';
+import UserDrawer from './UserDrawer';
 
 export const bootstrap = (state, dispatch) => get('/api/user/me')
   .then((res) => {
-    if (!res.username) throw new Error('No username');
+    if (!res.id) throw new Error('No id');
     dispatch(setUser(res));
   })
   .catch(() => {
@@ -19,6 +20,10 @@ export const bootstrap = (state, dispatch) => get('/api/user/me')
   });
 
 const routes = [
+  {
+    path: '/account',
+    View: UserAccountView,
+  },
   {
     path: '/users',
     View: UsersView,

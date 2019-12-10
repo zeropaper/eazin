@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
-import isEmail from 'validator/es/lib/isEmail';
 
 import Link from '../../components/Link';
 import queryAPI from '../../core/util/queryAPI';
 import Form from '../../components/Form/FormBase';
+import { validMail, validPassword } from './user.validators';
 
 const required = {
   required: true,
@@ -16,21 +16,13 @@ const schema = {
     label: 'Email',
     type: 'email',
     ...required,
-    validate: (val = '') => {
-      if (!isEmail(val)) return 'Not a valid email address';
-    },
+    validate: validMail,
   },
   password: {
     label: 'Password',
     type: 'password',
     ...required,
-    validate: (val = '') => {
-      if (val.length < 13) return 'Must be at least 13 charachters long';
-      if (!val.match(/[a-z]+/)) return 'Must contain lowercase characters';
-      if (!val.match(/[A-Z]+/)) return 'Must contain uppercase characters';
-      if (!val.match(/[0-9]+/)) return 'Must contain numbers';
-      if (!val.match(/[^0-9a-zA-Z]+/)) return 'Must contain special charachters';
-    },
+    validate: validPassword,
   },
   passwordConfirm: {
     label: 'Password Confirmation',

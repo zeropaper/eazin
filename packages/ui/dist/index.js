@@ -164,7 +164,6 @@ function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) r
 
 var readUserToken = function readUserToken() {
   var store = Object(_plugins_settings_settings_reducer__WEBPACK_IMPORTED_MODULE_1__[/* restore */ "b"])();
-  console.info('Auth', store);
   return store.userToken;
 };
 
@@ -179,6 +178,7 @@ var queryAPI = function queryAPI(url) {
   var auth = readUserToken();
 
   var opts = _objectSpread({}, options, {
+    method: options.method.toUpperCase(),
     headers: _objectSpread({
       'Content-Type': 'application/json',
       Accept: 'application/json'
@@ -256,15 +256,13 @@ var queryAPI = function queryAPI(url) {
 };
 
 
-var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (acc, val) {
-  acc[val] = function (url) {
+var api = ['get', 'head', 'post', 'put', 'patch', 'delete', 'connect', 'options', 'trace'].reduce(function (result, method) {
+  return _objectSpread({}, result, _defineProperty({}, method, function (url) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     return queryAPI(url, _objectSpread({}, options, {
-      method: val.toUpperCase()
+      method: method
     }));
-  };
-
-  return acc;
+  }));
 }, {});
 var get = api.get,
     head = api.head,
@@ -1111,7 +1109,8 @@ module.exports = require("@material-ui/core/CssBaseline");
 
 /***/ }),
 /* 25 */,
-/* 26 */
+/* 26 */,
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1206,7 +1205,6 @@ var styled = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_1__["withS
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_4__["connect"])(mapStateToProps)(Object(_core_AppContext__WEBPACK_IMPORTED_MODULE_6__["withAppContext"])(styled)));
 
 /***/ }),
-/* 27 */,
 /* 28 */
 /***/ (function(module, exports) {
 
@@ -1269,7 +1267,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(4);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _Layout_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(26);
+/* harmony import */ var _Layout_Header__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(27);
 /* harmony import */ var _Layout_Drawer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(29);
 /* harmony import */ var _PluginPoint__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
@@ -1458,19 +1456,7 @@ module.exports = require("@material-ui/core/Link");
 /* 56 */,
 /* 57 */,
 /* 58 */,
-/* 59 */
-/***/ (function(module, exports) {
-
-// export { default as activity } from './activity';
-// // export { default as organisations } from './organisations';
-// export { default as docs } from './docs';
-// export { default as landing } from './landing';
-// export { default as repositories } from './repositories';
-// export { default as settings } from './settings';
-// export { default as ws } from './ws';
-// export { default as kitchenSink } from './kitchen-sink';
-
-/***/ }),
+/* 59 */,
 /* 60 */,
 /* 61 */,
 /* 62 */,
@@ -1501,7 +1487,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Layout_Layout_Drawer_Link__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(20);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutDrawerLink", function() { return _Layout_Layout_Drawer_Link__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
-/* harmony import */ var _Layout_Layout_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(26);
+/* harmony import */ var _Layout_Layout_Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(27);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "LayoutHeader", function() { return _Layout_Layout_Header__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
 /* harmony import */ var _Layout__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(33);
@@ -1515,10 +1501,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _PluginPoint__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "PluginPoint", function() { return _PluginPoint__WEBPACK_IMPORTED_MODULE_6__["default"]; });
-
-/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(59);
-/* harmony import */ var _plugins__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_plugins__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _plugins__WEBPACK_IMPORTED_MODULE_7__) if(["LayoutDrawer","LayoutDrawerLink","LayoutHeader","Layout","Link","LoadingFallback","PluginPoint","default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _plugins__WEBPACK_IMPORTED_MODULE_7__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 

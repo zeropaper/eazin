@@ -40,23 +40,23 @@ module.exports = {
           if (err) return done(err);
 
           return done(null, token, {
-            expires_in: expirationDate.toISOString(),
+            expirationDate: expirationDate.toISOString(),
           });
         });
       }));
     },
   ],
-  // passportPrepareHooks: [
-  //   (passport, mongoose) => {
-  //     // const UserModel = mongoose.model('User');
-
-  //     // passport.use(new BearerStrategy((token, done) => {
-  //     //   UserModel.findOne({ token }, (err, user) => {
-  //     //     if (err) return done(err);
-  //     //     if (!user) return done(null, false);
-  //     //     return done(null, user, { scope: 'read' });
-  //     //   });
-  //     // }));
-  //   },
-  // ],
+  passportPrepareHooks: [
+    // eslint-disable-next-line no-unused-vars
+    (passport, mongoose) => {
+      // const APIClientModel = mongoose.model('APIClient');
+      // passport.use(new BearerStrategy((token, done) => {
+      //   APIClientModel.findOne({ token }, (err, client) => {
+      //     if (err) return done(err);
+      //     if (!client) return done(null, false);
+      //     return done(null, client, { scope: 'read' });
+      //   });
+      // }));
+    },
+  ],
 };

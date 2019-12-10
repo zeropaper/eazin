@@ -1,11 +1,9 @@
 
 import reducer from './settings.reducer';
 
-import SettingsView from /* webpackChunkName: "Settingsview" */ './SettingsView';
-import SettingsHeaderLinks from /* webpackChunkName: "SettingsHeaderLinks" */ './SettingsHeaderLinks';
-import SettingsDrawer from /* webpackChunkName: "SettingsDrawer" */ './SettingsDrawer';
-
-SettingsDrawer.weight = 10;
+import SettingsView from './SettingsView';
+import SettingsHeaderLinks from './SettingsHeaderLinks';
+import SettingsDrawer from './SettingsDrawer';
 
 const routes = [
   {
