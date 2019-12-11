@@ -1,6 +1,6 @@
 const user = require('../../users');
 // const twofa = require('../../fa');
-const client = require('../../client');
+const client = require('../../clients');
 const organisations = require('../../organisations');
 const groups = require('../../groups');
 const activity = require('../../activities');

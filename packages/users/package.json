@@ -1,0 +1,12 @@
+{
+  "name": "eazin-users",
+  "version": "0.0.1-rc.5",
+  "description": "EAZIN Users",
+  "main": "src/server/index.js",
+  "module": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeropaper/eazin.git",
+    "directory": "packages/users"
+  }
+}

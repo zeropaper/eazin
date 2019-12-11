@@ -1,0 +1,12 @@
+{
+  "name": "eazin-settings",
+  "version": "0.0.1-rc.5",
+  "description": "EAZIN Settings",
+  "main": "src/server/index.js",
+  "module": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeropaper/eazin.git",
+    "directory": "packages/settings"
+  }
+}

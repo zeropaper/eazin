@@ -48,6 +48,20 @@
     "typeface-roboto": "0.0.54",
     "validator": "^12.1.0"
   },
+  "devDependencies": {
+    "eazin-2fa": "file:../2fa",
+    "eazin-activities": "file:../activities",
+    "eazin-clients": "file:../clients",
+    "eazin-docs": "file:../docs",
+    "eazin-groups": "file:../groups",
+    "eazin-kitchen-sink": "file:../kitchen-sink",
+    "eazin-landing": "file:../landing",
+    "eazin-mailer": "file:../mailer",
+    "eazin-organisations": "file:../organisations",
+    "eazin-repositories": "file:../repositories",
+    "eazin-users": "file:../users",
+    "eazin-ws": "file:../ws"
+  },
   "browserslist": [
     "last 3 version"
   ],
