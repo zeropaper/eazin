@@ -2,6 +2,9 @@
   "name": "eazin",
   "private": true,
   "scripts": {
+    "dbg:config:dev": "neutrino --inspect --mode development",
+    "dbg:config:prod": "neutrino --inspect --mode production",
+    "dbg:config:test": "neutrino --inspect --mode test",
     "lint": "lerna run --parallel lint",
     "lint:fix": "lerna run --parallel lint:fix",
     "predev": "kill-port 5001 5000",
