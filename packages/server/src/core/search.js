@@ -18,6 +18,7 @@ const parseFilters = (filtersJSON) => {
       if (val) returned[filter.column] = { $regex: val };
     });
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.warn('parseFilters', err.message, filtersJSON);
   }
   return returned;

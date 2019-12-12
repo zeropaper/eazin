@@ -12,22 +12,22 @@ const getDirs = dir => readdirSync(dir, { withFileTypes: true })
   .map(dirent => dirent.name);
 const packageNames = getDirs('packages')
 
-const packageDirs = packageNames
-  .map(name => `packages/${name}`)
-  .reduce((pkgs, pkg) => [
-    ...pkgs,
-    ...getDirs(pkg)
-      .filter(name => ['src', 'test'].includes(name))
-      .map(name => `${pkg}/${name}`)
-      .reduce((types, type) => [
-        ...types,
-        type,
-        // ...getDirs(type)
-        //   .map(name => `${type}/${name}`),
-      ], []),
-  ], []);
+// const packageDirs = packageNames
+//   .map(name => `packages/${name}`)
+//   .reduce((pkgs, pkg) => [
+//     ...pkgs,
+//     ...getDirs(pkg)
+//       .filter(name => ['src', 'test'].includes(name))
+//       .map(name => `${pkg}/${name}`)
+//       .reduce((types, type) => [
+//         ...types,
+//         type,
+//         // ...getDirs(type)
+//         //   .map(name => `${type}/${name}`),
+//       ], []),
+//   ], []);
 
-console.info('packageDirs', packageDirs);
+// console.info('packageDirs', packageDirs);
 
 // process.exit()
 
@@ -117,31 +117,33 @@ module.exports = {
 
     // jestConfig,
 
-    // airbnb({
-    //   eslint: {
-    //     baseConfig: {
-    //       extends: [
-    //         'plugin:jest/recommended',
-    //       ],
-    //     },
-    //     envs: ['browser', 'jest', 'node'],
-    //     rules: {
-    //       'max-len': ['error', {
-    //         code: 120,
-    //         ignoreComments: true,
-    //         ignoreTrailingComments: true,
-    //       }],
-    //       'react/prop-types': ['warn'],
-    //       'jest/no-disabled-tests': ['warn'],
-    //       'max-classes-per-file': ['warn'],
-    //       'no-underscore-dangle': ['off'],
-    //       'react/jsx-props-no-spreading': ['off'],
-    //       'consistent-return': ['off'],
-    //       'no-shadow': ['error', { 'allow': ['err', 'error'] }],
-    //       'import/no-extraneous-dependencies': ['warn'],
-    //     },
-    //   },
-    // }),
+    airbnb({
+      eslint: {
+        baseConfig: {
+          extends: [
+            'plugin:jest/recommended',
+          ],
+        },
+        envs: ['browser', 'jest', 'node'],
+        rules: {
+          'max-len': ['error', {
+            code: 120,
+            ignoreComments: true,
+            ignoreTrailingComments: true,
+          }],
+          'react/prop-types': ['warn'],
+          'jest/no-disabled-tests': ['warn'],
+          'max-classes-per-file': ['warn'],
+          'no-underscore-dangle': ['off'],
+          'react/jsx-props-no-spreading': ['off'],
+          'consistent-return': ['off'],
+          'no-shadow': ['error', { 'allow': ['err', 'error'] }],
+          'import/no-extraneous-dependencies': ['error', {
+            peerDependencies: true,
+          }],
+        },
+      },
+    }),
 
     // react({
     //   env: {

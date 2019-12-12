@@ -10,6 +10,7 @@
     "directory": "packages/users"
   },
   "peerDependencies": {
+    "passport-http-bearer": "*",
     "eazin-ui": "*",
     "eazin-server": "*",
     "eazin-settings": "*",

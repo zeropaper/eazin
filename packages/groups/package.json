@@ -8,5 +8,14 @@
     "type": "git",
     "url": "git+https://github.com/zeropaper/eazin.git",
     "directory": "packages/groups"
+  },
+  "peerDependencies": {
+    "mongoose": "*",
+    "eazin-ui": "*",
+    "eazin-server": "*",
+    "eazin-settings": "*",
+    "eazin-users": "*",
+    "express": "*",
+    "httperrors": "*"
   }
 }
