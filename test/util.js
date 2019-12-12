@@ -1,6 +1,6 @@
 // import { ObjectId } from 'mongoose';
 
-import sneak from '../packages/server/src/plugins/test-sender/sneak';
+import sneak from '../packages/test-sender/src/server/sneak';
 
 export const noop = async () => {};
 

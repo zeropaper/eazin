@@ -1,8 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 
-const check = require('../user/user.auth.checkRoles');
-const bearer = require('../user/user.auth.bearer');
-const requestHook = require('../../util/requestHook');
+const check = require('eazin-users/src/server/user.auth.checkRoles');
+const bearer = require('eazin-users/src/server/user.auth.bearer');
+const requestHook = require('eazin-server/src/util/requestHook');
 
 const organisationIdParam = require('./organisations.param');
 

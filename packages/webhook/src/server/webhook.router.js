@@ -1,8 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 // const httperrors = require('httperrors');
 
-// const bearer = require('../user/user.auth.bearer');
-const requestHook = require('../../util/requestHook');
+// const bearer = require('eazin-users/src/server/user.auth.bearer');
+const requestHook = require('eazin-server/src/util/requestHook');
 
 const router = express.Router();
 

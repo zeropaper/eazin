@@ -1,9 +1,9 @@
 const express = require('express');
 const httperrors = require('httperrors');
 
+const requestHook = require('eazin-server/src/util/requestHook');
 const bearer = require('./user.auth.bearer');
 // const twoFAlocal = require('./user.auth.2falocal');
-const requestHook = require('../../util/requestHook');
 
 const userIdParam = require('./users.param');
 const check = require('./user.auth.checkRoles');

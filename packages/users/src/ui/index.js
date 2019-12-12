@@ -1,7 +1,8 @@
 
-import { get } from '../../core/util/queryAPI';
+import { get } from 'eazin-ui/src/core/util/queryAPI';
+import { clearSetting } from 'eazin-settings/src/ui/settings.actions';
+
 import { setUser, clearUser } from './user.actions';
-import { clearSetting } from '../settings/settings.actions';
 import reducer from './user.reducer';
 
 import AnonForms from './AnonForms';

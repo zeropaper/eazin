@@ -1,10 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable prefer-arrow-callback */
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const passportLocalMongoose = require('passport-local-mongoose');
 
-const uid = require('../../util/uid');
+const uid = require('eazin-server/src/util/uid');
 
 const schema = new Schema({
   token: String,

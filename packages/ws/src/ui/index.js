@@ -1,6 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import io from 'socket.io-client';
 
-import logger from '../../core/util/logger';
+import logger from 'eazin-ui/src/core/util/logger';
 
 const log = logger('WS', 'blue');
 

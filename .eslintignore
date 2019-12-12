@@ -1,0 +1,8 @@
+node_modules
+packages/*/node_modules
+project/*/node_modules
+demo/*/node_modules
+demo/*/build
+demo/*/dist
+packages/*/dist
+build

@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import f from './simpleFetch';
 
-import { restore } from '../../plugins/settings/settings.reducer';
+import { restore } from '../../../../settings/src/ui/settings.reducer';
 
 const readUserToken = () => {
   const store = restore();

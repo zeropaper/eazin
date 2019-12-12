@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
 const TwoFAStartegy = require('passport-2fa-totp').Strategy;
 const GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;

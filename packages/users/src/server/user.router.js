@@ -1,14 +1,16 @@
+/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 const httperrors = require('httperrors');
+const requestHook = require('eazin-server/src/util/requestHook');
+const uid = require('eazin-server/src/util/uid');
 
+const mailSend = require('eazin-mailer');
+
+// const twoFAlocal = require('./user.auth.2falocal');
+const testSend = require('eazin-test-sender');
 const bearer = require('./user.auth.bearer');
 const local = require('./user.auth.local');
-// const twoFAlocal = require('./user.auth.2falocal');
-const requestHook = require('../../util/requestHook');
-const uid = require('../../util/uid');
 
-const testSend = require('../test-sender');
-const mailSend = require('../mailer');
 
 const { SITE_URL, TEST_SENDER } = process.env;
 
