@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
-import '@babel/polyfill';
+
 import React from 'react';
 // eslint-disable-next-line import/no-unresolved
 import ReactDOM from 'react-dom';

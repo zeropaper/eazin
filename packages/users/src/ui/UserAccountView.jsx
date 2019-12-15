@@ -2,8 +2,8 @@ import React from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
-import Form from '../../components/Form/FormBase';
-import { View as ViewPropTypes } from '../../core/plugins.propTypes';
+import Form from 'eazin-ui/src/components/Form/FormBase';
+import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 import { validPassword } from './user.validators';
 
 const required = {

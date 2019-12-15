@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View as ViewPropTypes } from '../../core/plugins.propTypes';
+import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 
 const OrganisationsLandingView = (props) => {
   // eslint-disable-next-line no-console

@@ -8,5 +8,9 @@
     "type": "git",
     "url": "git+https://github.com/zeropaper/eazin.git",
     "directory": "packages/ws"
+  },
+  "peerDependencies": {
+    "eazin-ui": "*",
+    "socket.io-client": "*"
   }
 }

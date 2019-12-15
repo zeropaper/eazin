@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import isEmail from 'validator/es/lib/isEmail';
 
 export const validMail = (val = '') => {

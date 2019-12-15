@@ -10,6 +10,10 @@
     "directory": "packages/docs"
   },
   "peerDependencies": {
+    "react": "*",
+    "react-redux": "*",
+    "@material-ui/core": "*",
+    "prop-types": "*",
     "eazin-ui": "*",
     "eazin-server": "*",
     "eazin-settings": "*",

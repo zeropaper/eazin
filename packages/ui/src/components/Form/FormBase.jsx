@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Form as Informed } from 'informed';
 
-import queryAPI from '../../core/util/queryAPI';
+import queryAPI from 'eazin-ui/src/core/util/queryAPI';
 import Fields from './Fields';
 
 class FormBase extends React.Component {

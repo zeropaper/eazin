@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import io from 'socket.io-client';
 
 import logger from 'eazin-ui/src/core/util/logger';

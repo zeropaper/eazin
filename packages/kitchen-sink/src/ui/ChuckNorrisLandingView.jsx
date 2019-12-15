@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View as ViewPropTypes } from '../../core/plugins.propTypes';
+import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 
 const ChuckNorrisLandingView = (props) => {
   const [joke, setJoke] = useState(null);

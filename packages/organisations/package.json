@@ -12,6 +12,7 @@
   "peerDependencies": {
     "mongoose": "*",
     "eazin-ui": "*",
+    "eazin-users": "*",
     "eazin-server": "*",
     "eazin-settings": "*",
     "express": "*",

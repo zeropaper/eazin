@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { HeaderTabs as HeaderTabsPropTypes } from '../../core/plugins.propTypes';
+import { HeaderTabs as HeaderTabsPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 
 const DocsHeaderTabs = () => (
   <div>

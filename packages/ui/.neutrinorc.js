@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const path = require('path');
 const airbnb = require('@neutrinojs/airbnb');
 const reactComponents = require('@neutrinojs/react-components');

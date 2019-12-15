@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-import Link from '../../components/Link';
-import Form from '../../components/Form/FormBase';
+import Link from 'eazin-ui/src/components/Link';
+import Form from 'eazin-ui/src/components/Form/FormBase';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 

@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { parse as parseQuery } from 'querystring';
 import { Typography } from '@material-ui/core';
 
-import Link from '../../components/Link';
-import queryAPI from '../../core/util/queryAPI';
-import Form from '../../components/Form/FormBase';
-import { setSetting } from '../settings/settings.actions';
+import Link from 'eazin-ui/src/components/Link';
+import queryAPI from 'eazin-ui/src/core/util/queryAPI';
+import Form from 'eazin-ui/src/components/Form/FormBase';
+import { setSetting } from 'eazin-settings/src/ui/settings.actions';
 import { setUser } from './user.actions';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');

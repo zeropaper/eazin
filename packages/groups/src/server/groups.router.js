@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 
 const check = require('eazin-users/src/server/user.auth.checkRoles');

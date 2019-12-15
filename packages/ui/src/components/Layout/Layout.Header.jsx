@@ -11,7 +11,7 @@ import {
 } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { withAppContext, appContextShape } from '../../core/AppContext';
+import { withAppContext, appContextShape } from 'eazin-ui/src/core/AppContext';
 import PluginPoint from '../PluginPoint';
 
 const Header = ({

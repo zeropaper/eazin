@@ -14,7 +14,12 @@
     "eazin-ui": "*",
     "eazin-server": "*",
     "eazin-settings": "*",
+    "eazin-test-sender": "*",
+    "eazin-mailer": "*",
     "express": "*",
+    "mongoose": "*",
+    "passport-local-mongoose": "*",
+    "validator": "*",
     "httperrors": "*"
   }
 }

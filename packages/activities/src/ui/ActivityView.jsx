@@ -2,10 +2,10 @@ import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { View as ViewPropTypes } from '../../core/plugins.propTypes';
-import queryAPI from '../../core/util/queryAPI';
-import Table from '../../components/Table';
-import TimeAgo from '../../components/TimeAgo';
+import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
+import queryAPI from 'eazin-ui/src/core/util/queryAPI';
+import Table from 'eazin-ui/src/components/Table';
+import TimeAgo from 'eazin-ui/src/components/TimeAgo';
 
 class ActivityView extends React.Component {
   query = async (query) => {

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 
-import Link from '../../components/Link';
-import queryAPI from '../../core/util/queryAPI';
-import Form from '../../components/Form/FormBase';
+import Link from 'eazin-ui/src/components/Link';
+import queryAPI from 'eazin-ui/src/core/util/queryAPI';
+import Form from 'eazin-ui/src/components/Form/FormBase';
 import { validMail, validPassword } from './user.validators';
 
 const required = {

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Typography } from '@material-ui/core';
-import { View as ViewPropTypes } from '../../core/plugins.propTypes';
+import queryAPI from 'eazin-ui/src/core/util/queryAPI';
+import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 import { getDocs } from './docs.actions';
-import queryAPI from '../../core/util/queryAPI';
 
 class DocsView extends React.Component {
   async componentDidMount() {
