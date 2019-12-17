@@ -1,0 +1,6 @@
+node_modules
+packages/*/node_modules
+build
+html-build
+dist
+!.neutrinorc.js

@@ -1,6 +1,9 @@
-packages/ui/build
-demo/ui/build
-projects
+node_modules
+build
+test-results
+html-build
+
+.vscode
 
 # Logs
 logs

@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "mongoose": "*",
+    "oauth2orize": "*",
+    "express": "*",
+    "httperrors": "*"
+  }
+}

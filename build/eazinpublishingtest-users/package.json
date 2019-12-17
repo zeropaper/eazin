@@ -1,0 +1,31 @@
+{
+  "name": "eazinpublishingtest-users",
+  "version": "0.0.1-wip.4",
+  "description": "",
+  "engines": {
+    "npm": "^6.13.0",
+    "node": "^12.13.0"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeropaper/ezt.git",
+    "directory": "packages/users"
+  },
+  "author": {
+    "name": "Valentin Vago",
+    "email": "zeropaper@irata.ch",
+    "url": "http://irata.graphics/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "passport-http-bearer": "^1.0.1",
+    "express": "^4.17.1",
+    "httperrors": "^2.3.0"
+  },
+  "devDependencies": {},
+  "husky": {},
+  "private": false,
+  "main": "server/index.js",
+  "module": "ui/index.js"
+}
