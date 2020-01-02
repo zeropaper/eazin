@@ -10,6 +10,7 @@
     "directory": "packages/groups"
   },
   "peerDependencies": {
+    "react": "*",
     "mongoose": "*",
     "eazin-ui": "*",
     "eazin-server": "*",

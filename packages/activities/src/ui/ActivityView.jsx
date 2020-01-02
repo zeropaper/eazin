@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 
 import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 import queryAPI from 'eazin-ui/src/core/util/queryAPI';
-import Table from 'eazin-ui/src/components/Table';
-import TimeAgo from 'eazin-ui/src/components/TimeAgo';
+import Table from 'eazin-ui/dist/components/Table';
+import TimeAgo from 'eazin-ui/dist/components/TimeAgo';
 
 class ActivityView extends React.Component {
   query = async (query) => {
     const { userToken } = this.props;
 
-    console.info(query);
     const url = `/api/activities?${toQuerystring({
       limit: query.pageSize,
       offset: query.pageSize * query.page,

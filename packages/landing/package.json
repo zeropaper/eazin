@@ -10,6 +10,8 @@
     "directory": "packages/landing"
   },
   "peerDependencies": {
+    "react": "*",
+    "prop-types": "*",
     "eazin-ui": "*",
     "eazin-server": "*",
     "eazin-settings": "*",

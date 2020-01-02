@@ -1,12 +1,13 @@
 {
   "files.exclude": {
-    "**/.github": true,
     "**/.directory": true,
     "**/.eslintcache": true,
+    "**/.github": true,
     "**/.vscode": true,
-    "**/node_modules": true,
-    "**/demo/ui/build": true,
-    "**/packages/ui/dist": true
+    "**/node_modules": true
   },
-  "eslint.autoFixOnSave": true
+  "eslint.autoFixOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }

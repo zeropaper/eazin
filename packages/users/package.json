@@ -10,6 +10,11 @@
     "directory": "packages/users"
   },
   "peerDependencies": {
+    "@material-ui/styles": "*",
+    "@material-ui/core": "*",
+    "react": "*",
+    "react-redux": "*",
+    "prop-types": "*",
     "passport-http-bearer": "*",
     "eazin-ui": "*",
     "eazin-server": "*",

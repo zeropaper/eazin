@@ -10,6 +10,8 @@
     "directory": "packages/clients"
   },
   "peerDependencies": {
+    "react": "*",
+    "react-redux": "*",
     "mongoose": "*",
     "oauth2orize": "*",
     "eazin-ui": "*",

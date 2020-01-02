@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
-import Form from 'eazin-ui/src/components/Form/FormBase';
+import Form from 'eazin-ui/dist/components/Form/FormBase';
 import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
 import { validPassword } from './user.validators';
 
@@ -50,6 +50,7 @@ const emailFormFields = {
     type: 'email',
     ...required,
     fullWidth: true,
+    // eslint-disable-next-line max-len
     helperText: 'A verification email will first be send to this address. The new address will be effective only once verified',
   },
   buttons: {

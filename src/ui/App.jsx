@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Router } from 'react-router-dom';
 import Helmet from 'react-helmet';
 
-import history from 'eazin-ui/core/history';
-import { AppContextProvider } from 'eazin-ui/core/AppContext';
+import history from 'eazin-ui/dist/core/history';
+import { AppContextProvider } from 'eazin-ui/dist/core/AppContext';
 
-import Layout from 'eazin-ui/Layout';
+import Layout from 'eazin-ui/dist/components/Layout/Layout';
 
-import PluginPoint from 'eazin-ui/PluginPoint';
+import PluginPoint from 'eazin-ui/dist/components/PluginPoint';
 
 const App = ({ children, plugins }) => (plugins && (
   <AppContextProvider plugins={plugins}>
