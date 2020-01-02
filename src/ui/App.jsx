@@ -1,39 +1,27 @@
-/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable import/no-unresolved */
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Router } from 'react-router-dom';
-import Helmet from 'react-helmet';
 
-import history from 'eazin-ui/dist/core/history';
-import { AppContextProvider } from 'eazin-ui/dist/core/AppContext';
+import { App } from 'eazinpublishingtest-core';
+import landing from 'eazinpublishingtest-landing';
+import settings from 'eazinpublishingtest-settings';
+import users from 'eazinpublishingtest-users';
 
-import Layout from 'eazin-ui/dist/components/Layout/Layout';
+import kitchenSink from './dev/kitchen-sink/src/ui';
+import organisations from './dev/organisations/src/ui';
+import groups from './dev/groups/src/ui';
+import docs from './dev/docs/src/ui';
 
-import PluginPoint from 'eazin-ui/dist/components/PluginPoint';
-
-const App = ({ children, plugins }) => (plugins && (
-  <AppContextProvider plugins={plugins}>
-    <Helmet
-      titleTemplate="Eazin | %s"
-      defaultTitle="Eazin"
-    />
-
-    <Router history={history}>
-      <Layout>
-        {children || <PluginPoint name="View" switchRoutes />}
-      </Layout>
-    </Router>
-  </AppContextProvider>
-));
-
-App.propTypes = {
-  plugins: PropTypes.objectOf(PropTypes.any),
-  children: PropTypes.node,
-};
-
-App.defaultProps = {
-  plugins: null,
-  children: null,
-};
-
-export default App;
+export default () => (
+  <App
+    siteName="eazin.dev"
+    plugins={[
+      landing,
+      settings,
+      users,
+      groups,
+      organisations,
+      docs,
+      kitchenSink,
+    ]}
+  />
+);

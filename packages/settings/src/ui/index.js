@@ -1,5 +1,5 @@
 
-import reducer from './settings.reducer';
+import reducer, { restore } from './settings.reducer';
 
 import SettingsView from './SettingsView';
 import SettingsHeaderLinks from './SettingsHeaderLinks';
@@ -18,6 +18,7 @@ const routes = [
   },
 ];
 
+export { restore };
 export default {
   routes,
   reducers: {

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 
-import Link from 'eazin-ui/dist/components/Link';
-import queryAPI from 'eazin-ui/src/core/util/queryAPI';
-import Form from 'eazin-ui/dist/components/Form/FormBase';
+import { Link, Form, queryAPI } from 'eazinpublishingtest-core/ui';
 import { validMail, validPassword } from './user.validators';
 
 const required = {
@@ -33,12 +31,24 @@ const schema = {
     },
   },
   buttons: {
-    buttons: [
+    type: 'buttons',
+    buttons: ({
+      pristine,
+      invalid,
+      values: {
+        email,
+        passwordConfirm,
+      },
+    }) => ([
       {
         text: 'Register',
         type: 'submit',
+        disabled: pristine
+          || invalid
+          || !email
+          || !passwordConfirm,
       },
-    ],
+    ]),
   },
 };
 

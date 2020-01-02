@@ -4,10 +4,8 @@ import { connect } from 'react-redux';
 import { parse as parseQuery } from 'querystring';
 import { Typography } from '@material-ui/core';
 
-import Link from 'eazin-ui/dist/components/Link';
-import queryAPI from 'eazin-ui/src/core/util/queryAPI';
-import Form from 'eazin-ui/dist/components/Form/FormBase';
-import { setSetting } from 'eazin-settings/src/ui/settings.actions';
+import { Link, queryAPI, Form } from 'eazinpublishingtest-core/ui';
+import { setSetting } from '../../../settings/src/ui/settings.actions';
 import { setUser } from './user.actions';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
@@ -29,12 +27,23 @@ const schema = {
   },
 
   buttons: {
-    buttons: [
+    buttons: ({
+      pristine,
+      invalid,
+      values: {
+        firstName,
+        lastName,
+      },
+    }) => ([
       {
         type: 'submit',
         text: 'Finish up',
+        disabled: pristine
+          || invalid
+          || !firstName
+          || !lastName,
       },
-    ],
+    ]),
   },
 };
 

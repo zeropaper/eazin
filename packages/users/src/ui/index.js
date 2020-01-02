@@ -1,6 +1,6 @@
 
-import { get } from 'eazin-ui/src/core/util/queryAPI';
-import { clearSetting } from 'eazin-settings/src/ui/settings.actions';
+import { queryAPI } from 'eazinpublishingtest-core/ui';
+import { clearSetting } from '../../../settings/src/ui/settings.actions';
 
 import { setUser, clearUser } from './user.actions';
 import reducer from './user.reducer';
@@ -10,7 +10,7 @@ import UserAccountView from './UserAccountView';
 import UsersView from './UsersView';
 import UserDrawer from './UserDrawer';
 
-export const bootstrap = (state, dispatch) => get('/api/user/me')
+export const bootstrap = (state, dispatch) => queryAPI.get('/api/user/me')
   .then((res) => {
     if (!res.id) throw new Error('No id');
     dispatch(setUser(res));

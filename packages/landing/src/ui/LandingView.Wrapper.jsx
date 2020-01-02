@@ -3,24 +3,54 @@ import PropTypes from 'prop-types';
 import { GridListTile, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import Fallback from 'eazin-ui/dist/components/LoadingFallback';
+import { LoadingFallback as Fallback } from 'eazinpublishingtest-core/ui';
 
 
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
     width: '33%',
+    '& > div': {
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
+    },
+  },
+  top: {
+    width: 90,
+    height: 90,
+    borderRadius: 90,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 'auto',
+    marginBottom: 0 - (theme.spacing(1) + 45),
+    position: 'relative',
+    zIndex: 10,
   },
   paper: {
     margin: theme.spacing(1),
     padding: theme.spacing(1),
+    display: 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+  },
+  paperWithTop: {
+    paddingTop: 45 + theme.spacing(1),
   },
 });
 
-const Wrapper = ({ children, classes }) => (
+const Wrapper = ({ children, classes, top }) => (
   <GridListTile className={classes.root} cols={1}>
     <React.Suspense fallback={<Fallback />}>
-      <Paper className={classes.paper}>
+      {top && (
+        <Paper className={classes.top}>
+          <span>{top}</span>
+        </Paper>
+      )}
+
+      <Paper className={`${classes.paper} ${top ? classes.paperWithTop : ''}`.trim()}>
         {children}
       </Paper>
     </React.Suspense>

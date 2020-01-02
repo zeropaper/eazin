@@ -2,10 +2,7 @@ import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
-import queryAPI from 'eazin-ui/src/core/util/queryAPI';
-import Table from 'eazin-ui/dist/components/Table';
-import TimeAgo from 'eazin-ui/dist/components/TimeAgo';
+import { queryAPI, Table, TimeAgo } from 'eazinpublishingtest-core/ui';
 
 class UsersView extends React.Component {
   query = async (query) => {

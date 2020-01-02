@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isEmail from 'validator/es/lib/isEmail';
 
-import Link from 'eazin-ui/dist/components/Link';
-// import queryAPI from 'eazin-ui/src/core/util/queryAPI';
-import Form from 'eazin-ui/dist/components/Form/FormBase';
-import { setSetting } from 'eazin-settings/src/ui/settings.actions';
-
+import { Link, Form } from 'eazinpublishingtest-core/ui';
 import { setUser } from './user.actions';
+import { setSetting } from '../../../settings/src/ui/settings.actions';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 

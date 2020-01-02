@@ -17,7 +17,7 @@ const store = {
 
 const landing = (state = {}, action) => {
   switch (action.type) {
-    case 'PLUGIN_A_TOGGLE_BOOL':
+    case 'LANDING_TOGGLE_BOOL':
       return {
         ...state,
         bool: !state.bool,

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Link from 'eazin-ui/dist/components/Layout/Layout.Drawer.Link';
+import { LayoutDrawerLink as Link } from 'eazinpublishingtest-core/ui';
 
 const UserDrawer = () => (
   <Link to="/account">

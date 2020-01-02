@@ -2,14 +2,12 @@ import React from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
-import Form from 'eazin-ui/dist/components/Form/FormBase';
-import { View as ViewPropTypes } from 'eazin-ui/src/core/plugins.propTypes';
+import { Form } from 'eazinpublishingtest-core/ui';
 import { validPassword } from './user.validators';
 
 const required = {
   required: true,
   validateOnChange: true,
-  // validateOnBlur: true,
 };
 const passwordFormFields = {
   current: {
@@ -17,6 +15,7 @@ const passwordFormFields = {
     type: 'password',
     ...required,
     fullWidth: true,
+    validate: validPassword,
   },
   password: {
     label: 'New Password',
@@ -35,10 +34,24 @@ const passwordFormFields = {
     },
   },
   buttons: {
-    buttons: [
+    buttons: ({
+      pristine,
+      invalid,
+      values: {
+        current,
+        password,
+        passwordConfirm,
+      },
+    }, { loading }) => [
       {
         text: 'Change Password',
         type: 'submit',
+        loading,
+        disabled: pristine
+          || invalid
+          || !current
+          || !password
+          || !passwordConfirm,
       },
     ],
   },
@@ -50,14 +63,22 @@ const emailFormFields = {
     type: 'email',
     ...required,
     fullWidth: true,
-    // eslint-disable-next-line max-len
     helperText: 'A verification email will first be send to this address. The new address will be effective only once verified',
   },
   buttons: {
-    buttons: [
+    buttons: ({
+      pristine,
+      invalid,
+      values: {
+        email,
+      },
+    }) => [
       {
+        text: 'Send verification mail',
         type: 'submit',
-        text: 'Verify',
+        disabled: pristine
+          || invalid
+          || !email,
       },
     ],
   },
@@ -86,7 +107,7 @@ const AccountView = ({ api: { post }, classes }) => (
     className={classes.root}
   >
     <Grid item className={classes.tile} sm>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} data-testid="password-change">
         <Typography
           variant="h4"
           gutterBottom
@@ -103,7 +124,7 @@ const AccountView = ({ api: { post }, classes }) => (
     </Grid>
 
     <Grid item className={classes.tile} sm>
-      <Paper className={classes.paper}>
+      <Paper className={classes.paper} data-testid="email-change">
         <Typography
           variant="h4"
           gutterBottom
@@ -119,7 +140,5 @@ const AccountView = ({ api: { post }, classes }) => (
     </Grid>
   </Grid>
 );
-
-AccountView.propTypes = ViewPropTypes;
 
 export default withStyles(styles)(AccountView);

@@ -1,13 +1,14 @@
 {
+  "eslint.lintTask.enable": true,
+  "eslint.enable": true,
   "files.exclude": {
-    "**/.directory": true,
-    "**/.eslintcache": true,
-    "**/.github": true,
-    "**/.vscode": true,
-    "**/node_modules": true
-  },
-  "eslint.autoFixOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "**/build/**": true,
+    "**/html-build/**": true,
+    "**/test-results/**": true,
+    "**/LICENSE": true,
+    "**/package-lock.json": true,
+    "**/.vscode/**": true,
+    "**/dist/**": true,
+    "**/node_modules/**": true
   }
 }
