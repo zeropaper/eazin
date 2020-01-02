@@ -1,8 +1,8 @@
 const express = require('express');
 
-const check = require('eazinpublishingtest-users/server/user.auth.checkRoles');
-const bearer = require('eazinpublishingtest-users/server/user.auth.bearer');
-const requestHook = require('eazinpublishingtest-core/server/util/requestHook');
+const check = require('eazin-users/server/user.auth.checkRoles');
+const bearer = require('eazin-users/server/user.auth.bearer');
+const requestHook = require('eazin-core/server/util/requestHook');
 
 const router = express.Router();
 

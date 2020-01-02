@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { GridList, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { PluginPoint } from 'eazinpublishingtest-core/ui';
+import { PluginPoint } from 'eazin-core/ui';
 
 import Wrapper from './LandingView.Wrapper';
 import { toggleBool } from './landing.actions';

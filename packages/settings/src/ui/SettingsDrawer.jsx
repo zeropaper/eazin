@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LayoutDrawerLink as Link } from 'eazinpublishingtest-core/ui';
+import { LayoutDrawerLink as Link } from 'eazin-core/ui';
 
 const SettingsDrawer = () => (
   <Link to="/settings">

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { propTypes as pluginPropTypes } from 'eazinpublishingtest-core/ui';
+import { propTypes as pluginPropTypes } from 'eazin-core/ui';
 
 const ReposLandingView = (props) => {
   // eslint-disable-next-line no-console

@@ -25,4 +25,5 @@ server({
     // eslint-disable-next-line no-console
     app.listen(PORT, () => console.info('API server listening on', PORT));
   })
+  // eslint-disable-next-line no-console
   .catch((err) => console.error(`Server start failed: ${err.message}\n${err.stack}`));

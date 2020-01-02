@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import { GridListTile, Paper } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
-import { LoadingFallback as Fallback } from 'eazinpublishingtest-core/ui';
-
+import { LoadingFallback as Fallback } from 'eazin-core/ui';
 
 const styles = (theme) => ({
   root: {

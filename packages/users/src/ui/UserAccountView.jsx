@@ -2,7 +2,7 @@ import React from 'react';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
-import { Form } from 'eazinpublishingtest-core/ui';
+import { Form } from 'eazin-core/ui';
 import { validPassword } from './user.validators';
 
 const required = {

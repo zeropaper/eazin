@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
-// import { action } from '@storybook/addon-actions';
 import SaveIcon from '@material-ui/icons/Save';
 
 import ButtonsGroup from '../packages/core/src/ui/components/Form/ButtonsGroup';

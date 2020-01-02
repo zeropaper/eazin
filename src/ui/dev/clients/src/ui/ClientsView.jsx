@@ -1,7 +1,7 @@
 import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
 
-import { queryAPI, Table, TimeAgo } from 'eazinpublishingtest-core/ui';
+import { queryAPI, Table, TimeAgo } from 'eazin-core/ui';
 
 class ClientsView extends React.Component {
   state = {

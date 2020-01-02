@@ -1,10 +1,10 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 
-import { App } from 'eazinpublishingtest-core';
-import landing from 'eazinpublishingtest-landing';
-import settings from 'eazinpublishingtest-settings';
-import users from 'eazinpublishingtest-users';
+import { App } from 'eazin-core';
+import landing from 'eazin-landing';
+import settings from 'eazin-settings';
+import users from 'eazin-users';
 
 import kitchenSink from './dev/kitchen-sink/src/ui';
 import organisations from './dev/organisations/src/ui';

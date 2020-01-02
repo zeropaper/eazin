@@ -1,8 +1,9 @@
 import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { queryAPI, Table, TimeAgo } from 'eazinpublishingtest-core/ui';
+import { queryAPI, Table, TimeAgo } from 'eazin-core/ui';
 
 class UsersView extends React.Component {
   query = async (query) => {
@@ -61,7 +62,11 @@ class UsersView extends React.Component {
 }
 
 UsersView.propTypes = {
-  ...ViewPropTypes,
+  userToken: PropTypes.string,
+};
+
+UsersView.defaultProps = {
+  userToken: null,
 };
 
 const mapStateToProps = ({

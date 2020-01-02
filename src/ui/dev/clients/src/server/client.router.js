@@ -1,10 +1,10 @@
 const express = require('express');
 const httperrors = require('httperrors');
 
-const uid = require('eazinpublishingtest-core/server/util/uid');
-const requestHook = require('eazinpublishingtest-core/server/util/requestHook');
-const check = require('eazinpublishingtest-users/server/user.auth.checkRoles');
-const bearer = require('eazinpublishingtest-users/server/user.auth.bearer');
+const uid = require('eazin-core/server/util/uid');
+const requestHook = require('eazin-core/server/util/requestHook');
+const check = require('eazin-users/server/user.auth.checkRoles');
+const bearer = require('eazin-users/server/user.auth.bearer');
 
 const clientIdParam = require('./client.param');
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 
-import { queryAPI } from 'eazinpublishingtest-core/ui';
+import { queryAPI } from 'eazin-core/ui';
 import { getDocs } from './docs.actions';
 
 class DocsView extends React.Component {

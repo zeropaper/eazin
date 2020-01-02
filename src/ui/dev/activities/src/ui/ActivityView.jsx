@@ -2,7 +2,7 @@ import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { queryAPI, Table, TimeAgo } from 'eazinpublishingtest-core/ui';
+import { queryAPI, Table, TimeAgo } from 'eazin-core/ui';
 
 class ActivityView extends React.Component {
   query = async (query) => {
@@ -55,7 +55,6 @@ class ActivityView extends React.Component {
 }
 
 ActivityView.propTypes = {
-  ...ViewPropTypes,
   // activities: PropTypes.objectOf(PropTypes.object).isRequired,
   // dispatch: PropTypes.func.isRequired,
 };

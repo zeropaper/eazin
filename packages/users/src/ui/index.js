@@ -1,5 +1,5 @@
 
-import { queryAPI } from 'eazinpublishingtest-core/ui';
+import { queryAPI } from 'eazin-core/ui';
 import { clearSetting } from '../../../settings/src/ui/settings.actions';
 
 import { setUser, clearUser } from './user.actions';

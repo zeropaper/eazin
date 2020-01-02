@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import isEmail from 'validator/es/lib/isEmail';
 
-import { Link, Form } from 'eazinpublishingtest-core/ui';
+import { Link, Form } from 'eazin-core/ui';
 import { setUser } from './user.actions';
 import { setSetting } from '../../../settings/src/ui/settings.actions';
 

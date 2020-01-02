@@ -3,7 +3,7 @@
 const oauth2orize = require('oauth2orize');
 const crypto = require('crypto');
 
-const uid = require('eazinpublishingtest-core/server/util/uid');
+const uid = require('eazin-core/server/util/uid');
 
 module.exports = {
   apiRouter: [

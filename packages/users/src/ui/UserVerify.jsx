@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { parse as parseQuery } from 'querystring';
 import { Typography } from '@material-ui/core';
 
-import { Link, queryAPI, Form } from 'eazinpublishingtest-core/ui';
+import { Link, queryAPI, Form } from 'eazin-core/ui';
 import { setSetting } from '../../../settings/src/ui/settings.actions';
 import { setUser } from './user.actions';
 

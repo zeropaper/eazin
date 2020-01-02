@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 
-import { Link, Form, queryAPI } from 'eazinpublishingtest-core/ui';
+import { Link, Form, queryAPI } from 'eazin-core/ui';
 import { validMail, validPassword } from './user.validators';
 
 const required = {
