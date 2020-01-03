@@ -90,6 +90,23 @@ module.exports = {
           '/socket.io': 'http://localhost:5001',
           '/fixtures': 'http://localhost:5001',
         },
+        before: (app, server) => {
+          chokidar
+            .watch([
+              'dist/*/ui/**/*.js',
+            ], {
+              alwaysStat: true,
+              atomic: false,
+              followSymlinks: false,
+              ignoreInitial: true,
+              ignorePermissionErrors: true,
+            })
+            .on('all', debounce(() => {
+              // eslint-disable-next-line no-console
+              console.info('[eazin] components build detected - trigger project build');
+              server.sockWrite(server.sockets, 'content-changed');
+            }, 50));
+        },
       });
 
       // Attempt to get those FÜç*¼#g source-maps working
