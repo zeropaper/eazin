@@ -71,9 +71,9 @@ module.exports = {
             },
           },
         },
-        devtool: {
-          production: 'source-map',
-        },
+        // devtool: {
+        //   production: 'source-map',
+        // },
         targets: { browsers: 'ie 9' },
       };
 
@@ -92,8 +92,10 @@ module.exports = {
         },
       });
 
-      // neutrino.config.optimization.merge({
-      //   minimize: process.env.NODE_ENV === 'production',
+      // Attempt to get those FÜç*¼#g source-maps working
+      // neutrino.config.node.merge({
+      //   Buffer: true,
+      //   module: 'empty',
       // });
     },
 

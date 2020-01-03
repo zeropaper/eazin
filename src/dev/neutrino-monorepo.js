@@ -110,7 +110,7 @@ module.exports = (neutrino, options) => () => {
     });
 
   // very unfortunately... source maps break the module execution
-  const hasSourceMap = false; // !!allDeps['source-source-map-support'];
+  const hasSourceMap = false;// !!allDeps['source-map-support'];
 
   neutrino.use(react(options));
 
