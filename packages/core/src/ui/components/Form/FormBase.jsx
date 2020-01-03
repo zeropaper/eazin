@@ -1,10 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form as Informed } from 'informed';
-
 import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
 import queryAPI from '../../core/util/queryAPI';
 import Fields from './Fields';
+
+const styles = (theme) => ({
+  field: {
+    width: '100%',
+    marginBottom: theme.spacing(2),
+    '&:last-child': {
+      marginBottom: 0,
+    },
+  },
+});
 
 class FormBase extends React.Component {
   state = {
@@ -93,7 +104,7 @@ class FormBase extends React.Component {
   };
 
   renderFields = ({ formState, formApi }) => {
-    const { fields, fieldClassName } = this.props;
+    const { fields, fieldClassName, classes } = this.props;
     const { loading } = this.state;
 
     return (
@@ -101,7 +112,7 @@ class FormBase extends React.Component {
         {this.renderError()}
         <Fields
           fields={fields}
-          fieldClassName={fieldClassName}
+          fieldClassName={fieldClassName || classes.field}
           state={formState}
           api={{ ...formApi, loading }}
         />
@@ -110,10 +121,11 @@ class FormBase extends React.Component {
   };
 
   render() {
-    const { render } = this.props;
+    const { render, className } = this.props;
 
     return (
       <Informed
+        className={className}
         onSubmit={this.handleSubmit}
         noValidate
         render={render || this.renderFields}
@@ -123,6 +135,8 @@ class FormBase extends React.Component {
 }
 
 FormBase.propTypes = {
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  className: PropTypes.string,
   method: PropTypes.string,
   url: PropTypes.string,
   processFields: PropTypes.func,
@@ -135,6 +149,7 @@ FormBase.propTypes = {
 };
 
 FormBase.defaultProps = {
+  className: null,
   method: null,
   url: null,
   processFields: null,
@@ -145,4 +160,4 @@ FormBase.defaultProps = {
   fieldClassName: null,
 };
 
-export default FormBase;
+export default withStyles(styles)(FormBase);

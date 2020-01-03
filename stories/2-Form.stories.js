@@ -24,7 +24,7 @@ const styles = (theme) => ({
     maxWidth: 600,
     margin: 'auto',
   },
-  field: {
+  customFieldClass: {
     marginBottom: theme.spacing(2),
     width: '100%',
   },
@@ -135,7 +135,7 @@ const Base = withStyles(styles)(({
       onFailure={handleFailure}
       onSuccess={handleSuccess}
       fields={fields}
-      fieldClassName={classes.field}
+      // fieldClassName={classes.customFieldClass}
     />
 
     <footer>
