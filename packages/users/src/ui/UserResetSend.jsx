@@ -1,8 +1,9 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
-import isEmail from 'validator/es/lib/isEmail';
 
-import { Link, Form } from 'eazin-core/ui';
+import { Form } from 'eazin-core/ui';
+import { validMail } from './user.validators';
+import Links from './AnonForms.Links';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 
@@ -16,9 +17,7 @@ const schema = {
   email: {
     label: 'Email',
     ...required,
-    validate: (val) => {
-      if (!isEmail(val)) return 'Not a valid email address';
-    },
+    validate: validMail,
   },
   buttons: {
     buttons: [
@@ -42,7 +41,6 @@ export default () => (
       fields={schema}
     />
 
-    <Link to="/login">Login</Link>
-    <Link to="/register">Register</Link>
+    <Links current="reset" />
   </>
 );

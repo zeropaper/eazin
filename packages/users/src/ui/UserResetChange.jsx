@@ -1,7 +1,8 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
 
-import { Link, Form } from 'eazin-core/ui';
+import { Form } from 'eazin-core/ui';
+import { validPassword } from './user.validators';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 
@@ -16,13 +17,7 @@ const schema = {
     label: 'Password',
     type: 'password',
     ...required,
-    validate: (val = '') => {
-      if (val.length < 13) return 'Must be at least 13 charachters long';
-      if (!val.match(/[a-z]+/)) return 'Must contain lowercase characters';
-      if (!val.match(/[A-Z]+/)) return 'Must contain uppercase characters';
-      if (!val.match(/[0-9]+/)) return 'Must contain numbers';
-      if (!val.match(/[^0-9a-zA-Z]+/)) return 'Must contain special charachters';
-    },
+    validate: validPassword,
   },
   passwordConfirm: {
     label: 'Password Confirmation',
@@ -53,8 +48,5 @@ export default () => (
       }}
       fields={schema}
     />
-
-    <Link to="/login">Login</Link>
-    <Link to="/register">Register</Link>
   </>
 );

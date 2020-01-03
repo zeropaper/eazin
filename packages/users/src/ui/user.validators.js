@@ -2,7 +2,7 @@
 import isEmail from 'validator/es/lib/isEmail';
 
 export const validMail = (val = '') => {
-  if (!isEmail(val)) return 'Not a valid email address';
+  if (!val || !isEmail(val)) return 'Not a valid email address';
   return undefined;
 };
 

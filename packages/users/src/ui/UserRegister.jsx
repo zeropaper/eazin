@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Typography } from '@material-ui/core';
 
-import { Link, Form, queryAPI } from 'eazin-core/ui';
+import { Form, queryAPI } from 'eazin-core/ui';
 import { validMail, validPassword } from './user.validators';
+import Links from './AnonForms.Links';
 
 const required = {
   required: true,
@@ -93,8 +94,7 @@ const UserRegister = () => {
         fields={schema}
       />
 
-      <Link to="/reset">Password reset</Link>
-      <Link to="/login">Login</Link>
+      <Links current="register" />
     </>
   );
 };

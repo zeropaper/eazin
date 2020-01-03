@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import isEmail from 'validator/es/lib/isEmail';
 
-import { Link, Form } from 'eazin-core/ui';
+import { Form } from 'eazin-core/ui';
 import { setUser } from './user.actions';
 import { setSetting } from '../../../settings/src/ui/settings.actions';
+import Links from './AnonForms.Links';
+import { validMail } from './user.validators';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 
@@ -20,9 +21,7 @@ const schema = {
     label: 'Email',
     type: 'email',
     ...required,
-    validate: (val) => {
-      if (!isEmail(val)) return 'Not a valid email address';
-    },
+    validate: validMail,
   },
   password: {
     label: 'Password',
@@ -48,12 +47,10 @@ const UserLogin = ({ dispatch }) => (
         dispatch(setUser(data));
         dispatch(setSetting('userToken', data.token));
       }}
-      // onFailure={(...args) => console.info('failed', ...args)}
       fields={schema}
     />
 
-    <Link to="/reset">Password reset</Link>
-    <Link to="/register">Register</Link>
+    <Links current="login" />
   </>
 );
 

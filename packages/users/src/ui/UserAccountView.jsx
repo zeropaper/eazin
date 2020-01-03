@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 
 import { Form } from 'eazin-core/ui';
-import { validPassword } from './user.validators';
+import { validMail, validPassword } from './user.validators';
 
 const required = {
   required: true,
@@ -62,6 +63,7 @@ const emailFormFields = {
     label: 'New Email Address',
     type: 'email',
     ...required,
+    validate: validMail,
     fullWidth: true,
     helperText: 'A verification email will first be send to this address. The new address will be effective only once verified',
   },
@@ -140,5 +142,12 @@ const AccountView = ({ api: { post }, classes }) => (
     </Grid>
   </Grid>
 );
+
+AccountView.propTypes = {
+  api: PropTypes.shape({
+    post: PropTypes.func,
+  }).isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+};
 
 export default withStyles(styles)(AccountView);
