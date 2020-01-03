@@ -18,7 +18,7 @@
     "webpackdev": "webpack-dev-server --mode development",
     "devserver": "PORT=5001 nodemon -w './src/server/**/*' -w './packages/*/src/server/**/*' ./src/server/index.js",
     "build": "webpack --mode production",
-    "postbuild": "cp -rf build dist",
+    "postbuild": "cp -rf ./build/* ./dist/",
     "build:html": "npm run build && BUILD_TYPE=html npm run build",
     "test:e2e": "jest --runInBand --config test/ui/jest.config.js",
     "test:unit": "jest --runInBand --config test/server/jest.config.js",
