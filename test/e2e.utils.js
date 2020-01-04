@@ -8,6 +8,7 @@ import {
   waitMs,
   waitFor,
   sneakMessage,
+  clearSneakMessages,
   noop,
 } from './util';
 
@@ -16,6 +17,7 @@ export {
   waitMs,
   waitFor,
   sneakMessage,
+  clearSneakMessages,
   noop,
 };
 
@@ -70,7 +72,7 @@ export const saveScreenshot = async () => {
 };
 
 export const request = (pathname, data, method = 'post') => {
-  const { PORT } = process.env;
+  const { PORT = 3030 } = process.env;
 
   const json = JSON.stringify(data);
 
@@ -126,6 +128,7 @@ export default {
   typeFast,
   waitFor,
   sneakMessage,
+  clearSneakMessages,
   saveScreenshot,
   request,
   fixtures,

@@ -1,5 +1,6 @@
 
 const prepare = require('../../../../test/server/prepare-server');
+const { sneakMessage, clearSneakMessages } = require('../../../../test/util');
 
 const usersPlugin = require('../../src/server');
 
@@ -8,6 +9,7 @@ const email = 'john@eazin.dev';
 let post;
 let db;
 beforeAll(async () => {
+  clearSneakMessages();
   const utils = await prepare({
     plugins: [
       usersPlugin,
@@ -34,6 +36,9 @@ describe('user', () => {
 
     expect(user).toHaveProperty('verifToken');
     expect(user).toHaveProperty('isVerified', false);
+
+    const verifMail = await sneakMessage(email);
+    expect(verifMail.text).toContain(user.verifToken);
 
     res = await post('/api/user/register')
       .send({ email, password: 'Aa!1234567890' })
@@ -114,6 +119,9 @@ describe('user', () => {
     user = await db.model('User').findByUsername(email);
     expect(user.email).toBe(email);
     expect(user.emailToVerify).toBe('new+address@eazin.test');
+
+    const verifMail = await sneakMessage(user.emailToVerify);
+    expect(verifMail.text).toContain(user.verifToken);
 
     res = await post('/api/user/email')
       .set('Authorization', `Bearer ${user.token}`)

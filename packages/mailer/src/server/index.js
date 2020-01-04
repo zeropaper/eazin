@@ -25,14 +25,11 @@ const {
 const transporter = NODE_ENV !== 'test' && nodemailer.createTransport(transport);
 
 const testSend = async (vars) => {
-  // eslint-disable-next-line no-console
-  console.info('[eazin-mailer] test send', vars, TEST_SENDER_FILE);
-
   if (!existsSync(TEST_SENDER_FILE)) writeFileSync(TEST_SENDER_FILE, '[]');
 
   const json = JSON.parse(readFileSync(TEST_SENDER_FILE, 'utf8'));
   json.push({
-    vars,
+    ...vars,
     date: new Date(),
   });
   writeFileSync(TEST_SENDER_FILE, JSON.stringify(json, null, 2));
@@ -60,6 +57,6 @@ module.exports = async ({
   };
 
   return NODE_ENV === 'test'
-    ? testSend(vars)
+    ? testSend({ ...options, template, ...vars })
     : transporter.sendMail(vars);
 };

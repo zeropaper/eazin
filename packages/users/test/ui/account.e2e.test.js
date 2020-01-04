@@ -3,7 +3,6 @@
 
 import {
   saveScreenshot,
-  // sneakMessage,
   fixtures,
 } from '../../../../test/e2e.utils';
 

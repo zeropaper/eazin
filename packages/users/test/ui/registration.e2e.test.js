@@ -4,6 +4,7 @@
 import {
   saveScreenshot,
   sneakMessage,
+  clearSneakMessages,
 } from '../../../../test/e2e.utils';
 
 const fieldIsAriaInvalid = (page, name) => page
@@ -18,6 +19,7 @@ const emailParts = email.split('@');
 
 describe('User', () => {
   beforeAll(async () => {
+    clearSneakMessages();
     const [page] = testPages;
     await page.goto(`${baseURL}/register`);
     await page.waitForSelector('[name="email"]');
@@ -76,13 +78,16 @@ describe('User', () => {
         .toBe(false);
       await page.click('[type="submit"]');
       verif = await sneakMessage(email);
+
+      expect(verif).toHaveProperty('token');
+      expect(verif).toHaveProperty('template', 'register');
     });
   });
 
   describe('verification', () => {
     it('follows instructions', async () => {
       const [page] = testPages;
-      await page.goto(`${baseURL}/verify${verif.message.split('/verify').pop()}`);
+      await page.goto(`${baseURL}/verify?token=${verif.token}`);
       await page.waitForSelector('[name="firstName"]');
     });
 
