@@ -6,15 +6,10 @@ const uid = require('eazin-core/server/util/uid');
 const requestHook = require('eazin-core/server/util/requestHook');
 const mailSend = require('eazin-mailer/server');
 // const twoFAlocal = require('./user.auth.2falocal');
-const testSend = require('eazin-test-sender/server/');
 
 const bearer = require('./user.auth.bearer');
 const local = require('./user.auth.local');
 
-
-const { SITE_URL, TEST_SENDER } = process.env;
-
-const sendMessage = TEST_SENDER ? testSend : mailSend;
 
 const router = express.Router();
 
@@ -42,14 +37,10 @@ const addUser = (additionMethod, req, res, next) => {
       return next(err);
     }
 
-    const message = `${additionMethod} ${SITE_URL || ''}/verify?token=${verifToken}`;
-
-    sendMessage({
+    mailSend({
+      token: verifToken,
+      template: additionMethod,
       to: email,
-      text: message,
-      subject: additionMethod === 'invite'
-        ? 'You have been invited'
-        : 'Your registration',
     })
       .then(() => next())
       .catch(next);
@@ -161,9 +152,10 @@ router.post('/email', bearer, requestHook, async (req, res, next) => {
 
   user.verifToken = uid(20);
   user.emailToVerify = email;
-  await sendMessage({
+  await mailSend({
     to: email,
-    text: user.verifToken,
+    token: user.verifToken,
+    template: 'reset',
   });
   user.save((err) => {
     if (err) return next(err);

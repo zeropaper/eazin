@@ -1,4 +1,4 @@
-import sneak from '../packages/test-sender/src/server/sneak';
+import sneak from '../packages/mailer/src/server/sneak';
 
 export const noop = async () => {};
 
@@ -29,7 +29,7 @@ export const sneakMessage = async (email) => {
   let message;
   await waitFor(async () => {
     const messages = await sneak();
-    message = messages.find(({ recipient }) => (email === recipient));
+    message = messages.find(({ to }) => to.includes(email));
     return !!message;
   });
   return message;
