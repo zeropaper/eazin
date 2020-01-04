@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Typography } from '@material-ui/core';
 
 import { Form } from 'eazin-core/ui';
+
 import { setUser } from './user.actions';
 import { setSetting } from '../../../settings/src/ui/settings.actions';
 import Links from './AnonForms.Links';
@@ -40,6 +42,8 @@ const schema = {
 
 const UserLogin = ({ dispatch }) => (
   <>
+    <Typography variant="h5">Login</Typography>
+
     <Form
       method="post"
       url="/api/user/login"
