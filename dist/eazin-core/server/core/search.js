@@ -12,6 +12,7 @@ const escapeRegexp = (val = '') => (val
 const parseFilters = (filtersJSON) => {
   const returned = {};
   try {
+    if (typeof filtersJSON !== 'string') return filtersJSON || returned;
     const queryfilter = JSON.parse(filtersJSON || '[]');
     queryfilter.forEach((filter) => {
       const val = escapeRegexp(filter.value);
