@@ -159,7 +159,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
           if (!(await pathExists(src)) || !screenshotsPath || !result || !slug) return;
           const dest = path.join(screenshotsPath, result, slug);
           await mkdirp(path.dirname(dest));
-          await move(src, dest);
+          await move(src, dest, { overwrite: true });
         } catch (e) {
           console.warn(e.stack);
         }
