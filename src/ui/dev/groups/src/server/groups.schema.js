@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const modelSearchPlugin = require('eazin-core/server/core/search');
+
 const { Schema } = mongoose;
 
 const schema = new Schema({
@@ -107,5 +109,7 @@ schema.statics.sanitizeOutput = ({
   createdAt,
   updatedAt,
 });
+
+modelSearchPlugin(schema);
 
 module.exports = schema;

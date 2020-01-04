@@ -18,17 +18,31 @@ router.get(
   requestHook,
   (req, res, next) => {
     const Group = req.db.model('Group');
+
     const handle = (err, groups) => {
       if (err) return next(err);
-      res.send(groups.map(Group.sanitizeOutput));
+      res.send(groups);
     };
 
     if (req.user.isAdmin) {
-      Group.find({}, handle);
+      Group.search({
+        ...req.query,
+        limit: 10,
+      }, handle);
       return;
     }
 
-    Group.find({ _id: { $in: req.user.groups } }, handle);
+    const userId = req.user._id;
+    Group.search({
+      ...req.query,
+      limit: 10,
+      filters: {
+        $or: [
+          { members: userId },
+          { admin: userId },
+        ],
+      },
+    }, handle);
   },
 );
 
