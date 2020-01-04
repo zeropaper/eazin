@@ -1,5 +1,8 @@
 const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
+const chokidar = require('chokidar');
+const debounce = require('lodash.debounce');
+
 const compileProduction = require('./src/dev/neutrino-monorepo');
 const testing = require('./src/dev/neutrino-test');
 
@@ -107,6 +110,10 @@ module.exports = {
               server.sockWrite(server.sockets, 'content-changed');
             }, 50));
         },
+      });
+
+      neutrino.config.optimization.merge({
+        minimize: process.env.NODE_ENV === 'production',
       });
 
       // Attempt to get those FÜç*¼#g source-maps working
