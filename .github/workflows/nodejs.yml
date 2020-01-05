@@ -26,4 +26,4 @@ jobs:
         npm test
       env:
         CI: true
-        EAZIN_RC_PATH: test/ci.eazinrc.js
+        EAZIN_RC_PATH: ./test/ci.eazinrc.js

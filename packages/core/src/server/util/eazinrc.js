@@ -1,7 +1,6 @@
 const path = require('path');
 
-const rcpath = process.env.EAZIN_RC_PATH
-  || path.resolve(process.cwd(), './.eazinrc');
+const rcpath = path.resolve(process.cwd(), process.env.EAZIN_RC_PATH || './.eazinrc');
 // eslint-disable-next-line import/no-dynamic-require
 const config = require(rcpath);
 
