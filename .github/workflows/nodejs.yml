@@ -1,20 +1,15 @@
 name: Node CI
-
 on:
   push:
     branches:
       - master
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [12.x]
         mongodb-version: ["4.2"]
-
     steps:
     - uses: actions/checkout@v1
     - name: Use Node.js ${{ matrix.node-version }}
@@ -37,13 +32,13 @@ jobs:
       env:
         CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
-    - name: npm E2E test
-      run: |
-        npm run build:html
-        npm run test:e2e
-      env:
-        CI: true
-        EAZIN_RC_PATH: ./test/ci.eazinrc.js
+    # - name: npm E2E test
+    #   run: |
+    #     npm run build:html
+    #     npm run test:e2e
+    #   env:
+    #     CI: true
+    #     EAZIN_RC_PATH: ./test/ci.eazinrc.js
     - name: Upload artifact
       if: always()
       uses: actions/upload-artifact@v1.0.0
