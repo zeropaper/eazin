@@ -25,10 +25,22 @@ jobs:
       uses: wbari/start-mongoDB@v0.2
       with:
         mongoDBVersion: ${{ matrix.mongodb-version }}
-    - name: npm install, build, and test
+    - name: npm install
       run: |
         npm ci
-        npm test
+      env:
+        CI: true
+        EAZIN_RC_PATH: ./test/ci.eazinrc.js
+    - name: npm unit test
+      run: |
+        npm run test:unit
+      env:
+        CI: true
+        EAZIN_RC_PATH: ./test/ci.eazinrc.js
+    - name: npm E2E test
+      run: |
+        npm run build:html
+        npm run test:e2e
       env:
         CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
