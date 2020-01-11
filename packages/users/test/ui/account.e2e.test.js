@@ -63,5 +63,16 @@ describe('Account', () => {
 
       // await page.click('[data-testid="password-change"] [type="submit"]');
     });
+
+    // TODO:
+    // - logout
+    // - login with new password
+  });
+
+  describe('email change', () => {
+    // TODO:
+    // - change to already used address (should not be possible)
+    // - change address
+    // - follow instructions in verification mail
   });
 });
