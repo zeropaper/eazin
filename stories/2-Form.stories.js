@@ -9,8 +9,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Typography } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
-import Form from '../packages/core/src/ui/components/Form/FormBase';
-import { validMail, validPassword } from '../packages/users/src/ui/user.validators';
+import Form from '../src/packages/core/src/ui/components/Form/FormBase';
+import { validMail, validPassword } from '../src/packages/users/src/ui/user.validators';
 
 
 export default {
@@ -168,6 +168,7 @@ const theme = createMuiTheme({
     useNextVariants: true,
   },
 });
+// eslint-disable-next-line react/prop-types
 const Themed = ({ children }) => (
   <MuiThemeProvider theme={theme}>
     <CssBaseline />

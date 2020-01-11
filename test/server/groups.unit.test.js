@@ -3,8 +3,8 @@
 /* eslint-disable jest/no-standalone-expect */
 const prepare = require('../server/prepare-server');
 
-const usersPlugin = require('../../packages/users/src/server');
-const groupsPlugin = require('../../src/ui/dev/groups/src/server');
+const usersPlugin = require('../../src/packages/users/src/server');
+const groupsPlugin = require('../../src/dev/groups/src/server');
 
 let noAccess;
 let creator;

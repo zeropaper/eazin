@@ -1,6 +1,6 @@
 /* eslint-disable global-require */
 const path = require('path');
-const server = require('../../packages/core/src/server');
+const server = require('../packages/core/src/server');
 
 const {
   PORT = 5001,
@@ -10,15 +10,15 @@ const {
 server({
   publicDir: PUBLIC_DIR,
   plugins: [
-    require('../../packages/users/src/server'),
+    require('../packages/users/src/server'),
     // require('../../packages/mailer/src/server'),
 
-    require('../ui/dev/kitchen-sink/src/server'),
-    require('../ui/dev/groups/src/server'),
-    require('../ui/dev/organisations/src/server'),
-    require('../ui/dev/clients/src/server'),
-    require('../ui/dev/webhook/src/server'),
-    require('../ui/dev/docs/src/server'),
+    require('../dev/kitchen-sink/src/server'),
+    require('../dev/groups/src/server'),
+    require('../dev/organisations/src/server'),
+    require('../dev/clients/src/server'),
+    require('../dev/webhook/src/server'),
+    require('../dev/docs/src/server'),
   ],
 })
   .then((app) => {

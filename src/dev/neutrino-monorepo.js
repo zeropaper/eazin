@@ -10,7 +10,7 @@ const { readJSON, readJSONSync, readFileSync } = require('fs-extra');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const hookTypes = require('tapable');
 
-const pkgSrcs = 'packages';
+const pkgSrcs = 'src/packages';
 
 class HooksPlugin {
   constructor(conf) {

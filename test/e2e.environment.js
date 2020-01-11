@@ -14,16 +14,16 @@ const {
 const { dir: tmpDir } = require('tmp-promise');
 const tcpPortUsed = require('tcp-port-used');
 
-const makeApp = require('../packages/core/src/server');
+const makeApp = require('../src/packages/core/src/server');
 
 const plugins = [
-  require('../packages/users/src/server'),
+  require('../src/packages/users/src/server'),
 
-  require('../src/ui/dev/groups/src/server'),
-  require('../src/ui/dev/organisations/src/server'),
-  require('../src/ui/dev/clients/src/server'),
-  require('../src/ui/dev/webhook/src/server'),
-  require('../src/ui/dev/docs/src/server'),
+  require('../src/dev/groups/src/server'),
+  require('../src/dev/organisations/src/server'),
+  require('../src/dev/clients/src/server'),
+  require('../src/dev/webhook/src/server'),
+  require('../src/dev/docs/src/server'),
 ];
 
 const {

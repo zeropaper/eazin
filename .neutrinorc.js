@@ -15,7 +15,7 @@ const compileDevelopment = (neutrino, options) => () => {
 module.exports = {
   options: {
     root: __dirname,
-    source: 'src/ui',
+    source: 'src',
     output: process.env.BUILD_TYPE === 'html' ? 'html-build' : 'build',
   },
   use: [
