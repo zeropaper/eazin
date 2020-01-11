@@ -52,9 +52,11 @@ module.exports = {
     }),
 
     (neutrino) => {
-      neutrino.config.resolve.alias
-        .set('react', `${__dirname}/node_modules/react`)
-        .end();
+      if (process.env.NODE_ENV !== 'test') {
+        neutrino.config.resolve.alias
+          .set('react', `${__dirname}/node_modules/react`)
+          .end();
+      }
       const options = {
         html: process.env.NODE_ENV === 'development' && {
           title: 'React Preview',
