@@ -154,13 +154,16 @@ module.exports = (neutrino, options) => () => {
 Please refer to:
 ${pkg.repository.url.split('+').pop().split('.git').join('')}/tree/master/${pkgSrcs}/${name}`);
     }));
+
   neutrino.use(hooks({ emit }));
 
   neutrino.use(copy({
-    patterns: pkgNames.map((name) => ({
-      from: `${pkgSrcs}/${name}/server`,
-      to: `${pkg.name}-${name}/server`,
-    })),
+    patterns: pkgNames
+      .filter((name) => existsSync(`${pkgSrcs}/${name}/server/index.js`))
+      .map((name) => ({
+        from: `${pkgSrcs}/${name}/server`,
+        to: `${pkg.name}-${name}/server`,
+      })),
   }));
 
   neutrino.config
