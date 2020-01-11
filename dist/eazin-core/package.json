@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-core",
-  "version": "0.0.1-wip.4",
+  "version": "0.0.1-wip.5",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
@@ -22,7 +22,6 @@
   "dependencies": {
     "react": "16.12.0"
   },
-  "devDependencies": {},
   "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"
