@@ -4,9 +4,8 @@ import React from 'react';
 // import Table from '../../../../../../packages/core/src/ui/components/Table';
 import { Table } from 'eazin-core/ui';
 
-const GroupsView = ({
-  api: { get },
-}) => (
+// eslint-disable-next-line react/prop-types
+const GroupsView = ({ api: { get } }) => (
   <Table
     columns={[
       {
