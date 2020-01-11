@@ -1,6 +1,6 @@
 const prepare = require('../../../../../test/server/prepare-server');
 
-const userPlugin = require('../../src/server');
+const userPlugin = require('../../server');
 const makeFixtures = require('./users.fixtures');
 
 let get;

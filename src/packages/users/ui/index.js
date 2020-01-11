@@ -1,6 +1,6 @@
 
 import { queryAPI } from 'eazin-core/ui';
-import { clearSetting } from '../../../settings/src/ui/settings.actions';
+import { clearSetting } from '../../settings/ui/settings.actions';
 
 import { setUser, clearUser } from './user.actions';
 import reducer from './user.reducer';

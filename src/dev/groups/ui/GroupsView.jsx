@@ -1,7 +1,7 @@
 import React from 'react';
 // import { Helmet } from 'react-helmet-async';
 
-// import Table from '../../../../../../packages/core/src/ui/components/Table';
+// import Table from '../../../../../../packages/core/ui/components/Table';
 import { Table } from 'eazin-core/ui';
 
 // eslint-disable-next-line react/prop-types

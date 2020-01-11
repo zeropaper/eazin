@@ -91,7 +91,7 @@ module.exports = (neutrino, options) => () => {
     .reduce((acc, val) => {
       pkgNames.push(val);
 
-      const uiDir = join(pkgSrcs, val, 'src/ui');
+      const uiDir = join(pkgSrcs, val, 'ui');
 
       if (!existsSync(uiDir)) return acc;
       return [
@@ -159,7 +159,7 @@ ${pkg.repository.url.split('+').pop().split('.git').join('')}/tree/master/${pkgS
 
   neutrino.use(copy({
     patterns: pkgNames.map((name) => ({
-      from: `${pkgSrcs}/${name}/src/server`,
+      from: `${pkgSrcs}/${name}/server`,
       to: `${pkg.name}-${name}/server`,
     })),
   }));

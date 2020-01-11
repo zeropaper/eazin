@@ -5,7 +5,7 @@ import { parse as parseQuery } from 'querystring';
 import { Typography } from '@material-ui/core';
 
 import { queryAPI, Form } from 'eazin-core/ui';
-import { setSetting } from '../../../settings/src/ui/settings.actions';
+import { setSetting } from '../../settings/ui/settings.actions';
 import { setUser } from './user.actions';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');

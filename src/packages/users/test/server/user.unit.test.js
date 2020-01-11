@@ -2,7 +2,7 @@
 const prepare = require('../../../../../test/server/prepare-server');
 const { sneakMessage, clearSneakMessages } = require('../../../../../test/util');
 
-const usersPlugin = require('../../src/server');
+const usersPlugin = require('../../server');
 
 const email = 'john@eazin.dev';
 

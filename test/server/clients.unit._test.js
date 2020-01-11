@@ -2,8 +2,8 @@
 /* eslint-disable jest/no-standalone-expect */
 const prepare = require('./prepare-server');
 
-const usersPlugin = require('../../src/packages/users/src/server');
-const clientsPlugin = require('../../src/dev/clients/src/server');
+const usersPlugin = require('../../src/packages/users/server');
+const clientsPlugin = require('../../src/dev/clients/server');
 
 let creator;
 // let verifiedUser;

@@ -1,4 +1,4 @@
-const check = require('../../src/server/user.auth.checkRoles');
+const check = require('../../server/user.auth.checkRoles');
 
 const noop = () => {};
 

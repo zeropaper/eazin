@@ -6,7 +6,7 @@ import { Typography } from '@material-ui/core';
 import { Form } from 'eazin-core/ui';
 
 import { setUser } from './user.actions';
-import { setSetting } from '../../../settings/src/ui/settings.actions';
+import { setSetting } from '../../settings/ui/settings.actions';
 import Links from './AnonForms.Links';
 import { validMail } from './user.validators';
 

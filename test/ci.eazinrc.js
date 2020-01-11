@@ -13,7 +13,7 @@ const config = {
 config['eazin-mailer'] = {
   siteSender: `${config.siteName} <no-reply@eazin.local>`,
   // eslint-disable-next-line global-require
-  templates: require('../src/packages/users/src/server/user.email.templates'),
+  templates: require('../src/packages/users/server/user.email.templates'),
   transport: 'test',
 };
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 
-import ButtonsGroup from '../src/packages/core/src/ui/components/Form/ButtonsGroup';
+import ButtonsGroup from '../src/packages/core/ui/components/Form/ButtonsGroup';
 
 export default {
   title: 'Button',

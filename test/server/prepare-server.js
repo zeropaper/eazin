@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const request = require('supertest');
 
-const server = require('../../src/packages/core/src/server');
+const server = require('../../src/packages/core/server');
 
 module.exports = async ({ plugins = [] } = {}) => {
   const app = await server({ plugins });

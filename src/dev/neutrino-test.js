@@ -26,7 +26,7 @@ const jestType = (type) => ({
   ],
   testMatch: [
     absPath(`test/**/*${type}.test.js`),
-    absPath(`packages/*/test/**/*${type}.test.js?(x)`),
+    absPath(`src/**/test/**/*${type}.test.js?(x)`),
   ],
   coverageDirectory: absPath(`test-results/${type}`),
 });
@@ -39,8 +39,8 @@ module.exports = ({ type = 'unit' }) => {
 
       testEnvironment: 'node',
       collectCoverageFrom: [
-        absPath('src/server/**/*.js'),
-        absPath('packages/*/src/server/**/*.js'),
+        // absPath('src/server/**/*.js'),
+        absPath('src/**/server/**/*.js'),
       ],
     }
     : {
@@ -53,8 +53,8 @@ module.exports = ({ type = 'unit' }) => {
         absPath('test/e2e.init'),
       ],
       collectCoverageFrom: [
-        absPath('src/**/*.{mjs,jsx,js}'),
-        absPath('packages/*/src/**/*.{mjs,jsx,js}'),
+        // absPath('src/**/*.{mjs,jsx,js}'),
+        absPath('src/**/ui/**/*.{mjs,jsx,js}'),
       ],
     });
   return jestConfig;

@@ -1,9 +1,9 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const express = require('express');
 
-const check = require('../../../../packages/users/src/server/user.auth.checkRoles');
-const bearer = require('../../../../packages/users/src/server/user.auth.bearer');
-const requestHook = require('../../../../packages/core/src/server/util/requestHook');
+const check = require('../../../packages/users/server/user.auth.checkRoles');
+const bearer = require('../../../packages/users/server/user.auth.bearer');
+const requestHook = require('../../../packages/core/server/util/requestHook');
 
 const groupIdParam = require('./groups.param');
 
