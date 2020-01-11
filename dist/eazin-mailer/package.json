@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-mailer",
-  "version": "0.0.1-wip.4",
+  "version": "0.0.1-wip.5",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
@@ -22,7 +22,6 @@
   "dependencies": {
     "nodemailer": "6.4.2"
   },
-  "devDependencies": {},
   "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"
