@@ -188,4 +188,13 @@ router.get('/me', bearer, requestHook, (req, res) => {
   return res.send(User.sanitizeOutput(req.user));
 });
 
+router.patch('/', bearer, requestHook, async (req, res, next) => {
+  if (!req.user) return next(httperrors.Unauthorized());
+  const { sanitizeOutput } = req.db.model('User');
+  req.user.firstName = req.body.firstName;
+  req.user.lastName = req.body.lastName;
+  await req.user.save();
+  return res.send(sanitizeOutput(req.user));
+});
+
 module.exports = router;
