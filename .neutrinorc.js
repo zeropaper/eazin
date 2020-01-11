@@ -52,6 +52,9 @@ module.exports = {
     }),
 
     (neutrino) => {
+      neutrino.config.resolve.alias
+        .set('react', `${__dirname}/node_modules/react`)
+        .end();
       const options = {
         html: process.env.NODE_ENV === 'development' && {
           title: 'React Preview',
@@ -113,7 +116,8 @@ module.exports = {
       });
 
       neutrino.config.optimization.merge({
-        minimize: process.env.NODE_ENV === 'production',
+        // minimize: process.env.NODE_ENV === 'production',
+        minimize: false,
       });
 
       // Attempt to get those FÜç*¼#g source-maps working

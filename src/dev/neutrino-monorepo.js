@@ -147,6 +147,7 @@ module.exports = (neutrino, options) => () => {
       content = JSON.stringify(content, null, 2);
       wpWriteFile(compilation, `${pkg.name}-${name}/package.json`, content);
 
+      if (process.env.BUILD_SKIP_OPTIONAL) return;
       wpWriteFile(compilation, `${pkg.name}-${name}/LICENSE`, LICENSE);
 
       wpWriteFile(compilation, `${pkg.name}-${name}/README.md`, `# ${pkg.name}-${name}
