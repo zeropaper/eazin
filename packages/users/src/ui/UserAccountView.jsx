@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import { connect } from 'react-redux';
 
 import { Form } from 'eazin-core/ui';
 import { validMail, validPassword } from './user.validators';
@@ -10,6 +11,42 @@ const required = {
   required: true,
   validateOnChange: true,
 };
+
+const ProfileForm = connect(({ user: { user } }) => user)(({ firstName, lastName }) => (
+  <Form
+    method="patch"
+    url="/api/user"
+    fields={{
+      firstName: {
+        label: 'First Name',
+        ...required,
+        fullWidth: true,
+        initialValue: firstName,
+      },
+      lastName: {
+        label: 'Last Name',
+        ...required,
+        fullWidth: true,
+        initialValue: lastName,
+      },
+      actions: {
+        buttons: ({ pristine, invalid }, { loading }) => ([
+          {
+            text: 'Reset',
+            type: 'reset',
+            disabled: pristine || loading,
+          },
+          {
+            text: 'Update',
+            type: 'submit',
+            disabled: pristine || invalid || loading,
+          },
+        ]),
+      },
+    }}
+  />
+));
+
 const passwordFormFields = {
   current: {
     label: 'Current Password',
@@ -34,7 +71,7 @@ const passwordFormFields = {
       if (val !== vals.password) return 'Passwords don\'t match';
     },
   },
-  buttons: {
+  actions: {
     buttons: ({
       pristine,
       invalid,
@@ -67,7 +104,7 @@ const emailFormFields = {
     fullWidth: true,
     helperText: 'A verification email will first be send to this address. The new address will be effective only once verified',
   },
-  buttons: {
+  actions: {
     buttons: ({
       pristine,
       invalid,
@@ -108,6 +145,19 @@ const AccountView = ({ api: { post }, classes }) => (
     spacing={1}
     className={classes.root}
   >
+    <Grid item className={classes.tile} xs={12}>
+      <Paper className={classes.paper} data-testid="user-profile">
+        <Typography
+          variant="h4"
+          gutterBottom
+        >
+            Profile
+        </Typography>
+
+        <ProfileForm />
+      </Paper>
+    </Grid>
+
     <Grid item className={classes.tile} sm>
       <Paper className={classes.paper} data-testid="password-change">
         <Typography
