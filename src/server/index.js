@@ -13,6 +13,7 @@ server({
     require('../../packages/users/src/server'),
     // require('../../packages/mailer/src/server'),
 
+    require('../ui/dev/kitchen-sink/src/server'),
     require('../ui/dev/groups/src/server'),
     require('../ui/dev/organisations/src/server'),
     require('../ui/dev/clients/src/server'),
