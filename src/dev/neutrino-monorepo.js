@@ -10,7 +10,7 @@ const { readJSON, readJSONSync, readFileSync } = require('fs-extra');
 // eslint-disable-next-line import/no-extraneous-dependencies
 const hookTypes = require('tapable');
 
-const pkgSrcs = 'packages';
+const pkgSrcs = 'src/packages';
 
 class HooksPlugin {
   constructor(conf) {
@@ -91,7 +91,7 @@ module.exports = (neutrino, options) => () => {
     .reduce((acc, val) => {
       pkgNames.push(val);
 
-      const uiDir = join(pkgSrcs, val, 'src/ui');
+      const uiDir = join(pkgSrcs, val, 'ui');
 
       if (!existsSync(uiDir)) return acc;
       return [
@@ -101,7 +101,6 @@ module.exports = (neutrino, options) => () => {
     }, [])
     .forEach((main) => {
       const mainPath = stripExt(main)
-        .replace('src/', '')
         .replace(`${pkgSrcs}/`, `${pkg.name}-`);
       // eslint-disable-next-line no-param-reassign
       neutrino.options.mains[mainPath] = {
@@ -148,6 +147,7 @@ module.exports = (neutrino, options) => () => {
       content = JSON.stringify(content, null, 2);
       wpWriteFile(compilation, `${pkg.name}-${name}/package.json`, content);
 
+      if (process.env.BUILD_SKIP_OPTIONAL) return;
       wpWriteFile(compilation, `${pkg.name}-${name}/LICENSE`, LICENSE);
 
       wpWriteFile(compilation, `${pkg.name}-${name}/README.md`, `# ${pkg.name}-${name}
@@ -155,13 +155,16 @@ module.exports = (neutrino, options) => () => {
 Please refer to:
 ${pkg.repository.url.split('+').pop().split('.git').join('')}/tree/master/${pkgSrcs}/${name}`);
     }));
+
   neutrino.use(hooks({ emit }));
 
   neutrino.use(copy({
-    patterns: pkgNames.map((name) => ({
-      from: `${pkgSrcs}/${name}/src/server`,
-      to: `${pkg.name}-${name}/server`,
-    })),
+    patterns: pkgNames
+      .filter((name) => existsSync(`${pkgSrcs}/${name}/server/index.js`))
+      .map((name) => ({
+        from: `${pkgSrcs}/${name}/server`,
+        to: `${pkg.name}-${name}/server`,
+      })),
   }));
 
   neutrino.config

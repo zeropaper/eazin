@@ -6,10 +6,10 @@ import landing from 'eazin-landing';
 import settings from 'eazin-settings';
 import users from 'eazin-users';
 
-import kitchenSink from './dev/kitchen-sink/src/ui';
-import organisations from './dev/organisations/src/ui';
-import groups from './dev/groups/src/ui';
-import docs from './dev/docs/src/ui';
+import kitchenSink from '../dev/kitchen-sink/ui';
+import organisations from '../dev/organisations/ui';
+import groups from '../dev/groups/ui';
+import docs from '../dev/docs/ui';
 
 export default () => (
   <App
