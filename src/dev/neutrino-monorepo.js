@@ -101,7 +101,6 @@ module.exports = (neutrino, options) => () => {
     }, [])
     .forEach((main) => {
       const mainPath = stripExt(main)
-        .replace('src/', '')
         .replace(`${pkgSrcs}/`, `${pkg.name}-`);
       // eslint-disable-next-line no-param-reassign
       neutrino.options.mains[mainPath] = {
