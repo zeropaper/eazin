@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const templates = {};
 
 templates.register = ({
@@ -8,7 +9,7 @@ templates.register = ({
 }) => {
   const mailSubject = subject
     || `Email confirmation for ${siteName || baseURL} registration`;
-  const link = `${baseURL}verify&token=${token}`;
+  const link = `${baseURL}verify?token=${token}`;
 
   return {
     subject: mailSubject,
@@ -37,8 +38,8 @@ templates.reset = ({
   baseURL,
 }) => {
   const mailSubject = subject
-    || `Email confirmation for ${siteName || baseURL} registration`;
-  const link = `${baseURL}verify&token=${token}`;
+    || `Password reset for ${siteName || baseURL}`;
+  const link = `${baseURL}verify?token=${token}`;
 
   return {
     subject: mailSubject,
@@ -50,6 +51,36 @@ ${link}`,
     html: `<h5>${mailSubject}</h5>
 <div>
 Click <a href="${link}">here</a> or use the following link in order to complete the ${siteName || baseURL} password reset process.
+<br />
+${link}
+</div>`,
+
+    // https://nodemailer.com/message/#amp-example
+    // amp: '',
+  };
+};
+
+
+templates.emailChange = ({
+  subject,
+  token,
+  siteName,
+  baseURL,
+}) => {
+  const mailSubject = subject
+    || `Email change confirmation for ${siteName || baseURL}`;
+  const link = `${baseURL}/account/?token=${token}`;
+
+  return {
+    subject: mailSubject,
+
+    text: `${mailSubject}
+Use the following link in order to complete the ${siteName || baseURL} email change process.
+${link}`,
+
+    html: `<h5>${mailSubject}</h5>
+<div>
+Click <a href="${link}">here</a> or use the following link in order to complete the ${siteName || baseURL} email change process.
 <br />
 ${link}
 </div>`,
