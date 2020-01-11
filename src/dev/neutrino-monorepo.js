@@ -69,7 +69,7 @@ const stripExt = (str) => {
 const packagePeerDependencies = (dependencies, available) => Object
   .keys(dependencies).reduce((deps, name) => ({
     ...deps,
-    [name]: available[name] || dependencies[name],
+    [name]: `^${available[name] || dependencies[name]}`,
   }), {});
 
 module.exports = (neutrino, options) => () => {
