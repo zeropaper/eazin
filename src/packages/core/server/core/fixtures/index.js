@@ -12,7 +12,7 @@ module.exports = (db) => {
 
     let used = {};
     if (typeof definition.file === 'string') {
-      const fixturesPath = path.resolve(__dirname, '../../../../../../', definition.file);
+      const fixturesPath = path.resolve(__dirname, '../../../../../', definition.file);
       try {
         // eslint-disable-next-line
         used = process(require(fixturesPath));
