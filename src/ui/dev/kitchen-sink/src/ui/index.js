@@ -1,9 +1,9 @@
-import ChuckNorrisLandingView from './ChuckNorrisLandingView';
+import KitchenSinkLandingView from './KitchenSinkLandingView';
 
 const routes = [
   {
     path: '/',
-    LandingView: ChuckNorrisLandingView,
+    LandingView: KitchenSinkLandingView,
   },
 ];
 
