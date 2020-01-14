@@ -51,8 +51,8 @@ InformedTextField.propTypes = {
   forwardedRef: PropTypes.object,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
-  error: PropTypes.string,
-  helperText: PropTypes.string,
+  error: PropTypes.node,
+  helperText: PropTypes.node,
   initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
 };

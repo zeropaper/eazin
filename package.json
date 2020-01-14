@@ -42,6 +42,7 @@
   "dependencies": {
     "@material-ui/core": "4.8.1",
     "@material-ui/icons": "4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.39",
     "@neutrinojs/airbnb": "9.0.0",
     "@neutrinojs/banner": "9.0.0",
     "@neutrinojs/copy": "9.0.0",
@@ -68,6 +69,7 @@
     "jest-environment-node": "24.9.0",
     "jest-junit": "10.0.0",
     "lodash.debounce": "4.0.8",
+    "lodash.isequal": "^4.5.0",
     "lodash.template": "4.5.0",
     "material-table": "1.54.2",
     "moment": "2.24.0",

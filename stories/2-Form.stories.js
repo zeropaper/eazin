@@ -6,7 +6,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { withStyles, createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Typography } from '@material-ui/core';
+import { Typography, Link } from '@material-ui/core';
 import SaveIcon from '@material-ui/icons/Save';
 
 import Form from '../src/packages/core/ui/components/Form/FormBase';
@@ -25,8 +25,10 @@ const styles = (theme) => ({
     margin: 'auto',
   },
   customFieldClass: {
-    marginBottom: theme.spacing(2),
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
     width: '100%',
+    border: '1px dashed currentColor',
   },
 });
 
@@ -37,6 +39,7 @@ const required = {
 };
 const fields = {
   email: {
+    // debug: 'debug email',
     label: 'Email',
     type: 'email',
     ...required,
@@ -45,14 +48,16 @@ const fields = {
     initialValue: 'a@a.bb',
   },
   password: {
+    // debug: 'debug password',
     label: 'Password',
     type: 'password',
     ...required,
     validate: validPassword,
     fullWidth: true,
-    initialValue: '1234567890Aa!',
+    // initialValue: '1234567890Aa!',
   },
   passwordConfirm: {
+    // debug: 'debug passwordConfirm',
     label: 'Password Confirmation',
     type: 'password',
     ...required,
@@ -60,36 +65,26 @@ const fields = {
       if (val !== vals.password) return 'Passwords don\'t match';
     },
     fullWidth: true,
-    initialValue: '1234567890Aa!',
+    // initialValue: '1234567890Aa!',
   },
-  buttons: {
-    type: 'buttons',
-    buttons: ({
-      pristine,
-      invalid,
-      values: {
-        email,
-        passwordConfirm,
+  misc: {
+    type: 'fields',
+    fields: {
+      tos: {
+        type: 'checkbox',
+        validate: (checked) => (!checked ? 'You need to accept the TOS' : undefined),
+        ...required,
+        label: 'Terms Of Service',
+        helperText: (
+          <>
+            By checking this box, you agree with the&nbsp;
+            <Link href="#tos">Terms Of Service</Link>
+            .
+          </>
+        ),
       },
-    }, { loading }) => ([
-      {
-        text: 'Reset',
-        type: 'reset',
-        disabled: pristine,
-        variant: 'text',
-      },
-      {
-        text: 'Register',
-        type: 'submit',
-        color: 'primary',
-        startIcon: (<SaveIcon />),
-        loading,
-        disabled: pristine
-          || invalid
-          || !email
-          || !passwordConfirm,
-      },
-    ]),
+
+    },
   },
 };
 
@@ -131,11 +126,40 @@ const Base = withStyles(styles)(({
     </header>
 
     <Form
+      debug
       onSubmit={handleSubmit(rejection, resolveMessage, timeout)}
       onFailure={handleFailure}
       onSuccess={handleSuccess}
       fields={fields}
-      // fieldClassName={classes.customFieldClass}
+      fieldClassName={classes.customFieldClass}
+      buttons={({
+        pristine,
+        invalid,
+        // values: {
+        //   email,
+        //   passwordConfirm,
+        // },
+      }, { loading }) => ([
+        {
+          text: 'Reset',
+          type: 'reset',
+          variant: 'text',
+          disabled: pristine
+            || loading,
+        },
+        {
+          text: 'Register',
+          type: 'submit',
+          color: 'primary',
+          startIcon: (<SaveIcon />),
+          loading,
+          disabled: pristine
+            // || !email
+            // || !passwordConfirm
+            || invalid
+            || loading,
+        },
+      ])}
     />
 
     <footer>

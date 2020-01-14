@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form as Informed } from 'informed';
-import { Typography } from '@material-ui/core';
+import { Snackbar } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import { withStyles } from '@material-ui/core/styles';
+import isEqual from 'lodash.isequal';
 
 import queryAPI from '../../core/util/queryAPI';
 import Fields from './Fields';
+import ButtonsGroup from './ButtonsGroup';
 
 const styles = (theme) => ({
   field: {
@@ -22,6 +25,22 @@ class FormBase extends React.Component {
     errors: null,
     error: null,
     loading: false,
+  };
+
+  getValues = (subFields) => {
+    const { fields } = this.props;
+    const values = {};
+    const used = subFields || fields;
+    Object.keys(used).forEach((fieldName) => {
+      const { initialValue } = used[fieldName];
+      if (typeof initialValue === 'undefined') return;
+      values[fieldName] = initialValue;
+    });
+    return values;
+  };
+
+  registerFormAPI = (api) => {
+    this.api = api;
   };
 
   handlePrepareRequest = (fields) => (new Promise((res) => {
@@ -44,7 +63,8 @@ class FormBase extends React.Component {
   }, () => {
     const { onSuccess } = this.props;
     if (typeof onSuccess === 'function') onSuccess(result);
-  });
+  })
+  ;
 
   handleFailure = (err) => this.setState({
     errors: err.fields || {},
@@ -92,31 +112,88 @@ class FormBase extends React.Component {
     }
   };
 
-  renderError = () => {
-    const { fieldClassName } = this.props;
-    const { loading, errors, error } = this.state;
-    if (loading || !(errors || error)) return null;
-    return (
-      <Typography color="error" className={fieldClassName}>
-        {error}
-      </Typography>
-    );
-  };
+  renderContent = (renderProps) => (
+    <>
+      {this.renderFields(renderProps)}
+      {this.renderSuccess(renderProps)}
+      {this.renderError(renderProps)}
+      {this.renderButtons(renderProps)}
+      {this.renderDebug()}
+    </>
+  );
 
   renderFields = ({ formState, formApi }) => {
     const { fields, fieldClassName, classes } = this.props;
     const { loading } = this.state;
 
     return (
-      <>
-        {this.renderError()}
-        <Fields
-          fields={fields}
-          fieldClassName={fieldClassName || classes.field}
-          state={formState}
-          api={{ ...formApi, loading }}
-        />
-      </>
+      <Fields
+        fields={fields}
+        fieldClassName={fieldClassName || classes.field}
+        state={formState}
+        api={{ ...formApi, loading }}
+      />
+    );
+  };
+
+  renderSuccess = () => {
+    const { successMessage } = this.props;
+    const { loading, success } = this.state;
+    return (
+      <Snackbar
+        open={!loading && !!success}
+        autoHideDuration={6000}
+      >
+        <Alert severity="success" variant="filled">
+          {success === true ? successMessage : success}
+        </Alert>
+      </Snackbar>
+    );
+  };
+
+  renderError = () => {
+    const { errorMessage } = this.props;
+    const { loading, error, errors } = this.state;
+    return (
+      <Snackbar
+        open={!loading && (!!error || !!errors)}
+        autoHideDuration={6000}
+      >
+        <Alert severity="error" variant="filled">
+          {error === true ? errorMessage : error}
+        </Alert>
+      </Snackbar>
+    );
+  };
+
+  renderButtons = () => {
+    const { buttons, fieldClassName } = this.props;
+    const formState = this.api.getState();
+    const fieldValues = this.getValues();
+    const pristine = isEqual(fieldValues, formState.values);
+    const state = {
+      ...formState,
+      pristine,
+      dirty: !pristine,
+    };
+    return (
+      <ButtonsGroup
+        buttons={typeof buttons === 'function'
+          ? buttons(state, this.api)
+          : buttons}
+        className={fieldClassName}
+      />
+    );
+  };
+
+  renderDebug = () => {
+    const { debug } = this.props;
+    if (!debug) return null;
+    return (
+      <details open>
+        <summary>Form State</summary>
+        <pre>{JSON.stringify(this.api ? this.api.getState() : null, null, 2)}</pre>
+      </details>
     );
   };
 
@@ -128,7 +205,8 @@ class FormBase extends React.Component {
         className={className}
         onSubmit={this.handleSubmit}
         noValidate
-        render={render || this.renderFields}
+        render={render || this.renderContent}
+        getApi={this.registerFormAPI}
       />
     );
   }
@@ -146,6 +224,13 @@ FormBase.propTypes = {
   fields: PropTypes.objectOf(PropTypes.object).isRequired,
   render: PropTypes.func,
   fieldClassName: PropTypes.string,
+  buttons: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.arrayOf(PropTypes.object),
+  ]),
+  errorMessage: PropTypes.string,
+  successMessage: PropTypes.string,
+  debug: PropTypes.bool,
 };
 
 FormBase.defaultProps = {
@@ -158,6 +243,10 @@ FormBase.defaultProps = {
   onFailure: null,
   render: null,
   fieldClassName: null,
+  buttons: null,
+  errorMessage: null,
+  successMessage: null,
+  debug: null,
 };
 
 export default withStyles(styles)(FormBase);

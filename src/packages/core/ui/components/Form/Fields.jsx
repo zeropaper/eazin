@@ -4,7 +4,10 @@ import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-cycle
 import FieldSet from './FieldSet';
 import TextField from './TextField';
+import Checkbox from './Checkbox';
 import ButtonsGroup from './ButtonsGroup';
+
+// const Checkbox = () => null;
 
 const Fields = ({
   fields,
@@ -56,10 +59,28 @@ const Fields = ({
     }
 
     if (buttons) {
+      const pristine = !Object.keys(state.touched).length;
+      const bState = {
+        ...state,
+        pristine,
+        dirty: !pristine,
+      };
+      // console.info('button state', bState);
       return (
         <ButtonsGroup
           key={field}
-          buttons={typeof buttons === 'function' ? buttons(state, api, field, fields) : buttons}
+          buttons={typeof buttons === 'function' ? buttons(bState, api, field, fields) : buttons}
+          className={currentFieldClassName}
+        />
+      );
+    }
+
+    if (type === 'checkbox') {
+      return (
+        <Checkbox
+          {...props}
+          key={field}
+          field={subField}
           className={currentFieldClassName}
         />
       );

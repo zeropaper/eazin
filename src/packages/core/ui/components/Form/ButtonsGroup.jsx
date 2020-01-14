@@ -32,7 +32,7 @@ const ButtonsGroup = ({
     style={style}
     className={classNames(classes.root, className)}
   >
-    {buttons.map((info) => {
+    {(buttons || []).map((info) => {
       const {
         children,
         text,
