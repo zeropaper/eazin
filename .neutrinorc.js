@@ -2,6 +2,7 @@ const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
 const chokidar = require('chokidar');
 const debounce = require('lodash.debounce');
+const { readdirSync, existsSync, writeFileSync } = require('fs');
 
 const compileProduction = require('./src/dev/neutrino-monorepo');
 const testing = require('./src/dev/neutrino-test');
@@ -52,10 +53,27 @@ module.exports = {
     }),
 
     (neutrino) => {
+      const projectName = neutrino.options.packageJson.name;
+      const { source } = neutrino.options;
       if (process.env.NODE_ENV !== 'test') {
         neutrino.config.resolve.alias
           .set('react', `${__dirname}/node_modules/react`)
           .end();
+
+        readdirSync(`${neutrino.options.source}/packages`)
+          .forEach((pkgName) => {
+            const packageName = `${projectName}-${pkgName}`;
+            const jsonPath = `${source}/packages/${pkgName}/package.json`;
+            if (!existsSync(jsonPath)) {
+              writeFileSync(jsonPath, JSON.stringify({
+                name: packageName,
+                private: true,
+              }, null, 2));
+            }
+            neutrino.config.resolve.alias
+              .set(packageName, `${source}/packages/${pkgName}`)
+              .end();
+          });
       }
       const options = {
         html: process.env.NODE_ENV === 'development' && {
@@ -98,23 +116,23 @@ module.exports = {
           '/socket.io': 'http://localhost:5001',
           '/fixtures': 'http://localhost:5001',
         },
-        before: (app, server) => {
-          chokidar
-            .watch([
-              'dist/*/ui/**/*.js',
-            ], {
-              alwaysStat: true,
-              atomic: false,
-              followSymlinks: false,
-              ignoreInitial: true,
-              ignorePermissionErrors: true,
-            })
-            .on('all', debounce(() => {
-              // eslint-disable-next-line no-console
-              console.info('[eazin] components build detected - trigger project build');
-              server.sockWrite(server.sockets, 'content-changed');
-            }, 50));
-        },
+        // before: (app, server) => {
+        //   chokidar
+        //     .watch([
+        //       'dist/*/ui/**/*.js',
+        //     ], {
+        //       alwaysStat: true,
+        //       atomic: false,
+        //       followSymlinks: false,
+        //       ignoreInitial: true,
+        //       ignorePermissionErrors: true,
+        //     })
+        //     .on('all', debounce(() => {
+        //       // eslint-disable-next-line no-console
+        //       console.info('[eazin] components build detected - trigger project build');
+        //       server.sockWrite(server.sockets, 'content-changed');
+        //     }, 50));
+        // },
       });
 
       neutrino.config.optimization.merge({

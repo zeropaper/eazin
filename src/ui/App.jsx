@@ -1,10 +1,10 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 
-import { App } from 'eazin-core';
-import landing from 'eazin-landing';
-import settings from 'eazin-settings';
-import users from 'eazin-users';
+import { App } from 'eazin-core/ui';
+import landing from 'eazin-landing/ui';
+import settings from 'eazin-settings/ui';
+import users from 'eazin-users/ui';
 
 import kitchenSink from '../dev/kitchen-sink/ui';
 import organisations from '../dev/organisations/ui';
@@ -14,7 +14,7 @@ import docs from '../dev/docs/ui';
 export default () => (
   <App
     siteName="eazin.dev"
-    plugins={[
+    plugins={{
       landing,
       settings,
       users,
@@ -22,6 +22,6 @@ export default () => (
       organisations,
       docs,
       kitchenSink,
-    ]}
+    }}
   />
 );
