@@ -28,13 +28,12 @@ const App = ({ children, plugins, siteName }) => (plugins && (
 ));
 
 App.propTypes = {
-  plugins: PropTypes.objectOf(PropTypes.any),
+  plugins: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.node,
   siteName: PropTypes.string,
 };
 
 App.defaultProps = {
-  plugins: null,
   children: null,
   siteName: null,
 };
