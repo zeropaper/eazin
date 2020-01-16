@@ -9,6 +9,6 @@ const router = express.Router();
 
 const noContent = (req, res) => res.status(204).end();
 
-router.post('/', requestHook, noContent);
+router.post('/', requestHook('missing description'), noContent);
 
 module.exports = router;

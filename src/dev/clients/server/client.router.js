@@ -16,7 +16,7 @@ router.get(
   '/',
   bearer,
   check(['get:activities']),
-  requestHook,
+  requestHook('missing description'),
   (req, res, next) => {
     const APIClient = req.db.model('APIClient');
 
@@ -36,7 +36,7 @@ router.post(
   '/',
   bearer,
   check(['post:clients']),
-  requestHook,
+  requestHook('missing description'),
   (req, res, next) => {
     const APIClient = req.db.model('APIClient');
     const { name, redirectURI } = APIClient.sanitizeInput(req.body);
@@ -66,7 +66,7 @@ router.get(
   '/:clientId',
   bearer,
   check(['get:clients/:clientId']),
-  requestHook,
+  requestHook('missing description'),
   (req, res) => res.send(req.db.model('APIClient').sanitizeOutput(req.loadedParams.clientId)),
 );
 
@@ -74,7 +74,7 @@ router.patch(
   '/:clientId',
   bearer,
   check(['patch:clients/:clientId']),
-  requestHook,
+  requestHook('missing description'),
   (req, res, next) => {
     const { clientId: client } = (req.loadedParams || {});
     const APIClient = req.db.model('APIClient');
@@ -96,7 +96,7 @@ router.delete(
   '/:clientId',
   bearer,
   check(['delete:clients/:clientId']),
-  requestHook,
+  requestHook('missing description'),
   (req, res, next) => req.loadedParams.clientId.remove((err) => {
     if (err) return next(err);
     res.send({});

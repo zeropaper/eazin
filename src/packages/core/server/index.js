@@ -33,14 +33,14 @@ const makeApp = async ({
   const httpServer = http.Server(app);
 
   // eslint-disable-next-line consistent-return
-  const callRequestHooks = (req, res, next) => {
+  const callRequestHooks = (description, req, res, next) => {
     let hooks = [];
     // ##### call requestHooks plugin point
     plugins.forEach(({ requestHooks = [] } = {}) => {
       hooks = [...hooks, ...requestHooks];
     });
     if (!hooks.length) return next();
-    series(hooks.map((hook) => (cb) => hook(req, res, cb)), next);
+    series(hooks.map((hook) => (cb) => hook(description, req, res, cb)), next);
   };
 
   // ##### call schema plugin point

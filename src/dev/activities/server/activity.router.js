@@ -10,7 +10,7 @@ router.get(
   '/',
   bearer,
   check(['get:activities']),
-  requestHook,
+  requestHook('missing description'),
   (req, res, next) => {
     const Activity = req.db.model('Activity');
 

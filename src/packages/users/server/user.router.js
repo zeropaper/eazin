@@ -47,19 +47,19 @@ const addUser = (additionMethod, req, res, next) => {
   });
 };
 
-router.post('/', requestHook, (req, res, next) => addUser('invite', req, res, (err) => {
+router.post('/', requestHook('invite'), (req, res, next) => addUser('invite', req, res, (err) => {
   if (err) return next(err);
   res.status(201);
   res.send();
 }));
 
-router.post('/register', requestHook, (req, res, next) => addUser('register', req, res, (err) => {
+router.post('/register', requestHook('register'), (req, res, next) => addUser('register', req, res, (err) => {
   if (err) return next(err);
   res.status(204);
   res.send();
 }));
 
-router.post('/verify', requestHook, async (req, res, next) => {
+router.post('/verify', requestHook('verify email'), async (req, res, next) => {
   if (!req.body) return next(new Error('No Body'));
 
   const {
@@ -103,7 +103,7 @@ router.post('/verify', requestHook, async (req, res, next) => {
   }
 });
 
-router.post('/password', bearer, requestHook, async (req, res, next) => {
+router.post('/password', requestHook('reset password'), async (req, res, next) => {
   const { user, body: { current, password } } = req;
   if (!current) {
     const err = httperrors.BadRequest('Missing current password');
@@ -129,7 +129,7 @@ router.post('/password', bearer, requestHook, async (req, res, next) => {
     });
 });
 
-router.post('/email', bearer, requestHook, async (req, res, next) => {
+router.post('/email', requestHook('request password reset'), async (req, res, next) => {
   const { user, body: { email, token } } = req;
   if (token) {
     if (!user.emailToVerify) {
@@ -163,7 +163,7 @@ router.post('/email', bearer, requestHook, async (req, res, next) => {
   });
 });
 
-router.post('/login', local, requestHook, (req, res, next) => {
+router.post('/login', local, requestHook('login'), (req, res, next) => {
   if (!req.user) return next(new Error('Unknown User'));
 
   const User = req.db.model('User');
@@ -176,19 +176,19 @@ router.post('/login', local, requestHook, (req, res, next) => {
   });
 });
 
-router.get('/logout', requestHook, (req, res) => {
+router.get('/logout', requestHook('logout'), (req, res) => {
   if (!req.user) return res.send({});
   req.logout();
   return res.send({});
 });
 
-router.get('/me', bearer, requestHook, (req, res) => {
+router.get('/me', bearer, requestHook('get self'), (req, res) => {
   if (!req.user) return res.send({});
   const User = req.db.model('User');
   return res.send(User.sanitizeOutput(req.user));
 });
 
-router.patch('/', bearer, requestHook, async (req, res, next) => {
+router.patch('/', bearer, requestHook('update self'), (req, res, next) => {
   if (!req.user) return next(httperrors.Unauthorized());
   const { sanitizeOutput } = req.db.model('User');
   req.user.firstName = req.body.firstName;

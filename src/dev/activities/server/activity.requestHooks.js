@@ -33,12 +33,13 @@ const message = (method, url) => {
 };
 
 module.exports = [
-  (req, res, next) => {
+  (description, req, res, next) => {
     const Activity = req.db.model('Activity');
 
     res.on('close', () => {
       Activity.create({
-        message: message(req.method, req.originalUrl),
+        // TODO: describe endpoints...
+        message: message(req.method, req.originalUrl) || description,
         data: {
           ...(req.loadedParams || {}),
           url: req.originalUrl,
