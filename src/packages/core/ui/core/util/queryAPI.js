@@ -39,7 +39,6 @@ const queryAPI = (url, {
         } catch (e) {
           const err = new Error(res.statusText);
           err.fields = {};
-          err.object = {};
           throw err;
         }
 
@@ -49,7 +48,7 @@ const queryAPI = (url, {
           if (typeof message !== 'string') message = 'Serious Error';
           console.warn(`${options.method || 'GET'} ${url}: ${message}`);
           const err = new Error(message);
-          err.fields = json.fields || {};
+          err.fields = json.error.fields;
           err.object = json.error;
           throw err;
         }

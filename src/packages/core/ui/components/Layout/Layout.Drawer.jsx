@@ -16,11 +16,15 @@ export const DrawerLink = withStyles(styles)(({ classes, children, to }) => (
   </NavLink>
 ));
 
-const Drawer = ({
-  classes,
-}) => (
+const Drawer = ({ classes }) => (
   <div className={classes.root}>
-    <PluginPoint name="Drawer" />
+    <div className={classes.top}>
+      <PluginPoint className={classes.drawerLinks} name="Drawer" />
+    </div>
+
+    <div className={classes.bottom}>
+      <PluginPoint className={classes.drawerLowLinks} name="DrawerLow" />
+    </div>
   </div>
 );
 

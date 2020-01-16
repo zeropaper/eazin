@@ -128,7 +128,7 @@ const Base = withStyles(styles)(({
     <Form
       debug
       onSubmit={handleSubmit(rejection, resolveMessage, timeout)}
-      onFailure={handleFailure}
+      onError={handleFailure}
       onSuccess={handleSuccess}
       fields={fields}
       fieldClassName={classes.customFieldClass}

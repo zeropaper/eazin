@@ -20,17 +20,37 @@ const styles = (theme) => ({
   },
 });
 
+const recurseErrors = (subFields, subErrors = {}) => {
+  Object.keys(subFields).forEach((fieldName) => {
+    if (subFields[fieldName].fields) {
+      return recurseErrors(subFields[fieldName], subErrors[fieldName]);
+    }
+    // eslint-disable-next-line no-param-reassign
+    subFields[fieldName].error = subErrors[fieldName] || null;
+  });
+  return subFields;
+};
+
 class FormBase extends React.Component {
   state = {
     errors: null,
     error: null,
     loading: false,
+    success: null,
   };
 
-  getValues = (subFields) => {
+  get fields() {
     const { fields } = this.props;
+    const { errors } = this.state;
+
+    if (!errors) return fields;
+
+    return recurseErrors(fields, errors);
+  }
+
+  getValues = (subFields) => {
     const values = {};
-    const used = subFields || fields;
+    const used = subFields || this.fields;
     Object.keys(used).forEach((fieldName) => {
       const { initialValue } = used[fieldName];
       if (typeof initialValue === 'undefined') return;
@@ -38,6 +58,8 @@ class FormBase extends React.Component {
     });
     return values;
   };
+
+  setErrors = () => {};
 
   registerFormAPI = (api) => {
     this.api = api;
@@ -48,6 +70,7 @@ class FormBase extends React.Component {
       error: null,
       errors: null,
       loading: true,
+      success: null,
     }, () => {
       const { processFields } = this.props;
       res(typeof processFields === 'function'
@@ -60,25 +83,26 @@ class FormBase extends React.Component {
     error: null,
     errors: null,
     loading: false,
+    success: true,
   }, () => {
     const { onSuccess } = this.props;
     if (typeof onSuccess === 'function') onSuccess(result);
-  })
-  ;
+  });
 
   handleFailure = (err) => this.setState({
-    errors: err.fields || {},
+    errors: err.fields,
     error: err.message,
     loading: false,
+    success: null,
   }, () => {
-    const { onFailure } = this.props;
-    if (typeof onFailure === 'function') onFailure(err);
+    const { onError } = this.props;
+    if (typeof onError === 'function') onError(err);
+    // throw err;
   });
 
   handleSubmit = async (fields) => {
     const {
       onSubmit,
-      onFailure,
       method,
       url,
     } = this.props;
@@ -102,13 +126,7 @@ class FormBase extends React.Component {
 
       throw new Error('Missing either "onSubmit" or "method" + "url"');
     } catch (err) {
-      this.setState({
-        errors: err.fields || {},
-        error: err.message,
-        loading: false,
-      });
-      if (typeof onFailure === 'function') onFailure(err);
-      throw err;
+      this.handleFailure(err);
     }
   };
 
@@ -123,12 +141,12 @@ class FormBase extends React.Component {
   );
 
   renderFields = ({ formState, formApi }) => {
-    const { fields, fieldClassName, classes } = this.props;
+    const { fieldClassName, classes } = this.props;
     const { loading } = this.state;
 
     return (
       <Fields
-        fields={fields}
+        fields={this.fields}
         fieldClassName={fieldClassName || classes.field}
         state={formState}
         api={{ ...formApi, loading }}
@@ -137,27 +155,27 @@ class FormBase extends React.Component {
   };
 
   renderSuccess = () => {
-    const { successMessage } = this.props;
+    const { successMessage, autoHideDelay } = this.props;
     const { loading, success } = this.state;
     return (
       <Snackbar
         open={!loading && !!success}
-        autoHideDuration={6000}
+        autoHideDuration={autoHideDelay || 6000}
       >
         <Alert severity="success" variant="filled">
-          {success === true ? successMessage : success}
+          {success === true ? (successMessage || 'Success') : success}
         </Alert>
       </Snackbar>
     );
   };
 
   renderError = () => {
-    const { errorMessage } = this.props;
+    const { errorMessage, autoHideDelay } = this.props;
     const { loading, error, errors } = this.state;
     return (
       <Snackbar
         open={!loading && (!!error || !!errors)}
-        autoHideDuration={6000}
+        autoHideDuration={autoHideDelay || 6000}
       >
         <Alert severity="error" variant="filled">
           {error === true ? errorMessage : error}
@@ -187,6 +205,8 @@ class FormBase extends React.Component {
   };
 
   renderDebug = () => {
+    if (process.env.NODE_ENV === 'production') return null;
+
     const { debug } = this.props;
     if (!debug) return null;
     return (
@@ -202,9 +222,9 @@ class FormBase extends React.Component {
 
     return (
       <Informed
+        noValidate
         className={className}
         onSubmit={this.handleSubmit}
-        noValidate
         render={render || this.renderContent}
         getApi={this.registerFormAPI}
       />
@@ -220,7 +240,7 @@ FormBase.propTypes = {
   processFields: PropTypes.func,
   onSubmit: PropTypes.func,
   onSuccess: PropTypes.func,
-  onFailure: PropTypes.func,
+  onError: PropTypes.func,
   fields: PropTypes.objectOf(PropTypes.object).isRequired,
   render: PropTypes.func,
   fieldClassName: PropTypes.string,
@@ -231,6 +251,8 @@ FormBase.propTypes = {
   errorMessage: PropTypes.string,
   successMessage: PropTypes.string,
   debug: PropTypes.bool,
+  // Infinity is a number
+  autoHideDelay: PropTypes.number,
 };
 
 FormBase.defaultProps = {
@@ -240,13 +262,14 @@ FormBase.defaultProps = {
   processFields: null,
   onSubmit: null,
   onSuccess: null,
-  onFailure: null,
+  onError: null,
   render: null,
   fieldClassName: null,
   buttons: null,
   errorMessage: null,
   successMessage: null,
   debug: null,
+  autoHideDelay: null,
 };
 
 export default withStyles(styles)(FormBase);

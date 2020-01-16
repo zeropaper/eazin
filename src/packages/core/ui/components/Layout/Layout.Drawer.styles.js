@@ -6,6 +6,13 @@ export default (theme) => ({
     flexDirection: 'column',
     flexGrow: 1,
     overflow: 'auto',
+    justifyContent: 'space-between',
+  },
+
+  top: {},
+
+  bottom: {
+    margin: theme.spacing(1),
   },
 
   menuLink: {
