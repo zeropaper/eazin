@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-users",
-  "version": "0.0.1-wip.5",
+  "version": "0.0.1-wip.6",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
@@ -20,11 +20,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "passport-http-bearer": "^1.0.1",
     "express": "^4.17.1",
-    "httperrors": "^2.3.0"
+    "httperrors": "^2.3.0",
+    "passport-http-bearer": "^1.0.1"
   },
-  "devDependencies": {},
   "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"

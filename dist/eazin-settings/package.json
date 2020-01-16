@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-settings",
-  "version": "0.0.1-wip.5",
+  "version": "0.0.1-wip.6",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
@@ -23,7 +23,6 @@
     "express": "^4.17.1",
     "httperrors": "^2.3.0"
   },
-  "devDependencies": {},
   "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"
