@@ -18,7 +18,7 @@ const addUser = (additionMethod, req, res, next) => {
 
   const { email, password } = req.body;
   const User = req.db.model('User');
-  const verifToken = uid(20);
+  const verifToken = uid(40);
 
   User.register({
     email,
@@ -104,6 +104,25 @@ router.post('/verify', requestHook('verify email'), async (req, res, next) => {
 });
 
 router.post('/password', requestHook('reset password'), async (req, res, next) => {
+  try {
+    const { db: { model }, body: { token, password } } = req;
+    const User = model('User');
+    const user = await User.findOne({ verifToken: token });
+    if (!user) throw httperrors.BadRequest();
+    await user.setPassword(password);
+    user.token = uid(40);
+    user.verifToken = null;
+    await user.save();
+    res.send({
+      token: user.token,
+      ...User.sanitizeOutput(user),
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.patch('/password', bearer, requestHook('change password'), (req, res, next) => {
   const { user, body: { current, password } } = req;
   if (!current) {
     const err = httperrors.BadRequest('Missing current password');
@@ -130,7 +149,34 @@ router.post('/password', requestHook('reset password'), async (req, res, next) =
 });
 
 router.post('/email', requestHook('request password reset'), async (req, res, next) => {
+  const { body: { email } } = req;
+  try {
+    const user = await req.db.model('User').findByUsername(email);
+    if (!user) {
+      const err = httperrors.NotFound('User not found');
+      err.fields = {
+        email: 'Email not found',
+      };
+      throw err;
+    }
+    user.verifToken = uid(40);
+    user.emailToVerify = email;
+    await mailSend({
+      to: email,
+      token: user.verifToken,
+      template: 'reset',
+    });
+    await user.save();
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.patch('/email', bearer, requestHook('change email'), (req, res, next) => {
   const { user, body: { email, token } } = req;
+  const { sanitizeOutput } = req.db.model('User');
+
   if (token) {
     if (!user.emailToVerify) {
       return next(httperrors.BadRequest('No email to verify'));
@@ -142,25 +188,27 @@ router.post('/email', requestHook('request password reset'), async (req, res, ne
 
     user.email = user.emailToVerify;
     user.emailToVerify = null;
-    user.verifToken = uid(20);
+    user.verifToken = uid(40);
+
     user.save((err) => {
       if (err) return next(err);
-      res.status(204).end();
+      res.status(204).send(sanitizeOutput(user));
     });
     return;
   }
 
-  user.verifToken = uid(20);
+  user.verifToken = uid(40);
   user.emailToVerify = email;
-  await mailSend({
+  mailSend({
     to: email,
     token: user.verifToken,
-    template: 'reset',
-  });
-  user.save((err) => {
-    if (err) return next(err);
-    res.status(204).end();
-  });
+    template: 'emailChange',
+  })
+    .then(() => user.save((err) => {
+      if (err) throw err;
+      res.status(204).end();
+    }))
+    .catch(next);
 });
 
 router.post('/login', local, requestHook('login'), (req, res, next) => {
@@ -193,8 +241,10 @@ router.patch('/', bearer, requestHook('update self'), (req, res, next) => {
   const { sanitizeOutput } = req.db.model('User');
   req.user.firstName = req.body.firstName;
   req.user.lastName = req.body.lastName;
-  await req.user.save();
-  return res.send(sanitizeOutput(req.user));
+  req.user.save((err) => {
+    if (err) return next(err);
+    res.send(sanitizeOutput(req.user));
+  });
 });
 
 module.exports = router;

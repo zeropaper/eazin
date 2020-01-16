@@ -7,6 +7,7 @@ const usersPlugin = require('../../server');
 const email = 'john@eazin.dev';
 
 let post;
+let patch;
 let db;
 beforeAll(async () => {
   clearSneakMessages();
@@ -16,6 +17,7 @@ beforeAll(async () => {
     ],
   });
   post = utils.post;
+  patch = utils.patch;
   db = utils.app.db;
   await db.model('User').deleteMany({});
 });
@@ -75,24 +77,24 @@ describe('user', () => {
   });
 
   it('can change password', async () => {
-    await post('/api/user/password')
+    await patch('/api/user/password')
       .expect(401);
 
-    let res = await post('/api/user/password')
+    let res = await patch('/api/user/password')
       .set('Authorization', `Bearer ${user.token}`)
       .send({
         current: '1234567890Aa!',
       });
     expect(res.status).toBe(400);
 
-    res = await post('/api/user/password')
+    res = await patch('/api/user/password')
       .set('Authorization', `Bearer ${user.token}`)
       .send({
         password: 'Aa!1234567890',
       });
     expect(res.status).toBe(400);
 
-    res = await post('/api/user/password')
+    res = await patch('/api/user/password')
       .set('Authorization', `Bearer ${user.token}`)
       .send({
         current: '1234567890Aa!',
@@ -100,7 +102,7 @@ describe('user', () => {
       });
     expect(res.status).toBe(204);
 
-    res = await post('/api/user/password')
+    res = await patch('/api/user/password')
       .set('Authorization', `Bearer ${user.token}`)
       .send({
         current: '1234567890Aa!',
@@ -111,7 +113,7 @@ describe('user', () => {
   });
 
   it('can change email', async () => {
-    let res = await post('/api/user/email')
+    let res = await patch('/api/user/email')
       .set('Authorization', `Bearer ${user.token}`)
       .send({ email: 'new+address@eazin.test' });
     expect(res.status).toBe(204);
@@ -123,7 +125,7 @@ describe('user', () => {
     const verifMail = await sneakMessage(user.emailToVerify);
     expect(verifMail.text).toContain(user.verifToken);
 
-    res = await post('/api/user/email')
+    res = await patch('/api/user/email')
       .set('Authorization', `Bearer ${user.token}`)
       .send({ token: user.verifToken });
     expect(res.status).toBe(204);

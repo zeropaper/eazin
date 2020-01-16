@@ -9,6 +9,7 @@ import AnonForms from './AnonForms';
 import UserAccountView from './UserAccountView';
 import UsersView from './UsersView';
 import UserDrawer from './UserDrawer';
+import UserDrawerLow from './UserDrawerLow';
 
 export const bootstrap = (state, dispatch) => queryAPI.get('/api/user/me')
   .then((res) => {
@@ -32,6 +33,7 @@ const routes = [
   {
     path: '/',
     Drawer: UserDrawer,
+    DrawerLow: UserDrawerLow,
     AnonymousView: AnonForms,
   },
 ];

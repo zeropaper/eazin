@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 import { Paper, Grid, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
+import { parse } from 'querystring';
 
 import { Form } from 'eazin-core/ui';
+import { Alert } from '@material-ui/lab';
 import { validMail, validPassword } from './user.validators';
+import { setUser } from './user.actions';
 
 const required = {
   required: true,
   validateOnChange: true,
 };
 
-const ProfileForm = connect(({ user: { user } }) => user)(({ firstName, lastName }) => (
+// eslint-disable-next-line react/prop-types
+const ProfileForm = ({ firstName, lastName }) => (
   <Form
     method="patch"
     url="/api/user"
@@ -45,7 +49,7 @@ const ProfileForm = connect(({ user: { user } }) => user)(({ firstName, lastName
       },
     }}
   />
-));
+);
 
 const passwordFormFields = {
   current: {
@@ -95,33 +99,137 @@ const passwordFormFields = {
   },
 };
 
-const emailFormFields = {
-  email: {
-    label: 'New Email Address',
-    type: 'email',
-    ...required,
-    validate: validMail,
-    fullWidth: true,
-    // eslint-disable-next-line max-len
-    helperText: 'A verification email will first be send to this address. The new address will be effective only once verified',
-  },
-  actions: {
-    buttons: ({
-      pristine,
-      invalid,
-      values: {
-        email,
-      },
-    }) => [
-      {
-        text: 'Send verification mail',
-        type: 'submit',
-        disabled: pristine
-          || invalid
-          || !email,
-      },
-    ],
-  },
+class EmailChangeForm extends React.Component {
+  mounted = false;
+
+  state = {
+    loading: false,
+    error: null,
+  };
+
+  async componentDidMount() {
+    this.mounted = true;
+    const {
+      email,
+      search,
+      navigate,
+      patch,
+      dispatch,
+    } = this.props;
+    const {
+      loading,
+    } = this.state;
+
+    const query = parse(search.slice(1));
+    if (!query.token || loading) return;
+
+    this.setState({
+      loading: true,
+      error: null,
+    });
+
+    try {
+      const user = await patch('/api/user/email', {
+        body: { email, token: query.token },
+      });
+
+      dispatch(setUser(user));
+
+      if (!this.mounted) return;
+      this.setState({
+        loading: false,
+        error: null,
+      });
+    } catch (err) {
+      if (!this.mounted) return;
+      this.setState({
+        loading: false,
+        error: err.message,
+      });
+    } finally {
+      navigate('/account');
+    }
+  }
+
+  componentWillUnmount() {
+    this.mounted = false;
+  }
+
+  render() {
+    const {
+      email,
+    } = this.props;
+    const {
+      loading,
+      error,
+    } = this.state;
+
+    return (
+      <>
+        <Alert severity="info">
+          Your current email address is&nbsp;
+          <strong>
+            {email}
+          </strong>
+        </Alert>
+
+        {error && (
+          <Alert severity="error">
+            Something went wrong while changing email address
+          </Alert>
+        )}
+
+        <Form
+          method="patch"
+          url="/api/user/email"
+          successMessage="Email sent!"
+          errorMessage="An error occured"
+          fields={{
+            email: {
+              label: 'New Email Address',
+              type: 'email',
+              ...required,
+              validate: (emailValue) => {
+                if ((emailValue || '').trim() === email) {
+                  return 'You need to use a new email address';
+                }
+                return validMail(emailValue);
+              },
+              fullWidth: true,
+              // eslint-disable-next-line max-len
+              helperText: 'A verification email will first be send to this address. The new address will be effective only once verified',
+            },
+          }}
+          buttons={({
+            pristine,
+            invalid,
+            values: {
+              email: emailValue,
+            },
+          }, { loading: formLoading }) => [
+            {
+              text: 'Send verification mail',
+              type: 'submit',
+              disabled: pristine
+                || formLoading
+                || loading
+                || invalid
+                || !emailValue.trim()
+                || emailValue.trim() === email,
+            },
+          ]}
+        />
+      </>
+    );
+  }
+}
+
+EmailChangeForm.propTypes = {
+  email: PropTypes.string.isRequired,
+  search: PropTypes.string.isRequired,
+  patch: PropTypes.func.isRequired,
+  navigate: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const styles = (theme) => ({
@@ -129,6 +237,8 @@ const styles = (theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'space-around',
+    margin: theme.spacing(-1),
+    width: 'auto',
   },
   tile: {
     flexGrow: 1,
@@ -140,10 +250,20 @@ const styles = (theme) => ({
   },
 });
 
-const AccountView = ({ api: { post }, classes }) => (
+const AccountView = ({
+  api: { patch },
+  classes,
+  user,
+  location: {
+    search,
+  },
+  history: {
+    push: navigate,
+  },
+  dispatch,
+}) => (
   <Grid
     container
-    spacing={1}
     className={classes.root}
   >
     <Grid item className={classes.tile} xs={12}>
@@ -155,7 +275,7 @@ const AccountView = ({ api: { post }, classes }) => (
             Profile
         </Typography>
 
-        <ProfileForm />
+        <ProfileForm {...user} />
       </Paper>
     </Grid>
 
@@ -185,9 +305,12 @@ const AccountView = ({ api: { post }, classes }) => (
             Change Email
         </Typography>
 
-        <Form
-          onSubmit={(fields) => post('/api/user/email', { body: fields })}
-          fields={emailFormFields}
+        <EmailChangeForm
+          email={user.email}
+          patch={patch}
+          search={search}
+          navigate={navigate}
+          dispatch={dispatch}
         />
       </Paper>
     </Grid>
@@ -196,9 +319,21 @@ const AccountView = ({ api: { post }, classes }) => (
 
 AccountView.propTypes = {
   api: PropTypes.shape({
-    post: PropTypes.func,
+    patch: PropTypes.func,
   }).isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string.isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
-export default withStyles(styles)(AccountView);
+export const mapStateToProps = ({ user: { user } }) => ({ user });
+
+export default connect(mapStateToProps)(withStyles(styles)(AccountView));

@@ -1,7 +1,10 @@
 import React from 'react';
 import { Typography } from '@material-ui/core';
+import { parse } from 'querystring';
 
-import { Form } from 'eazin-core/ui';
+import { withAppContext, Form } from 'eazin-core/ui';
+import { setSetting } from '../../settings/ui/settings.actions';
+import { setUser } from './user.actions';
 import { validPassword } from './user.validators';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
@@ -12,41 +15,59 @@ const required = {
   validateOnChange: true,
   validateOnBlur: true,
 };
-const schema = {
-  password: {
-    label: 'Password',
-    type: 'password',
-    ...required,
-    validate: validPassword,
-  },
-  passwordConfirm: {
-    label: 'Password Confirmation',
-    type: 'password',
-    ...required,
-    validate: (val = '', vals) => {
-      if (val !== vals.password) return 'Passwords don\'t match';
+
+export default withAppContext((props) => {
+  const {
+    api: { post },
+    location: { search },
+    dispatch,
+    history: {
+      push,
     },
-  },
-  buttons: {
-    buttons: [
-      {
-        type: 'submit',
-        text: 'Reset',
-      },
-    ],
-  },
-};
+  } = props;
+  const { token } = parse(search.slice(1));
 
-export default () => (
-  <>
-    <Typography variant="h5">Password reset</Typography>
+  return (
+    <>
+      <Typography variant="h5">Password reset</Typography>
 
-    <Form
-      onSubmit={(fields) => {
-        // eslint-disable-next-line no-console
-        console.info('fields', fields);
-      }}
-      fields={schema}
-    />
-  </>
-);
+      {!!token && (
+        <Form
+          onSubmit={({ password }) => post('/api/user/password', {
+            body: {
+              token,
+              password,
+            },
+          })}
+          onSuccess={(user) => {
+            dispatch(setUser(user));
+            dispatch(setSetting('userToken', user.token));
+            push('/account');
+          }}
+          fields={{
+            password: {
+              label: 'Password',
+              type: 'password',
+              ...required,
+              validate: validPassword,
+            },
+            passwordConfirm: {
+              label: 'Password Confirmation',
+              type: 'password',
+              ...required,
+              validate: (val = '', vals) => {
+                if (val !== vals.password) return 'Passwords don\'t match';
+              },
+            },
+          }}
+          buttons={[
+            {
+              type: 'submit',
+              text: 'Reset',
+            },
+          ]}
+        />
+      )}
+    </>
+  );
+});

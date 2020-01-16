@@ -5,6 +5,8 @@ import SettingsView from './SettingsView';
 import SettingsHeaderLinks from './SettingsHeaderLinks';
 import SettingsDrawer from './SettingsDrawer';
 
+import * as actions from './settings.actions';
+
 const routes = [
   {
     path: '/',
@@ -18,8 +20,9 @@ const routes = [
   },
 ];
 
-export { restore };
+export { restore, actions };
 export default {
+  actions,
   routes,
   reducers: {
     settings: reducer,

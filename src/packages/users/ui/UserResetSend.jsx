@@ -13,32 +13,29 @@ const required = {
   validateOnChange: true,
   validateOnBlur: true,
 };
-const schema = {
-  email: {
-    label: 'Email',
-    ...required,
-    validate: validMail,
-  },
-  buttons: {
-    buttons: [
-      {
-        type: 'submit',
-        text: 'Send reset email',
-      },
-    ],
-  },
-};
 
 export default () => (
   <>
     <Typography variant="h5">Password reset</Typography>
 
     <Form
-      onSubmit={(fields) => {
-        // eslint-disable-next-line no-console
-        console.info('fields', fields);
+      method="post"
+      url="/api/user/email"
+      successMessage="Email sent"
+      errorMessage="The Email could not be send"
+      fields={{
+        email: {
+          label: 'Email',
+          ...required,
+          validate: validMail,
+        },
       }}
-      fields={schema}
+      buttons={[
+        {
+          type: 'submit',
+          text: 'Send reset email',
+        },
+      ]}
     />
 
     <Links current="reset" />
