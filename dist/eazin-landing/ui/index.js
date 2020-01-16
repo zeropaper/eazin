@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 60);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -110,7 +110,7 @@ module.exports = require("@material-ui/core");
 
 /***/ }),
 
-/***/ 12:
+/***/ 10:
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
@@ -131,17 +131,17 @@ module.exports = require("core-js/modules/es.array.concat");
 
 /***/ }),
 
+/***/ 19:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.string.trim");
+
+/***/ }),
+
 /***/ 2:
 /***/ (function(module, exports) {
 
 module.exports = require("eazin-core/ui");
-
-/***/ }),
-
-/***/ 22:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.string.trim");
 
 /***/ }),
 
@@ -159,21 +159,6 @@ module.exports = require("core-js/modules/es.symbol");
 
 /***/ }),
 
-/***/ 56:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(64);
-
-
-/***/ }),
-
-/***/ 57:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/web.timers");
-
-/***/ }),
-
 /***/ 6:
 /***/ (function(module, exports) {
 
@@ -181,7 +166,22 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 64:
+/***/ 60:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(68);
+
+
+/***/ }),
+
+/***/ 61:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/web.timers");
+
+/***/ }),
+
+/***/ 68:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -216,14 +216,14 @@ var toggleBool = function toggleBool() {
   };
 };
 // EXTERNAL MODULE: external "core-js/modules/web.timers"
-var web_timers_ = __webpack_require__(57);
+var web_timers_ = __webpack_require__(61);
 
 // EXTERNAL MODULE: external "react"
 var external_react_ = __webpack_require__(0);
 var external_react_default = /*#__PURE__*/__webpack_require__.n(external_react_);
 
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(12);
+var external_react_redux_ = __webpack_require__(10);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
@@ -238,7 +238,7 @@ var ui_ = __webpack_require__(2);
 var es_array_concat_ = __webpack_require__(14);
 
 // EXTERNAL MODULE: external "core-js/modules/es.string.trim"
-var es_string_trim_ = __webpack_require__(22);
+var es_string_trim_ = __webpack_require__(19);
 
 // CONCATENATED MODULE: ./src/packages/landing/ui/LandingView.Wrapper.jsx
 

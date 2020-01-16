@@ -39,7 +39,7 @@ templates.reset = ({
 }) => {
   const mailSubject = subject
     || `Password reset for ${siteName || baseURL}`;
-  const link = `${baseURL}verify?token=${token}`;
+  const link = `${baseURL}reset/change?token=${token}`;
 
   return {
     subject: mailSubject,
@@ -69,7 +69,7 @@ templates.emailChange = ({
 }) => {
   const mailSubject = subject
     || `Email change confirmation for ${siteName || baseURL}`;
-  const link = `${baseURL}/account/?token=${token}`;
+  const link = `${baseURL}account/?token=${token}`;
 
   return {
     subject: mailSubject,

@@ -1,1 +1,1 @@
-module.exports = (req, res, next) => req.hookRequest(req, res, next);
+module.exports = (description = 'Missing request hook description') => (req, res, next) => req.hookRequest(description, req, res, next);

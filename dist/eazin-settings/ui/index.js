@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 58);
+/******/ 	return __webpack_require__(__webpack_require__.s = 62);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -113,26 +113,27 @@ module.exports = require("@material-ui/core");
 /***/ 10:
 /***/ (function(module, exports) {
 
-module.exports = require("@material-ui/icons");
-
-/***/ }),
-
-/***/ 12:
-/***/ (function(module, exports) {
-
 module.exports = require("react-redux");
 
 /***/ }),
 
-/***/ 18:
+/***/ 11:
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/icons");
+
+/***/ }),
+
+/***/ 15:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return setSetting; });
-/* unused harmony export resetSetting */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return clearSetting; });
-/* unused harmony export setSettings */
-/* unused harmony export resetSettings */
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSetting", function() { return setSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetSetting", function() { return resetSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearSetting", function() { return clearSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSettings", function() { return setSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetSettings", function() { return resetSettings; });
 var setSetting = function setSetting(key, value) {
   return {
     type: 'SET_SETTING',
@@ -193,14 +194,6 @@ module.exports = require("core-js/modules/es.symbol");
 
 /***/ }),
 
-/***/ 58:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(63);
-
-
-/***/ }),
-
 /***/ 6:
 /***/ (function(module, exports) {
 
@@ -208,7 +201,15 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 63:
+/***/ 62:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(67);
+
+
+/***/ }),
+
+/***/ 67:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -294,16 +295,16 @@ var SettingsView_SettingsView = function SettingsView() {
 
 /* harmony default export */ var ui_SettingsView = (SettingsView_SettingsView);
 // EXTERNAL MODULE: external "react-redux"
-var external_react_redux_ = __webpack_require__(12);
+var external_react_redux_ = __webpack_require__(10);
 
 // EXTERNAL MODULE: external "@material-ui/core"
 var core_ = __webpack_require__(1);
 
 // EXTERNAL MODULE: external "@material-ui/icons"
-var icons_ = __webpack_require__(10);
+var icons_ = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./src/packages/settings/ui/settings.actions.js
-var settings_actions = __webpack_require__(18);
+var settings_actions = __webpack_require__(15);
 
 // CONCATENATED MODULE: ./src/packages/settings/ui/SettingsHeaderLinks.jsx
 
@@ -335,7 +336,7 @@ var SettingsHeaderLinks_mapDispatchToProps = function mapDispatchToProps(dispatc
   return {
     toggleDarkMode: function toggleDarkMode(bool) {
       return function () {
-        return dispatch(Object(settings_actions["b" /* setSetting */])('darkMode', !!bool));
+        return dispatch(Object(settings_actions["setSetting"])('darkMode', !!bool));
       };
     }
   };
@@ -359,6 +360,8 @@ SettingsDrawer_SettingsDrawer.weight = 10;
 /* harmony default export */ var ui_SettingsDrawer = (SettingsDrawer_SettingsDrawer);
 // CONCATENATED MODULE: ./src/packages/settings/ui/index.js
 /* concated harmony reexport restore */__webpack_require__.d(__webpack_exports__, "restore", function() { return restore; });
+/* concated harmony reexport actions */__webpack_require__.d(__webpack_exports__, "actions", function() { return settings_actions; });
+
 
 
 
@@ -374,6 +377,7 @@ var routes = [{
 }];
 
 /* harmony default export */ var ui = __webpack_exports__["default"] = ({
+  actions: settings_actions,
   routes: routes,
   reducers: {
     settings: settings_reducer
