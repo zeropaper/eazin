@@ -1,4 +1,4 @@
-const { NODE_ENV } = process.env;
+const { NODE_ENV = 'development' } = process.env;
 
 // eslint-disable-next-line consistent-return
 function errorHandler(err, req, res, next) {
@@ -20,9 +20,9 @@ function errorHandler(err, req, res, next) {
     let fields;
     if (err.errors) {
       fields = Object.keys(err.errors)
-        .reduce((acc, val) => ({
-          ...acc,
-          [val]: err.errors[val].kind,
+        .reduce((obj, key) => ({
+          ...obj,
+          [key]: err.errors[key].kind,
         }), {});
     }
     return res.send({
