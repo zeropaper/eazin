@@ -6,7 +6,7 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
   name: { type: String, required: true },
-  type: { type: String, required: true },
+  // type: { type: String, required: true },
   approvalType: {
     type: String,
     required: true,
