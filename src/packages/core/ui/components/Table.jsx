@@ -1,4 +1,5 @@
 import React from 'react';
+import { stringify } from 'querystring';
 
 import MaterialTable from 'material-table';
 import {
@@ -50,6 +51,32 @@ const Table = (props) => (
 
 Table.propTypes = {
   ...MaterialTable.propTypes,
+};
+
+Table.paginationQuerystring = ({
+  pageSize,
+  page,
+  orderDirection,
+  orderBy,
+  search,
+  filters,
+} = {}) => {
+  const obj = {};
+  if (pageSize) obj.limit = pageSize;
+  if (page) obj.offset = pageSize * page;
+  if (orderDirection) obj.orderDirection = orderDirection;
+  if (orderBy) obj.orderBy = orderBy ? orderBy.field : 'updatedAt';
+  if (search) obj.search = search;
+  if (filters) {
+    const arr = filters
+      .map((filter) => ({
+        ...filter,
+        column: filter.column.field,
+      }))
+      .filter(Boolean);
+    if (arr.length) obj.filters = JSON.stringify(arr);
+  }
+  return stringify(obj);
 };
 
 export default Table;

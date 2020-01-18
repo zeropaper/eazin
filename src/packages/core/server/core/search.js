@@ -25,8 +25,7 @@ const parseFilters = (filtersJSON) => {
   return returned;
 };
 
-// eslint-disable-next-line no-unused-vars
-module.exports = function modelSearchPlugin(schema, options) {
+module.exports = function modelSearchPlugin(schema) { // , options) {
   schema.static('search', function modelSearch(query, next) {
     const Model = this;
 
