@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -49,6 +50,8 @@ export class AppContextProvider extends React.Component {
     bootstraped: [],
     plugins: null,
   };
+
+  helmetContext = {};
 
   constructor(props) {
     super(props);
@@ -109,7 +112,7 @@ export class AppContextProvider extends React.Component {
 
   render() {
     const {
-      props: { children },
+      props: { children, siteName },
       store,
       state: { plugins, ...state },
     } = this;
@@ -143,21 +146,28 @@ export class AppContextProvider extends React.Component {
           // strings,
         }}
       >
-        <PluginsProvider value={{ plugins }}>
-          <Provider store={store}>
-            <MuiThemeProvider theme={this.theme}>
-              <CssBaseline />
+        <HelmetProvider context={this.helmetContext}>
+          <PluginsProvider value={{ plugins }}>
+            <Provider store={store}>
+              <MuiThemeProvider theme={this.theme}>
+                <Helmet>
+                  <title>{siteName}</title>
+                </Helmet>
 
-              {children}
-            </MuiThemeProvider>
-          </Provider>
-        </PluginsProvider>
+                <CssBaseline />
+
+                {children}
+              </MuiThemeProvider>
+            </Provider>
+          </PluginsProvider>
+        </HelmetProvider>
       </AppContext.Provider>
     );
   }
 }
 
 AppContextProvider.propTypes = {
+  siteName: PropTypes.string.isRequired,
   plugins: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.node.isRequired,
 };
