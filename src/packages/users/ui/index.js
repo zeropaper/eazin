@@ -48,6 +48,8 @@ const wsBootstrap = (socket, dispatch, getState) => {
   socket.on('user.update', (user) => dispatch(setUser(user)));
 };
 
+export { default as UserName } from './UserName';
+
 export default {
   routes,
   bootstrap,
