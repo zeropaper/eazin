@@ -85,8 +85,9 @@ class FormBase extends React.Component {
     loading: false,
     success: true,
   }, () => {
-    const { onSuccess } = this.props;
+    const { onSuccess, resetOnSuccess } = this.props;
     if (typeof onSuccess === 'function') onSuccess(result);
+    if (resetOnSuccess && this.api) this.api.reset();
   });
 
   handleFailure = (err) => this.setState({
@@ -95,8 +96,9 @@ class FormBase extends React.Component {
     loading: false,
     success: null,
   }, () => {
-    const { onError } = this.props;
+    const { onError, resetOnError } = this.props;
     if (typeof onError === 'function') onError(err);
+    if (resetOnError && this.api) this.api.reset();
     // throw err;
   });
 
@@ -251,6 +253,8 @@ FormBase.propTypes = {
   errorMessage: PropTypes.string,
   successMessage: PropTypes.string,
   debug: PropTypes.bool,
+  resetOnSuccess: PropTypes.bool,
+  resetOnError: PropTypes.bool,
   // Infinity is a number
   autoHideDelay: PropTypes.number,
 };
@@ -269,6 +273,8 @@ FormBase.defaultProps = {
   errorMessage: null,
   successMessage: null,
   debug: null,
+  resetOnSuccess: null,
+  resetOnError: null,
   autoHideDelay: null,
 };
 
