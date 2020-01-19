@@ -24,6 +24,7 @@
     "httperrors": "^2.3.0"
   },
   "husky": {},
+  "devDependencies": {},
   "main": "server/index.js",
   "module": "ui/index.js"
 }
