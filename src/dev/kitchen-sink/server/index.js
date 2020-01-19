@@ -14,8 +14,8 @@ router.get('/project', async (req, res) => {
   const cacheId = 'todo';
   if (typeof cache[cacheId] !== 'undefined') return res.send(cache[cacheId]);
   const response = await getGH('/repos/zeropaper/eazin/issues?milestone=*');
-  // eslint-disable-next-line no-console
-  console.info('GH reponse', response.body);
+  // // eslint-disable-next-line no-console
+  // console.info('GH reponse', response.body);
   cache[cacheId] = response.body;
   res.send(cache[cacheId]);
 });

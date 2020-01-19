@@ -56,7 +56,7 @@ class ClientsView extends React.Component {
       }))),
     })}`;
 
-    // eslint-disable-next-line react/destructuring-assignment
+    // eslint-disable-next-line
     return this.props.api.get(url);
   };
 
@@ -69,16 +69,21 @@ class ClientsView extends React.Component {
     id,
     name,
     redirectURI,
-  // eslint-disable-next-line react/destructuring-assignment
+  // eslint-disable-next-line
   }) => this.props.api.patch(`/api/clients/${id}`, {
     body: { name, redirectURI },
   });
 
-  // eslint-disable-next-line react/destructuring-assignment
+  // eslint-disable-next-line
   handleRowDelete = ({ id }) => this.props.api.delete(`/api/clients/${id}`);
 
   renderdetailPanel = (rowData, ...rest) => (
-    <div>{console.info('details', rowData, ...rest)}</div>
+    <div>
+      {
+        // eslint-disable-next-line no-console
+        console.info('details', rowData, ...rest)
+      }
+    </div>
   );
 
   render() {

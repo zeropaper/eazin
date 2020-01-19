@@ -1,31 +1,12 @@
-import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
-import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { queryAPI, Table, TimeAgo } from 'eazin-core/ui';
+import { Table, TimeAgo } from 'eazin-core/ui';
 
 class ActivityView extends React.Component {
-  query = async (query) => {
-    const { userToken } = this.props;
-
-    console.info('ActzivityView query', query);
-    const url = `/api/activities?${toQuerystring({
-      limit: query.pageSize,
-      offset: query.pageSize * query.page,
-      orderDirection: query.orderDirection,
-      orderBy: query.orderBy ? query.orderBy.field : 'updatedAt',
-      search: query.search,
-      filters: JSON.stringify((query.filters || []).map((filter) => ({
-        ...filter,
-        column: filter.column.field,
-      }))),
-    })}`;
-
-    return queryAPI(url, {
-      headers: {
-        Authorization: `Bearer ${userToken}`,
-      },
-    });
+  data = (query) => {
+    const { api: { get } } = this.props;
+    return get(`/api/activities?${Table.paginationQuerystring(query)}`);
   };
 
   render() {
@@ -41,7 +22,7 @@ class ActivityView extends React.Component {
           },
           { title: 'Message', field: 'message' },
         ]}
-        data={this.query}
+        data={this.data}
         options={{
           search: false,
           filtering: true,
@@ -55,16 +36,9 @@ class ActivityView extends React.Component {
 }
 
 ActivityView.propTypes = {
-  // activities: PropTypes.objectOf(PropTypes.object).isRequired,
-  // dispatch: PropTypes.func.isRequired,
+  api: PropTypes.shape({
+    get: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
-const mapStateToProps = ({
-  // activities,
-  settings: { userToken } = {},
-}) => ({
-  // activities,
-  userToken,
-});
-
-export default connect(mapStateToProps)(ActivityView);
+export default ActivityView;

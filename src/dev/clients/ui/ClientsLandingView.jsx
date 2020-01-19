@@ -1,12 +1,10 @@
 import React from 'react';
 
-const ClientsLandingView = (props) => {
-  const { wrapIn: WrapIn } = props;
-  return (
-    <WrapIn>
+// eslint-disable-next-line react/prop-types
+const ClientsLandingView = ({ wrapIn: WrapIn }) => (
+  <WrapIn>
       Landing Clients
-    </WrapIn>
-  );
-};
+  </WrapIn>
+);
 
 export default ClientsLandingView;
