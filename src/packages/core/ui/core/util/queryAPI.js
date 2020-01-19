@@ -2,7 +2,7 @@
 import f from './simpleFetch';
 
 const storeName = 'eazin-1';
-const readUserToken = () => {
+export const readUserToken = () => {
   try {
     return JSON.parse(localStorage[storeName] || '{}').userToken;
   } catch (e) {
