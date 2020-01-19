@@ -3,7 +3,9 @@ import { queryAPI } from 'eazin-core/ui';
 import { clearSetting } from '../../settings/ui/settings.actions';
 
 import { setUser, clearUser } from './user.actions';
-import reducer from './user.reducer';
+import { setUsers, clearUsers } from './users.actions';
+import userReducer from './user.reducer';
+import usersReducer from './users.reducer';
 
 import AnonForms from './AnonForms';
 import UserAccountView from './UserAccountView';
@@ -15,9 +17,12 @@ export const bootstrap = (state, dispatch) => queryAPI.get('/api/user/me')
   .then((res) => {
     if (!res.id) throw new Error('No id');
     dispatch(setUser(res));
+    queryAPI.get('/api/users')
+      .then((users) => dispatch(setUsers((users || {}).data)));
   })
   .catch(() => {
     dispatch(clearUser());
+    dispatch(clearUsers());
     dispatch(clearSetting('userToken'));
   });
 
@@ -40,6 +45,7 @@ const routes = [
 
 const store = {
   user: {},
+  users: {},
 };
 
 const wsBootstrap = (socket, dispatch, getState) => {
@@ -49,13 +55,17 @@ const wsBootstrap = (socket, dispatch, getState) => {
 };
 
 export { default as UserName } from './UserName';
+export { default as UserAccess } from './UserAccess';
+export { default as AnonForms } from './AnonForms';
+export { default as AnonFormsLinks } from './AnonForms.Links';
 
 export default {
   routes,
   bootstrap,
   store,
   reducers: {
-    user: reducer,
+    user: userReducer,
+    users: usersReducer,
   },
   wsBootstrap,
 };

@@ -30,17 +30,9 @@ const schema = {
     type: 'password',
     ...required,
   },
-  buttons: {
-    buttons: [
-      {
-        text: 'Login',
-        type: 'submit',
-      },
-    ],
-  },
 };
 
-const UserLogin = ({ dispatch }) => (
+const UserLogin = ({ dispatch, history: { push } }) => (
   <>
     <Typography variant="h5">Login</Typography>
 
@@ -50,8 +42,16 @@ const UserLogin = ({ dispatch }) => (
       onSuccess={(data) => {
         dispatch(setUser(data));
         dispatch(setSetting('userToken', data.token));
+        push('/');
       }}
       fields={schema}
+      buttons={({ invalid, pristine }, { loading }) => [
+        {
+          text: 'Login',
+          type: 'submit',
+          disabled: invalid || pristine || loading,
+        },
+      ]}
     />
 
     <Links current="login" />

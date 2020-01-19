@@ -23,7 +23,7 @@ const styles = (theme) => ({
 const links = {
   login: <Link to="/login">Login</Link>,
   register: <Link to="/register">Register</Link>,
-  reset: <Link to="/reset">Reset Password</Link>,
+  reset: <Link to="/reset">Password Reset</Link>,
 };
 
 const Links = ({

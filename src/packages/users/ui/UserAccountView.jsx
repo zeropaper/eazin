@@ -9,6 +9,7 @@ import { Form } from 'eazin-core/ui';
 import { Alert } from '@material-ui/lab';
 import { validMail, validPassword } from './user.validators';
 import { setUser } from './user.actions';
+import UserPropTypes from './user.propTypes';
 
 const required = {
   required: true,
@@ -16,10 +17,12 @@ const required = {
 };
 
 // eslint-disable-next-line react/prop-types
-const ProfileForm = ({ firstName, lastName }) => (
+const ProfileForm = ({ firstName, lastName, updateStoreUser }) => (
   <Form
+    key={`${firstName}-${lastName}`}
     method="patch"
     url="/api/user"
+    resetOnSuccess
     fields={{
       firstName: {
         label: 'First Name',
@@ -33,21 +36,20 @@ const ProfileForm = ({ firstName, lastName }) => (
         fullWidth: true,
         initialValue: lastName,
       },
-      actions: {
-        buttons: ({ pristine, invalid }, { loading }) => ([
-          {
-            text: 'Reset',
-            type: 'reset',
-            disabled: pristine || loading,
-          },
-          {
-            text: 'Update',
-            type: 'submit',
-            disabled: pristine || invalid || loading,
-          },
-        ]),
-      },
     }}
+    buttons={({ pristine, invalid }, { loading }) => ([
+      {
+        text: 'Reset',
+        type: 'reset',
+        disabled: pristine || loading,
+      },
+      {
+        text: 'Update',
+        type: 'submit',
+        disabled: pristine || invalid || loading,
+      },
+    ])}
+    onSuccess={updateStoreUser}
   />
 );
 
@@ -275,7 +277,11 @@ const AccountView = ({
             Profile
         </Typography>
 
-        <ProfileForm {...user} />
+        <ProfileForm
+          firstName={user.firstName}
+          lastName={user.lastName}
+          updateStoreUser={(data) => dispatch(setUser(data))}
+        />
       </Paper>
     </Grid>
 
@@ -322,9 +328,7 @@ AccountView.propTypes = {
     patch: PropTypes.func,
   }).isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  user: PropTypes.shape({
-    email: PropTypes.string.isRequired,
-  }).isRequired,
+  user: PropTypes.shape(UserPropTypes).isRequired,
   location: PropTypes.shape({
     search: PropTypes.string.isRequired,
   }).isRequired,
