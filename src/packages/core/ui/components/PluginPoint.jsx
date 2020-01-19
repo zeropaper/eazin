@@ -17,6 +17,7 @@ const RoutePlugin = ({
   loadingFallback,
   emptyFallback,
   switchRoutes,
+  className,
   wrapIn: WrapIn,
   wrapOut: WrapOut,
 }) => {
@@ -29,9 +30,9 @@ const RoutePlugin = ({
       </React.Suspense>
     );
 
-    return WrapOut
-      ? <WrapOut>{content}</WrapOut>
-      : content;
+    if (WrapOut) return <WrapOut>{content}</WrapOut>;
+    if (className) return <div className={className}>{content}</div>;
+    return content;
   };
 
   const routes = Object.keys(plugins)
@@ -80,6 +81,7 @@ RoutePlugin.propTypes = {
   loadingFallback: PropTypes.node,
   emptyFallback: PropTypes.node,
   switchRoutes: PropTypes.bool,
+  className: PropTypes.string,
   wrapIn: PropTypes.elementType,
   wrapOut: PropTypes.elementType,
 };
@@ -88,6 +90,7 @@ RoutePlugin.defaultProps = {
   loadingFallback: null,
   emptyFallback: null,
   switchRoutes: null,
+  className: null,
   wrapIn: null,
   wrapOut: null,
 };
