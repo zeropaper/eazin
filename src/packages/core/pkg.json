@@ -1,5 +1,26 @@
 {
   "dependencies": {
+    "express":"*",
+    "socket.io":"*",
+    "mongoose":"*",
+    "compression":"*",
+    "helmet":"*",
+    "async-series":"*",
+    "passport":"*",
+    "prop-types":"*",
+    "@material-ui/core":"*",
+    "@material-ui/lab":"*",
+    "@material-ui/styles":"*",
+    "@material-ui/icons":"*",
+    "classnames":"*",
+    "lodash.isequal":"*",
+    "react-router-dom":"*",
+    "react-redux":"*",
+    "redux":"*",
+    "material-table":"*",
+    "moment":"*",
+    "history":"*",
+    "informed":"*",
     "react": "*"
   }
 }

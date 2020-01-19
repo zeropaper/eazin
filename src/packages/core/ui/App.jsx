@@ -12,7 +12,6 @@ import PluginPoint from './components/PluginPoint';
 const App = ({ children, plugins, siteName }) => (plugins && (
   <AppContextProvider siteName={siteName} plugins={plugins}>
     <Layout siteName={siteName}>
-      {console.info(plugins)}
       {children || <PluginPoint exact switchRoutes name="View" />}
     </Layout>
   </AppContextProvider>
