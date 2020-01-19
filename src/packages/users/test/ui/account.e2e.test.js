@@ -18,7 +18,7 @@ describe('Account', () => {
     const [page] = testPages;
     await fixtures('packages/users/test/ui/account.fixtures');
     await page.goto(baseURL);
-    await page.waitForSelector('.anon');
+    // await page.waitForSelector('.anon');
 
     await page.evaluate(() => {
       localStorage.setItem('eazin-1', '{"userToken":"user-api-token"}');

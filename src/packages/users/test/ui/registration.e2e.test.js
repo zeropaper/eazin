@@ -109,7 +109,7 @@ describe('User', () => {
         page.waitForNavigation(),
         page.click('[type="submit"]'),
       ]);
-      await page.waitForSelector('[data-testid="layout-content"].auth');
+      await page.waitForSelector('.auth');
     });
   });
 });

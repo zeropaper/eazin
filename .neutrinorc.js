@@ -53,7 +53,7 @@ module.exports = {
     (neutrino) => {
       const projectName = neutrino.options.packageJson.name;
       const { source } = neutrino.options;
-      if (neutrino.config.get('mode') !== 'test') {
+      if (process.env.NODE_ENV !== 'test') {
         neutrino.config.resolve.alias
           .set('react', `${__dirname}/node_modules/react`)
           .end();
