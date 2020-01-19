@@ -1,7 +1,5 @@
 const airbnb = require('@neutrinojs/airbnb');
 const react = require('@neutrinojs/react');
-const chokidar = require('chokidar');
-const debounce = require('lodash.debounce');
 const { readdirSync, existsSync, writeFileSync } = require('fs');
 
 const compileProduction = require('./src/dev/neutrino-monorepo');
@@ -55,7 +53,7 @@ module.exports = {
     (neutrino) => {
       const projectName = neutrino.options.packageJson.name;
       const { source } = neutrino.options;
-      if (process.env.NODE_ENV !== 'test') {
+      if (neutrino.config.get('mode') !== 'test') {
         neutrino.config.resolve.alias
           .set('react', `${__dirname}/node_modules/react`)
           .end();
@@ -76,15 +74,18 @@ module.exports = {
           });
       }
       const options = {
-        html: process.env.NODE_ENV === 'development' && {
+        html: neutrino.config.get('mode') === 'development' && {
           title: 'React Preview',
         },
         externals: {
+          redux: 'redux',
           react: 'react',
           'react-dom': 'react-dom',
+          'react-redux': 'react-redux',
           'react-router-dom': 'react-router-dom',
           '@material-ui/core': '@material-ui/core',
           '@material-ui/icons': '@material-ui/icons',
+          '@material-ui/lab': '@material-ui/icons',
           informed: 'informed',
           'material-table': 'material-table',
         },
@@ -97,14 +98,11 @@ module.exports = {
             },
           },
         },
-        // devtool: {
-        //   production: 'source-map',
-        // },
         targets: { browsers: 'ie 9' },
       };
 
       neutrino.config.when(
-        process.env.NODE_ENV === 'development' || process.env.BUILD_TYPE === 'html',
+        neutrino.config.get('mode') === 'development' || process.env.BUILD_TYPE === 'html',
         compileDevelopment(neutrino, options),
         compileProduction(neutrino, options),
       );
@@ -116,28 +114,11 @@ module.exports = {
           '/socket.io': 'http://localhost:5001',
           '/fixtures': 'http://localhost:5001',
         },
-        // before: (app, server) => {
-        //   chokidar
-        //     .watch([
-        //       'dist/*/ui/**/*.js',
-        //     ], {
-        //       alwaysStat: true,
-        //       atomic: false,
-        //       followSymlinks: false,
-        //       ignoreInitial: true,
-        //       ignorePermissionErrors: true,
-        //     })
-        //     .on('all', debounce(() => {
-        //       // eslint-disable-next-line no-console
-        //       console.info('[eazin] components build detected - trigger project build');
-        //       server.sockWrite(server.sockets, 'content-changed');
-        //     }, 50));
-        // },
       });
 
       neutrino.config.optimization.merge({
-        // minimize: process.env.NODE_ENV === 'production',
-        minimize: false,
+        // minimize: neutrino.config.get('mode') === 'production',
+        minimize: true,
       });
 
       // Attempt to get those FÜç*¼#g source-maps working
