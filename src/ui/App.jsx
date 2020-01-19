@@ -49,7 +49,7 @@ const App = ({ children, plugins, siteName }) => (plugins && (
       {children || (
         <UserAccess
           renderUnverified={() => <AnonForms />}
-          render={() => <PluginPoint exact switchRoutes name="View" />}
+          render={() => <PluginPoint className="auth" exact switchRoutes name="View" />}
         />
       )}
     </Layout>
