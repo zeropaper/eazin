@@ -26,4 +26,8 @@ Fallback.propTypes = {
   empty: PropTypes.bool,
 };
 
+Fallback.defaultProps = {
+  empty: null,
+};
+
 export default Fallback;
