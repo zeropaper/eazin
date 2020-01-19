@@ -16,7 +16,7 @@ router.get(
   '/',
   bearer,
   check(['get:users']),
-  requestHook('missing description'),
+  requestHook('list users'),
   (req, res, next) => {
     const User = req.db.model('User');
 
@@ -31,7 +31,7 @@ router.post(
   '/invite',
   bearer,
   check(['invite']),
-  requestHook('missing description'),
+  requestHook('invite'),
   (req, res, next) => next(httperrors.NotImplemented()),
 );
 
@@ -39,7 +39,7 @@ router.patch(
   '/:userId',
   bearer,
   check(['patch:user']),
-  requestHook('missing description'),
+  requestHook('update user'),
   async (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
     const User = req.db.model('User');
@@ -62,7 +62,7 @@ router.delete(
   '/:userId',
   bearer,
   check(['delete:user']),
-  requestHook('missing description'),
+  requestHook('delete user'),
   (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
     const User = req.db.model('User');

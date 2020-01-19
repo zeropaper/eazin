@@ -29,7 +29,7 @@ router.get(
   '/',
   bearer,
   check(['get:organisations']),
-  requestHook('missing description'),
+  requestHook('list organisations'),
   (req, res, next) => {
     const Organisation = req.db.model('Organisation');
     const handle = (err, organisations) => {
@@ -50,7 +50,7 @@ router.post(
   '/',
   bearer,
   check(['post:organisations']),
-  requestHook('missing description'),
+  requestHook('create organisation'),
   async (req, res, next) => {
     try {
       const sanitized = sanitizeOrganisationInput(req.body);
@@ -73,7 +73,7 @@ router.get(
   '/:organisationId',
   bearer,
   check(['get:organisations/:organisationId']),
-  requestHook('missing description'),
+  requestHook('get organisation details'),
   (req, res) => res.send(sanitizeOrganisationOutput(req.loadedParams.organisationId)),
 );
 
@@ -81,7 +81,7 @@ router.get(
   '/:organisationId/users',
   bearer,
   check(['get:organisations/:organisationId']),
-  requestHook('missing description'),
+  requestHook('list organisation members'),
   (req, res, next) => {
     const User = req.db.model('User');
     User.find({ organisations: req.params.organisationId }, (err, users) => {
@@ -95,7 +95,7 @@ router.patch(
   '/:organisationId',
   bearer,
   check(['patch:organisations/:organisationId']),
-  requestHook('missing description'),
+  requestHook('update organisation'),
   (req, res, next) => {
     const { organisationId: organisation } = (req.loadedParams || {});
     const sanitized = sanitizeOrganisationInput(req.body);
@@ -114,7 +114,7 @@ router.delete(
   '/:organisationId',
   bearer,
   check(['delete:organisations/:organisationId']),
-  requestHook('missing description'),
+  requestHook('delete organisation'),
   (req, res, next) => req.loadedParams.organisation.remove((err) => {
     if (err) return next(err);
     res.send({});

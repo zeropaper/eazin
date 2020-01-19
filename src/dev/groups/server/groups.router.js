@@ -15,7 +15,7 @@ router.get(
   '/',
   bearer,
   check(['get:groups']),
-  requestHook('missing description'),
+  requestHook('list groups'),
   (req, res, next) => {
     const Group = req.db.model('Group');
 
@@ -50,7 +50,7 @@ router.post(
   '/',
   bearer,
   check(['post:groups']),
-  requestHook('missing description'),
+  requestHook('create group'),
   async (req, res, next) => {
     try {
       const Group = req.db.model('Group');
@@ -68,7 +68,7 @@ router.get(
   '/:groupId',
   bearer,
   check(['get:groups/:groupId']),
-  requestHook('missing description'),
+  requestHook('get group details'),
   (req, res) => res.send(req.db.model('Group').sanitizeOutput(req.loadedParams.groupId)),
 );
 
@@ -76,7 +76,7 @@ router.post(
   '/:groupId/members',
   bearer,
   check(['invite:groups/:groupId']),
-  requestHook('missing description'),
+  requestHook('add group member'),
   (req, res, next) => req.loadedParams.groupId.addMembers(req.body)
     .then((members) => res.status(200).send(members))
     .catch(next),
@@ -86,7 +86,7 @@ router.get(
   '/:groupId/members',
   bearer,
   check(['get:groups/:groupId']),
-  requestHook('missing description'),
+  requestHook('get group members'),
   async (req, res, next) => {
     const { groupId: { members, admin } } = req.loadedParams;
     const User = req.db.model('User');
@@ -101,7 +101,7 @@ router.patch(
   '/:groupId',
   bearer,
   check(['patch:groups/:groupId']),
-  requestHook('missing description'),
+  requestHook('update group'),
   (req, res, next) => {
     const Group = req.db.model('Group');
     const { groupId: group } = (req.loadedParams || {});
@@ -123,7 +123,7 @@ router.delete(
   '/:groupId/members',
   bearer,
   check(['revoke:groups/:groupId']),
-  requestHook('missing description'),
+  requestHook('remove group member'),
   (req, res, next) => req.loadedParams.groupId.removeMembers(req.body)
     .then((members) => res.status(200).send(members))
     .catch(next),
@@ -133,7 +133,7 @@ router.delete(
   '/:groupId',
   bearer,
   check(['delete:groups/:groupId']),
-  requestHook('missing description'),
+  requestHook('delete group'),
   (req, res, next) => req.loadedParams.groupId.remove(async (err) => {
     if (err) return next(err);
     res.status(204);
