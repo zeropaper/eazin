@@ -5,9 +5,11 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { CircularProgress } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import makeStore from './store';
+import { Router } from 'react-router-dom';
 import 'typeface-roboto';
 
+import makeStore from './store';
+import history from './history';
 import logger from './util/logger';
 import { makeTheme } from './theme';
 import * as api from './util/queryAPI';
@@ -146,19 +148,22 @@ export class AppContextProvider extends React.Component {
           // strings,
         }}
       >
+
         <HelmetProvider context={this.helmetContext}>
           <PluginsProvider value={{ plugins }}>
-            <Provider store={store}>
-              <MuiThemeProvider theme={this.theme}>
-                <Helmet>
-                  <title>{siteName}</title>
-                </Helmet>
+            <Router history={history}>
+              <Provider store={store}>
+                <MuiThemeProvider theme={this.theme}>
+                  <Helmet>
+                    <title>{siteName}</title>
+                  </Helmet>
 
-                <CssBaseline />
+                  <CssBaseline />
 
-                {children}
-              </MuiThemeProvider>
-            </Provider>
+                  {children}
+                </MuiThemeProvider>
+              </Provider>
+            </Router>
           </PluginsProvider>
         </HelmetProvider>
       </AppContext.Provider>

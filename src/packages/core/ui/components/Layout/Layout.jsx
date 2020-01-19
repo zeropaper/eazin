@@ -6,13 +6,12 @@ import {
   Drawer,
   Hidden,
   Toolbar,
+  // AppBar,
 } from '@material-ui/core';
-import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 
 import Header from './Layout.Header';
 import DrawerContent from './Layout.Drawer';
-import PluginPoint from '../PluginPoint';
 
 const fullHeight = {
   display: 'flex',
@@ -22,6 +21,15 @@ const fullHeight = {
   maxWidth: '100%',
   maxHeight: '100%',
 };
+
+// const abs = {
+//   position: 'absolute',
+//   left: 0,
+//   right: 0,
+//   top: 0,
+//   bottom: 0,
+//   overflow: 'auto',
+// };
 
 const styles = (theme) => ({
   '@global': {
@@ -58,6 +66,7 @@ const styles = (theme) => ({
   drawer: {
     display: 'flex',
     flexDirection: 'column',
+    boxShadow: theme.shadows[3],
   },
 });
 
@@ -66,71 +75,71 @@ const Layout = ({
   classes,
   justify,
   align,
-  passThru,
   siteName,
+  drawerContent: drawer,
+  contextToolbar,
 }) => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const onOpenDrawer = () => setDrawerOpen(true);
   const onCloseDrawer = () => setDrawerOpen(false);
 
-  const auth = passThru;
-
-  const drawerContent = (<DrawerContent />);
+  const drawerContent = drawer !== false
+    ? drawer
+    : <DrawerContent />;
 
   return (
     <Typography component="div" className={classes.root}>
-      {auth
-        && (
-          <>
-            <Hidden mdUp>
-              <Drawer
-                data-testid="maindrawer"
-                open={drawerOpen}
-                onClose={onCloseDrawer}
-                classes={{
-                  paper: classes.drawer,
-                }}
-              >
-                <Toolbar variant="dense" />
+      {drawerContent && (
+        <>
+          <Hidden mdUp>
+            <Drawer
+              data-testid="maindrawer"
+              open={drawerOpen}
+              onClose={onCloseDrawer}
+              classes={{
+                paper: classes.drawer,
+              }}
+            >
+              <Toolbar variant="dense" />
 
-                {drawerContent}
-              </Drawer>
-            </Hidden>
+              {drawerContent}
+            </Drawer>
+          </Hidden>
 
-            <Hidden smDown>
-              <Drawer
-                data-testid="maindrawer"
-                open
-                variant="persistent"
-                classes={{
-                  paper: classes.drawer,
-                }}
-              >
-                <Toolbar variant="dense" />
+          <Hidden smDown>
+            <Drawer
+              data-testid="maindrawer"
+              open
+              variant="persistent"
+              classes={{
+                paper: classes.drawer,
+              }}
+            >
+              <Toolbar variant="dense" />
 
-                {drawerContent}
-              </Drawer>
-            </Hidden>
-          </>
-        )}
+              {drawerContent}
+            </Drawer>
+          </Hidden>
+        </>
+      )}
 
       <Header siteName={siteName} onOpenDrawer={onOpenDrawer} fixed />
+
+      {contextToolbar}
 
       <div
         className={classNames({
           [classes.layoutContent]: true,
-          [classes.drawerShifted]: drawerContent && auth,
+          [classes.drawerShifted]: drawerContent,
           [classes.alignCenter]: align === 'center',
           [classes.alignEnd]: align === 'right',
           [classes.justifyCenter]: justify === 'center',
           [classes.justifyBottom]: justify === 'bottom',
-          auth,
-          anon: !auth,
         })}
         data-testid="layout-content"
       >
-        {auth ? children : (<PluginPoint name="AnonymousView" />)}
+        {children}
       </div>
     </Typography>
   );
@@ -139,21 +148,19 @@ const Layout = ({
 Layout.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
+  drawerContent: PropTypes.node,
+  contextToolbar: PropTypes.node,
   align: PropTypes.oneOf(['center', 'right']),
   justify: PropTypes.oneOf(['center', 'bottom']),
-  passThru: PropTypes.bool,
   siteName: PropTypes.string,
 };
 
 Layout.defaultProps = {
   align: null,
+  drawerContent: false,
+  contextToolbar: null,
   justify: null,
-  passThru: null,
   siteName: null,
 };
 
-const mapStateToProps = ({
-  settings: { userToken } = {},
-}) => ({ passThru: !!userToken });
-
-export default connect(mapStateToProps)(withStyles(styles)(Layout));
+export default withStyles(styles)(Layout);

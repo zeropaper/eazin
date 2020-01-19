@@ -2,7 +2,7 @@ import * as propTypes from './core/plugins.propTypes';
 
 export { propTypes };
 export * from './components';
-export { withAppContext } from './core/AppContext';
+export * from './core/AppContext';
 export { default as logger } from './core/util/logger';
 export { default as queryAPI } from './core/util/queryAPI';
 export { default as store } from './core/store';

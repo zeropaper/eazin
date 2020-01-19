@@ -79,4 +79,6 @@ Table.paginationQuerystring = ({
   return stringify(obj);
 };
 
+Table.icons = icons;
+
 export default Table;

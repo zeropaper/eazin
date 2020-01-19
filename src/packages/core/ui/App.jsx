@@ -2,9 +2,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Router } from 'react-router-dom';
 
-import history from './core/history';
 import { AppContextProvider } from './core/AppContext';
 
 import Layout from './components/Layout';
@@ -13,11 +11,10 @@ import PluginPoint from './components/PluginPoint';
 
 const App = ({ children, plugins, siteName }) => (plugins && (
   <AppContextProvider siteName={siteName} plugins={plugins}>
-    <Router history={history}>
-      <Layout siteName={siteName}>
-        {children || <PluginPoint exact switchRoutes name="View" />}
-      </Layout>
-    </Router>
+    <Layout siteName={siteName}>
+      {console.info(plugins)}
+      {children || <PluginPoint exact switchRoutes name="View" />}
+    </Layout>
   </AppContextProvider>
 ));
 
