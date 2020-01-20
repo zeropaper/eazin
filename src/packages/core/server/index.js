@@ -2,6 +2,7 @@
 /* eslint-disable global-require */
 const express = require('express');
 const passport = require('passport');
+const httperrors = require('httperrors');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -14,6 +15,8 @@ const initWS = require('./core/ws');
 const fixtures = require('./core/fixtures');
 const searchPlugin = require('./core/search');
 const errorHandler = require('./core/errorHandler');
+const requestHook = require('./util/requestHook');
+const uid = require('./util/uid');
 
 const {
   PUBLIC_DIR,
@@ -24,7 +27,7 @@ const {
 
 mongoose.set('useCreateIndex', true);
 
-const makeApp = async ({
+const eazin = async ({
   dbURL = `mongodb://localhost:27017/${APP_ID}-${NODE_ENV}`,
   publicDir = PUBLIC_DIR,
   plugins,
@@ -146,4 +149,13 @@ const makeApp = async ({
   return httpServer;
 };
 
-module.exports = makeApp;
+eazin.Router = express.Router;
+eazin.httperrors = httperrors;
+eazin.mongoose = mongoose;
+eazin.series = series;
+eazin.searchPlugin = searchPlugin;
+eazin.errorHandler = errorHandler;
+eazin.requestHook = requestHook;
+eazin.uid = uid;
+
+module.exports = eazin;
