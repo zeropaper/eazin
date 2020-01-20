@@ -11,6 +11,22 @@ const compileDevelopment = (neutrino, options) => () => {
   neutrino.use(react({ options }));
 };
 
+const packageSources = (projectName, sourcesDir, cb = () => {}) => readdirSync(sourcesDir)
+  .forEach((pkgName) => {
+    const packageName = `${projectName}-${pkgName}`;
+    const jsonPath = `${sourcesDir}/${pkgName}/package.json`;
+    if (!existsSync(jsonPath)) {
+      writeFileSync(jsonPath, JSON.stringify({
+        name: packageName,
+        main: 'server/index.js',
+        module: 'ui/index.js',
+        private: true,
+      }, null, 2));
+    }
+    cb(packageName, `${sourcesDir}/${pkgName}`);
+  });
+
+
 module.exports = {
   options: {
     root: __dirname,
@@ -58,37 +74,30 @@ module.exports = {
           .set('react', `${__dirname}/node_modules/react`)
           .end();
 
-        readdirSync(`${neutrino.options.source}/packages`)
-          .forEach((pkgName) => {
-            const packageName = `${projectName}-${pkgName}`;
-            const jsonPath = `${source}/packages/${pkgName}/package.json`;
-            if (!existsSync(jsonPath)) {
-              writeFileSync(jsonPath, JSON.stringify({
-                name: packageName,
-                private: true,
-              }, null, 2));
-            }
-            neutrino.config.resolve.alias
-              .set(packageName, `${source}/packages/${pkgName}`)
-              .end();
-          });
+        const alias = (name, packagePath) => neutrino
+          .config.resolve.alias
+          .set(name, packagePath)
+          .end();
+        packageSources(projectName, `${source}/packages`, alias);
+        // packageSources(projectName, `${source}/dev`, alias);
       }
       const options = {
         html: neutrino.config.get('mode') === 'development' && {
           title: 'React Preview',
         },
-        externals: {
-          redux: 'redux',
-          react: 'react',
-          'react-dom': 'react-dom',
-          'react-redux': 'react-redux',
-          'react-router-dom': 'react-router-dom',
-          '@material-ui/core': '@material-ui/core',
-          '@material-ui/icons': '@material-ui/icons',
-          '@material-ui/lab': '@material-ui/icons',
-          informed: 'informed',
-          'material-table': 'material-table',
-        },
+        externals: {},
+        // externals: {
+        //   redux: 'redux',
+        //   react: 'react',
+        //   'react-dom': 'react-dom',
+        //   'react-redux': 'react-redux',
+        //   'react-router-dom': 'react-router-dom',
+        //   '@material-ui/core': '@material-ui/core',
+        //   '@material-ui/icons': '@material-ui/icons',
+        //   '@material-ui/lab': '@material-ui/icons',
+        //   informed: 'informed',
+        //   'material-table': 'material-table',
+        // },
         style: {
           extract: {
             plugin: {

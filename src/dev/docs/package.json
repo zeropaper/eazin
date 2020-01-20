@@ -1,5 +1,5 @@
 {
-  "name": "eazin-users",
+  "name": "eazin-docs",
   "main": "server/index.js",
   "module": "ui/index.js",
   "private": true

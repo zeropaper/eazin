@@ -1,5 +1,5 @@
 {
-  "name": "eazin-users",
+  "name": "eazin-2fa",
   "main": "server/index.js",
   "module": "ui/index.js",
   "private": true
