@@ -32,6 +32,8 @@ export const appContextShape = {
   }).isRequired,
 };
 
+const globalDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
 export const log = logger('eazin', 'lime');
 
 const defaultValue = {
@@ -48,7 +50,7 @@ const AppContext = React.createContext(defaultValue);
 export class AppContextProvider extends React.Component {
   state = {
     loading: 0,
-    darkMode: false,
+    darkMode: globalDarkMode,
     bootstraped: [],
     plugins: null,
   };
@@ -58,7 +60,7 @@ export class AppContextProvider extends React.Component {
   constructor(props) {
     super(props);
 
-    this.theme = makeTheme('light');
+    this.theme = makeTheme(globalDarkMode ? 'dark' : 'light');
 
     Promise.all(Object.values(props.plugins))
       .then((loaded) => {
@@ -82,10 +84,12 @@ export class AppContextProvider extends React.Component {
 
   handleStoreChange = () => {
     const { store: { getState } } = this;
-    const { darkMode: stateDarkMode } = this.state;
+    const {
+      darkMode: stateDarkMode = globalDarkMode,
+    } = this.state;
     const {
       settings: {
-        darkMode: storeDarkMode = false,
+        darkMode: storeDarkMode = globalDarkMode,
       } = {},
     } = getState();
 
