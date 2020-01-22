@@ -10,7 +10,7 @@ router.get(
   '/',
   bearer,
   check(['get:activities']),
-  requestHook('read activity log'),
+  requestHook('<%= user.email %> reads activity log'),
   (req, res, next) => {
     const Activity = req.db.model('Activity');
 
