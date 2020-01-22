@@ -1,14 +1,8 @@
 /* eslint-disable no-console */
 import f from './simpleFetch';
+import readUserToken from './readToken';
 
-const storeName = 'eazin-1';
-export const readUserToken = () => {
-  try {
-    return JSON.parse(localStorage[storeName] || '{}').userToken;
-  } catch (e) {
-    console.warn('reading ', e);
-  }
-};
+export { readUserToken };
 
 const queryAPI = (url, {
   parser = 'json',

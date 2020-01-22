@@ -4,29 +4,31 @@ export const mockReset = () => { calls = {}; };
 
 export const mockGet = () => calls;
 
-export default (url, ...args) => {
+const fakedFetch = jest.fn((url, ...fetchArgs) => {
   calls[url] = calls[url] || [];
   let resolve;
   let reject;
   const promise = new Promise((res, rej) => {
-    resolve = (...a) => {
+    resolve = (...args) => {
       calls[url].resolved = true;
-      res(...a);
+      res(...args);
     };
 
-    reject = (...a) => {
+    reject = (...args) => {
       calls[url].rejected = true;
       // eslint-disable-next-line prefer-promise-reject-errors
-      rej(...a);
+      rej(...args);
     };
   });
 
   calls[url].push({
-    arguments: args,
+    arguments: fetchArgs,
     resolve,
     reject,
     promise,
   });
 
   return promise;
-};
+});
+
+export default fakedFetch;

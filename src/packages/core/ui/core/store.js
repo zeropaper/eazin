@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const storageName = 'eazin-1';
@@ -51,5 +52,5 @@ export default (plugins, preloaded = {}) => {
     return appReducer(state, action);
   };
 
-  return createStore(rootReducer, pluginStores, composeWithDevTools(applyMiddleware()));
+  return createStore(rootReducer, pluginStores, composeWithDevTools(applyMiddleware(thunk)));
 };
