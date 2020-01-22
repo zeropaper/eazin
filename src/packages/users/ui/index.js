@@ -3,7 +3,7 @@ import { queryAPI } from 'eazin-core/ui';
 import { clearSetting } from '../../settings/ui/settings.actions';
 
 import { setUser, clearUser } from './user.actions';
-import { setUsers, clearUsers } from './users.actions';
+import { upsertManyUsers, clearUsers } from './users.actions';
 import userReducer from './user.reducer';
 import usersReducer from './users.reducer';
 
@@ -18,7 +18,7 @@ export const bootstrap = (state, dispatch) => queryAPI.get('/api/user/me')
     if (!res.id) throw new Error('No id');
     dispatch(setUser(res));
     queryAPI.get('/api/users')
-      .then((users) => dispatch(setUsers((users || {}).data)));
+      .then((users) => dispatch(upsertManyUsers((users || {}).data)));
   })
   .catch(() => {
     dispatch(clearUser());

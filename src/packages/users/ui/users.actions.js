@@ -1,3 +1,12 @@
-export const setUsers = (payload) => ({ type: 'SET_USERS', payload });
+import { buildActions } from 'eazin-core/ui';
 
-export const clearUsers = () => ({ type: 'CLEAR_USERS' });
+export const {
+  removeOneUser,
+  upsertOneUser,
+  removeManyUsers,
+  upsertManyUsers,
+  clearUsers,
+} = buildActions({
+  singular: 'user',
+  endpoint: '/api/users',
+});
