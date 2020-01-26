@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { asField } from 'informed';
-import { TextField } from '@material-ui/core';
+import { TextField, MenuItem } from '@material-ui/core';
 
 const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
   const { value, touched } = fieldState;
@@ -14,17 +14,36 @@ const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
     defaultValue: droppedDefaultValue,
     forwardedRef,
     helperText,
+    options,
     ...rest
   } = props;
 
   const defaultValue = !touched && initialValue ? initialValue : '';
   const fieldValue = (value || value === 0) ? value : defaultValue;
 
+  let renderedOptions = null;
+  if (typeof options === 'function') {
+    renderedOptions = options();
+  } else if (Array.isArray(options)) {
+    renderedOptions = options.map((option) => (
+      typeof option === 'string'
+        ? (
+          <MenuItem key={option} value={option}>{option}</MenuItem>
+        )
+        : (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label || option.value}
+          </MenuItem>
+        )
+    ));
+  }
+
   // eslint-disable-next-line react/destructuring-assignment
   const errorText = props.error || fieldState.error || fieldState.asyncError;
   return (
     <TextField
       {...rest}
+      select={!!renderedOptions}
       name={rest.field}
       inputRef={forwardedRef}
       value={fieldValue}
@@ -40,7 +59,9 @@ const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
       }}
       helperText={errorText || helperText}
       error={!!errorText}
-    />
+    >
+      {renderedOptions}
+    </TextField>
   );
 };
 
@@ -55,6 +76,18 @@ InformedTextField.propTypes = {
   helperText: PropTypes.node,
   initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
+  options: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.arrayOf(PropTypes.shape({
+      value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+      ]).isRequired,
+      label: PropTypes.string,
+    })),
+    PropTypes.func,
+  ]),
 };
 
 InformedTextField.defaultProps = {
@@ -65,6 +98,7 @@ InformedTextField.defaultProps = {
   helperText: null,
   initialValue: null,
   defaultValue: null,
+  options: null,
 };
 
 export default asField(InformedTextField);

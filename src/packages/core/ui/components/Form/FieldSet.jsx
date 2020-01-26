@@ -28,15 +28,20 @@ const FieldSet = ({
   className,
   state,
   api,
+  components,
 }) => (
   <fieldset className={classNames(classes.root, className)}>
     <Typography className={classes.legend} component="legend">
       {label}
     </Typography>
 
-    <div>
-      <Fields state={state} api={api} fields={fields} field={field} />
-    </div>
+    <Fields
+      components={components}
+      state={state}
+      api={api}
+      fields={fields}
+      field={field}
+    />
   </fieldset>
 );
 
@@ -48,6 +53,7 @@ FieldSet.propTypes = {
   api: PropTypes.objectOf(PropTypes.any).isRequired,
   className: PropTypes.string,
   field: PropTypes.string,
+  components: PropTypes.objectOf(PropTypes.elementType).isRequired,
 };
 
 FieldSet.defaultProps = {

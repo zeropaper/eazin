@@ -7,8 +7,10 @@ import { withStyles } from '@material-ui/core/styles';
 import isEqual from 'lodash.isequal';
 
 import queryAPI from '../../core/util/queryAPI';
-import Fields from './Fields';
-import ButtonsGroup from './ButtonsGroup';
+
+import * as baseComponents from './FormBase.components';
+
+const { Fields, Buttons } = baseComponents;
 
 const styles = (theme) => ({
   field: {
@@ -20,7 +22,7 @@ const styles = (theme) => ({
   },
 });
 
-const recurseErrors = (subFields, subErrors = {}) => {
+export const recurseErrors = (subFields, subErrors = {}) => {
   Object.keys(subFields).forEach((fieldName) => {
     if (subFields[fieldName].fields) {
       return recurseErrors(subFields[fieldName], subErrors[fieldName]);
@@ -48,13 +50,42 @@ class FormBase extends React.Component {
     return recurseErrors(fields, errors);
   }
 
-  getValues = (subFields) => {
+  get components() {
+    const {
+      components: formComponents = {},
+    } = this.props;
+    return {
+      ...baseComponents,
+      ...formComponents,
+    };
+  }
+
+  get formState() {
+    const { loading } = this.state;
+    const formState = this.api.getState();
+    const touched = !!Object.keys(formState.touched).length;
+    const values = this.getValues();
+    const pristine = !touched && isEqual(values, formState.values);
+    return {
+      ...formState,
+      pristine,
+      dirty: !pristine,
+      loading,
+    };
+  }
+
+  getValues = (subFields = this.fields) => {
     const values = {};
-    const used = subFields || this.fields;
-    Object.keys(used).forEach((fieldName) => {
-      const { initialValue } = used[fieldName];
-      if (typeof initialValue === 'undefined') return;
-      values[fieldName] = initialValue;
+    Object.keys(subFields).forEach((fieldName) => {
+      const { initialValue, fields } = subFields[fieldName];
+      if (typeof initialValue === 'undefined' && !fields) return;
+      if (fields) {
+        const sub = this.getValues(fields);
+        if (!Object.keys(sub).length) return;
+        values[fieldName] = sub;
+      } else {
+        values[fieldName] = initialValue;
+      }
     });
     return values;
   };
@@ -142,16 +173,16 @@ class FormBase extends React.Component {
     </>
   );
 
-  renderFields = ({ formState, formApi }) => {
+  renderFields = ({ formApi }) => {
     const { fieldClassName, classes } = this.props;
-    const { loading } = this.state;
 
     return (
       <Fields
+        components={this.components}
         fields={this.fields}
         fieldClassName={fieldClassName || classes.field}
-        state={formState}
-        api={{ ...formApi, loading }}
+        state={this.formState}
+        api={formApi}
       />
     );
   };
@@ -187,19 +218,11 @@ class FormBase extends React.Component {
   };
 
   renderButtons = () => {
-    const { buttons, fieldClassName } = this.props;
-    const formState = this.api.getState();
-    const fieldValues = this.getValues();
-    const pristine = isEqual(fieldValues, formState.values);
-    const state = {
-      ...formState,
-      pristine,
-      dirty: !pristine,
-    };
+    const { props: { buttons, fieldClassName }, formState } = this;
     return (
-      <ButtonsGroup
+      <Buttons
         buttons={typeof buttons === 'function'
-          ? buttons(state, this.api)
+          ? buttons(formState, this.api)
           : buttons}
         className={fieldClassName}
       />
@@ -257,6 +280,7 @@ FormBase.propTypes = {
   resetOnError: PropTypes.bool,
   // Infinity is a number
   autoHideDelay: PropTypes.number,
+  components: PropTypes.objectOf(PropTypes.elementType),
 };
 
 FormBase.defaultProps = {
@@ -276,6 +300,7 @@ FormBase.defaultProps = {
   resetOnSuccess: null,
   resetOnError: null,
   autoHideDelay: null,
+  components: {},
 };
 
 export default withStyles(styles)(FormBase);

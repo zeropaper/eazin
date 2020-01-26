@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import get from 'lodash.get';
 
-// eslint-disable-next-line import/no-cycle
-import FieldSet from './FieldSet';
-import TextField from './TextField';
-import Checkbox from './Checkbox';
-import ButtonsGroup from './ButtonsGroup';
-
-// const Checkbox = () => null;
+const checkAccess = (access, values) => {
+  if (access === false) return false;
+  if (!access) return true;
+  const str = typeof access === 'string';
+  const value = get(values, str ? access : access.field);
+  return str ? !!access : access.value === value;
+};
 
 const Fields = ({
   fields,
@@ -15,6 +16,8 @@ const Fields = ({
   state,
   api,
   fieldClassName,
+  components: Components,
+  component,
 }) => Object.keys(fields)
   .map((field) => {
     const props = fields[field];
@@ -23,77 +26,43 @@ const Fields = ({
       type,
       label,
       fields: subFields = {},
-      buttons,
       className,
+      access,
     } = props;
+
+    if (!checkAccess(access, state.values)) return null;
 
     const subField = prefix ? `${prefix}.${field}` : field;
     const currentFieldClassName = `${fieldClassName || ''} ${className || ''}`.trim();
 
-    if (type === 'fieldset') {
-      return (
-        <FieldSet
-          key={field}
-          label={label}
-          fields={subFields}
-          field={subField}
-          state={state}
-          api={api}
-          className={currentFieldClassName}
-        />
-      );
+    const componentProps = {
+      ...props,
+      components: Components,
+      key: field,
+      label,
+      fields: subFields,
+      field: subField,
+      state,
+      api,
+      className: currentFieldClassName,
+    };
+
+    if (typeof component === 'string') {
+      const Comp = Components[component];
+      return <Comp {...componentProps} />;
     }
 
-    if (type === 'fields') {
-      return (
-        <Fields
-          key={field}
-          label={label}
-          fields={subFields}
-          field={subField}
-          state={state}
-          api={api}
-          className={currentFieldClassName}
-        />
-      );
+    if (component) return <component {...componentProps} />;
+
+    if (type === 'fieldset') return <Components.FieldSet {...componentProps} />;
+
+    if (type === 'checkbox') return <Components.CheckBox {...componentProps} />;
+
+    if (type === 'fields' || Object.keys(subFields).length) {
+      return <Fields {...componentProps} />;
     }
 
-    if (buttons) {
-      const pristine = !Object.keys(state.touched).length;
-      const bState = {
-        ...state,
-        pristine,
-        dirty: !pristine,
-      };
-      // console.info('button state', bState);
-      return (
-        <ButtonsGroup
-          key={field}
-          buttons={typeof buttons === 'function' ? buttons(bState, api, field, fields) : buttons}
-          className={currentFieldClassName}
-        />
-      );
-    }
-
-    if (type === 'checkbox') {
-      return (
-        <Checkbox
-          {...props}
-          key={field}
-          field={subField}
-          className={currentFieldClassName}
-        />
-      );
-    }
-
-    return (
-      <TextField
-        {...props}
-        key={field}
-        field={subField}
-        className={currentFieldClassName}
-      />
-    );
+    return <Components.TextField {...componentProps} />;
   })
   .filter(Boolean);
 
@@ -102,21 +71,19 @@ Fields.propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
     fields: PropTypes.object,
-    buttons: PropTypes.oneOfType([
-      PropTypes.arrayOf(PropTypes.object),
-      PropTypes.func,
-    ]),
     className: PropTypes.string,
   })).isRequired,
   field: PropTypes.string,
   className: PropTypes.string,
   state: PropTypes.objectOf(PropTypes.any).isRequired,
   api: PropTypes.objectOf(PropTypes.any).isRequired,
+  components: PropTypes.objectOf(PropTypes.elementType),
 };
 
 Fields.defaultProps = {
   field: undefined,
   className: null,
+  components: {},
 };
 
 export default Fields;

@@ -3,10 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { asField } from 'informed';
 import {
-  Checkbox, FormControlLabel, FormHelperText, FormControl, FormLabel,
+  Checkbox as MUICheckBox,
+  FormControlLabel,
+  FormHelperText,
+  FormControl,
+  FormLabel,
 } from '@material-ui/core';
 
-const InformedCheckbox = ({ fieldState, fieldApi, ...props }) => {
+const CheckBox = ({ fieldState, fieldApi, ...props }) => {
   const { value, touched } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const {
@@ -25,7 +29,7 @@ const InformedCheckbox = ({ fieldState, fieldApi, ...props }) => {
     ...rest
   } = props;
 
-  const defaultValue = !touched && initialValue ? initialValue : '';
+  const defaultValue = !touched && initialValue ? initialValue : false;
   const fieldValue = (value || value === 0) ? value : defaultValue;
 
   // eslint-disable-next-line react/destructuring-assignment
@@ -42,20 +46,19 @@ const InformedCheckbox = ({ fieldState, fieldApi, ...props }) => {
         required={required}
         disabled={disabled}
         control={(
-          <Checkbox
+          <MUICheckBox
             {...rest}
+            type="checkbox"
             name={rest.field}
             inputRef={forwardedRef}
             checked={!!fieldValue}
             inputProps={{
               onChange: (e) => {
                 setValue(e.target.checked);
-                setTouched(!!fieldValue !== e.target.checked);
+                setTouched(!touched);
                 if (onChange) onChange(e);
               },
               onBlur: (e) => {
-                // setTouched(true);
-                setTouched(!!fieldValue !== e.target.checked);
                 if (onBlur) onBlur(e);
               },
             }}
@@ -68,7 +71,7 @@ const InformedCheckbox = ({ fieldState, fieldApi, ...props }) => {
   );
 };
 
-InformedCheckbox.propTypes = {
+CheckBox.propTypes = {
   fieldState: PropTypes.objectOf(PropTypes.any).isRequired,
   fieldApi: PropTypes.objectOf(PropTypes.any).isRequired,
   // eslint-disable-next-line react/forbid-prop-types
@@ -87,7 +90,7 @@ InformedCheckbox.propTypes = {
   fullWidth: PropTypes.bool,
 };
 
-InformedCheckbox.defaultProps = {
+CheckBox.defaultProps = {
   forwardedRef: null,
   onChange: null,
   onBlur: null,
@@ -103,4 +106,4 @@ InformedCheckbox.defaultProps = {
   fullWidth: null,
 };
 
-export default asField(InformedCheckbox);
+export default asField(CheckBox);
