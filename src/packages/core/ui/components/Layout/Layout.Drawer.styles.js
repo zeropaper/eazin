@@ -22,6 +22,7 @@ export default (theme) => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(2),
+      width: '20vw',
     },
     display: 'block',
     '&.active': {

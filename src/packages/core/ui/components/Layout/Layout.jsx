@@ -6,7 +6,6 @@ import {
   Drawer,
   Hidden,
   Toolbar,
-  // AppBar,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -17,23 +16,15 @@ const fullHeight = {
   display: 'flex',
   flexDirection: 'column',
   flexGrow: 1,
-  height: '100%',
-  maxWidth: '100%',
-  maxHeight: '100%',
+  minHeight: '100%',
 };
-
-// const abs = {
-//   position: 'absolute',
-//   left: 0,
-//   right: 0,
-//   top: 0,
-//   bottom: 0,
-//   overflow: 'auto',
-// };
 
 const styles = (theme) => ({
   '@global': {
     'html, body, #root': fullHeight,
+    html: {
+      overflow: 'auto',
+    },
   },
   root: fullHeight,
   layoutContent: {
@@ -59,14 +50,19 @@ const styles = (theme) => ({
   },
   drawerShifted: {
     [theme.breakpoints.up('md')]: {
-      left: '20vw',
-      width: '80vw',
+      marginLeft: '20vw',
     },
   },
   drawer: {
     display: 'flex',
     flexDirection: 'column',
     boxShadow: theme.shadows[3],
+  },
+  contentFooterWrapper: {
+    position: 'relative',
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 
@@ -77,7 +73,8 @@ const Layout = ({
   align,
   siteName,
   drawerContent: drawer,
-  contextToolbar,
+  toolbar,
+  footer,
 }) => {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -87,6 +84,21 @@ const Layout = ({
   const drawerContent = drawer !== false
     ? drawer
     : <DrawerContent />;
+
+
+  const contentWrapperClassName = classNames({
+    [classes.contentFooterWrapper]: true,
+    [classes.drawerShifted]: drawerContent,
+  });
+  const contentClassName = classNames({
+    [classes.layoutContent]: true,
+    [classes.drawerShifted]: !footer && !toolbar && drawerContent,
+
+    [classes.alignCenter]: align === 'center',
+    [classes.alignEnd]: align === 'right',
+    [classes.justifyCenter]: justify === 'center',
+    [classes.justifyBottom]: justify === 'bottom',
+  });
 
   return (
     <Typography component="div" className={classes.root}>
@@ -126,21 +138,29 @@ const Layout = ({
 
       <Header siteName={siteName} onOpenDrawer={onOpenDrawer} fixed />
 
-      {contextToolbar}
+      {(footer || toolbar)
+        ? (
+          <div className={contentWrapperClassName}>
+            {toolbar}
 
-      <div
-        className={classNames({
-          [classes.layoutContent]: true,
-          [classes.drawerShifted]: drawerContent,
-          [classes.alignCenter]: align === 'center',
-          [classes.alignEnd]: align === 'right',
-          [classes.justifyCenter]: justify === 'center',
-          [classes.justifyBottom]: justify === 'bottom',
-        })}
-        data-testid="layout-content"
-      >
-        {children}
-      </div>
+            <div
+              className={contentClassName}
+              data-testid="layout-content"
+            >
+              {children}
+            </div>
+
+            {footer}
+          </div>
+        )
+        : (
+          <div
+            className={contentClassName}
+            data-testid="layout-content"
+          >
+            {children}
+          </div>
+        )}
     </Typography>
   );
 };
@@ -149,7 +169,8 @@ Layout.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
   drawerContent: PropTypes.node,
-  contextToolbar: PropTypes.node,
+  toolbar: PropTypes.node,
+  footer: PropTypes.node,
   align: PropTypes.oneOf(['center', 'right']),
   justify: PropTypes.oneOf(['center', 'bottom']),
   siteName: PropTypes.string,
@@ -158,7 +179,8 @@ Layout.propTypes = {
 Layout.defaultProps = {
   align: null,
   drawerContent: false,
-  contextToolbar: null,
+  toolbar: null,
+  footer: null,
   justify: null,
   siteName: null,
 };
