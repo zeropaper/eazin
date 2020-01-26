@@ -1,16 +1,18 @@
-const express = require('express');
-const httperrors = require('httperrors');
+const {
+  httperrors,
+  Router,
+  modelRequestParam,
+  requestHook,
+} = require('eazin-core/server');
 
-const requestHook = require('eazin-core/server/util/requestHook');
 const bearer = require('./user.auth.bearer');
 // const twoFAlocal = require('./user.auth.2falocal');
 
-const userIdParam = require('./users.param');
 const check = require('./user.auth.checkRoles');
 
-const router = express.Router();
+const router = Router();
 
-router.param('userId', userIdParam);
+modelRequestParam('User', router);
 
 router.get(
   '/',

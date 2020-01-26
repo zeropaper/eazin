@@ -1,15 +1,14 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const express = require('express');
-
+const {
+  Router,
+  requestHook,
+  modelRequestParam,
+} = require('../../../packages/core/server');
 const check = require('../../../packages/users/server/user.auth.checkRoles');
 const bearer = require('../../../packages/users/server/user.auth.bearer');
-const requestHook = require('../../../packages/core/server/util/requestHook');
 
-const groupIdParam = require('./groups.param');
+const router = Router();
 
-const router = express.Router();
-
-router.param('groupId', groupIdParam);
+modelRequestParam('Group', router);
 
 router.get(
   '/',

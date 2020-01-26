@@ -1,29 +1,15 @@
-/* eslint-disable import/no-extraneous-dependencies */
-const express = require('express');
+const {
+  Router,
+  model,
+  requestHook,
+  modelRequestParam,
+} = require('../../../packages/core/server');
+const check = require('../../../packages/users/server/user.auth.checkRoles');
+const bearer = require('../../../packages/users/server/user.auth.bearer');
 
-const check = require('eazin-users/server/user.auth.checkRoles');
-const bearer = require('eazin-users/server/user.auth.bearer');
-const requestHook = require('eazin-core/server/util/requestHook');
+const router = Router();
 
-const organisationIdParam = require('./organisations.param');
-
-const router = express.Router();
-
-const sanitizeOrganisationInput = ({ name }) => ({ name });
-
-const sanitizeOrganisationOutput = ({
-  name,
-  _id: id,
-  createdAt,
-  updatedAt,
-} = {}) => ({
-  name,
-  id,
-  createdAt,
-  updatedAt,
-});
-
-router.param('organisationId', organisationIdParam);
+modelRequestParam('Organisation', router);
 
 router.get(
   '/',
@@ -31,10 +17,10 @@ router.get(
   check(['get:organisations']),
   requestHook('list organisations'),
   (req, res, next) => {
-    const Organisation = req.db.model('Organisation');
+    const Organisation = model('Organisation');
     const handle = (err, organisations) => {
       if (err) return next(err);
-      res.send(organisations.map(sanitizeOrganisationOutput));
+      res.send(organisations.map(Organisation.sanitizeOutput));
     };
 
     if (req.user.isAdmin) {
@@ -53,8 +39,9 @@ router.post(
   requestHook('create organisation'),
   async (req, res, next) => {
     try {
-      const sanitized = sanitizeOrganisationInput(req.body);
-      const organisation = await req.db.model('Organisation').create(sanitized);
+      const Organisation = model('Organisation');
+      const sanitized = Organisation.sanitizeInput(req.body);
+      const organisation = await Organisation.create(sanitized);
       if (!req.user.isAdmin) {
         req.user.organisations.push(organisation._id);
         req.user.roles.push(`get:organisations/${organisation._id}`);
@@ -62,7 +49,7 @@ router.post(
         req.user.roles.push(`delete:organisations/${organisation._id}`);
         await req.user.save();
       }
-      res.status(201).send(sanitizeOrganisationOutput(organisation));
+      res.status(201).send(Organisation.sanitizeOutput(organisation));
     } catch (err) {
       next(err);
     }
@@ -74,7 +61,7 @@ router.get(
   bearer,
   check(['get:organisations/:organisationId']),
   requestHook('get organisation details'),
-  (req, res) => res.send(sanitizeOrganisationOutput(req.loadedParams.organisationId)),
+  (req, res) => res.send(model('Organisation').sanitizenOutput(req.loadedParams.organisationId)),
 );
 
 router.get(
@@ -97,15 +84,16 @@ router.patch(
   check(['patch:organisations/:organisationId']),
   requestHook('update organisation'),
   (req, res, next) => {
+    const Organisation = model('Organisation');
     const { organisationId: organisation } = (req.loadedParams || {});
-    const sanitized = sanitizeOrganisationInput(req.body);
+    const sanitized = Organisation.sanitizeInput(req.body);
 
     Object.keys(sanitized)
       .forEach((key) => { organisation[key] = sanitized[key]; });
 
     organisation.save(sanitized, (err, updated) => {
       if (err) return next(err);
-      res.send(sanitizeOrganisationOutput(updated));
+      res.send(Organisation.sanitizeOutput(updated));
     });
   },
 );

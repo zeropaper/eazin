@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const series = require('async-series');
 
 const initWS = require('./core/ws');
+const modelRequestParam = require('./core/modelRequestParam');
 const fixtures = require('./core/fixtures');
 const searchPlugin = require('./core/search');
 const errorHandler = require('./core/errorHandler');
@@ -157,5 +158,7 @@ eazin.searchPlugin = searchPlugin;
 eazin.errorHandler = errorHandler;
 eazin.requestHook = requestHook;
 eazin.uid = uid;
+eazin.modelRequestParam = modelRequestParam;
+eazin.model = (name) => mongoose.model(name);
 
 module.exports = eazin;
