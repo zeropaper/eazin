@@ -23,10 +23,7 @@ const log = require('./util/log');
 const eazinRC = require('./util/eazinrc');
 
 const {
-  PUBLIC_DIR,
   NO_WS,
-  NODE_ENV = 'development',
-  APP_ID = 'eazin',
 } = process.env;
 
 mongoose.set('useCreateIndex', true);
@@ -39,8 +36,6 @@ const loadPlugin = (cwd = process.cwd()) => (pluginPath) => (
 );
 
 const eazin = async ({
-  dbURL = `mongodb://localhost:27017/${APP_ID}-${NODE_ENV}`,
-  publicDir = PUBLIC_DIR,
   plugins: passedPlugins,
 } = {}) => {
   const config = eazinRC();
@@ -123,13 +118,12 @@ const eazin = async ({
 
   if (!NO_WS) initWS(httpServer, plugins);
 
-  if (NODE_ENV === 'production') app.use(compression());
+  if (config.env === 'production') app.use(compression());
 
-  const publicDirAbsPath = !!publicDir && path.resolve(publicDir);
-  if (publicDirAbsPath) {
-    app.use(express.static(publicDirAbsPath, { dotfiles: 'allow' }));
+  if (config.publicDir) {
+    app.use(express.static(config.publicDir, { dotfiles: 'allow' }));
 
-    const staticIndexPath = path.join(publicDirAbsPath, 'index.html');
+    const staticIndexPath = path.join(config.publicDir, 'index.html');
     try {
       const indexHTML = fs.readFileSync(staticIndexPath);
       app.use((req, res, next) => {
@@ -148,7 +142,7 @@ const eazin = async ({
 
   app.use('/api', apiRouter);
 
-  const db = await mongoose.connect(dbURL, {
+  const db = await mongoose.connect(config.dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -156,7 +150,7 @@ const eazin = async ({
   app.db = db;
   httpServer.db = db;
 
-  if (NODE_ENV !== 'production') app.use('/fixtures', fixtures(db));
+  if (config.env !== 'production') app.use('/fixtures', fixtures(db));
 
   app.use(errorHandler);
 
