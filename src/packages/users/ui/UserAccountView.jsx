@@ -11,6 +11,19 @@ import { validMail, validPassword } from './user.validators';
 import { setUser } from './user.actions';
 import UserPropTypes from './user.propTypes';
 
+const defaultButtons = ({ pristine, invalid, loading }) => ([
+  {
+    text: 'Reset',
+    type: 'reset',
+    disabled: pristine || loading,
+  },
+  {
+    text: 'Update',
+    type: 'submit',
+    disabled: pristine || invalid || loading,
+  },
+]);
+
 const required = {
   required: true,
   validateOnChange: true,
@@ -37,18 +50,7 @@ const ProfileForm = ({ firstName, lastName, updateStoreUser }) => (
         initialValue: lastName,
       },
     }}
-    buttons={({ pristine, invalid, loading }) => ([
-      {
-        text: 'Reset',
-        type: 'reset',
-        disabled: pristine || loading,
-      },
-      {
-        text: 'Update',
-        type: 'submit',
-        disabled: pristine || invalid || loading,
-      },
-    ])}
+    buttons={defaultButtons}
     onSuccess={updateStoreUser}
   />
 );
@@ -277,6 +279,8 @@ const AccountView = ({
           method="post"
           url="/api/user/password"
           fields={passwordFormFields}
+
+          buttons={defaultButtons}
         />
       </Paper>
     </Grid>
