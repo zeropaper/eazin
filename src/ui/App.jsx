@@ -1,6 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { AppBar, Toolbar } from '@material-ui/core';
 
 import {
   AppContextProvider,
@@ -23,15 +24,23 @@ import clients from '../dev/clients/ui';
 import repositories from '../dev/repositories/ui';
 
 import BreadCrumbs from './BreadCrumbs';
+import EmptyFallback from './EmptyFallback';
 
 const App = ({ children, plugins, siteName }) => (plugins && (
   <AppContextProvider siteName={siteName} plugins={plugins}>
     <Layout
       siteName={siteName}
-      contextToolbar={(
+      toolbar={(
         <UserAccess
           render={() => <BreadCrumbs />}
         />
+      )}
+      footer={(
+        <AppBar color="inherit" position="static">
+          <Toolbar variant="dense">
+            Yo
+          </Toolbar>
+        </AppBar>
       )}
       drawerContent={(
         <UserAccess
@@ -49,7 +58,15 @@ const App = ({ children, plugins, siteName }) => (plugins && (
       {children || (
         <UserAccess
           renderUnverified={() => <AnonForms />}
-          render={() => <PluginPoint className="auth" exact switchRoutes name="View" />}
+          render={() => (
+            <PluginPoint
+              className="auth"
+              exact
+              switchRoutes
+              name="View"
+              emptyFallback={<EmptyFallback />}
+            />
+          )}
         />
       )}
     </Layout>
