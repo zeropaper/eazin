@@ -1,0 +1,6 @@
+{
+  "name": "eazin-repositories",
+  "main": "server/index.js",
+  "module": "ui/index.js",
+  "private": true
+}
