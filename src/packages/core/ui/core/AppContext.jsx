@@ -158,9 +158,9 @@ export class AppContextProvider extends React.Component {
             <Router history={history}>
               <Provider store={store}>
                 <MuiThemeProvider theme={this.theme}>
-                  <Helmet>
-                    <title>{siteName}</title>
-                  </Helmet>
+                  <Helmet
+                    titleTemplate={`%s | ${siteName}`}
+                  />
 
                   <CssBaseline />
 
