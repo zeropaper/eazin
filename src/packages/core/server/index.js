@@ -31,16 +31,20 @@ const {
 
 mongoose.set('useCreateIndex', true);
 
+const loadPlugin = (cwd = process.cwd()) => (pluginPath) => (
+  typeof pluginPath === 'string'
+    // eslint-disable-next-line import/no-dynamic-require
+    ? require(path.resolve(cwd, pluginPath))
+    : pluginPath
+);
+
 const eazin = async ({
   dbURL = `mongodb://localhost:27017/${APP_ID}-${NODE_ENV}`,
   publicDir = PUBLIC_DIR,
   plugins: passedPlugins,
 } = {}) => {
   const config = eazinRC();
-  // log(config);
-  const plugins = passedPlugins
-    // eslint-disable-next-line import/no-dynamic-require
-    || config.plugins.map((pluginPath) => (typeof pluginPath === 'string' ? require(pluginPath) : pluginPath));
+  const plugins = passedPlugins || config.plugins.map(loadPlugin());
 
   const app = express();
   const httpServer = http.Server(app);
