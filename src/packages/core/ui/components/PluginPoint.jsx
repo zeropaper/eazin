@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch } from 'react-router-dom';
 
+import { Helmet } from 'react-helmet-async';
 import Fallback from './LoadingFallback';
 import ErrorBoundary from './ErrorBoundary';
 import * as api from '../core/util/queryAPI';
@@ -21,30 +22,50 @@ const RoutePlugin = ({
   wrapIn: WrapIn,
   wrapOut: WrapOut,
 }) => {
-  const render = (Comp, pluginName) => (props) => {
+  const render = (Comp, pluginName) => (routerProps) => {
     const content = (
-      <React.Suspense fallback={loadingFallback || <Fallback />}>
+      <>
+        {name === 'View' && <Helmet title={Comp.pageTitle || ''} />}
+
         <ErrorBoundary errorMessage={`${name} - ${pluginName}`}>
-          <Comp {...props} api={api} wrapIn={WrapIn} />
+          <React.Suspense fallback={loadingFallback || <Fallback />}>
+            <Comp
+              {...routerProps}
+              api={api}
+              wrapIn={WrapIn}
+              pluginPoint={name}
+            />
+          </React.Suspense>
         </ErrorBoundary>
-      </React.Suspense>
+      </>
     );
 
-    if (WrapOut) return <WrapOut>{content}</WrapOut>;
-    if (className) return <div className={className}>{content}</div>;
-    return content;
+    if (WrapOut) {
+      return (
+        <WrapOut
+          className={className}
+          pluginPoint={name}
+        >
+          {content}
+        </WrapOut>
+      );
+    }
+
+    return className ? <div className={className}>{content}</div> : content;
   };
 
   const routes = Object.keys(plugins)
-    .reduce((acc, val) => [
+    .reduce((acc, pluginName) => [
       ...acc,
-      ...(plugins[val].routes || []).map((route) => {
+      ...(plugins[pluginName].routes || []).map((route) => {
         if (!route[name]) return null;
 
         const Comp = route[name];
 
+        // console.info('Comp %s.%s', pluginName, name, Comp.pageTitle);
+
         return {
-          val,
+          pluginName,
           Comp,
           exact: route.exact,
           path: route.path,
@@ -58,21 +79,24 @@ const RoutePlugin = ({
       return 0;
     })
     .map(({
-      val,
+      pluginName,
       Comp,
       exact,
       path,
     }) => (
       <Route
-        key={`${val}-${!!exact}-${path}-${name}`}
+        key={`${pluginName}-${!!exact}-${path}-${name}`}
         path={path}
         exact={exact}
-        render={render(Comp, val, path)}
+        render={render(Comp, pluginName, path)}
       />
     ));
 
-  if (!routes.length && emptyFallback) return emptyFallback;
-  return switchRoutes ? <Switch>{routes}</Switch> : routes;
+  if (switchRoutes) {
+    routes.push(<Route key="_fallback_" path="*">{emptyFallback}</Route>);
+    return <Switch>{routes}</Switch>;
+  }
+  return routes;
 };
 
 RoutePlugin.propTypes = {
