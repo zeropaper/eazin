@@ -4,7 +4,7 @@ import { LayoutDrawerLink as Link } from 'eazin-core/ui';
 
 const DocsDrawer = () => (
   <Link to="/docs">
-    Docs
+    Documentation
   </Link>
 );
 

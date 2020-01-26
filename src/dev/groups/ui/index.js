@@ -8,6 +8,9 @@ const routes = [
     path: '/',
     Drawer: GroupsDrawer,
     LandingView: GroupsLandingView,
+  },
+  {
+    path: '/groups',
     View: GroupsView,
   },
 ];

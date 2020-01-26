@@ -45,7 +45,7 @@ class GroupsView extends React.Component {
     approvalType: 'admin',
   });
 
-  formButtons = ({ pristine, invalid }, { loading }) => ([
+  formButtons = ({ pristine, invalid, loading }) => ([
     {
       text: 'Reset',
       type: 'reset',
