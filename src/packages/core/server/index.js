@@ -18,6 +18,7 @@ const searchPlugin = require('./core/search');
 const errorHandler = require('./core/errorHandler');
 const requestHook = require('./util/requestHook');
 const uid = require('./util/uid');
+const log = require('./util/log');
 
 const {
   PUBLIC_DIR,
@@ -158,6 +159,7 @@ eazin.searchPlugin = searchPlugin;
 eazin.errorHandler = errorHandler;
 eazin.requestHook = requestHook;
 eazin.uid = uid;
+eazin.log = log;
 eazin.modelRequestParam = modelRequestParam;
 eazin.model = (name) => mongoose.model(name);
 
