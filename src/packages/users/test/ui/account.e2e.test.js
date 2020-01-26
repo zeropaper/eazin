@@ -24,7 +24,7 @@ describe('Account', () => {
       localStorage.setItem('eazin-1', '{"userToken":"user-api-token"}');
     });
     await page.goto(`${baseURL}/account`);
-    await page.waitForSelector('.auth');
+    await page.waitForSelector('[name="current"]');
   });
 
   afterEach(async () => {

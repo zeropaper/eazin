@@ -8,6 +8,7 @@ module.exports = {
         lastName: 'User',
         email: 'some.user@eazin.dev',
         isVerified: true,
+        isAdmin: true,
       },
     },
   ],

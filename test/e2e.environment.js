@@ -22,7 +22,6 @@ const plugins = [
   require('../src/dev/groups/server'),
   require('../src/dev/organisations/server'),
   require('../src/dev/clients/server'),
-  require('../src/dev/webhook/server'),
   require('../src/dev/docs/server'),
 ];
 
