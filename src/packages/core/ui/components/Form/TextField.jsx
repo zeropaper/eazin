@@ -11,10 +11,20 @@ const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
     onChange,
     onBlur,
     initialValue,
-    defaultValue: droppedDefaultValue,
     forwardedRef,
     helperText,
     options,
+    field,
+
+    /* eslint-disable react/prop-types */
+    defaultValue: droppedDefaultValue,
+    fields,
+    components,
+    component,
+    state,
+    api,
+    /* eslint-enable react/prop-types */
+
     ...rest
   } = props;
 
@@ -44,7 +54,7 @@ const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
     <TextField
       {...rest}
       select={!!renderedOptions}
-      name={rest.field}
+      name={field}
       inputRef={forwardedRef}
       value={fieldValue}
       inputProps={{
@@ -88,6 +98,7 @@ InformedTextField.propTypes = {
     })),
     PropTypes.func,
   ]),
+  field: PropTypes.string.isRequired,
 };
 
 InformedTextField.defaultProps = {
