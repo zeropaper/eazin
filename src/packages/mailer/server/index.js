@@ -12,17 +12,7 @@ const {
   TEST_SENDER_FILE = '/tmp/test-sender-messages.json',
 } = process.env;
 
-const {
-  siteName,
-  baseURL,
-  'eazin-mailer': {
-    transport,
-    siteSender,
-    templates,
-  },
-} = eazinRc();
-
-const transporter = NODE_ENV !== 'test' && nodemailer.createTransport(transport);
+let transporter;
 
 const testSend = async (vars) => {
   if (!existsSync(TEST_SENDER_FILE)) writeFileSync(TEST_SENDER_FILE, '[]');
@@ -38,17 +28,38 @@ const testSend = async (vars) => {
 };
 
 
-const prepareMail = (options, fn) => fn({
-  ...options,
-  siteName,
-  baseURL,
-  from: siteSender,
-});
+const prepareMail = (options, fn) => {
+  const {
+    siteName,
+    baseURL,
+    'eazin-mailer': {
+      transport,
+      siteSender,
+    } = {},
+  } = eazinRc();
+
+  transporter = transporter
+    || (NODE_ENV !== 'test' && nodemailer.createTransport(transport));
+
+  return fn({
+    ...options,
+    siteName,
+    baseURL,
+    from: siteSender,
+  });
+};
 
 module.exports = async ({
   template,
   ...options
 }) => {
+  const {
+    'eazin-mailer': {
+      siteSender,
+      templates,
+    } = {},
+  } = eazinRc();
+
   if (typeof templates[template] !== 'function') throw new Error(`Could not find email template for "${template}"`);
   const vars = {
     from: siteSender,

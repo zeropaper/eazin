@@ -1,10 +1,11 @@
 const path = require('path');
 
+const log = require('./log');
+
 const rcpath = path.resolve(process.cwd(), process.env.EAZIN_RC_PATH || './.eazinrc');
 // eslint-disable-next-line import/no-dynamic-require
 const config = require(rcpath);
 
-// eslint-disable-next-line no-console
-console.info('[eazin] config loaded from', rcpath);
+log(`[eazin] config loaded from ${rcpath}.js`);
 
 module.exports = () => config;
