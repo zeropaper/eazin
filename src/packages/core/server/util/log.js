@@ -1,3 +1,5 @@
+const { relative } = require('path');
+
 const { log } = console;
 
 module.exports = function proxiedLog(...args) {
@@ -8,5 +10,5 @@ module.exports = function proxiedLog(...args) {
     || line.match(/at (\/[^\s]+[0-9]+)/);
   if (!file || !file[1]) return log.call(...args);
 
-  log.call(console, `\x1b[2m⬛ ${file[1]}\x1b[0m\n`, ...args);
+  log.call(console, `\x1b[2m⬛ ${relative(process.cwd(), file[1])}\x1b[0m\n`, ...args);
 };
