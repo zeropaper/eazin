@@ -1,6 +1,0 @@
-{
-  "name": "eazin-webhook",
-  "main": "server/index.js",
-  "module": "ui/index.js",
-  "private": true
-}

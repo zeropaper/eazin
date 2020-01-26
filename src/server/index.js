@@ -17,7 +17,6 @@ server({
     require('../dev/activities/server'),
     require('../dev/clients/server'),
     require('../dev/organisations/server'),
-    require('../dev/webhook/server'),
     require('../dev/docs/server'),
     // require('../dev/repositories/server'),
     // require('../dev/ws/server'),
