@@ -1,8 +1,7 @@
 // const simpleFetch = jest.mock('../../../core/util/simpleFetch');
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 
 import simpleFetch from '../../../core/util/simpleFetch';
+import { makeStore } from '../../../core/store';
 
 import {
   buildActions,
@@ -22,18 +21,17 @@ describe('factory', () => {
   let reducer;
   // eslint-disable-next-line no-unused-vars
   let connector;
+
   beforeAll(() => {
     actions = buildActions({ singular });
     apiActions = buildAPIActions({ singular, endpoint: '/endpoint' });
     reducer = buildReducer({ singular });
     connector = buildConnector({ singular });
 
-    store = createStore(combineReducers({
-      docs: reducer,
-    }), {
-      docs: {},
-    }, applyMiddleware(thunk));
+    store = makeStore({ docs: reducer }, { docs: {} });
   });
+
+  beforeEach(() => store.dispatch({ type: 'CORE_RELOAD' }));
 
   describe('buildActions', () => {
     it('creates an object of sync functions', () => {
@@ -125,12 +123,22 @@ describe('factory', () => {
     });
   });
 
+
   describe('buildReducer', () => {
     it('creates an object of functions', () => {
+      expect(true).toBeTruthy();
       // expect(actions).toHaveProperty('upsertOneDoc');
       // expect(actions).toHaveProperty('upsertManyDocs');
     });
   });
 
-  describe('buildConnector', () => {});
+  describe('buildConnector', () => {
+    it('connects', () => {
+      expect(true).toBeTruthy();
+      const spy = jest.fn();
+      const connected = connector(spy);
+
+      console.info(connected.mock);
+    });
+  });
 });

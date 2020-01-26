@@ -2,28 +2,17 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const storageName = 'eazin-1';
-
-// eslint-disable-next-line no-unused-vars
-const readLocalStorageState = () => {
-  try {
-    return JSON.parse(localStorage.getItem(storageName));
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.info(e.message);
-    return false;
-  }
+export const makeStore = (reducers = {}, initialState = {}) => {
+  const combinedReducers = combineReducers(reducers);
+  const appReducer = (state = {}, action = {}) => {
+    if (action.type === 'CORE_RELOAD') return initialState;
+    return combinedReducers(state, action);
+  };
+  const middleware = process.env.NODE_ENV !== 'production'
+    ? composeWithDevTools(applyMiddleware(thunk))
+    : applyMiddleware(thunk);
+  return createStore(appReducer, initialState, middleware);
 };
-
-// eslint-disable-next-line no-unused-vars
-const writeLocalStorageState = (toStore) => requestAnimationFrame(() => {
-  try {
-    localStorage.setItem(storageName, JSON.stringify(toStore));
-  } catch (e) {
-    // eslint-disable-next-line no-console
-    console.info(e.message);
-  }
-});
 
 export default (plugins, preloaded = {}) => {
   let pluginReducers = {};
@@ -41,16 +30,5 @@ export default (plugins, preloaded = {}) => {
       };
     });
 
-  const appReducer = Object.keys(pluginReducers).length
-    ? combineReducers(pluginReducers)
-    : (state = {}) => (state);
-
-  pluginStores = { ...pluginStores, ...(preloaded || {}) };
-
-  const rootReducer = (state = {}, action = {}) => {
-    if (action.type === 'CORE_RELOAD') return pluginStores;
-    return appReducer(state, action);
-  };
-
-  return createStore(rootReducer, pluginStores, composeWithDevTools(applyMiddleware(thunk)));
+  return makeStore(pluginReducers, { ...pluginStores, ...(preloaded || {}) });
 };

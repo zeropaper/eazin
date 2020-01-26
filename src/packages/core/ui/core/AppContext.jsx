@@ -8,7 +8,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { Router } from 'react-router-dom';
 import 'typeface-roboto';
 
-import makeStore from './store';
+import createStore from './store';
 import history from './history';
 import logger from './util/logger';
 import { makeTheme } from './theme';
@@ -70,7 +70,7 @@ export class AppContextProvider extends React.Component {
             loadedObj[key] = loaded[k].default || loaded[k];
           });
 
-        this.store = makeStore(loadedObj);
+        this.store = createStore(loadedObj);
 
         this.storeUnsubscribe = this.store.subscribe(this.handleStoreChange);
 
