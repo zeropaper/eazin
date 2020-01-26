@@ -1,5 +1,8 @@
 /* eslint-disable global-require */
+const ngrok = require('ngrok');
+
 const server = require('../packages/core/server');
+const log = require('../packages/core/server/util/log');
 
 const {
   PORT = 5001,
@@ -7,8 +10,14 @@ const {
 
 server()
   .then((app) => {
-    // eslint-disable-next-line no-console
-    app.listen(PORT, () => console.info('API server listening on', PORT));
+    app.listen(PORT, async () => {
+      const ngrokURL = await ngrok.connect(PORT);
+      log(`API server listening on http://localhost:${PORT}`, ngrokURL);
+      app.on('close', () => {
+        log('kill ngrok');
+        ngrok.kill();
+      });
+    });
   })
   // eslint-disable-next-line no-console
   .catch((err) => console.error(`Server start failed: ${err.message}\n${err.stack}`));

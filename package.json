@@ -89,6 +89,7 @@
     "moment": "2.24.0",
     "mongoose": "5.8.3",
     "neutrino": "9.0.0",
+    "ngrok": "^3.2.7",
     "nodemailer": "6.4.2",
     "nodemon": "2.0.2",
     "npm-run-all": "4.1.5",
