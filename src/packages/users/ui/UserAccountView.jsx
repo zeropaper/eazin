@@ -323,6 +323,8 @@ const AccountView = ({
   </Grid>
 );
 
+AccountView.pageTitle = 'Your account';
+
 AccountView.propTypes = {
   api: PropTypes.shape({
     patch: PropTypes.func,

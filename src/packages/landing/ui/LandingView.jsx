@@ -43,6 +43,8 @@ const LandingView = ({ classes, bool, toggle }) => (
   </>
 );
 
+LandingView.pageTitle = 'Dashboard';
+
 LandingView.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   bool: PropTypes.bool.isRequired,

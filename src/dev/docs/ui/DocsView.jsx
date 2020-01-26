@@ -12,6 +12,8 @@ class DocsView extends React.Component {
     if (!server) await loadDocs();
   }
 
+  static pageTitle = 'Documentation';
+
   render() {
     const {
       docs: {

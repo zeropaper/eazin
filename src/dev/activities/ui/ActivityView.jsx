@@ -9,6 +9,8 @@ class ActivityView extends React.Component {
     return get(`/api/activities?${Table.paginationQuerystring(query)}`);
   };
 
+  static pageTitle = 'Activity';
+
   render() {
     return (
       <Table

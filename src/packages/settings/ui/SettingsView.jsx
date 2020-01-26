@@ -6,4 +6,5 @@ const SettingsView = () => (
   </div>
 );
 
-export default SettingsView;
+SettingsView.pageTitle = 'Settings';
+

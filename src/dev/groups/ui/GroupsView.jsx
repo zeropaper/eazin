@@ -58,6 +58,8 @@ class GroupsView extends React.Component {
     },
   ]);
 
+  static pageTitle = 'Groups';
+
   render() {
     return (
       <>
