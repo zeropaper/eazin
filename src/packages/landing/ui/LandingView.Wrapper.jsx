@@ -8,11 +8,13 @@ import { LoadingFallback as Fallback } from 'eazin-core/ui';
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
-    width: '33%',
     '& > div': {
       display: 'flex',
       flexDirection: 'column',
       flexGrow: 1,
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '33%',
     },
   },
   top: {
