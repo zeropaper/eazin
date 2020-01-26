@@ -45,7 +45,7 @@ const UserLogin = ({ dispatch, history: { push } }) => (
         push('/');
       }}
       fields={schema}
-      buttons={({ invalid, pristine }, { loading }) => [
+      buttons={({ invalid, pristine, loading }) => [
         {
           text: 'Login',
           type: 'submit',

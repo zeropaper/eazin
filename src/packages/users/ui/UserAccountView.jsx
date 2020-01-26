@@ -37,7 +37,7 @@ const ProfileForm = ({ firstName, lastName, updateStoreUser }) => (
         initialValue: lastName,
       },
     }}
-    buttons={({ pristine, invalid }, { loading }) => ([
+    buttons={({ pristine, invalid, loading }) => ([
       {
         text: 'Reset',
         type: 'reset',
@@ -76,28 +76,6 @@ const passwordFormFields = {
     validate: (val = '', vals) => {
       if (val !== vals.password) return 'Passwords don\'t match';
     },
-  },
-  actions: {
-    buttons: ({
-      pristine,
-      invalid,
-      values: {
-        current,
-        password,
-        passwordConfirm,
-      },
-    }, { loading }) => [
-      {
-        text: 'Change Password',
-        type: 'submit',
-        loading,
-        disabled: pristine
-          || invalid
-          || !current
-          || !password
-          || !passwordConfirm,
-      },
-    ],
   },
 };
 
@@ -208,7 +186,8 @@ class EmailChangeForm extends React.Component {
             values: {
               email: emailValue,
             },
-          }, { loading: formLoading }) => [
+            loading: formLoading,
+          }) => [
             {
               text: 'Send verification mail',
               type: 'submit',

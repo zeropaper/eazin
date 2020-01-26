@@ -31,26 +31,6 @@ const schema = {
       if (val !== vals.password) return 'Passwords don\'t match';
     },
   },
-  buttons: {
-    type: 'buttons',
-    buttons: ({
-      pristine,
-      invalid,
-      values: {
-        email,
-        passwordConfirm,
-      },
-    }) => ([
-      {
-        text: 'Register',
-        type: 'submit',
-        disabled: pristine
-          || invalid
-          || !email
-          || !passwordConfirm,
-      },
-    ]),
-  },
 };
 
 const UserRegister = () => {
@@ -92,6 +72,25 @@ const UserRegister = () => {
       <Form
         onSubmit={handleSubmit}
         fields={schema}
+        buttons={({
+          pristine,
+          invalid,
+          loading,
+          values: {
+            email,
+            passwordConfirm,
+          },
+        }) => ([
+          {
+            text: 'Register',
+            type: 'submit',
+            disabled: pristine
+              || invalid
+              || loading
+              || !email
+              || !passwordConfirm,
+          },
+        ])}
       />
 
       <Links current="register" />

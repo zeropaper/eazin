@@ -25,26 +25,6 @@ const schema = {
     label: 'Last Name',
     ...required,
   },
-
-  buttons: {
-    buttons: ({
-      pristine,
-      invalid,
-      values: {
-        firstName,
-        lastName,
-      },
-    }) => ([
-      {
-        type: 'submit',
-        text: 'Finish up',
-        disabled: pristine
-          || invalid
-          || !firstName
-          || !lastName,
-      },
-    ]),
-  },
 };
 
 const UserVerify = ({
@@ -87,6 +67,25 @@ const UserVerify = ({
           push('/');
         }}
         fields={schema}
+        buttons={({
+          pristine,
+          invalid,
+          loading,
+          values: {
+            firstName,
+            lastName,
+          },
+        }) => ([
+          {
+            type: 'submit',
+            text: 'Finish up',
+            disabled: pristine
+              || invalid
+              || loading
+              || !firstName
+              || !lastName,
+          },
+        ])}
       />
     </>
   );
