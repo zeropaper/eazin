@@ -43,3 +43,7 @@ ErrorBoundary.defaultProps = {
 };
 
 export default ErrorBoundary;
+
+export const withErrorBoundary = (Comp) => (props) => (
+  <ErrorBoundary><Comp {...props} /></ErrorBoundary>
+);

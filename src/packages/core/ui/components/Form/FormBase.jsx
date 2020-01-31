@@ -9,6 +9,7 @@ import isEqual from 'lodash.isequal';
 import queryAPI from '../../core/util/queryAPI';
 
 import * as baseComponents from './FormBase.components';
+import { withErrorBoundary } from '../ErrorBoundary';
 
 const { Fields, Buttons } = baseComponents;
 
@@ -25,8 +26,9 @@ const styles = (theme) => ({
 export const recurseErrors = (subFields, subErrors = {}) => {
   Object.keys(subFields).forEach((fieldName) => {
     if (subFields[fieldName].fields) {
-      return recurseErrors(subFields[fieldName], subErrors[fieldName]);
+      return recurseErrors(subFields[fieldName].fields, subErrors[fieldName]);
     }
+    if (!subFields[fieldName] || typeof subFields[fieldName] === 'string') return;
     // eslint-disable-next-line no-param-reassign
     subFields[fieldName].error = subErrors[fieldName] || null;
   });
@@ -303,4 +305,4 @@ FormBase.defaultProps = {
   components: {},
 };
 
-export default withStyles(styles)(FormBase);
+export default withErrorBoundary(withStyles(styles)(FormBase));
