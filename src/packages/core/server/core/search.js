@@ -7,25 +7,40 @@ const {
   floor,
 } = Math;
 
-const escapeRegexp = (val = '') => (val
-  ? (new RegExp(val.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&')))
-  : null);
+const parseFilters = require('./search.parseFilters');
+// const log = require('../util/log');
 
-const parseFilters = (filtersJSON) => {
-  const returned = {};
-  try {
-    if (typeof filtersJSON !== 'string') return filtersJSON || returned;
-    const queryfilter = JSON.parse(filtersJSON || '[]');
-    queryfilter.forEach((filter) => {
-      const val = escapeRegexp(filter.value);
-      if (val) returned[filter.column] = { $regex: val };
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.warn('parseFilters', err.message, filtersJSON);
-  }
-  return returned;
-};
+// const escapeRegexp = (val = '') => (val
+//   ? (new RegExp(val.replace(/[#-.]|[[-^]|[?|{}]/g, '\\$&')))
+//   : null);
+
+// const parseFilters = (filtersJSON, schema) => {
+//   const returned = {};
+//   try {
+//     if (typeof filtersJSON !== 'string') return filtersJSON || returned;
+//     const queryfilter = JSON.parse(filtersJSON || '[]');
+//     queryfilter.forEach((filter) => {
+//       if (!schema.paths[filter.column]) return;
+//       const { instance } = schema.paths[filter.column];
+
+//       if (instance === 'String') {
+//         const val = escapeRegexp(filter.value);
+//         if (val) returned[filter.column] = { $regex: val };
+//         return;
+//       }
+
+//       if (instance === 'Date') {
+
+//       }
+
+//       log('filter', filter.column, instance);
+//     });
+//   } catch (err) {
+//     // eslint-disable-next-line no-console
+//     console.warn('parseFilters', err.message, filtersJSON);
+//   }
+//   return returned;
+// };
 
 module.exports = function modelSearchPlugin(schema) { // , options) {
   schema.static('search', function modelSearch(query, next) {
@@ -49,7 +64,7 @@ module.exports = function modelSearchPlugin(schema) { // , options) {
         orderDirection,
       } = query;
 
-      const filter = parseFilters(query.filters);
+      const filter = parseFilters(query.filters, schema);
       Model.countDocuments(filter, (err, totalCount) => {
         if (err) return rej(err);
 
