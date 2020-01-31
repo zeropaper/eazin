@@ -6,6 +6,6 @@ const rcpath = path.resolve(process.cwd(), process.env.EAZIN_RC_PATH || './.eazi
 // eslint-disable-next-line import/no-dynamic-require
 const config = require(rcpath);
 
-log(`[eazin] config loaded from ${rcpath}.js`);
+log(`config loaded from ${rcpath}.js`);
 
 module.exports = () => config;

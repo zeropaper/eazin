@@ -1,23 +1,12 @@
 /* eslint-disable global-require */
-const ngrok = require('ngrok');
 
-const server = require('../packages/core/server');
-const log = require('../packages/core/server/util/log');
+const eazin = require('../packages/core/server');
 
-const {
-  PORT = 5001,
-} = process.env;
+const { log } = eazin;
 
-server()
-  .then((app) => {
-    app.listen(PORT, async () => {
-      const ngrokURL = await ngrok.connect(PORT);
-      log(`API server listening on http://localhost:${PORT}`, ngrokURL);
-      app.on('close', () => {
-        log('kill ngrok');
-        ngrok.kill();
-      });
-    });
-  })
+eazin()
+  .then((app) => app.listen(app.get('port'), async () => {
+    log(`API server listening on ${app.get('localURL')}`, app.get('externalAccessURL'));
+  }))
   // eslint-disable-next-line no-console
   .catch((err) => console.error(`Server start failed: ${err.message}\n${err.stack}`));
