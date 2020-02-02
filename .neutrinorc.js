@@ -67,7 +67,7 @@ module.exports = {
     }),
 
     (neutrino) => {
-      const projectName = neutrino.options.packageJson.name;
+      const { name: projectName, dependencies } = neutrino.options.packageJson;
       const { source } = neutrino.options;
       if (process.env.NODE_ENV !== 'test') {
         neutrino.config.resolve.alias
@@ -85,19 +85,8 @@ module.exports = {
         html: neutrino.config.get('mode') === 'development' && {
           title: 'React Preview',
         },
-        externals: {},
-        // externals: {
-        //   redux: 'redux',
-        //   react: 'react',
-        //   'react-dom': 'react-dom',
-        //   'react-redux': 'react-redux',
-        //   'react-router-dom': 'react-router-dom',
-        //   '@material-ui/core': '@material-ui/core',
-        //   '@material-ui/icons': '@material-ui/icons',
-        //   '@material-ui/lab': '@material-ui/icons',
-        //   informed: 'informed',
-        //   'material-table': 'material-table',
-        // },
+        externals: Object.keys(dependencies)
+          .reduce((obj, key) => ({ ...obj, [key]: key }), {}),
         style: {
           extract: {
             plugin: {
