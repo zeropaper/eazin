@@ -61,11 +61,13 @@ const eazin = async ({
   const app = express();
   const httpServer = http.Server(app);
   app.set('port', config.port);
+  app.set('host', config.host || 'localhost');
   app.set('localURL', config.localURL
-    || `http://${config.hostname || 'localhost'}:${config.port}`);
+    || `http://${app.get('host')}:${config.port}`);
+  log('localURL', app.get('localURL'));
   try {
     app.set('externalAccessURL', config.externalAccessURL
-      || await ngrokTunnel(app.get('localURL')));
+      || await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
     log('externalAccessURL', app.get('externalAccessURL'));
   } catch (err) {
     log(err.message);
