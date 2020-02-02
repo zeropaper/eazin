@@ -150,11 +150,13 @@ const eazin = async ({
   if (config.env === 'production') app.use(compression());
 
   if (config.publicDir) {
-    app.use(express.static(config.publicDir, { dotfiles: 'allow' }));
+    log('serving static', config.publicDir);
 
-    const staticIndexPath = path.join(config.publicDir, 'index.html');
+    const staticIndexPath = path.resolve(process.cwd(), config.publicDir, 'index.html');
     try {
       const indexHTML = fs.readFileSync(staticIndexPath);
+      app.use(express.static(config.publicDir, { dotfiles: 'allow' }));
+
       app.use((req, res, next) => {
         if (!req.accepts('html') || req.method !== 'GET') {
           next();
@@ -164,8 +166,7 @@ const eazin = async ({
         res.send(indexHTML);
       });
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn('Cannot serve "%s"', staticIndexPath);
+      log('Cannot serve "%s"', staticIndexPath);
     }
   }
 
