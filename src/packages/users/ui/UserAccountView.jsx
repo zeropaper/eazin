@@ -255,7 +255,7 @@ const AccountView = ({
           variant="h4"
           gutterBottom
         >
-            Profile
+          Profile
         </Typography>
 
         <ProfileForm
@@ -272,7 +272,7 @@ const AccountView = ({
           variant="h4"
           gutterBottom
         >
-            Change Password
+          Change Password
         </Typography>
 
         <Form
@@ -280,7 +280,27 @@ const AccountView = ({
           url="/api/user/password"
           fields={passwordFormFields}
 
-          buttons={defaultButtons}
+          buttons={({
+            pristine,
+            invalid,
+            loading,
+            values: { current, passwordConfirm },
+          }) => ([
+            {
+              text: 'Reset',
+              type: 'reset',
+              disabled: pristine || loading,
+            },
+            {
+              text: 'Update',
+              type: 'submit',
+              disabled: pristine
+                || invalid
+                || loading
+                || !current
+                || !passwordConfirm,
+            },
+          ])}
         />
       </Paper>
     </Grid>
@@ -291,7 +311,7 @@ const AccountView = ({
           variant="h4"
           gutterBottom
         >
-            Change Email
+          Change Email
         </Typography>
 
         <EmailChangeForm
