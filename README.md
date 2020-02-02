@@ -43,7 +43,7 @@ npm test
 You need to **start a development server** (`npm start`) and set the `PORT` environment variable in order to run the E2E tests in watch mode.
 
 ```
-PORT=5000 npm run watch:test:e2e
+npm run build:html && npm run watch:test:e2e
 ```
 
 ```
