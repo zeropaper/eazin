@@ -48,7 +48,6 @@ const pkgToPackage = ({
   ...pkg,
   name: `${pkg.name}-${name}`,
   private: false,
-  devDependencies: {},
   scripts: {},
   repository: {
     ...pkg.repository || {},
@@ -67,7 +66,9 @@ const stripExt = (str) => {
 };
 
 const packagePeerDependencies = (dependencies, available) => Object
-  .keys(dependencies).reduce((deps, name) => ({
+  .keys(dependencies)
+  .sort()
+  .reduce((deps, name) => ({
     ...deps,
     [name]: `^${available[name] || dependencies[name]}`,
   }), {});
@@ -144,7 +145,7 @@ module.exports = (neutrino, options) => () => {
         name,
         dependencies: packagePeerDependencies(basePkg.dependencies || {}, allDeps),
       }, pkg, lernaJSON.version);
-      content = JSON.stringify(content, null, 2);
+      content = `${JSON.stringify(content, null, 2)}\n`;
       wpWriteFile(compilation, `${pkg.name}-${name}/package.json`, content);
 
       if (process.env.BUILD_SKIP_OPTIONAL) return;
