@@ -2,13 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { asField } from 'informed';
-import {
-  Checkbox as MUICheckBox,
-  FormControlLabel,
-  FormHelperText,
-  FormControl,
-  FormLabel,
-} from '@material-ui/core';
+
+import MUICheckBox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 const CheckBox = ({ fieldState, fieldApi, ...props }) => {
   const { value, touched } = fieldState;

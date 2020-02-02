@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { GridList, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import GridList from '@material-ui/core/GridList';
 import { withStyles } from '@material-ui/core/styles';
 
 import { PluginPoint } from 'eazin-core/ui';

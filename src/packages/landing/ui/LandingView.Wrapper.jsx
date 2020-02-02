@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { GridListTile, Paper } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import GridListTile from '@material-ui/core/GridListTile';
 import { withStyles } from '@material-ui/core/styles';
 
 import { LoadingFallback as Fallback } from 'eazin-core/ui';

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form as Informed } from 'informed';
-import { Snackbar } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import { withStyles } from '@material-ui/core/styles';
 import isEqual from 'lodash.isequal';
 

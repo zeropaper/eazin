@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { parse as parseQuery } from 'querystring';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import { queryAPI, Form } from 'eazin-core/ui';
 import { setSetting } from '../../settings/ui/settings.actions';

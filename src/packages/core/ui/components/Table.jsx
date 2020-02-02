@@ -2,32 +2,28 @@ import React from 'react';
 import { stringify } from 'querystring';
 
 import MaterialTable from 'material-table';
-import {
-  AddBox as Add,
-  Check,
-  Clear,
-  DeleteOutline as Delete,
-  ChevronRight as DetailPanel,
-  Edit,
-  SaveAlt as Export,
-  FilterList as Filter,
-  FirstPage,
-  LastPage,
-  ChevronRight as NextPage,
-  ChevronLeft as PreviousPage,
-  Clear as ResetSearch,
-  Search,
-  ArrowDownward as SortArrow,
-  Remove as ThirdStateCheck,
-  ViewColumn,
-} from '@material-ui/icons';
+import Add from '@material-ui/icons/AddBox';
+import Check from '@material-ui/icons/Check';
+import Clear from '@material-ui/icons/Clear';
+import Delete from '@material-ui/icons/DeleteOutline';
+import Edit from '@material-ui/icons/Edit';
+import Export from '@material-ui/icons/SaveAlt';
+import Filter from '@material-ui/icons/FilterList';
+import FirstPage from '@material-ui/icons/FirstPage';
+import LastPage from '@material-ui/icons/LastPage';
+import NextPage from '@material-ui/icons/ChevronRight';
+import PreviousPage from '@material-ui/icons/ChevronLeft';
+import Search from '@material-ui/icons/Search';
+import SortArrow from '@material-ui/icons/ArrowDownward';
+import ThirdStateCheck from '@material-ui/icons/Remove';
+import ViewColumn from '@material-ui/icons/ViewColumn';
 
 const icons = {
   Add,
   Check,
   Clear,
   Delete,
-  DetailPanel,
+  DetailPanel: NextPage,
   Edit,
   Export,
   Filter,
@@ -35,7 +31,7 @@ const icons = {
   LastPage,
   NextPage,
   PreviousPage,
-  ResetSearch,
+  ResetSearch: Clear,
   Search,
   SortArrow,
   ThirdStateCheck,

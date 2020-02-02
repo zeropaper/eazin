@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import { Form } from 'eazin-core/ui';
 import { validMail } from './user.validators';

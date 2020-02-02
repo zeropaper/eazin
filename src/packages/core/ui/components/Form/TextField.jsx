@@ -2,7 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { asField } from 'informed';
-import { TextField, MenuItem } from '@material-ui/core';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
   const { value, touched } = fieldState;

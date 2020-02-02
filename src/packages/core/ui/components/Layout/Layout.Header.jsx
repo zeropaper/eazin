@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {
-  AppBar,
-  Toolbar,
-  Hidden,
-} from '@material-ui/core';
-import {
-  Menu as MenuIcon,
-} from '@material-ui/icons';
+
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Hidden from '@material-ui/core/Hidden';
+import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { withAppContext, appContextShape } from '../../core/AppContext';

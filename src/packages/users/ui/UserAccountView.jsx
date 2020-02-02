@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Paper, Grid, Typography } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import { parse } from 'querystring';
 
 import { Form } from 'eazin-core/ui';
-import { Alert } from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 import { validMail, validPassword } from './user.validators';
 import { setUser } from './user.actions';
 import UserPropTypes from './user.propTypes';
