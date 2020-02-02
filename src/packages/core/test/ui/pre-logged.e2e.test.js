@@ -21,7 +21,6 @@ describe('quick user login', () => {
     // await page.waitForSelector('.anon');
 
     await page.evaluate(() => {
-      console.info('set localstorage');
       localStorage.setItem('eazin-1', '{"userToken":"admin-api-token"}');
     });
   });

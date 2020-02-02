@@ -102,6 +102,7 @@ describe('factory', () => {
         const { getState, dispatch } = store;
         const { upsertOneDoc } = apiActions;
         const creationPromise = dispatch(upsertOneDoc(creationPayload));
+        // eslint-disable-next-line no-console
         console.info(creationPromise.mock);
         expect(simpleFetch).toHaveBeenCalled();
         const originalState = getState();
@@ -138,6 +139,7 @@ describe('factory', () => {
       const spy = jest.fn();
       const connected = connector(spy);
 
+      // eslint-disable-next-line no-console
       console.info(connected.mock);
     });
   });
