@@ -293,6 +293,7 @@ eazin.requestHook = requestHook;
 eazin.uid = uid;
 eazin.log = log;
 eazin.modelRequestParam = modelRequestParam;
+eazin.eazinRC = eazinRC;
 eazin.model = (name) => mongoose.model(name);
 
 module.exports = eazin;
