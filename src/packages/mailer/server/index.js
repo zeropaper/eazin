@@ -8,7 +8,6 @@ const nodemailer = require('nodemailer');
 const eazinRc = require('eazin-core/server/util/eazinrc');
 
 const {
-  NODE_ENV = 'development',
   TEST_SENDER_FILE = '/tmp/test-sender-messages.json',
 } = process.env;
 
@@ -30,6 +29,7 @@ const testSend = async (vars) => {
 
 const prepareMail = (options, fn) => {
   const {
+    env,
     siteName,
     baseURL,
     'eazin-mailer': {
@@ -39,7 +39,7 @@ const prepareMail = (options, fn) => {
   } = eazinRc();
 
   transporter = transporter
-    || (NODE_ENV !== 'test' && nodemailer.createTransport(transport));
+    || (env !== 'test' && nodemailer.createTransport(transport));
 
   return fn({
     ...options,
@@ -54,6 +54,7 @@ module.exports = async ({
   ...options
 }) => {
   const {
+    env,
     'eazin-mailer': {
       siteSender,
       templates,
@@ -67,7 +68,7 @@ module.exports = async ({
     to: options.to,
   };
 
-  return NODE_ENV === 'test'
+  return env === 'test'
     ? testSend({ ...options, template, ...vars })
     : transporter.sendMail(vars);
 };
