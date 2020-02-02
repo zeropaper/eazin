@@ -185,22 +185,102 @@ const eazin = async ({
 
   app.use(errorHandler);
 
-  const { listen } = app;
-  app.listen = (...args) => {
-    let cb = () => {};
-    if (typeof args[args.length - 1] === 'function') cb = args.pop();
+  // const { listen } = app;
+  // app.listen = () => new Promise((resolve, reject) => {
+  //   const opts = {
+  //     port: app.get('port'),
+  //     host: app.get('host'),
+  //   };
 
-    listen.call(app, ...args, (err) => {
-      if (!err) {
-        // ##### call appReadyHooks plugin point
-        plugins.forEach(({ appReadyHooks = [] } = {}) => {
-          appReadyHooks.forEach((fn) => fn(app));
+  //   listen.call(app, opts, (err) => {
+  //     // if (err && err.code === 'EADDRINUSE') {
+  //     //   log('address in use, try closing');
+
+  //     //   setTimeout(() => {
+  //     //     app.close((closeErr) => {
+  //     //       if (closeErr) {
+  //     //         log('address in use, closing error', closeErr.message);
+  //     //         reject(closeErr);
+  //     //         return;
+  //     //       }
+
+  //     //       listen.call(app, opts, (er) => {
+  //     //         log('address in use, try listening', er);
+  //     //         if (er) return reject(er);
+  //     //         resolve(app);
+  //     //       });
+  //     //     });
+  //     //   }, 100);
+  //     //   return;
+  //     // }
+
+  //     if (err) {
+  //       log('app.listen() error', err.message);
+  //       reject(err);
+  //       return;
+  //     }
+
+  //     try {
+  //       // ##### call appReadyHooks plugin point
+  //       plugins.forEach(({ appReadyHooks = [] } = {}) => {
+  //         appReadyHooks.forEach((fn) => fn(app));
+  //       });
+
+  //       resolve(app);
+  //     } catch (err) {
+  //       reject(err);
+  //     }
+  //   });
+  // });
+
+  // app.close = (cb = () => {}) => new Promise((resolve, reject) => {
+  //   if (db && db.connection) db.connection.close();
+
+  //   log('shutting app down', httpServer.listening);
+
+  //   if (!httpServer.listening) {
+  //     resolve(app);
+  //     cb(null, app);
+  //     return;
+  //   }
+
+  //   setTimeout(() => {
+  //     if (!httpServer.listening) {
+  //       resolve(app);
+  //       cb(null, app);
+  //       return;
+  //     }
+
+  //     httpServer.close((err) => {
+  //     // httpServer.close.call(httpServer, (err) => {
+  //       if (err && err.code !== 'ERR_SERVER_NOT_RUNNING') {
+  //         log('shutting app down error', err.message);
+  //         cb(err);
+  //         reject(err);
+  //         return;
+  //       }
+
+  //       resolve(app);
+  //       cb(null, app);
+  //     });
+  //   }, 100);
+  // });
+
+  // return app;
+
+  return {
+    listen: (...args) => {
+      if (!args.length) {
+        return httpServer.listen({
+          port: app.get('port'),
+          host: app.get('host'),
         });
       }
-      return cb(err);
-    });
+      return httpServer.listen(...args);
+    },
+    close: (...args) => httpServer.close(...args),
+    get: (name) => app.get(name),
   };
-  return app;
 };
 
 eazin.Router = express.Router;
