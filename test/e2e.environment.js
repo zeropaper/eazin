@@ -12,9 +12,10 @@ const {
   pathExists,
 } = require('fs-extra');
 const { dir: tmpDir } = require('tmp-promise');
-const tcpPortUsed = require('tcp-port-used');
 
-const makeApp = require('../src/packages/core/server');
+const eazin = require('../src/packages/core/server');
+
+const { eazinRC } = eazin;
 
 const plugins = [
   require('../src/packages/users/server'),
@@ -29,9 +30,7 @@ const {
   TEST_KEEP_BROWSER,
   NODE_WATCH,
   HEADLESS,
-  JEST_SERVE,
   SLOWMO,
-  PORT = 3030, // eazin-demo-server production port
 } = process.env;
 
 const watching = (!!TEST_KEEP_BROWSER || !!NODE_WATCH) && !HEADLESS;
@@ -79,17 +78,15 @@ class PuppeteerEnvironment extends NodeEnvironment {
   async setup() {
     await super.setup();
 
-    this.global.baseURL = `http://localhost:${PORT}`;
-    const PORTint = parseInt(PORT, 10);
+    const config = eazinRC();
 
-    if (JEST_SERVE) {
-      await tcpPortUsed.waitUntilFree(PORTint, 500, 4000);
-      this.app = await makeApp({
-        publicDir: path.resolve(`${__dirname}/../html-build`),
-        plugins,
-      });
-      this.app.listen(PORTint, console.info('JEST server started at', this.global.baseURL));
-      await tcpPortUsed.waitUntilUsed(PORTint, 500, 4000);
+    this.global.baseURL = config.baseURL;
+
+    try {
+      this.app = await eazin({ plugins });
+      await this.app.listen(config.port);
+    } catch (err) {
+      console.error('[E2E] serving error', err.stack);
     }
 
     const commonOptions = {
@@ -160,13 +157,14 @@ class PuppeteerEnvironment extends NodeEnvironment {
           await mkdirp(path.dirname(dest));
           await move(src, dest, { overwrite: true });
         } catch (e) {
-          console.warn(e.stack);
+          console.warn('[E2E] teardown screenshot error', e.stack);
         }
       }));
 
     if (this.app && !TEST_KEEP_BROWSER) {
-      this.app.close();
-      if (this.app.db) this.app.db.connection.close();
+      const db = this.app.get('db');
+      if (db) db.connection.close();
+      await this.app.close();
     }
 
     await Promise.all((this.global.testPages || [])

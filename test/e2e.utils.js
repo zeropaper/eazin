@@ -72,7 +72,7 @@ export const saveScreenshot = async () => {
 };
 
 export const request = (pathname, data, method = 'post') => {
-  const { PORT = 3030 } = process.env;
+  const { JEST_SERVE: PORT = 3030 } = process.env;
 
   const json = JSON.stringify(data);
 

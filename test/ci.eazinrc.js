@@ -1,11 +1,15 @@
 const {
   NODE_ENV = 'development',
+  JEST_SERVE: PORT = 3030,
 } = process.env;
 
 const config = {
   env: NODE_ENV,
+  port: PORT,
   siteName: `eazin ${NODE_ENV}`,
-  baseURL: 'http://localhost:5000/',
+  baseURL: `http://localhost:${PORT}/`,
+  dbURL: `mongodb://localhost:27017/eazin-ci-${NODE_ENV}`,
+  publicDir: './html-build',
 };
 
 // ------------------------------------------------------------

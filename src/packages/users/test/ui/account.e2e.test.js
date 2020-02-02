@@ -23,13 +23,11 @@ describe('Account', () => {
     await page.evaluate(() => {
       localStorage.setItem('eazin-1', '{"userToken":"user-api-token"}');
     });
-    await page.goto(`${baseURL}/account`);
+    await page.goto(`${baseURL}account`);
     await page.waitForSelector('[name="current"]');
   });
 
-  afterEach(async () => {
-    await saveScreenshot();
-  });
+  afterEach(saveScreenshot);
 
   describe('password change', () => {
     it('checks the fields', async () => {

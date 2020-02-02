@@ -21,13 +21,11 @@ describe('User', () => {
   beforeAll(async () => {
     clearSneakMessages();
     const [page] = testPages;
-    await page.goto(`${baseURL}/register`);
+    await page.goto(`${baseURL}register`);
     await page.waitForSelector('[name="email"]');
   });
 
-  afterEach(async () => {
-    await saveScreenshot();
-  });
+  afterEach(saveScreenshot);
 
   describe('registration', () => {
     it('has a field for email', async () => {
@@ -87,7 +85,7 @@ describe('User', () => {
   describe('verification', () => {
     it('follows instructions', async () => {
       const [page] = testPages;
-      await page.goto(`${baseURL}/verify?token=${verif.token}`);
+      await page.goto(`${baseURL}verify?token=${verif.token}`);
       await page.waitForSelector('[name="firstName"]');
     });
 
