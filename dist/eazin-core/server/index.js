@@ -2,6 +2,8 @@
 /* eslint-disable global-require */
 const express = require('express');
 const passport = require('passport');
+const superagent = require('superagent');
+const httperrors = require('httperrors');
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -11,26 +13,65 @@ const helmet = require('helmet');
 const series = require('async-series');
 
 const initWS = require('./core/ws');
+const modelRequestParam = require('./core/modelRequestParam');
 const fixtures = require('./core/fixtures');
 const searchPlugin = require('./core/search');
 const errorHandler = require('./core/errorHandler');
+const requestHook = require('./util/requestHook');
+const uid = require('./util/uid');
+const log = require('./util/log');
+
+const eazinRC = require('./util/eazinrc');
 
 const {
-  PUBLIC_DIR,
   NO_WS,
-  NODE_ENV = 'development',
-  APP_ID = 'eazin',
 } = process.env;
 
 mongoose.set('useCreateIndex', true);
 
-const makeApp = async ({
-  dbURL = `mongodb://localhost:27017/${APP_ID}-${NODE_ENV}`,
-  publicDir = PUBLIC_DIR,
-  plugins,
+const loadPlugin = (cwd = process.cwd()) => (pluginPath) => (
+  typeof pluginPath === 'string'
+    // eslint-disable-next-line import/no-dynamic-require
+    ? require(path.resolve(cwd, pluginPath))
+    : pluginPath
+);
+
+const ngrokDefaultURL = 'http://127.0.0.1:4040/api/tunnels';
+
+const ngrokTunnel = async (localURL, ngrokURL = ngrokDefaultURL) => {
+  const tunnelsResponse = await superagent
+    .get(ngrokURL);
+  const { tunnels } = tunnelsResponse.body;
+  const tunnel = tunnels.find(({
+    proto,
+    config: { addr },
+  }) => (
+    proto === 'https'
+    && addr === localURL
+  ));
+  return (tunnel || {}).public_url;
+};
+
+const eazin = async ({
+  plugins: passedPlugins,
 } = {}) => {
+  const config = eazinRC();
+  const plugins = passedPlugins || config.plugins.map(loadPlugin());
+
   const app = express();
   const httpServer = http.Server(app);
+  app.set('port', config.port);
+  app.set('host', config.host || 'localhost');
+  app.set('localURL', config.localURL
+    || `http://${app.get('host')}:${config.port}`);
+  log('localURL', app.get('localURL'));
+  try {
+    app.set('externalAccessURL', config.externalAccessURL
+      || await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
+    log('externalAccessURL', app.get('externalAccessURL'));
+  } catch (err) {
+    log(err.message);
+  }
 
   // eslint-disable-next-line consistent-return
   const callRequestHooks = (description, req, res, next) => {
@@ -50,7 +91,7 @@ const makeApp = async ({
     schemas.forEach(({
       modelName,
       schema,
-      noSearch,
+      addSearch,
       searchOptions = {},
     }) => {
       if (!modelName || !schema) return;
@@ -61,11 +102,11 @@ const makeApp = async ({
           plugin: schemaPlugin,
         }) => {
           if (pluginModelName !== modelName) return;
-          schema.plugin(schemaPlugin);
+          schema.plugin(schemaPlugin, { eazinConfig: config });
         });
       });
 
-      if (!noSearch) searchPlugin(schema, searchOptions);
+      if (!addSearch) searchPlugin(schema, searchOptions);
       mongoose.model(modelName, schema);
     });
   });
@@ -106,15 +147,16 @@ const makeApp = async ({
 
   if (!NO_WS) initWS(httpServer, plugins);
 
-  if (NODE_ENV === 'production') app.use(compression());
+  if (config.env === 'production') app.use(compression());
 
-  const publicDirAbsPath = !!publicDir && path.resolve(publicDir);
-  if (publicDirAbsPath) {
-    app.use(express.static(publicDirAbsPath, { dotfiles: 'allow' }));
+  if (config.publicDir) {
+    log('serving static', config.publicDir);
 
-    const staticIndexPath = path.join(publicDirAbsPath, 'index.html');
+    const staticIndexPath = path.resolve(process.cwd(), config.publicDir, 'index.html');
     try {
       const indexHTML = fs.readFileSync(staticIndexPath);
+      app.use(express.static(config.publicDir, { dotfiles: 'allow' }));
+
       app.use((req, res, next) => {
         if (!req.accepts('html') || req.method !== 'GET') {
           next();
@@ -124,26 +166,52 @@ const makeApp = async ({
         res.send(indexHTML);
       });
     } catch (err) {
-      // eslint-disable-next-line no-console
-      console.warn('Cannot serve "%s"', staticIndexPath);
+      log('Cannot serve "%s"', staticIndexPath);
     }
   }
 
   app.use('/api', apiRouter);
 
-  const db = await mongoose.connect(dbURL, {
+  const db = await mongoose.connect(config.dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
   app.db = db;
   httpServer.db = db;
+  app.set('db', db);
 
-  if (NODE_ENV !== 'production') app.use('/fixtures', fixtures(db));
+  if (config.env !== 'production') app.use('/fixtures', fixtures(db));
 
   app.use(errorHandler);
 
-  return httpServer;
+  return {
+    listen: (...args) => {
+      if (!args.length) {
+        return httpServer.listen({
+          port: app.get('port'),
+          host: app.get('host'),
+        });
+      }
+      return httpServer.listen(...args);
+    },
+    close: (...args) => httpServer.close(...args),
+    get: (name) => app.get(name),
+    app,
+  };
 };
 
-module.exports = makeApp;
+eazin.Router = express.Router;
+eazin.httperrors = httperrors;
+eazin.mongoose = mongoose;
+eazin.series = series;
+eazin.searchPlugin = searchPlugin;
+eazin.errorHandler = errorHandler;
+eazin.requestHook = requestHook;
+eazin.uid = uid;
+eazin.log = log;
+eazin.modelRequestParam = modelRequestParam;
+eazin.eazinRC = eazinRC;
+eazin.model = (name) => mongoose.model(name);
+
+module.exports = eazin;

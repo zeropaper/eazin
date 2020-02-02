@@ -23,6 +23,7 @@
     "nodemailer": "^6.4.2"
   },
   "husky": {},
+  "devDependencies": {},
   "main": "server/index.js",
   "module": "ui/index.js"
 }
