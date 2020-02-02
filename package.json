@@ -119,7 +119,7 @@
     "tmp-promise": "2.0.2",
     "typeface-roboto": "0.0.75",
     "validator": "12.1.0",
-    "webpack": "4.41.4",
+    "webpack": "4.41.5",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.3",
     "webpack-node-externals": "1.7.2"
