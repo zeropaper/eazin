@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-landing",
-  "version": "0.0.1-wip.7",
+  "version": "0.0.1-wip.8",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
@@ -24,7 +24,6 @@
     "httperrors": "^2.3.0"
   },
   "husky": {},
-  "devDependencies": {},
   "main": "server/index.js",
   "module": "ui/index.js"
 }
