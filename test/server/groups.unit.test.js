@@ -21,7 +21,8 @@ beforeAll(async () => {
       groupsPlugin,
     ],
   });
-  const { app: { db: { models: { User, Group } } } } = utils;
+  const { app } = utils;
+  const { models: { User, Group } } = app.get('db');
   await User.deleteMany({});
   await Group.deleteMany({});
 
@@ -60,7 +61,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  utils.app.db.connection.close();
+  utils.app.get('db').connection.close();
 });
 
 const makeGroup = (i, user) => utils
@@ -114,7 +115,8 @@ describe('group', () => {
       }));
 
     it('updates the creator roles at creation', async () => {
-      const { app: { db: { models: { User } } } } = utils;
+      const { app } = utils;
+      const { models: { User } } = app.get('db');
       creator = await User.findById(creator.id);
 
       expect(creator.roles).toContain(`get:groups/${group.id}`);
@@ -172,7 +174,8 @@ describe('group', () => {
       .expect(200));
 
     it('updates the member roles when added', async () => {
-      const { app: { db: { models: { User } } } } = utils;
+      const { app } = utils;
+      const { models: { User } } = app.get('db');
       member1 = await User.findById(member1.id);
       member2 = await User.findById(member2.id);
 
@@ -188,7 +191,8 @@ describe('group', () => {
       .expect(200));
 
     it('updates the member roles when removed', async () => {
-      const { app: { db: { models: { User } } } } = utils;
+      const { app } = utils;
+      const { models: { User } } = app.get('db');
       member1 = await User.findById(member1.id);
       member2 = await User.findById(member2.id);
 
@@ -203,7 +207,8 @@ describe('group', () => {
       .expect(204));
 
     it('updates the creator and member roles at deletion', async () => {
-      const { app: { db: { models: { User } } } } = utils;
+      const { app } = utils;
+      const { models: { User } } = app.get('db');
       creator = await User.findById(creator.id);
       member1 = await User.findById(member1.id);
       member2 = await User.findById(member2.id);

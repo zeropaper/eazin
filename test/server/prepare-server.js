@@ -4,7 +4,7 @@ const request = require('supertest');
 const server = require('../../src/packages/core/server');
 
 module.exports = async ({ plugins = [] } = {}) => {
-  const app = await server({ plugins });
+  const { app } = await server({ plugins });
 
   return {
     app,

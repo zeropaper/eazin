@@ -38,7 +38,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  utils.app.db.connection.close();
+  utils.app.get('db').connection.close();
 });
 
 describe('organisation', () => {
@@ -52,7 +52,7 @@ describe('organisation', () => {
       expect(res.body).toHaveProperty('name', 'ACME');
       organisation = res.body;
 
-      const user = await utils.app.db.models.User.findOne({ _id: creator.id });
+      const user = await utils.app.get('db').models.User.findOne({ _id: creator.id });
       expect(user.organisations.includes(organisation.id)).toBe(true);
     }));
 

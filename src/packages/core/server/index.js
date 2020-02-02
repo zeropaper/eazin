@@ -197,6 +197,7 @@ const eazin = async ({
     },
     close: (...args) => httpServer.close(...args),
     get: (name) => app.get(name),
+    app,
   };
 };
 

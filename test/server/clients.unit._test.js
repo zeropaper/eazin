@@ -38,7 +38,7 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
-  utils.app.db.connection.close();
+  utils.app.get('db').connection.close();
 });
 
 describe('client', () => {
@@ -52,7 +52,7 @@ describe('client', () => {
       expect(res.body).toHaveProperty('name', 'ACME');
       client = res.body;
 
-      await utils.app.db.model('APIClient').findOne({ _id: creator.id });
+      await utils.app.get('db').model('APIClient').findOne({ _id: creator.id });
     }));
 
   it('can be read by its creator', () => utils
