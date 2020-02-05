@@ -222,6 +222,7 @@ export default ({
     ucfPlural,
   }),
   endpoint && buildAPIActions({
+    endpoint,
     singular,
     idKey,
     plural,
