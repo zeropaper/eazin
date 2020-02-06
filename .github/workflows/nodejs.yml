@@ -22,7 +22,7 @@ jobs:
         mongoDBVersion: ${{ matrix.mongodb-version }}
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
