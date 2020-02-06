@@ -42,7 +42,7 @@ router.patch(
   bearer,
   check(['patch:user']),
   requestHook('update user'),
-  async (req, res, next) => {
+  (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
     const User = req.db.model('User');
     const update = User.sanitizeInput(req.body);
