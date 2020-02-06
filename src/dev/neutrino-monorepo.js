@@ -5,7 +5,12 @@ const copy = require('@neutrinojs/copy');
 const nodeExternals = require('webpack-node-externals');
 const { join } = require('path');
 const { readdirSync, existsSync } = require('fs');
-const { readJSON, readJSONSync, readFileSync } = require('fs-extra');
+const {
+  readJSON,
+  readJSONSync,
+  readFileSync,
+  statSync,
+} = require('fs-extra');
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 const hookTypes = require('tapable');
@@ -73,6 +78,24 @@ const packagePeerDependencies = (dependencies, available) => Object
     [name]: `^${available[name] || dependencies[name]}`,
   }), {});
 
+const recurseDirComponent = (dir) => readdirSync(dir)
+  .reduce((paths, filename) => {
+    let sub = [];
+    const subPath = join(dir, filename);
+
+    if (statSync(subPath).isDirectory()) {
+      sub = recurseDirComponent(subPath);
+      // else if (filename.endsWith('.jsx')) {
+    } else {
+      sub = [subPath];
+    }
+
+    return [
+      ...paths,
+      ...sub,
+    ];
+  }, []);
+
 module.exports = (neutrino, options) => () => {
   Object.keys(neutrino.options.mains).forEach((key) => {
     delete neutrino.options.mains[key]; // eslint-disable-line no-param-reassign
@@ -98,6 +121,7 @@ module.exports = (neutrino, options) => () => {
       return [
         ...acc,
         join(uiDir, 'index.js'),
+        ...recurseDirComponent(uiDir),
       ];
     }, [])
     .forEach((main) => {
