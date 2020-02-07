@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Provider } from 'react-redux';
+import { Provider as ReduxProvider } from 'react-redux';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -53,6 +53,7 @@ export class AppContextProvider extends React.Component {
     darkMode: globalDarkMode,
     bootstraped: [],
     plugins: null,
+    ready: false,
   };
 
   helmetContext = {};
@@ -75,7 +76,8 @@ export class AppContextProvider extends React.Component {
         this.storeUnsubscribe = this.store.subscribe(this.handleStoreChange);
 
         return this.bootstrap(loadedObj);
-      });
+      })
+      .then(() => this.setState({ ready: true }));
   }
 
   componentWillUnmount() {
@@ -120,10 +122,10 @@ export class AppContextProvider extends React.Component {
     const {
       props: { children, siteName },
       store,
-      state: { plugins, ...state },
+      state: { plugins, ready, ...state },
     } = this;
 
-    if (!plugins) {
+    if (!ready) {
       return (
         <div
           style={{
@@ -156,7 +158,7 @@ export class AppContextProvider extends React.Component {
         <HelmetProvider context={this.helmetContext}>
           <PluginsProvider value={{ plugins }}>
             <Router history={history}>
-              <Provider store={store}>
+              <ReduxProvider store={store}>
                 <MuiThemeProvider theme={this.theme}>
                   <Helmet
                     titleTemplate={`%s | ${siteName}`}
@@ -166,7 +168,7 @@ export class AppContextProvider extends React.Component {
 
                   {children}
                 </MuiThemeProvider>
-              </Provider>
+              </ReduxProvider>
             </Router>
           </PluginsProvider>
         </HelmetProvider>
