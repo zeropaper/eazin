@@ -51,10 +51,20 @@ const styles = (theme) => ({
       marginLeft: '20vw',
     },
   },
+  drawerRoot: {
+    overflowX: 'hidden',
+    overflowY: 'auto',
+  },
   drawer: {
     display: 'flex',
     flexDirection: 'column',
     boxShadow: theme.shadows[3],
+    [theme.breakpoints.up('md')]: {
+      width: '20vw',
+    },
+  },
+  drawerOpen: {
+    minWidth: '20vw',
   },
   contentFooterWrapper: {
     position: 'relative',
@@ -83,7 +93,6 @@ const Layout = ({
     ? drawer
     : <DrawerContent />;
 
-
   const contentWrapperClassName = classNames({
     [classes.contentFooterWrapper]: true,
     [classes.drawerShifted]: drawerContent,
@@ -108,7 +117,11 @@ const Layout = ({
               open={drawerOpen}
               onClose={onCloseDrawer}
               classes={{
-                paper: classes.drawer,
+                root: classes.drawerRoot,
+                paper: classNames({
+                  [classes.drawer]: true,
+                  [classes.drawerOpen]: drawerOpen,
+                }),
               }}
             >
               <Toolbar variant="dense" />
@@ -123,6 +136,7 @@ const Layout = ({
               open
               variant="persistent"
               classes={{
+                root: classes.drawerRoot,
                 paper: classes.drawer,
               }}
             >
