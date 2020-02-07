@@ -100,7 +100,7 @@
     "passport-http-bearer": "1.0.1",
     "passport-local-mongoose": "5.0.1",
     "prop-types": "15.7.2",
-    "puppeteer": "2.0.0",
+    "puppeteer": "2.1.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-helmet-async": "1.0.4",
