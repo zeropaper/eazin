@@ -22,7 +22,7 @@ jobs:
         mongoDBVersion: ${{ matrix.mongodb-version }}
     - name: npm install
       run: |
-        npm ci
+        npm i
       env:
         CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
@@ -39,8 +39,7 @@ jobs:
       env:
         CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
-        JEST_SERVE: 1
-        PORT: 3030
+        JEST_SERVE: 3030
     - name: Upload artifact
       if: always()
       uses: actions/upload-artifact@v1.0.0
