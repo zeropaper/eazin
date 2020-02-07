@@ -40,6 +40,7 @@ jobs:
         CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
         JEST_SERVE: 3030
+        TEST_SENDER_FILE: /tmp/eazin-testsender.json
     - name: Upload artifact
       if: always()
       uses: actions/upload-artifact@v1.0.0

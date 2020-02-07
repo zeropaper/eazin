@@ -30,7 +30,7 @@ describe('User', () => {
   describe('registration', () => {
     it('has a field for email', async () => {
       const [page] = testPages;
-      expect(process.env.TEST_SENDER).toBeTruthy();
+      expect(process.env.TEST_SENDER_FILE).toBeTruthy();
 
       expect(await submitDisabled(page))
         .toBe(true);
