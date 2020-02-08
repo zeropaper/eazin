@@ -1,15 +1,15 @@
 export default (theme) => ({
   root: {
-    minWidth: '20vw',
-    maxWidth: '45vw',
+    width: '20vw',
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
-    overflow: 'auto',
     justifyContent: 'space-between',
   },
 
-  top: {},
+  top: {
+    maxWidth: '100%',
+  },
 
   bottom: {
     margin: theme.spacing(1),

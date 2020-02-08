@@ -52,13 +52,13 @@ const styles = (theme) => ({
     },
   },
   drawerRoot: {
-    overflowX: 'hidden',
-    overflowY: 'auto',
   },
   drawer: {
     display: 'flex',
     flexDirection: 'column',
     boxShadow: theme.shadows[3],
+    overflowX: 'hidden',
+    overflowY: 'auto',
     [theme.breakpoints.up('md')]: {
       width: '20vw',
     },
