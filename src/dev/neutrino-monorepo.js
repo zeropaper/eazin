@@ -80,6 +80,7 @@ const packagePeerDependencies = (dependencies, available) => Object
 
 const recurseDirComponent = (dir) => readdirSync(dir)
   .reduce((paths, filename) => {
+    if (filename === 'test') return paths;
     let sub = [];
     const subPath = join(dir, filename);
 
