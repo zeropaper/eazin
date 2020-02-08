@@ -41,6 +41,9 @@ class FormBase extends React.Component {
     error: null,
     loading: false,
     success: null,
+    successes: 0,
+    failure: null,
+    failures: 0,
   };
 
   get fields() {
@@ -63,7 +66,14 @@ class FormBase extends React.Component {
   }
 
   get formState() {
-    const { loading } = this.state;
+    const {
+      loading,
+      successes,
+      success,
+      failures,
+      failure,
+    } = this.state;
+    const { messageInButton } = this.props;
     const formState = this.api.getState();
     const touched = !!Object.keys(formState.touched).length;
     const values = this.getValues();
@@ -73,6 +83,11 @@ class FormBase extends React.Component {
       pristine,
       dirty: !pristine,
       loading,
+      successes,
+      success,
+      failures,
+      failure,
+      messageInButton,
     };
   }
 
@@ -104,6 +119,7 @@ class FormBase extends React.Component {
       errors: null,
       loading: true,
       success: null,
+      failure: null,
     }, () => {
       const { processFields } = this.props;
       res(typeof processFields === 'function'
@@ -112,23 +128,29 @@ class FormBase extends React.Component {
     });
   }));
 
-  handleSuccess = (result) => this.setState({
+  handleSuccess = (result) => this.setState((prev) => ({
     error: null,
     errors: null,
     loading: false,
-    success: true,
-  }, () => {
+    failure: null,
+    successes: prev.successes + 1,
+    // eslint-disable-next-line react/destructuring-assignment
+    success: this.props.successMessage || true,
+  }), () => {
     const { onSuccess, resetOnSuccess } = this.props;
     if (typeof onSuccess === 'function') onSuccess(result);
     if (resetOnSuccess && this.api) this.api.reset();
   });
 
-  handleFailure = (err) => this.setState({
+  handleFailure = (err) => this.setState((prev) => ({
     errors: err.fields,
     error: err.message,
     loading: false,
     success: null,
-  }, () => {
+    failures: prev.failures + 1,
+    // eslint-disable-next-line react/destructuring-assignment
+    failure: this.props.errorMessage || err.message,
+  }), () => {
     const { onError, resetOnError } = this.props;
     if (typeof onError === 'function') onError(err);
     if (resetOnError && this.api) this.api.reset();
@@ -190,7 +212,8 @@ class FormBase extends React.Component {
   };
 
   renderSuccess = () => {
-    const { successMessage, autoHideDelay } = this.props;
+    const { successMessage, autoHideDelay, messageInButton } = this.props;
+    if (messageInButton) return null;
     const { loading, success } = this.state;
     return (
       <Snackbar
@@ -205,7 +228,8 @@ class FormBase extends React.Component {
   };
 
   renderError = () => {
-    const { errorMessage, autoHideDelay } = this.props;
+    const { errorMessage, autoHideDelay, messageInButton } = this.props;
+    if (messageInButton) return null;
     const { loading, error, errors } = this.state;
     return (
       <Snackbar
@@ -239,7 +263,7 @@ class FormBase extends React.Component {
     return (
       <details open>
         <summary>Form State</summary>
-        <pre>{JSON.stringify(this.api ? this.api.getState() : null, null, 2)}</pre>
+        <pre>{JSON.stringify(this.formState, null, 2)}</pre>
       </details>
     );
   };
@@ -283,6 +307,7 @@ FormBase.propTypes = {
   // Infinity is a number
   autoHideDelay: PropTypes.number,
   components: PropTypes.objectOf(PropTypes.elementType),
+  messageInButton: PropTypes.bool,
 };
 
 FormBase.defaultProps = {
@@ -303,6 +328,7 @@ FormBase.defaultProps = {
   resetOnError: null,
   autoHideDelay: null,
   components: {},
+  messageInButton: false,
 };
 
 export default withErrorBoundary(withStyles(styles)(FormBase));

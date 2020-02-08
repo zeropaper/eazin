@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
+import {
+  Button,
+  makeStyles,
+  createStyles,
+} from '@material-ui/core';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
@@ -16,6 +20,9 @@ const styles = (theme) => ({
       marginLeft: theme.spacing(2),
     },
   },
+});
+
+const customButtonStyles = makeStyles((theme) => createStyles({
   error: {
     color: theme.palette.error.main,
     '&:hover': {
@@ -54,18 +61,18 @@ const styles = (theme) => ({
       backgroundColor: theme.palette.success.dark,
     },
   },
-});
+}));
 
 const CustomButton = ({
   error,
   success,
   hold,
   children,
-  classes,
   variant,
   ...rest
 }) => {
   let content = children;
+  const classes = customButtonStyles();
 
   const [hasError, setError] = useState(!!error);
   if (hasError) {
@@ -79,18 +86,27 @@ const CustomButton = ({
     if (!hold) setTimeout(() => setSuccess(false), 3000);
   }
 
+  useEffect(() => {
+    setError(!!error);
+    setSuccess(!!success);
+  }, [error, success]);
+
+  const className = classNames({
+    // [rest.className]: rest.className,
+    [classes.error]: hasError,
+    [classes.success]: hasSuccess,
+    [classes.errorOutlined]: hasError && variant === 'outlined',
+    [classes.successOutlined]: hasSuccess && variant === 'outlined',
+    [classes.errorContained]: hasError && variant === 'contained',
+    [classes.successContained]: hasSuccess && variant === 'contained',
+  });
+
+  console.info('className', hasError, !!error, hasSuccess, !!success, className);
   return (
     <Button
       {...rest}
       variant={variant}
-      className={classNames({
-        [classes.error]: hasError,
-        [classes.success]: hasSuccess,
-        [classes.errorOutlined]: hasError && variant === 'outlined',
-        [classes.successOutlined]: hasSuccess && variant === 'outlined',
-        [classes.errorContained]: hasError && variant === 'contained',
-        [classes.successContained]: hasSuccess && variant === 'contained',
-      })}
+      className={className}
     >
       {content}
     </Button>
