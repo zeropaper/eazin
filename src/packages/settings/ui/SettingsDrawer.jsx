@@ -1,9 +1,10 @@
 import React from 'react';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import { LayoutDrawerLink as Link } from 'eazin-core/ui';
 
 const SettingsDrawer = () => (
-  <Link to="/settings">
+  <Link to="/settings" Icon={SettingsIcon}>
     Settings
   </Link>
 );

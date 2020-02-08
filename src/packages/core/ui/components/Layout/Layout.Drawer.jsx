@@ -1,26 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core';
-import { NavLink, withRouter } from 'react-router-dom';
+import { withStyles, MenuList } from '@material-ui/core';
+import { withRouter } from 'react-router-dom';
 
 import PluginPoint from '../PluginPoint';
 // eslint-disable-next-line
 import styles from './Layout.Drawer.styles';
 
-export const DrawerLink = withStyles(styles)(({ classes, children, to }) => (
-  <NavLink
-    className={classes.menuLink}
-    to={to}
-  >
-    {children}
-  </NavLink>
-));
+export { default as DrawerLink } from './Layout.Drawer.Link';
 
 const Drawer = ({ classes }) => (
   <div className={classes.root}>
-    <div className={classes.top}>
+    <MenuList className={classes.top}>
       <PluginPoint className={classes.drawerLinks} name="Drawer" />
-    </div>
+    </MenuList>
 
     <div className={classes.bottom}>
       <PluginPoint className={classes.drawerLowLinks} name="DrawerLow" />
