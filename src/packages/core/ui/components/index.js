@@ -1,4 +1,4 @@
-export { default as ButtonsGroup } from './Form/ButtonsGroup';
+export { default as ActionButtons } from './Form/ActionButtons';
 export { default as Fields } from './Form/Fields';
 export { default as FieldSet } from './Form/FieldSet';
 export { default as Form } from './Form';
