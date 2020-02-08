@@ -101,7 +101,6 @@ const CustomButton = ({
     [classes.successContained]: hasSuccess && variant === 'contained',
   });
 
-  console.info('className', hasError, !!error, hasSuccess, !!success, className);
   return (
     <Button
       {...rest}
