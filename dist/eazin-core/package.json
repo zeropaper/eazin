@@ -30,7 +30,7 @@
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "history": "^4.10.1",
-    "informed": "^2.11.16",
+    "informed": "^3.0.0",
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
     "material-table": "^1.54.2",
