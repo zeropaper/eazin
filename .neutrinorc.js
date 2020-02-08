@@ -69,10 +69,37 @@ module.exports = {
     (neutrino) => {
       const { name: projectName, dependencies } = neutrino.options.packageJson;
       const { source } = neutrino.options;
+      const dep = (name) => `${__dirname}/node_modules/${name}`;
       if (process.env.NODE_ENV !== 'test') {
-        neutrino.config.resolve.alias
-          .set('react', `${__dirname}/node_modules/react`)
-          .end();
+        [
+          '@material-ui/core',
+          '@material-ui/icons',
+          '@material-ui/lab',
+          '@material-ui/styles',
+          'classnames',
+          'eazin-core',
+          'eazin-users',
+          'informed',
+          'lodash.get',
+          'lodash.isequal',
+          'material-table',
+          'moment',
+          'prop-types',
+          'react',
+          'react-dom',
+          'react-helmet-async',
+          'react-redux',
+          'react-router-dom',
+          'redux-thunk',
+          'redux',
+          'superagent',
+          'typeface-roboto',
+          'validator',
+        ].forEach((name) => {
+          neutrino.config.resolve.alias
+            .set(name, dep(name))
+            .end();
+        });
 
         const alias = (name, packagePath) => neutrino
           .config.resolve.alias
