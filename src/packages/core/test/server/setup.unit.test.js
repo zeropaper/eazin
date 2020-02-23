@@ -22,7 +22,7 @@ describe('plain setup', () => {
   });
 
   describe('routing', () => {
-    it('has a /up route', () => testSetup.get('/up').expect(200));
+    it('has a /up route', () => testSetup.get('/api/up').expect(200));
   });
 });
 
@@ -51,6 +51,6 @@ describe('setup with plugins', () => {
   });
 
   describe('routing', () => {
-    it('has a /up route', () => testSetup.get('/up').expect(200));
+    it('has a /up route', () => testSetup.get('/api/up').expect(200));
   });
 });
