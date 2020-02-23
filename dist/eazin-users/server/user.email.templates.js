@@ -10,13 +10,13 @@ templates.register = ({
 }) => {
   const mailSubject = subject
     || `Email confirmation for ${siteName || baseURL} registration`;
-  const link = `${baseURL}verify?token=${token}`;
+  const link = `${baseURL}/verify?token=${token}`;
 
   return {
     subject: mailSubject,
 
     text: `${mailSubject}
-Use the following link in order to complete the ${siteName || baseURL} registration process.
+You can use the following link in order to complete the ${siteName || baseURL} registration process.
 ${link}`,
 
     html: `<h5>${mailSubject}</h5>
@@ -35,18 +35,18 @@ ${link}
 templates.reset = ({
   subject,
   token,
-  siteName,
+  siteName = '',
   baseURL,
 }) => {
   const mailSubject = subject
     || `Password reset for ${siteName || baseURL}`;
-  const link = `${baseURL}reset/change?token=${token}`;
+  const link = `${baseURL}/reset/change?token=${token}`;
 
   return {
     subject: mailSubject,
 
     text: `${mailSubject}
-Use the following link in order to complete the ${siteName || baseURL} password reset process.
+You can use the following link in order to complete the ${siteName || baseURL} password reset process.
 ${link}`,
 
     html: `<h5>${mailSubject}</h5>
@@ -65,18 +65,18 @@ ${link}
 templates.emailChange = ({
   subject,
   token,
-  siteName,
+  siteName = '',
   baseURL,
 }) => {
   const mailSubject = subject
     || `Email change confirmation for ${siteName || baseURL}`;
-  const link = `${baseURL}account/?token=${token}`;
+  const link = `${baseURL}/account/?token=${token}`;
 
   return {
     subject: mailSubject,
 
     text: `${mailSubject}
-Use the following link in order to complete the ${siteName || baseURL} email change process.
+You can use the following link in order to complete the ${siteName || baseURL} email change process.
 ${link}`,
 
     html: `<h5>${mailSubject}</h5>
@@ -95,16 +95,16 @@ ${link}
 templates.invite = ({
   subject,
   token,
-  siteName,
+  siteName = '',
   baseURL,
-  sender,
-  senderMessage,
+  sender = '',
+  senderMessage = '',
 }) => {
   const mailSubject = subject
     || `You have been invited to ${siteName || baseURL}`;
   const mailMessage = sender
     && `${sender.firstName || 'Someone'} ${sender.lastName || ''} invited you to join ${siteName || baseURL}.`;
-  const link = `${baseURL}verify&token=${token}`;
+  const link = `${baseURL}/verify&token=${token}`;
 
   return {
     subject: mailSubject,
@@ -114,14 +114,14 @@ ${sender && mailMessage}
 ${senderMessage && `
 ${senderMessage.split('\n').join('\n> ')}
 `}
-Use the following link to proceed.
+You can use the following link to complete the process.
 ${link}`,
 
     html: `<h5>${mailSubject}</h5>
 ${sender && `<div>${mailMessage}</div>`}
 ${senderMessage && `<div>${senderMessage}</div>`}
 <div>
-Just click <a href="${link}">here</a> or the following link to proceed.
+Just click <a href="${link}">here</a> or the following link to complete the process.
 <br />
 ${link}
 </div>`,

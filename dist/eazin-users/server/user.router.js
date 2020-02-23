@@ -1,15 +1,12 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const passport = require('passport');
 const express = require('express');
 const httperrors = require('httperrors');
+const mongoose = require('mongoose');
 
 const uid = require('eazin-core/server/util/uid');
 const requestHook = require('eazin-core/server/util/requestHook');
 const mailSend = require('eazin-mailer/server');
-// const twoFAlocal = require('./user.auth.2falocal');
-
-const bearer = require('./user.auth.bearer');
-const local = require('./user.auth.local');
-
 
 const router = express.Router();
 
@@ -17,7 +14,7 @@ const addUser = (additionMethod, req, res, next) => {
   if (!req.body) return next(new Error('No Body'));
 
   const { email, password } = req.body;
-  const User = req.db.model('User');
+  const User = mongoose.model('User');
   const verifToken = uid(40);
 
   User.register({
@@ -27,10 +24,10 @@ const addUser = (additionMethod, req, res, next) => {
     if (err) {
       if (err.name === 'UserExistsError') {
         // eslint-disable-next-line no-param-reassign
-        err.message = 'User may already exists';
+        err.message = 'This email cannot be used';
         // eslint-disable-next-line no-param-reassign
         err.fields = {
-          email: 'User may already exists',
+          email: 'This email cannot be used',
         };
       }
       res.status(400);
@@ -41,6 +38,7 @@ const addUser = (additionMethod, req, res, next) => {
       token: verifToken,
       template: additionMethod,
       to: email,
+      baseURL: req.app.get('externalAccessURL') || req.app.get('localURL'),
     })
       .then(() => next())
       .catch(next);
@@ -48,6 +46,7 @@ const addUser = (additionMethod, req, res, next) => {
 };
 
 router.post('/',
+  passport.authenticate('bearer', { session: false }),
   requestHook('<%= user.email %> invites <%= body.email %>'),
   (req, res, next) => addUser('invite', req, res, (err) => {
     if (err) return next(err);
@@ -89,7 +88,7 @@ router.post('/verify',
       return next(err);
     }
 
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
 
     try {
       const user = await User.findOne({ verifToken });
@@ -132,7 +131,8 @@ router.post('/password',
     }
   });
 
-router.patch('/password', bearer,
+router.patch('/password',
+  passport.authenticate('bearer', { session: false }),
   requestHook('<%= user.email %> changes password'),
   (req, res, next) => {
     const { user, body: { current, password } } = req;
@@ -165,7 +165,7 @@ router.post('/email',
   async (req, res, next) => {
     const { body: { email } } = req;
     try {
-      const user = await req.db.model('User').findByUsername(email);
+      const user = await mongoose.model('User').findByUsername(email);
       if (!user) {
         const err = httperrors.NotFound('User not found');
         err.fields = {
@@ -187,11 +187,12 @@ router.post('/email',
     }
   });
 
-router.patch('/email', bearer,
+router.patch('/email',
+  passport.authenticate('bearer', { session: false }),
   requestHook('<%= body.email %> changes email'),
   (req, res, next) => {
     const { user, body: { email, token } } = req;
-    const { sanitizeOutput } = req.db.model('User');
+    const { sanitizeOutput } = mongoose.model('User');
 
     if (token) {
       if (!user.emailToVerify) {
@@ -228,42 +229,49 @@ router.patch('/email', bearer,
   });
 
 router.post('/login',
-  local,
+  passport.authenticate('local', { session: false }),
   requestHook('<%= body.email %> logs in'),
   (req, res, next) => {
-    if (!req.user) return next(new Error('Unknown User'));
+    if (!req.user) {
+      const err = new Error('Invalid credentials');
+      err.code = 400;
+      err.fields = {
+        email: 'Invalid email',
+        password: 'Invalid password',
+      };
+      return next(err);
+    }
 
-    const User = req.db.model('User');
-    req.user.save((err, saved) => {
-      if (err) return next(err);
-      res.send({
-        ...User.sanitizeOutput(saved),
-        token: saved.token,
-      });
-    });
+    req.user.login(req.body.password)
+      .then((updated) => res.send(updated))
+      .catch(next);
   });
 
 router.get('/logout',
+  passport.authenticate('bearer', { session: false }),
   requestHook('logout'),
   (req, res) => {
-    if (!req.user) return res.send({});
+    res.status(204);
+    if (!req.user) return res.end();
+    req.user.logout();
     req.logout();
-    return res.send({});
+    return res.end();
   });
 
 router.get('/me',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   (req, res) => {
     if (!req.user) return res.send({});
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     return res.send(User.sanitizeOutput(req.user));
   });
 
-router.patch('/', bearer,
+router.patch('/',
+  passport.authenticate('bearer', { session: false }),
   requestHook('update self'),
   (req, res, next) => {
     if (!req.user) return next(httperrors.Unauthorized());
-    const { sanitizeOutput } = req.db.model('User');
+    const { sanitizeOutput } = mongoose.model('User');
     req.user.firstName = req.body.firstName;
     req.user.lastName = req.body.lastName;
     req.user.save((err) => {

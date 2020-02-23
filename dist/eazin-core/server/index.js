@@ -64,14 +64,22 @@ const eazin = async ({
   app.set('host', config.host || 'localhost');
   app.set('localURL', config.localURL
     || `http://${app.get('host')}:${config.port}`);
-  log('localURL', app.get('localURL'));
-  try {
-    app.set('externalAccessURL', config.externalAccessURL
-      || await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
-    log('externalAccessURL', app.get('externalAccessURL'));
-  } catch (err) {
-    log(err.message);
+
+  if (config.externalAccessURL) {
+    app.set('externalAccessURL', config.externalAccessURL);
+  } else if (config.env === 'development') {
+    try {
+      app.set('externalAccessURL', await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
+      log('externalAccessURL', app.get('externalAccessURL'));
+    } catch (err) {
+      log(err.message);
+    }
   }
+
+  app.set('siteName', config.siteName
+    || config.appId
+    || (config.externalAccessURL
+      || app.get('localURL')).split('//').pop());
 
   // eslint-disable-next-line consistent-return
   const callRequestHooks = (description, req, res, next) => {
@@ -101,7 +109,7 @@ const eazin = async ({
           modelName: pluginModelName,
           plugin: schemaPlugin,
         }) => {
-          if (pluginModelName !== modelName) return;
+          if (pluginModelName !== modelName && pluginModelName !== '*') return;
           schema.plugin(schemaPlugin, { eazinConfig: config });
         });
       });
@@ -131,8 +139,6 @@ const eazin = async ({
   apiRouter.get('/up', (req, res) => res.send('OK'));
 
   apiRouter.use((req, res, next) => {
-    req.db = app.db;
-    req.passport = passport;
     req.hookRequest = callRequestHooks;
     next();
   });
@@ -149,9 +155,9 @@ const eazin = async ({
 
   if (config.env === 'production') app.use(compression());
 
-  if (config.publicDir) {
-    log('serving static', config.publicDir);
+  app.use('/api', apiRouter);
 
+  if (config.publicDir) {
     const staticIndexPath = path.resolve(process.cwd(), config.publicDir, 'index.html');
     try {
       const indexHTML = fs.readFileSync(staticIndexPath);
@@ -162,6 +168,7 @@ const eazin = async ({
           next();
           return;
         }
+        // log(`"${req.url}" not found, falling back to index.html`);
         res.set('Content-Type', 'text/html');
         res.send(indexHTML);
       });
@@ -170,15 +177,11 @@ const eazin = async ({
     }
   }
 
-  app.use('/api', apiRouter);
-
   const db = await mongoose.connect(config.dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
 
-  app.db = db;
-  httpServer.db = db;
   app.set('db', db);
 
   if (config.env !== 'production') app.use('/fixtures', fixtures(db));

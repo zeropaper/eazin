@@ -4,14 +4,14 @@ const { log } = console;
 
 const reset = '\x1b[0m';
 // const Bright = '\x1b[1m';
-// const dim = '\x1b[2m';
+const dim = '\x1b[2m';
 // const underscore = '\x1b[4m';
 // const Blink = '\x1b[5m';
 // const Reverse = '\x1b[7m';
 // const Hidden = '\x1b[8m';
 
 const colors = [[
-  '\x1b[30m',
+  // '\x1b[30m',
   '\x1b[31m',
   '\x1b[32m',
   '\x1b[33m',
@@ -49,6 +49,10 @@ module.exports = function proxiedLog(...args) {
 
   const relativePath = relative(process.cwd(), file[1]);
   const color = getColor(relativePath.split(':')[0]);
-  log.call(console, `\n${color}[eazin] ${relativePath}${reset}`);
-  log.call(console, ...args);
+  if (process.env.NODE_ENV !== 'test') {
+    log.call(console, `\n${color}[E]${reset} ${dim}${relativePath}${reset}`);
+    log.call(console, ...args);
+  } else {
+    log.call(console, `${color}[E]${reset} ${dim}${relativePath}${reset}\n`, ...args);
+  }
 };

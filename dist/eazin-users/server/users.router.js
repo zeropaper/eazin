@@ -1,3 +1,6 @@
+const passport = require('passport');
+const mongoose = require('mongoose');
+
 const {
   httperrors,
   Router,
@@ -5,7 +8,6 @@ const {
   requestHook,
 } = require('eazin-core/server');
 
-const bearer = require('./user.auth.bearer');
 // const twoFAlocal = require('./user.auth.2falocal');
 
 const check = require('./user.auth.checkRoles');
@@ -16,11 +18,11 @@ modelRequestParam('User', router);
 
 router.get(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:users']),
   requestHook('list users'),
   (req, res, next) => {
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
 
     User.search(req.query, (err, users) => {
       if (err) return next(err);
@@ -31,7 +33,7 @@ router.get(
 
 router.post(
   '/invite',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['invite']),
   requestHook('invite'),
   (req, res, next) => next(httperrors.NotImplemented()),
@@ -39,12 +41,12 @@ router.post(
 
 router.patch(
   '/:userId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['patch:user']),
   requestHook('update user'),
   async (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     const update = User.sanitizeInput(req.body);
     const { loadedParams: { userId: user } } = req;
 
@@ -62,12 +64,12 @@ router.patch(
 
 router.delete(
   '/:userId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['delete:user']),
   requestHook('delete user'),
   (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     User.delete(req.params.userId, (err) => {
       if (err) return next(err);
       res.status(204);
