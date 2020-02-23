@@ -62,8 +62,6 @@ const RoutePlugin = ({
 
         const Comp = route[name];
 
-        // console.info('Comp %s.%s', pluginName, name, Comp.pageTitle);
-
         return {
           pluginName,
           Comp,

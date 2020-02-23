@@ -138,10 +138,11 @@ describe('factory', () => {
     it('connects', () => {
       expect(true).toBeTruthy();
       const spy = jest.fn();
+      // eslint-disable-next-line no-unused-vars
       const connected = connector(spy);
 
       // eslint-disable-next-line no-console
-      console.info(connected.mock);
+      // console.info(connected.mock);
     });
   });
 });
