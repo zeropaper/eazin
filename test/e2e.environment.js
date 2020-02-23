@@ -157,7 +157,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
       }));
 
     if (this.app && !TEST_KEEP_BROWSER) {
-      const db = this.app.get('db');
+      const db = this.mongoose;
       if (db) db.connection.close();
       await this.app.close();
     }

@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-standalone-expect */
+const mongoose = require('mongoose');
+
 const prepare = require('../../../../test/server/prepare-server');
 
 const usersPlugin = require('../../../packages/users/server');
@@ -21,7 +23,7 @@ beforeAll(async () => {
     ],
   });
   const { app } = utils;
-  const { models: { User } } = app.get('db');
+  const { models: { User } } = mongoose;
   await User.deleteMany({});
 
   noAccess = await User.register({
@@ -62,7 +64,7 @@ afterAll(async () => utils.tearDown());
 
 const clearGroups = () => {
   const { app } = utils;
-  const { models: { Group } } = app.get('db');
+  const { models: { Group } } = mongoose;
   return Group.deleteMany({});
 };
 
@@ -85,7 +87,7 @@ const makeGroups = (count = 10, user = admin) => {
 };
 
 const findGroupById = (id) => {
-  const Group = utils.app.get('db').model('Group');
+  const Group = mongoose.model('Group');
   return Group.findById(id);
 };
 
@@ -130,7 +132,7 @@ describe('group', () => {
 
     it('updates the creator roles at creation', async () => {
       const { app } = utils;
-      const { models: { User } } = app.get('db');
+      const { models: { User } } = mongoose;
       creator = await User.findById(creator.id);
 
       expect(creator.roles).toContain(`get:groups/${group.id}`);
@@ -188,7 +190,7 @@ describe('group', () => {
 
     it('updates the member roles when added', async () => {
       const { app } = utils;
-      const { models: { User } } = app.get('db');
+      const { models: { User } } = mongoose;
       member1 = await User.findById(member1.id);
       member2 = await User.findById(member2.id);
 
@@ -205,7 +207,7 @@ describe('group', () => {
 
     it('updates the member roles when removed', async () => {
       const { app } = utils;
-      const { models: { User } } = app.get('db');
+      const { models: { User } } = mongoose;
       member1 = await User.findById(member1.id);
       member2 = await User.findById(member2.id);
 
@@ -221,7 +223,7 @@ describe('group', () => {
 
     it('updates the creator and member roles at deletion', async () => {
       const { app } = utils;
-      const { models: { User } } = app.get('db');
+      const { models: { User } } = mongoose;
       creator = await User.findById(creator.id);
       member1 = await User.findById(member1.id);
       member2 = await User.findById(member2.id);

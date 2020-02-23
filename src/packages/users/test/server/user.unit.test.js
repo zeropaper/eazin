@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 
 const prepare = require('../../../../../test/server/prepare-server');
 
@@ -23,7 +24,7 @@ beforeAll(async () => {
   post = utils.post;
   patch = utils.patch;
   tearDown = utils.tearDown;
-  db = utils.app.get('db');
+  db = mongoose;
   User = db.model('User');
   await User.deleteMany({});
 });

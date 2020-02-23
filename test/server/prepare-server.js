@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const request = require('supertest');
+const mongoose = require('mongoose');
 
 const server = require('../../src/packages/core/server');
 const { sneakMessage, clearSneakMessages } = require('../util');
@@ -13,6 +14,7 @@ module.exports = async ({ plugins = [] } = {}) => {
     tearDown: async () => {
       await clearSneakMessages();
       await close();
+      await mongoose.connection.close();
     },
     request: () => request(app),
     // HTTP methods shortcuts

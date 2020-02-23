@@ -1,4 +1,5 @@
 /* eslint-disable jest/expect-expect */
+const mongoose = require('mongoose');
 const totp = require('totp-generator');
 const prepare = require('../../../../test/server/prepare-server');
 
@@ -10,7 +11,6 @@ const password = '1234567890Aa!';
 
 let post;
 let tearDown;
-let db;
 let User;
 beforeAll(async () => {
   const utils = await prepare({
@@ -21,8 +21,7 @@ beforeAll(async () => {
   });
   post = utils.post;
   tearDown = utils.tearDown;
-  db = utils.app.get('db');
-  User = db.model('User');
+  User = mongoose.model('User');
   await User.deleteMany({});
 });
 

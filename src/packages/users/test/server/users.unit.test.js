@@ -1,4 +1,6 @@
 /* eslint-disable jest/no-disabled-tests */
+const mongoose = require('mongoose');
+
 const prepare = require('../../../../../test/server/prepare-server');
 
 const userPlugin = require('../../server');
@@ -6,7 +8,6 @@ const makeFixtures = require('./users.fixtures');
 
 let tearDown;
 let get;
-let db;
 let admin;
 beforeAll(async () => {
   const utils = await prepare({
@@ -14,8 +15,7 @@ beforeAll(async () => {
   });
   tearDown = utils.tearDown;
   get = utils.get;
-  db = utils.app.get('db');
-  const User = db.model('User');
+  const User = mongoose.model('User');
 
   await User.deleteMany({});
 
@@ -26,7 +26,7 @@ beforeAll(async () => {
     isAdmin: true,
   }, '1234567890Aa!!!');
 
-  await makeFixtures(db);
+  await makeFixtures(mongoose);
 });
 
 afterAll(() => tearDown());

@@ -104,19 +104,15 @@ describe('plugin system', () => {
   afterAll(() => testSetup.tearDown());
 
   it('uses mongoose plugins', () => {
-    expect(testSetup).toHaveProperty('app.get');
-    expect(testSetup.app.get('db')).toHaveProperty('models');
-
-    const { models } = testSetup.app.get('db');
-    expect(models).toHaveProperty('ModelA');
-    expect(models).toHaveProperty('ModelB');
+    expect(mongoose).toHaveProperty('models.ModelA');
+    expect(mongoose).toHaveProperty('models.ModelB');
 
     expect(schemaPlugin1).toHaveBeenCalledTimes(1);
     expect(schemaPlugin2).toHaveBeenCalledTimes(2);
   });
 
   it('extends the EazinBaseModel', async () => {
-    const { ModelA } = testSetup.app.get('db').models;
+    const { ModelA } = mongoose.models;
 
     const docA = new ModelA({ stringProp: 'abcd', addedByB: 1 });
 
@@ -132,7 +128,7 @@ describe('plugin system', () => {
   });
 
   it('can override the .toJSON() method of an instance', () => {
-    const { ModelA } = testSetup.app.get('db').models;
+    const { ModelA } = mongoose.models;
     const docA = new ModelA({ stringProp: 'abcd', addedByB: 1 });
 
     // modelAToJSON.mockClear();
