@@ -48,7 +48,7 @@ const App = ({ children, plugins, siteName }) => (plugins && (
             <>
               <LayoutDrawerLink to="/login">Login</LayoutDrawerLink>
               <LayoutDrawerLink to="/register">Register</LayoutDrawerLink>
-              <LayoutDrawerLink to="/password">Password Reset</LayoutDrawerLink>
+              <LayoutDrawerLink to="/reset">Password Reset</LayoutDrawerLink>
             </>
           )}
           render={() => <LayoutDrawer />}
@@ -57,7 +57,9 @@ const App = ({ children, plugins, siteName }) => (plugins && (
     >
       {children || (
         <UserAccess
-          renderUnverified={() => <AnonForms />}
+          renderUnverified={() => (
+            <AnonForms />
+          )}
           render={() => (
             <PluginPoint
               className="auth"
