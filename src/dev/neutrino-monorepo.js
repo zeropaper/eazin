@@ -80,7 +80,7 @@ const packagePeerDependencies = (dependencies, available) => Object
 
 const recurseDirComponent = (dir) => readdirSync(dir)
   .reduce((paths, filename) => {
-    if (filename === 'test') return paths;
+    if (filename === 'test' || filename.startsWith('_')) return paths;
     let sub = [];
     const subPath = join(dir, filename);
 
@@ -106,12 +106,14 @@ module.exports = (neutrino, options) => () => {
   const LICENSE = readFileSync(join(projectRoot, 'LICENSE'));
   const lernaJSON = readJSONSync(join(projectRoot, 'lerna.json'));
   const pkg = neutrino.options.packageJson || {};
+  const repoHostURL = pkg.repository.url
+    .split('+').pop().split('.git').join('');
   const allDeps = ({
     ...(pkg.devDependencies || {}),
     ...(pkg.dependencies || {}),
   });
-
   const pkgNames = [];
+
   readdirSync(pkgSrcs)
     .reduce((acc, val) => {
       pkgNames.push(val);
@@ -179,7 +181,7 @@ module.exports = (neutrino, options) => () => {
       wpWriteFile(compilation, `${pkg.name}-${name}/README.md`, `# ${pkg.name}-${name}
 
 Please refer to:
-${pkg.repository.url.split('+').pop().split('.git').join('')}/tree/master/${pkgSrcs}/${name}`);
+${repoHostURL}/tree/master/${pkgSrcs}/${name}`);
     }));
 
   neutrino.use(hooks({ emit }));
