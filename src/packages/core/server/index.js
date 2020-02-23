@@ -174,8 +174,6 @@ const eazin = async ({
     useUnifiedTopology: true,
   });
 
-  app.db = db;
-  httpServer.db = db;
   app.set('db', db);
 
   if (config.env !== 'production') app.use('/fixtures', fixtures(db));
