@@ -1,5 +1,7 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-standalone-expect */
+const mongoose = require('mongoose');
+
 const prepare = require('../../../../test/server/prepare-server');
 
 const usersPlugin = require('../../../packages/users/server');

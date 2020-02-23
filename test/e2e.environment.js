@@ -5,6 +5,7 @@ const NodeEnvironment = require('jest-environment-node');
 const puppeteer = require('puppeteer');
 const path = require('path');
 const rimraf = require('rimraf');
+const mongoose = require('mongoose');
 const {
   mkdirpSync,
   mkdirp,
@@ -157,8 +158,7 @@ class PuppeteerEnvironment extends NodeEnvironment {
       }));
 
     if (this.app && !TEST_KEEP_BROWSER) {
-      const db = this.mongoose;
-      if (db) db.connection.close();
+      await mongoose.connection.close();
       await this.app.close();
     }
 
