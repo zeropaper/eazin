@@ -24,10 +24,10 @@ const addUser = (additionMethod, req, res, next) => {
     if (err) {
       if (err.name === 'UserExistsError') {
         // eslint-disable-next-line no-param-reassign
-        err.message = 'User may already exists';
+        err.message = 'This email cannot be used';
         // eslint-disable-next-line no-param-reassign
         err.fields = {
-          email: 'User may already exists',
+          email: 'This email cannot be used',
         };
       }
       res.status(400);
@@ -232,25 +232,30 @@ router.post('/login',
   passport.authenticate('local', { session: false }),
   requestHook('<%= body.email %> logs in'),
   (req, res, next) => {
-    if (!req.user) return next(new Error('Unknown User'));
+    if (!req.user) {
+      const err = new Error('Invalid credentials');
+      err.code = 400;
+      err.fields = {
+        email: 'Invalid email',
+        password: 'Invalid password',
+      };
+      return next(err);
+    }
 
-    const User = req.db.model('User');
-    req.user.save((err, saved) => {
-      if (err) return next(err);
-      res.send({
-        ...User.sanitizeOutput(saved),
-        token: saved.token,
-      });
-    });
+    req.user.login(req.body.password)
+      .then((updated) => res.send(updated))
+      .catch(next);
   });
 
 router.get('/logout',
   passport.authenticate('bearer', { session: false }),
   requestHook('logout'),
   (req, res) => {
-    if (!req.user) return res.send({});
+    res.status(204);
+    if (!req.user) return res.end();
+    req.user.logout();
     req.logout();
-    return res.send({});
+    return res.end();
   });
 
 router.get('/me',
