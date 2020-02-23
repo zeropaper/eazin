@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-core",
-  "version": "0.0.1-wip.11",
+  "version": "0.0.1-wip.12",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
