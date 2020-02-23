@@ -64,14 +64,22 @@ const eazin = async ({
   app.set('host', config.host || 'localhost');
   app.set('localURL', config.localURL
     || `http://${app.get('host')}:${config.port}`);
-  log('localURL', app.get('localURL'));
+
+  if (config.externalAccessURL) {
+    app.set('externalAccessURL', config.externalAccessURL);
+  } else if (config.env === 'development') {
   try {
-    app.set('externalAccessURL', config.externalAccessURL
-      || await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
+      app.set('externalAccessURL', await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
     log('externalAccessURL', app.get('externalAccessURL'));
   } catch (err) {
     log(err.message);
   }
+  }
+
+  app.set('siteName', config.siteName
+    || config.appId
+    || (config.externalAccessURL
+      || app.get('localURL')).split('//').pop());
 
   // eslint-disable-next-line consistent-return
   const callRequestHooks = (description, req, res, next) => {
