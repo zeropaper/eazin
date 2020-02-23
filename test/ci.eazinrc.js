@@ -1,14 +1,17 @@
+/* eslint-disable global-require */
+
 const {
-  NODE_ENV = 'development',
+  TEST_TYPE,
   JEST_SERVE: PORT = 3030,
 } = process.env;
 
 const config = {
-  env: NODE_ENV,
+  // appName: 'test eazin',
+  env: 'test',
   port: PORT,
-  siteName: `eazin ${NODE_ENV}`,
-  baseURL: `http://localhost:${PORT}/`,
-  dbURL: `mongodb://localhost:27017/eazin-ci-${NODE_ENV}`,
+  host: 'localhost',
+  dbURL: `mongodb://localhost:27017/eazin-${TEST_TYPE}-test`,
+  siteName: `eazin ${TEST_TYPE} test`,
   publicDir: './html-build',
 };
 
@@ -22,9 +25,5 @@ config['eazin-mailer'] = {
 };
 
 // ------------------------------------------------------------
-
-
-// eslint-disable-next-line no-console
-console.info('[eazin] using "%s" config', NODE_ENV);
 
 module.exports = config;

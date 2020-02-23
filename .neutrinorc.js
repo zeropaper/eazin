@@ -77,8 +77,6 @@ module.exports = {
           '@material-ui/lab',
           '@material-ui/styles',
           'classnames',
-          'eazin-core',
-          'eazin-users',
           'informed',
           'lodash.get',
           'lodash.isequal',
@@ -143,7 +141,7 @@ module.exports = {
 
       neutrino.config.optimization.merge({
         // minimize: neutrino.config.get('mode') === 'production',
-        minimize: true,
+        minimize: false,
       });
 
       // Attempt to get those FÜç*¼#g source-maps working

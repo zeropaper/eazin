@@ -15,8 +15,6 @@ const { dir: tmpDir } = require('tmp-promise');
 
 const eazin = require('../src/packages/core/server');
 
-const { eazinRC } = eazin;
-
 const plugins = [
   require('../src/packages/users/server'),
 
@@ -78,13 +76,10 @@ class PuppeteerEnvironment extends NodeEnvironment {
   async setup() {
     await super.setup();
 
-    const config = eazinRC();
-
-    this.global.baseURL = config.baseURL;
-
     try {
       this.app = await eazin({ plugins });
-      await this.app.listen(config.port);
+      this.global.baseURL = this.app.get('localURL');
+      await this.app.listen();
     } catch (err) {
       console.error('[E2E] serving error', err.stack);
     }

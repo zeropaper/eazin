@@ -1,32 +1,36 @@
 
 const prepare = require('../../../../../test/server/prepare-server');
-const { sneakMessage, clearSneakMessages } = require('../../../../../test/util');
 
 const usersPlugin = require('../../server');
 
 const email = 'john@eazin.dev';
 
+let get;
 let post;
 let patch;
+let tearDown;
 let db;
+let User;
+let sneakMessage;
 beforeAll(async () => {
-  clearSneakMessages();
   const utils = await prepare({
     plugins: [
       usersPlugin,
     ],
   });
+  sneakMessage = utils.sneakMessage;
+  get = utils.get;
   post = utils.post;
   patch = utils.patch;
-  db = utils.app.db;
-  await db.model('User').deleteMany({});
+  tearDown = utils.tearDown;
+  db = utils.app.get('db');
+  User = db.model('User');
+  await User.deleteMany({});
 });
 
-afterAll(async () => {
-  db.connection.close();
-});
+afterAll(() => tearDown());
 
-describe('user', () => {
+describe('user account', () => {
   let user;
 
   it('can register', async () => {
@@ -34,7 +38,7 @@ describe('user', () => {
       .send({ email, password: '1234567890Aa!' })
       .expect(204);
 
-    user = await db.model('User').findByUsername(email);
+    user = await User.findByUsername(email);
 
     expect(user).toHaveProperty('verifToken');
     expect(user).toHaveProperty('isVerified', false);
@@ -71,12 +75,47 @@ describe('user', () => {
 
     expect(res.body).toHaveProperty('token');
 
-    user = await db.model('User').findById(user._id);
+    user = await User.findById(user._id);
 
     expect(user).toHaveProperty('isVerified', true);
   });
 
+  it('logs in', async () => {
+    const previousToken = user.token;
+    const res = await post('/api/user/login')
+      .send({
+        email,
+        password: '1234567890Aa!',
+      });
+
+    user = await User.findById(user._id);
+
+    expect(res).toHaveProperty('status', 200);
+    expect(res).toHaveProperty('body.token');
+    expect(res).toHaveProperty('body.email', email);
+    expect(user.token).not.toBe(previousToken);
+    expect(res.body.token).not.toBe(previousToken);
+  });
+
+  it('logs out', async () => {
+    const previousToken = user.token;
+    const res = await get('/api/user/logout')
+      .set('Authorization', `Bearer ${user.token}`);
+
+    user = await User.findById(user._id);
+    expect(res).toHaveProperty('status', 204);
+    expect(user.token).not.toBe(previousToken);
+  });
+
   it('can change password', async () => {
+    await post('/api/user/login')
+      .send({
+        email,
+        password: '1234567890Aa!',
+      });
+
+    user = await User.findById(user._id);
+
     await patch('/api/user/password')
       .expect(401);
 
@@ -118,7 +157,7 @@ describe('user', () => {
       .send({ email: 'new+address@eazin.test' });
     expect(res.status).toBe(204);
 
-    user = await db.model('User').findByUsername(email);
+    user = await User.findByUsername(email);
     expect(user.email).toBe(email);
     expect(user.emailToVerify).toBe('new+address@eazin.test');
 
@@ -130,7 +169,7 @@ describe('user', () => {
       .send({ token: user.verifToken });
     expect(res.status).toBe(204);
 
-    user = await db.model('User').findById(user._id);
+    user = await User.findById(user._id);
     expect(user.emailToVerify).toBe(null);
     expect(user.email).toBe('new+address@eazin.test');
   });

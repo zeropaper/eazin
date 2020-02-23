@@ -2,12 +2,18 @@
 const request = require('supertest');
 
 const server = require('../../src/packages/core/server');
+const { sneakMessage, clearSneakMessages } = require('../util');
 
 module.exports = async ({ plugins = [] } = {}) => {
-  const { app } = await server({ plugins });
+  const { app, close } = await server({ plugins });
 
   return {
     app,
+    sneakMessage,
+    tearDown: async () => {
+      await clearSneakMessages();
+      await close();
+    },
     request: () => request(app),
     // HTTP methods shortcuts
     get: (url) => request(app).get(url),

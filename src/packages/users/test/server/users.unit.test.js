@@ -1,8 +1,10 @@
+/* eslint-disable jest/no-disabled-tests */
 const prepare = require('../../../../../test/server/prepare-server');
 
 const userPlugin = require('../../server');
 const makeFixtures = require('./users.fixtures');
 
+let tearDown;
 let get;
 let db;
 let admin;
@@ -10,8 +12,9 @@ beforeAll(async () => {
   const utils = await prepare({
     plugins: [userPlugin],
   });
+  tearDown = utils.tearDown;
   get = utils.get;
-  db = utils.app.db;
+  db = utils.app.get('db');
   const User = db.model('User');
 
   await User.deleteMany({});
@@ -26,12 +29,10 @@ beforeAll(async () => {
   await makeFixtures(db);
 });
 
-afterAll(async () => {
-  db.connection.close();
-});
+afterAll(() => tearDown());
 
 describe('users', () => {
-  it('allows to invite users', async () => {
+  it.skip('allows to invite users', async () => {
     // TODO
     expect(true).toBeTruthy();
   });
@@ -53,17 +54,17 @@ describe('users', () => {
     expect(res.body).toHaveProperty('totalCount', 101);
   });
 
-  it('gets details about a user', async () => {
+  it.skip('gets details about a user', async () => {
     // TODO
     expect(true).toBeTruthy();
   });
 
-  it('updates a user', async () => {
+  it.skip('updates a user', async () => {
     // TODO
     expect(true).toBeTruthy();
   });
 
-  it('deletes a user', async () => {
+  it.skip('deletes a user', async () => {
     // TODO
     expect(true).toBeTruthy();
   });

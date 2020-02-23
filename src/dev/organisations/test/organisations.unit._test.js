@@ -1,9 +1,9 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-standalone-expect */
-const prepare = require('./prepare-server');
+const prepare = require('../../../../test/server/prepare-server');
 
-const usersPlugin = require('../../src/packages/users/server');
-const organisationsPlugin = require('../../src/dev/organisations/server');
+const usersPlugin = require('../../../packages/users/server');
+const organisationsPlugin = require('../server');
 
 let creator;
 let verifiedUser;
@@ -37,9 +37,7 @@ beforeAll(async () => {
   }, '1234567890Aa!!!');
 });
 
-afterAll(async () => {
-  utils.app.get('db').connection.close();
-});
+afterAll(() => utils.tearDown());
 
 describe('organisation', () => {
   it('can be created by an authenticated user', () => utils
