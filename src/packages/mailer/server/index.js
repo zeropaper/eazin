@@ -53,18 +53,19 @@ module.exports = async ({
   template,
   ...options
 }) => {
+  const rc = eazinRc();
   const {
     env,
     'eazin-mailer': {
       siteSender,
       templates,
     } = {},
-  } = eazinRc();
+  } = rc;
 
   if (typeof templates[template] !== 'function') throw new Error(`Could not find email template for "${template}"`);
   const vars = {
     from: siteSender,
-    ...prepareMail(options, templates[template]),
+    ...prepareMail({ ...options }, templates[template]),
     to: options.to,
   };
 

@@ -38,6 +38,7 @@ const addUser = (additionMethod, req, res, next) => {
       token: verifToken,
       template: additionMethod,
       to: email,
+      baseURL: req.app.get('externalAccessURL') || req.app.get('localURL'),
     })
       .then(() => next())
       .catch(next);
