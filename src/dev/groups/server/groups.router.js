@@ -98,6 +98,16 @@ router.get(
   },
 );
 
+router.post(
+  '/:groupId/invite',
+  passport.authenticate('bearer', { session: false }),
+  check(['invite:groups/:groupId']),
+  requestHook('invite group member'),
+  (req, res, next) => req.loadedParams.groupId.inviteMember(req.body.email)
+    .then(() => res.status(204).end())
+    .catch(next),
+);
+
 router.patch(
   '/:groupId',
   passport.authenticate('bearer', { session: false }),

@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
 const modelSearchPlugin = require('eazin-core/server/core/search');
+const uid = require('eazin-core/server/util/uid');
+const mailSend = require('eazin-mailer/server');
 
 const { Schema } = mongoose;
 
 const schema = new Schema({
   name: { type: String, required: true },
-  // type: { type: String, required: true },
   approvalType: {
     type: String,
     required: true,
@@ -36,7 +37,11 @@ const findIndex = (groupId, user) => user.roles
     .includes(`groups/${groupId}`));
 
 const removeGroupRoles = (groupId) => (user) => {
-  for (let index = findIndex(groupId, user); index > -1; index = findIndex(groupId, user)) {
+  for (
+    let index = findIndex(groupId, user);
+    index > -1;
+    index = findIndex(groupId, user)
+  ) {
     user.roles.splice(index, 1);
   }
   return user.save();
@@ -66,6 +71,48 @@ schema.methods.addMembers = async function addGroupMembers(userIds) {
   await this.save();
 
   return this.members;
+};
+
+schema.methods.inviteMember = async function inviteGroupMember(email) {
+  const User = mongoose.model('User');
+
+  const existing = await User.findByUsername(email);
+  // console.info('existing', existing);
+
+  if (existing) {
+    await this.addMembers([existing._id]);
+    return;
+  }
+
+  // console.info('new user!', email);
+
+  const verifToken = uid(40);
+
+  User.register({
+    email,
+    verifToken,
+    roles: [
+
+    ],
+  }, uid(20), (err) => {
+    if (err) {
+      if (err.name === 'UserExistsError') {
+        // eslint-disable-next-line no-param-reassign
+        err.message = 'User may already exists';
+        // eslint-disable-next-line no-param-reassign
+        err.fields = {
+          email: 'User may already exists',
+        };
+      }
+      throw err;
+    }
+
+    return mailSend({
+      token: verifToken,
+      template: 'invite',
+      to: email,
+    });
+  });
 };
 
 schema.methods.removeMembers = async function removeGroupMembers(userIds) {
