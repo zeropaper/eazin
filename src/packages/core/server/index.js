@@ -68,12 +68,12 @@ const eazin = async ({
   if (config.externalAccessURL) {
     app.set('externalAccessURL', config.externalAccessURL);
   } else if (config.env === 'development') {
-  try {
+    try {
       app.set('externalAccessURL', await ngrokTunnel(app.get('localURL'), config.ngrokDefaultURL));
-    log('externalAccessURL', app.get('externalAccessURL'));
-  } catch (err) {
-    log(err.message);
-  }
+      log('externalAccessURL', app.get('externalAccessURL'));
+    } catch (err) {
+      log(err.message);
+    }
   }
 
   app.set('siteName', config.siteName
@@ -109,7 +109,7 @@ const eazin = async ({
           modelName: pluginModelName,
           plugin: schemaPlugin,
         }) => {
-          if (pluginModelName !== modelName) return;
+          if (pluginModelName !== modelName && pluginModelName !== '*') return;
           schema.plugin(schemaPlugin, { eazinConfig: config });
         });
       });
