@@ -44,13 +44,11 @@ schema.statics.sanitizeInput = ({
   roles,
   firstName,
   lastName,
-  organisations,
 }) => ({
   email,
   roles,
   firstName,
   lastName,
-  organisations,
 });
 
 schema.statics.sanitizeOutput = ({
@@ -59,7 +57,6 @@ schema.statics.sanitizeOutput = ({
   roles,
   firstName,
   lastName,
-  organisations,
   isVerified,
   createdAt,
   updatedAt,
@@ -69,7 +66,6 @@ schema.statics.sanitizeOutput = ({
   roles,
   firstName,
   lastName,
-  organisations,
   isVerified,
   createdAt,
   updatedAt,
