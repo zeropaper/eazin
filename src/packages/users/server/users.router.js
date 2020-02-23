@@ -1,4 +1,5 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 const {
   httperrors,
@@ -21,7 +22,7 @@ router.get(
   check(['get:users']),
   requestHook('list users'),
   (req, res, next) => {
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
 
     User.search(req.query, (err, users) => {
       if (err) return next(err);
@@ -45,7 +46,7 @@ router.patch(
   requestHook('update user'),
   async (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     const update = User.sanitizeInput(req.body);
     const { loadedParams: { userId: user } } = req;
 
@@ -68,7 +69,7 @@ router.delete(
   requestHook('delete user'),
   (req, res, next) => {
     if (!req.user.isAdmin) return next(httperrors.Forbidden());
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     User.delete(req.params.userId, (err) => {
       if (err) return next(err);
       res.status(204);

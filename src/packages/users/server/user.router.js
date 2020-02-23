@@ -2,6 +2,7 @@
 const passport = require('passport');
 const express = require('express');
 const httperrors = require('httperrors');
+const mongoose = require('mongoose');
 
 const uid = require('eazin-core/server/util/uid');
 const requestHook = require('eazin-core/server/util/requestHook');
@@ -13,7 +14,7 @@ const addUser = (additionMethod, req, res, next) => {
   if (!req.body) return next(new Error('No Body'));
 
   const { email, password } = req.body;
-  const User = req.db.model('User');
+  const User = mongoose.model('User');
   const verifToken = uid(40);
 
   User.register({
@@ -86,7 +87,7 @@ router.post('/verify',
       return next(err);
     }
 
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
 
     try {
       const user = await User.findOne({ verifToken });
@@ -163,7 +164,7 @@ router.post('/email',
   async (req, res, next) => {
     const { body: { email } } = req;
     try {
-      const user = await req.db.model('User').findByUsername(email);
+      const user = await mongoose.model('User').findByUsername(email);
       if (!user) {
         const err = httperrors.NotFound('User not found');
         err.fields = {
@@ -190,7 +191,7 @@ router.patch('/email',
   requestHook('<%= body.email %> changes email'),
   (req, res, next) => {
     const { user, body: { email, token } } = req;
-    const { sanitizeOutput } = req.db.model('User');
+    const { sanitizeOutput } = mongoose.model('User');
 
     if (token) {
       if (!user.emailToVerify) {
@@ -255,7 +256,7 @@ router.get('/me',
   passport.authenticate('bearer', { session: false }),
   (req, res) => {
     if (!req.user) return res.send({});
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     return res.send(User.sanitizeOutput(req.user));
   });
 
@@ -264,7 +265,7 @@ router.patch('/',
   requestHook('update self'),
   (req, res, next) => {
     if (!req.user) return next(httperrors.Unauthorized());
-    const { sanitizeOutput } = req.db.model('User');
+    const { sanitizeOutput } = mongoose.model('User');
     req.user.firstName = req.body.firstName;
     req.user.lastName = req.body.lastName;
     req.user.save((err) => {

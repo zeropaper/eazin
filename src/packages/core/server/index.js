@@ -131,8 +131,6 @@ const eazin = async ({
   apiRouter.get('/up', (req, res) => res.send('OK'));
 
   apiRouter.use((req, res, next) => {
-    req.db = app.db;
-    req.passport = passport;
     req.hookRequest = callRequestHooks;
     next();
   });

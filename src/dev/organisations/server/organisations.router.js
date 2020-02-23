@@ -1,4 +1,5 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 const {
   Router,
@@ -71,7 +72,7 @@ router.get(
   check(['get:organisations/:organisationId']),
   requestHook('list organisation members'),
   (req, res, next) => {
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     User.find({ organisations: req.params.organisationId }, (err, users) => {
       if (err) return next(err);
       res.status(200).send((users || []).map(User.sanitizeOutput));

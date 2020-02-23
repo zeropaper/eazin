@@ -1,4 +1,5 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 const check = require('../../../packages/users/server/user.auth.checkRoles');
 
@@ -20,7 +21,7 @@ router.get(
   check(['get:clients']),
   requestHook('list clients'),
   (req, res, next) => {
-    const APIClient = req.db.model('APIClient');
+    const APIClient = mongoose.model('APIClient');
 
     const handle = (err, activities) => {
       if (err) return next(err);
@@ -40,7 +41,7 @@ router.post(
   check(['post:clients']),
   requestHook('create client'),
   (req, res, next) => {
-    const APIClient = req.db.model('APIClient');
+    const APIClient = mongoose.model('APIClient');
     const { name, redirectURI } = APIClient.sanitizeInput(req.body);
     const clientSecret = uid(20);
 
@@ -69,7 +70,7 @@ router.get(
   passport.authenticate('bearer', { session: false }),
   check(['get:clients/:clientId']),
   requestHook('get client details'),
-  (req, res) => res.send(req.db.model('APIClient').sanitizeOutput(req.loadedParams.clientId)),
+  (req, res) => res.send(mongoose.model('APIClient').sanitizeOutput(req.loadedParams.clientId)),
 );
 
 router.patch(
@@ -79,7 +80,7 @@ router.patch(
   requestHook('update client'),
   (req, res, next) => {
     const { clientId: client } = (req.loadedParams || {});
-    const APIClient = req.db.model('APIClient');
+    const APIClient = mongoose.model('APIClient');
     const sanitized = APIClient.sanitizeInput(req.body);
 
     Object.keys(sanitized)

@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
+
 module.exports = [
   (description, req, res, next) => {
-    const Activity = req.db.model('Activity');
+    const Activity = mongoose.model('Activity');
 
     res.on('close', () => {
       Activity.create({

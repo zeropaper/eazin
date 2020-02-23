@@ -1,4 +1,5 @@
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 const {
   Router,
@@ -17,7 +18,7 @@ router.get(
   check(['get:groups']),
   requestHook('list groups'),
   (req, res, next) => {
-    const Group = req.db.model('Group');
+    const Group = mongoose.model('Group');
 
     const handle = (err, groups) => {
       if (err) return next(err);
@@ -53,7 +54,7 @@ router.post(
   requestHook('create group'),
   async (req, res, next) => {
     try {
-      const Group = req.db.model('Group');
+      const Group = mongoose.model('Group');
       const sanitized = Group.sanitizeInput(req.body);
       sanitized.admin = req.user._id;
       const group = await Group.create(sanitized);
@@ -69,7 +70,7 @@ router.get(
   passport.authenticate('bearer', { session: false }),
   check(['get:groups/:groupId']),
   requestHook('get group details'),
-  (req, res) => res.send(req.db.model('Group').sanitizeOutput(req.loadedParams.groupId)),
+  (req, res) => res.send(mongoose.model('Group').sanitizeOutput(req.loadedParams.groupId)),
 );
 
 router.post(
@@ -89,7 +90,7 @@ router.get(
   requestHook('get group members'),
   async (req, res, next) => {
     const { groupId: { members, admin } } = req.loadedParams;
-    const User = req.db.model('User');
+    const User = mongoose.model('User');
     User.find({ _id: [...members, admin] }, (err, users) => {
       if (err) return next(err);
       res.status(200).send((users || []).map(User.sanitizeOutput));
@@ -103,7 +104,7 @@ router.patch(
   check(['patch:groups/:groupId']),
   requestHook('update group'),
   (req, res, next) => {
-    const Group = req.db.model('Group');
+    const Group = mongoose.model('Group');
     const { groupId: group } = (req.loadedParams || {});
     const sanitized = Group.sanitizeInput(req.body);
 
@@ -121,7 +122,7 @@ router.patch(
 
 router.delete(
   '/:groupId/members',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['revoke:groups/:groupId']),
   requestHook('remove group member'),
   (req, res, next) => req.loadedParams.groupId.removeMembers(req.body)
@@ -131,7 +132,7 @@ router.delete(
 
 router.delete(
   '/:groupId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['delete:groups/:groupId']),
   requestHook('delete group'),
   (req, res, next) => req.loadedParams.groupId.remove(async (err) => {

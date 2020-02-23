@@ -1,4 +1,6 @@
 /* eslint-disable global-require */
+const passport = require('passport');
+const mongoose = require('mongoose');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
 module.exports = {
@@ -19,7 +21,7 @@ module.exports = {
     },
   ],
   passportPrepareHooks: [
-    (passport, mongoose) => {
+    () => {
       const UserModel = mongoose.model('User');
       passport.use(UserModel.createStrategy());
 

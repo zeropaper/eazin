@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const mongoose = require('mongoose');
 
 const check = require('eazin-users/server/user.auth.checkRoles');
 const requestHook = require('eazin-core/server/util/requestHook');
@@ -12,7 +13,7 @@ router.get(
   check(['get:activities']),
   requestHook('<%= user.email %> reads activity log'),
   (req, res, next) => {
-    const Activity = req.db.model('Activity');
+    const Activity = mongoose.model('Activity');
 
     const handle = (err, activities) => {
       if (err) return next(err);
