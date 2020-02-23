@@ -24,12 +24,12 @@ const styles = (theme) => ({
     maxWidth: 600,
     margin: 'auto',
   },
-  customFieldClass: {
-    padding: theme.spacing(1),
-    margin: theme.spacing(1),
-    width: '100%',
-    border: '1px dashed currentColor',
-  },
+  // customFieldClass: {
+  //   padding: theme.spacing(1),
+  //   margin: theme.spacing(1),
+  //   width: '100%',
+  //   border: '1px dashed currentColor',
+  // },
 });
 
 const required = {

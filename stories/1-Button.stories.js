@@ -14,23 +14,8 @@ import ActionButtons from '../src/packages/core/ui/components/Form/ActionButtons
 import Form from '../src/packages/core/ui/components/Form';
 
 export default {
-  title: 'Button',
+  title: 'Form/Button',
 };
-
-export const Text = () => (
-  <ActionButtons
-    buttons={[
-      {
-        type: 'reset',
-        text: 'Reset',
-      },
-      {
-        type: 'submit',
-        text: 'Save',
-      },
-    ]}
-  />
-);
 
 const marginBottom = { marginBottom: 20 };
 
