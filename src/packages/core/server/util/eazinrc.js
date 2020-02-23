@@ -6,6 +6,10 @@ const rcpath = path.resolve(process.cwd(), process.env.EAZIN_RC_PATH || './.eazi
 // eslint-disable-next-line import/no-dynamic-require
 const config = require(rcpath);
 
+if (!config.port) throw new Error('.eazinrc.js error: missing port');
+if (!config.host) throw new Error('.eazinrc.js error: missing host');
+if (!config.dbURL) throw new Error('.eazinrc.js error: missing dbURL');
+
 log(`config loaded from ${rcpath}.js`);
 
 module.exports = () => config;
