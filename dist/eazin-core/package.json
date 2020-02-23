@@ -7,7 +7,6 @@
     "npm": "^6.13.0",
     "node": "^12.13.0"
   },
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zeropaper/eazin.git",
@@ -45,7 +44,6 @@
     "redux-thunk": "^2.3.0",
     "socket.io": "^2.3.0"
   },
-  "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"
 }

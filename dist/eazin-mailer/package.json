@@ -7,7 +7,6 @@
     "npm": "^6.13.0",
     "node": "^12.13.0"
   },
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zeropaper/eazin.git",
@@ -22,7 +21,6 @@
   "dependencies": {
     "nodemailer": "^6.4.2"
   },
-  "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"
 }

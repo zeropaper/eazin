@@ -49,16 +49,19 @@ const hooks = (conf = {}) => (neutrino) => {
 const pkgToPackage = ({
   name,
   dependencies,
-}, pkg, version) => ({
+}, {
+  optionalDependencies,
+  husky,
+  scripts,
+  ...pkg
+}, version) => ({
   ...pkg,
   name: `${pkg.name}-${name}`,
   private: false,
-  scripts: {},
   repository: {
     ...pkg.repository || {},
     directory: `${pkgSrcs}/${name}`,
   },
-  husky: {},
   dependencies,
   main: 'server/index.js',
   module: 'ui/index.js',

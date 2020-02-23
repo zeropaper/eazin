@@ -7,7 +7,6 @@
     "npm": "^6.13.0",
     "node": "^12.13.0"
   },
-  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zeropaper/eazin.git",
@@ -24,7 +23,6 @@
     "httperrors": "^2.3.0",
     "passport-http-bearer": "^1.0.1"
   },
-  "husky": {},
   "main": "server/index.js",
   "module": "ui/index.js"
 }
