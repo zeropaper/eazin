@@ -1,43 +1,106 @@
 /* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable global-require */
+const {
+  httperrors,
+  Router,
+  requestHook,
+} = require('eazin-core/server');
+const mongoose = require('mongoose');
+const passport = require('passport');
+
+const { totp } = require('notp');
 const TwoFAStartegy = require('passport-2fa-totp').Strategy;
 const GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
 
+const router = Router();
+
+router.post('/setup',
+  passport.authenticate('bearer', { session: false }),
+  requestHook('request 2fa secret'),
+  (req, res, next) => {
+    const siteName = req.app.get('siteName');
+    if (!siteName) return next(httperrors.InternalServerError('Missing siteName'));
+    res.send(GoogleAuthenticator.register(`${siteName} (${req.user.email})`));
+  });
+
+router.post('/verify',
+  passport.authenticate('bearer', { session: false }),
+  requestHook('verify 2fa secret'),
+  (req, res, next) => {
+    if (!req.body.code) {
+      const missingCodeError = httperrors.BadRequest('Missing 2FA code');
+      missingCodeError.fields = { code: '2FA code is required' };
+      next(missingCodeError);
+      return;
+    }
+
+    const secret = GoogleAuthenticator.decodeSecret(req.body.secret);
+    const verif = totp.verify(req.body.code, secret, {
+      window: 6,
+      time: 30,
+    });
+
+    if (!verif || typeof verif.delta === 'undefined') {
+      next(httperrors.BadRequest('2FA code verification error'));
+      return;
+    }
+
+    req.user.secret = req.body.secret;
+    req.user.save((err) => {
+      if (err) return next(err);
+      res.status(204).end();
+    });
+  });
+
 module.exports = {
-  apiRouter: [
+  schemaPlugins: [
     {
-      path: '/2fa',
-      router: require('./2fa.router'),
+      modelName: 'User',
+      plugin: (schema) => {
+        schema.add({
+          secret: String,
+        });
+      },
     },
   ],
   passportPrepareHooks: [
-    (passport, mongoose) => {
-      const UserModel = mongoose.model('User');
-      passport.use('2falogin', new TwoFAStartegy({
+    () => {
+      const User = mongoose.model('User');
+
+      passport.use('2fa-node', new TwoFAStartegy({
         usernameField: 'email',
         passwordField: 'password',
         codeField: 'code',
         passReqToCallback: true,
       }, (req, email, password, done) => {
-        // debug('first pass req', email);
-        UserModel.findByUsername(email, (err, user) => {
+        User.findByUsername(email, (err, user) => {
           if (err) return done(err);
-          if (!user) return done(new Error('Invalid email or password.'));
 
-          user.authenticate(password, (err, authUser) => {
-            // debug('…authenticated?', err, authUser);
+          if (!user) {
+            const userErr = new Error('Invalid email or password.');
+            userErr.code = 400;
+            userErr.fields = {
+              email: 'Invalid email',
+              password: 'Invalid password',
+            };
+            return done(userErr);
+          }
+
+          if (!req.body.code) {
+            const missingCodeError = httperrors.BadRequest('Missing 2FA code');
+            missingCodeError.fields = {
+              code: '2FA code is required',
+            };
+            done(missingCodeError);
+            return;
+          }
+
+          user.authenticate(password, (err) => {
             if (err) return done(err);
 
-            if (!authUser.secret) {
-              req.logIn(authUser, (err) => {
-                // debug('…logged in?', err);
-                if (err) return done(err);
-                // req.flash('info', 'Successfully logged in.');
-
-                // const destination = req.query.destination || req.body.destination || '/account';
-                // req.session.destination = destination;
-                // req.flash('info', '2FA setup required.');
-                req.res.redirect('/2fa');
+            if (!user.secret) {
+              req.res.send({
+                ...User.sanitizeOutput(),
+                token: user.token,
               });
             } else {
               done(null, user);
@@ -45,22 +108,25 @@ module.exports = {
           });
         });
       }, (req, user, done) => {
-        // debug('second pass req.user', !!req.user, user.email);
         if (!user.secret) {
           done(new Error('Google Authenticator not set'));
         } else {
           done(null, GoogleAuthenticator.decodeSecret(user.secret), 30);
         }
       }));
+    },
+  ],
+  apiRouter: [
+    {
+      path: '/2fa',
+      router,
+    },
+  ],
+  requestHooks: [
+    (description, req, res, next) => {
+      if (!req.originalUrl.endsWith('/user/login')) return next();
 
-      passport.use('2faregister', new TwoFAStartegy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true,
-        skipTotpVerification: true,
-      }, ((req, email, password, done) => {
-        UserModel.register({ email }, password, done);
-      })));
+      passport.authenticate('2fa-node')(req, res, next);
     },
   ],
 };
