@@ -55,3 +55,14 @@ TEST_KEEP_BROWSER=1 PORT=5000 npm run watch:test:e2e
 ```
 npm run lerna:publish
 ```
+
+
+
+Coding rules
+
+Server
+
+The models hold the business logic.
+The routers are meant to prepare data for document manipulation.
+
+To add features to a model, eazin plugins use the mongoose plugin mechanism.
