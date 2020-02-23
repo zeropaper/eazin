@@ -149,9 +149,9 @@ const eazin = async ({
 
   if (config.env === 'production') app.use(compression());
 
-  if (config.publicDir) {
-    log('serving static', config.publicDir);
+  app.use('/api', apiRouter);
 
+  if (config.publicDir) {
     const staticIndexPath = path.resolve(process.cwd(), config.publicDir, 'index.html');
     try {
       const indexHTML = fs.readFileSync(staticIndexPath);
@@ -162,6 +162,7 @@ const eazin = async ({
           next();
           return;
         }
+        // log(`"${req.url}" not found, falling back to index.html`);
         res.set('Content-Type', 'text/html');
         res.send(indexHTML);
       });
@@ -169,8 +170,6 @@ const eazin = async ({
       log('Cannot serve "%s"', staticIndexPath);
     }
   }
-
-  app.use('/api', apiRouter);
 
   const db = await mongoose.connect(config.dbURL, {
     useNewUrlParser: true,
