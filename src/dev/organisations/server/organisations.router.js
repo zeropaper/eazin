@@ -1,3 +1,5 @@
+const passport = require('passport');
+
 const {
   Router,
   model,
@@ -5,7 +7,6 @@ const {
   modelRequestParam,
 } = require('../../../packages/core/server');
 const check = require('../../../packages/users/server/user.auth.checkRoles');
-const bearer = require('../../../packages/users/server/user.auth.bearer');
 
 const router = Router();
 
@@ -13,7 +14,7 @@ modelRequestParam('Organisation', router);
 
 router.get(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:organisations']),
   requestHook('list organisations'),
   (req, res, next) => {
@@ -34,7 +35,7 @@ router.get(
 
 router.post(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['post:organisations']),
   requestHook('create organisation'),
   async (req, res, next) => {
@@ -58,7 +59,7 @@ router.post(
 
 router.get(
   '/:organisationId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:organisations/:organisationId']),
   requestHook('get organisation details'),
   (req, res) => res.send(model('Organisation').sanitizenOutput(req.loadedParams.organisationId)),
@@ -66,7 +67,7 @@ router.get(
 
 router.get(
   '/:organisationId/users',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:organisations/:organisationId']),
   requestHook('list organisation members'),
   (req, res, next) => {
@@ -80,7 +81,7 @@ router.get(
 
 router.patch(
   '/:organisationId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['patch:organisations/:organisationId']),
   requestHook('update organisation'),
   (req, res, next) => {
@@ -100,7 +101,7 @@ router.patch(
 
 router.delete(
   '/:organisationId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['delete:organisations/:organisationId']),
   requestHook('delete organisation'),
   (req, res, next) => req.loadedParams.organisation.remove((err) => {

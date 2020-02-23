@@ -1,5 +1,7 @@
+const passport = require('passport');
+
 const check = require('../../../packages/users/server/user.auth.checkRoles');
-const bearer = require('../../../packages/users/server/user.auth.bearer');
+
 const {
   Router,
   httperrors,
@@ -14,7 +16,7 @@ modelRequestParam('APIClient', router, 'apiClientId');
 
 router.get(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:clients']),
   requestHook('list clients'),
   (req, res, next) => {
@@ -34,7 +36,7 @@ router.get(
 
 router.post(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['post:clients']),
   requestHook('create client'),
   (req, res, next) => {
@@ -64,7 +66,7 @@ router.post(
 
 router.get(
   '/:clientId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:clients/:clientId']),
   requestHook('get client details'),
   (req, res) => res.send(req.db.model('APIClient').sanitizeOutput(req.loadedParams.clientId)),
@@ -72,7 +74,7 @@ router.get(
 
 router.patch(
   '/:clientId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['patch:clients/:clientId']),
   requestHook('update client'),
   (req, res, next) => {
@@ -94,7 +96,7 @@ router.patch(
 
 router.delete(
   '/:clientId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['delete:clients/:clientId']),
   requestHook('delete client'),
   (req, res, next) => req.loadedParams.clientId.remove((err) => {

@@ -1,15 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const passport = require('passport');
 const express = require('express');
 const httperrors = require('httperrors');
 
 const uid = require('eazin-core/server/util/uid');
 const requestHook = require('eazin-core/server/util/requestHook');
 const mailSend = require('eazin-mailer/server');
-// const twoFAlocal = require('./user.auth.2falocal');
-
-const bearer = require('./user.auth.bearer');
-const local = require('./user.auth.local');
-
 
 const router = express.Router();
 
@@ -48,6 +44,7 @@ const addUser = (additionMethod, req, res, next) => {
 };
 
 router.post('/',
+  passport.authenticate('bearer', { session: false }),
   requestHook('<%= user.email %> invites <%= body.email %>'),
   (req, res, next) => addUser('invite', req, res, (err) => {
     if (err) return next(err);
@@ -132,7 +129,8 @@ router.post('/password',
     }
   });
 
-router.patch('/password', bearer,
+router.patch('/password',
+  passport.authenticate('bearer', { session: false }),
   requestHook('<%= user.email %> changes password'),
   (req, res, next) => {
     const { user, body: { current, password } } = req;
@@ -187,7 +185,8 @@ router.post('/email',
     }
   });
 
-router.patch('/email', bearer,
+router.patch('/email',
+  passport.authenticate('bearer', { session: false }),
   requestHook('<%= body.email %> changes email'),
   (req, res, next) => {
     const { user, body: { email, token } } = req;
@@ -228,7 +227,7 @@ router.patch('/email', bearer,
   });
 
 router.post('/login',
-  local,
+  passport.authenticate('local', { session: false }),
   requestHook('<%= body.email %> logs in'),
   (req, res, next) => {
     if (!req.user) return next(new Error('Unknown User'));
@@ -244,6 +243,7 @@ router.post('/login',
   });
 
 router.get('/logout',
+  passport.authenticate('bearer', { session: false }),
   requestHook('logout'),
   (req, res) => {
     if (!req.user) return res.send({});
@@ -252,14 +252,15 @@ router.get('/logout',
   });
 
 router.get('/me',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   (req, res) => {
     if (!req.user) return res.send({});
     const User = req.db.model('User');
     return res.send(User.sanitizeOutput(req.user));
   });
 
-router.patch('/', bearer,
+router.patch('/',
+  passport.authenticate('bearer', { session: false }),
   requestHook('update self'),
   (req, res, next) => {
     if (!req.user) return next(httperrors.Unauthorized());

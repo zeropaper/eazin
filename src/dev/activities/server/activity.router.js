@@ -1,14 +1,14 @@
 const express = require('express');
+const passport = require('passport');
 
 const check = require('eazin-users/server/user.auth.checkRoles');
-const bearer = require('eazin-users/server/user.auth.bearer');
 const requestHook = require('eazin-core/server/util/requestHook');
 
 const router = express.Router();
 
 router.get(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:activities']),
   requestHook('<%= user.email %> reads activity log'),
   (req, res, next) => {

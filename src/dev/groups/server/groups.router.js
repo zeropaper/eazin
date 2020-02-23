@@ -1,10 +1,11 @@
+const passport = require('passport');
+
 const {
   Router,
   requestHook,
   modelRequestParam,
 } = require('../../../packages/core/server');
 const check = require('../../../packages/users/server/user.auth.checkRoles');
-const bearer = require('../../../packages/users/server/user.auth.bearer');
 
 const router = Router();
 
@@ -12,7 +13,7 @@ modelRequestParam('Group', router);
 
 router.get(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:groups']),
   requestHook('list groups'),
   (req, res, next) => {
@@ -47,7 +48,7 @@ router.get(
 
 router.post(
   '/',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['post:groups']),
   requestHook('create group'),
   async (req, res, next) => {
@@ -65,7 +66,7 @@ router.post(
 
 router.get(
   '/:groupId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:groups/:groupId']),
   requestHook('get group details'),
   (req, res) => res.send(req.db.model('Group').sanitizeOutput(req.loadedParams.groupId)),
@@ -73,7 +74,7 @@ router.get(
 
 router.post(
   '/:groupId/members',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['invite:groups/:groupId']),
   requestHook('add group member'),
   (req, res, next) => req.loadedParams.groupId.addMembers(req.body)
@@ -83,7 +84,7 @@ router.post(
 
 router.get(
   '/:groupId/members',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['get:groups/:groupId']),
   requestHook('get group members'),
   async (req, res, next) => {
@@ -98,7 +99,7 @@ router.get(
 
 router.patch(
   '/:groupId',
-  bearer,
+  passport.authenticate('bearer', { session: false }),
   check(['patch:groups/:groupId']),
   requestHook('update group'),
   (req, res, next) => {
