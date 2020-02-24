@@ -15,6 +15,7 @@ import users, { UserAccess, AnonForms } from 'eazin-users/ui';
 import landing from 'eazin-landing/ui';
 import settings from 'eazin-settings/ui';
 
+import twoFA from '../dev/2fa/ui';
 import kitchenSink from '../dev/kitchen-sink/ui';
 import organisations from '../dev/organisations/ui';
 import groups from '../dev/groups/ui';
@@ -25,6 +26,7 @@ import repositories from '../dev/repositories/ui';
 
 import BreadCrumbs from './BreadCrumbs';
 import EmptyFallback from './EmptyFallback';
+import TwoFALoginForm from '../dev/2fa/ui/TwoFALoginForm';
 
 const App = ({ children, plugins, siteName }) => (plugins && (
   <AppContextProvider siteName={siteName} plugins={plugins}>
@@ -58,7 +60,7 @@ const App = ({ children, plugins, siteName }) => (plugins && (
       {children || (
         <UserAccess
           renderUnverified={() => (
-            <AnonForms />
+            <AnonForms LoginForm={TwoFALoginForm} />
           )}
           render={() => (
             <PluginPoint
@@ -93,6 +95,7 @@ export default () => (
       landing,
       settings,
       users,
+      twoFA,
       activities,
       clients,
       groups,
