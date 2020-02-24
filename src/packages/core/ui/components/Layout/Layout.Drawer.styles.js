@@ -1,6 +1,5 @@
 export default (theme) => ({
   root: {
-    width: '20vw',
     display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
