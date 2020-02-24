@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => createStyles({
     flexGrow: 1,
     padding: theme.spacing(2),
   },
+  firstRow: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 export const Loading = () => {
@@ -176,7 +179,7 @@ export const Loading = () => {
             <Typography variant="h5">No icon, regular size</Typography>
           </header>
           <ActionButtons
-            className={classes.column}
+            className={classes.firstRow}
             variant={variant}
             buttons={[
               {
@@ -242,7 +245,7 @@ export const Loading = () => {
             <Typography variant="h5">Large with icon</Typography>
           </header>
           <ActionButtons
-            className={classes.column}
+            className={classes.firstRow}
             variant={variant}
             size="large"
             buttons={withIcons[0]}
@@ -258,7 +261,7 @@ export const Loading = () => {
             <Typography variant="h5">Regular with icon</Typography>
           </header>
           <ActionButtons
-            className={classes.column}
+            className={classes.firstRow}
             variant={variant}
             buttons={withIcons[0]}
           />
@@ -272,7 +275,7 @@ export const Loading = () => {
             <Typography variant="h5">Small with icon</Typography>
           </header>
           <ActionButtons
-            className={classes.column}
+            className={classes.firstRow}
             variant={variant}
             size="small"
             buttons={withIcons[0]}
