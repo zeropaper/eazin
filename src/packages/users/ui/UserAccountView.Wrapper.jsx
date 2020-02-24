@@ -25,8 +25,13 @@ const styles = (theme) => ({
   },
 });
 
-const Wrapper = ({ children, classes, title }) => (
-  <Grid item className={classes.root} cols={1}>
+const Wrapper = ({
+  children,
+  classes,
+  title,
+  'data-testid': testId,
+}) => (
+  <Grid item className={classes.root} cols={1} data-testid={testId}>
     <Typography
       variant="h4"
       gutterBottom
@@ -45,6 +50,7 @@ Wrapper.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,
   title: PropTypes.node,
+  'data-testid': PropTypes.string.isRequired,
 };
 
 Wrapper.defaultProps = {

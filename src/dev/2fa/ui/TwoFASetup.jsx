@@ -163,7 +163,7 @@ class TwoFASetupForm extends React.Component {
     }
 
     return (
-      <Wrapper title="Two-factors authentication">
+      <Wrapper title="Two-factors authentication" data-testid="2fa-setup">
         <SetupAlert
           setup={!!setup}
           error={error}

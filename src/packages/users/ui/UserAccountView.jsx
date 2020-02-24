@@ -264,7 +264,7 @@ const AccountView = ({
       spacing={2}
       className={classes.grid}
     >
-      <Wrapper title="Profile">
+      <Wrapper title="Profile" data-testid="profile">
         <ProfileForm
           firstName={user.firstName}
           lastName={user.lastName}
@@ -272,11 +272,11 @@ const AccountView = ({
         />
       </Wrapper>
 
-      <Wrapper title="Password">
+      <Wrapper title="Password" data-testid="password-change">
         <PasswordChangeForm />
       </Wrapper>
 
-      <Wrapper title="Email">
+      <Wrapper title="Email" data-testid="email-change">
         <EmailChangeForm
           email={user.email}
           patch={patch}
