@@ -39,11 +39,11 @@ class GH extends React.Component {
 const GroupsLandingView = (props) => {
   const { wrapIn: WrapIn } = props;
   return [
-    <WrapIn key="a">
+    <WrapIn key="a" top="GitHub">
       <GH {...props} />
     </WrapIn>,
 
-    <WrapIn key="b">
+    <WrapIn key="b" top="Chuck Norris">
       <ChuckNorris />
     </WrapIn>,
   ];

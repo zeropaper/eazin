@@ -1,6 +1,8 @@
 import KitchenSinkLandingView from './KitchenSinkLandingView';
 import KitchenSinkView from './KitchenSinkView';
 
+import ButtonsDemo from './demos/Buttons';
+
 const routes = [
   {
     path: '/',
@@ -9,6 +11,10 @@ const routes = [
   {
     path: '/kitchen-sink',
     View: KitchenSinkView,
+  },
+  {
+    path: '/kitchen-sink/buttons',
+    View: ButtonsDemo,
   },
 ];
 
