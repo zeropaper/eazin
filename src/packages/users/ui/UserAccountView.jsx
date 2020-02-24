@@ -1,19 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles';
 import { connect } from 'react-redux';
 import { parse } from 'querystring';
 
-import { Form } from 'eazin-core/ui';
+import { Form, PluginPoint } from 'eazin-core/ui';
 import Alert from '@material-ui/lab/Alert';
 import { validMail, validPassword } from './user.validators';
 import { setUser } from './user.actions';
 import UserPropTypes from './user.propTypes';
+import Wrapper from './UserAccountView.Wrapper';
 
-const defaultButtons = ({ pristine, invalid, loading }) => ([
+
+export const defaultButtons = ({ pristine, invalid, loading }) => ([
   {
     text: 'Reset',
     type: 'reset',
@@ -32,7 +32,7 @@ const required = {
 };
 
 // eslint-disable-next-line react/prop-types
-const ProfileForm = ({ firstName, lastName, updateStoreUser }) => (
+export const ProfileForm = ({ firstName, lastName, updateStoreUser }) => (
   <Form
     key={`${firstName}-${lastName}`}
     method="patch"
@@ -57,33 +57,61 @@ const ProfileForm = ({ firstName, lastName, updateStoreUser }) => (
   />
 );
 
-const passwordFormFields = {
-  current: {
-    label: 'Current Password',
-    type: 'password',
-    ...required,
-    fullWidth: true,
-    validate: validPassword,
-  },
-  password: {
-    label: 'New Password',
-    type: 'password',
-    ...required,
-    fullWidth: true,
-    validate: validPassword,
-  },
-  passwordConfirm: {
-    label: 'Confirmation',
-    type: 'password',
-    ...required,
-    fullWidth: true,
-    validate: (val = '', vals) => {
-      if (val !== vals.password) return 'Passwords don\'t match';
-    },
-  },
-};
+export const PasswordChangeForm = () => (
+  <Form
+    method="post"
+    url="/api/user/password"
+    fields={{
+      current: {
+        label: 'Current Password',
+        type: 'password',
+        ...required,
+        fullWidth: true,
+        validate: validPassword,
+      },
+      password: {
+        label: 'New Password',
+        type: 'password',
+        ...required,
+        fullWidth: true,
+        validate: validPassword,
+      },
+      passwordConfirm: {
+        label: 'Confirmation',
+        type: 'password',
+        ...required,
+        fullWidth: true,
+        validate: (val = '', vals) => {
+          if (val !== vals.password) return 'Passwords don\'t match';
+        },
+      },
+    }}
 
-class EmailChangeForm extends React.Component {
+    buttons={({
+      pristine,
+      invalid,
+      loading,
+      values: { current, passwordConfirm },
+    }) => ([
+      {
+        text: 'Reset',
+        type: 'reset',
+        disabled: pristine || loading,
+      },
+      {
+        text: 'Update',
+        type: 'submit',
+        disabled: pristine
+          || invalid
+          || loading
+          || !current
+          || !passwordConfirm,
+      },
+    ])}
+  />
+);
+
+export class EmailChangeForm extends React.Component {
   mounted = false;
 
   state = {
@@ -217,24 +245,6 @@ EmailChangeForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const styles = (theme) => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    margin: theme.spacing(-1),
-    width: 'auto',
-  },
-  tile: {
-    flexGrow: 1,
-    minWidth: '33%',
-  },
-  paper: {
-    margin: theme.spacing(1),
-    padding: theme.spacing(1),
-  },
-});
-
 const AccountView = ({
   api: { patch },
   classes,
@@ -247,75 +257,26 @@ const AccountView = ({
   },
   dispatch,
 }) => (
-  <Grid
-    container
-    className={classes.root}
-  >
-    <Grid item className={classes.tile} xs={12}>
-      <Paper className={classes.paper} data-testid="user-profile">
-        <Typography
-          variant="h4"
-          gutterBottom
-        >
-          Profile
-        </Typography>
-
+  <div className={classes.root}>
+    <Grid
+      container
+      cols={3}
+      spacing={2}
+      className={classes.grid}
+    >
+      <Wrapper title="Profile">
         <ProfileForm
           firstName={user.firstName}
           lastName={user.lastName}
           updateStoreUser={(data) => dispatch(setUser(data))}
         />
-      </Paper>
-    </Grid>
+      </Wrapper>
 
-    <Grid item className={classes.tile} sm>
-      <Paper className={classes.paper} data-testid="password-change">
-        <Typography
-          variant="h4"
-          gutterBottom
-        >
-          Change Password
-        </Typography>
+      <Wrapper title="Password">
+        <PasswordChangeForm />
+      </Wrapper>
 
-        <Form
-          method="post"
-          url="/api/user/password"
-          fields={passwordFormFields}
-
-          buttons={({
-            pristine,
-            invalid,
-            loading,
-            values: { current, passwordConfirm },
-          }) => ([
-            {
-              text: 'Reset',
-              type: 'reset',
-              disabled: pristine || loading,
-            },
-            {
-              text: 'Update',
-              type: 'submit',
-              disabled: pristine
-                || invalid
-                || loading
-                || !current
-                || !passwordConfirm,
-            },
-          ])}
-        />
-      </Paper>
-    </Grid>
-
-    <Grid item className={classes.tile} sm>
-      <Paper className={classes.paper} data-testid="email-change">
-        <Typography
-          variant="h4"
-          gutterBottom
-        >
-          Change Email
-        </Typography>
-
+      <Wrapper title="Email">
         <EmailChangeForm
           email={user.email}
           patch={patch}
@@ -323,9 +284,11 @@ const AccountView = ({
           navigate={navigate}
           dispatch={dispatch}
         />
-      </Paper>
+      </Wrapper>
+
+      <PluginPoint wrapIn={Wrapper} name="AccountView" />
     </Grid>
-  </Grid>
+  </div>
 );
 
 AccountView.pageTitle = 'Your account';
@@ -347,4 +310,17 @@ AccountView.propTypes = {
 
 export const mapStateToProps = ({ user: { user } }) => ({ user });
 
-export default connect(mapStateToProps)(withStyles(styles)(AccountView));
+export default connect(mapStateToProps)(withStyles((theme) => ({
+  root: {
+    marginTop: theme.spacing(-1),
+    marginLeft: theme.spacing(-1),
+    marginRight: theme.spacing(-1),
+  },
+  grid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    margin: 0,
+    maxWidth: '100%',
+  },
+}))(AccountView));

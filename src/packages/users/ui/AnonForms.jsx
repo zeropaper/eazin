@@ -19,7 +19,10 @@ const styles = (theme) => ({
   },
 });
 
-export default withStyles(styles)(({ classes }) => (
+export default withStyles(styles)(({
+  classes,
+  LoginForm = UserLogin,
+}) => (
   <Grid container alignItems="center" justify="center">
     <Grid item xs={12} sm={10} md={6} lg={4}>
       <Paper className={classes.paper}>
@@ -28,7 +31,7 @@ export default withStyles(styles)(({ classes }) => (
           <Route path="/verify" component={UserVerify} />
           <Route path="/reset/change" component={UserResetChange} />
           <Route exact path={['/reset', '/reset/send']} component={UserResetSend} />
-          <Route path={['/', '/login']} component={UserLogin} />
+          <Route path={['/', '/login']} component={LoginForm} />
         </Switch>
       </Paper>
     </Grid>

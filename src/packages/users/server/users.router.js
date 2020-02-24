@@ -8,8 +8,6 @@ const {
   requestHook,
 } = require('eazin-core/server');
 
-// const twoFAlocal = require('./user.auth.2falocal');
-
 const check = require('./user.auth.checkRoles');
 
 const router = Router();
