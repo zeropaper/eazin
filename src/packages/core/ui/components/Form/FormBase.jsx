@@ -14,6 +14,10 @@ import { withErrorBoundary } from '../ErrorBoundary';
 const { Fields, Buttons } = baseComponents;
 
 const styles = (theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   field: {
     width: '100%',
     marginBottom: theme.spacing(2),
@@ -244,13 +248,13 @@ class FormBase extends React.Component {
   };
 
   renderButtons = () => {
-    const { props: { buttons, fieldClassName }, formState } = this;
+    const { props: { buttons, classes }, formState } = this;
     return (
       <Buttons
         buttons={typeof buttons === 'function'
           ? buttons(formState, this.api)
           : buttons}
-        className={fieldClassName}
+        className={classes.actions}
       />
     );
   };
@@ -269,12 +273,12 @@ class FormBase extends React.Component {
   };
 
   render() {
-    const { render, className } = this.props;
+    const { render, className, classes } = this.props;
 
     return (
       <Informed
         noValidate
-        className={className}
+        className={`${className || ''} ${classes.root}`.trim()}
         onSubmit={this.handleSubmit}
         render={render || this.renderContent}
         getApi={this.registerFormAPI}

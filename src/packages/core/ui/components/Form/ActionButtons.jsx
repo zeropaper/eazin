@@ -14,9 +14,12 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 const styles = (theme) => ({
   root: {
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     justifyContent: 'flex-end',
+    justifySelf: 'flex-end',
+    flexGrow: 1,
     '& > button': {
+      flexGrow: 0,
       marginLeft: theme.spacing(2),
     },
   },
