@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Button from '@material-ui/core/Button';
 import GridList from '@material-ui/core/GridList';
 import { withStyles } from '@material-ui/core/styles';
 
 import { PluginPoint } from 'eazin-core/ui';
 
 import Wrapper from './LandingView.Wrapper';
-import { toggleBool } from './landing.actions';
 
 const styles = (theme) => ({
   root: {
@@ -22,44 +19,23 @@ const styles = (theme) => ({
   },
 });
 
-const LandingView = ({ classes, bool, toggle }) => (
-  <>
-    <div className={classes.root}>
-      <GridList
-        cellHeight={160}
-        cols={3}
-        spacing={2}
-        className={classes.gridList}
-      >
-        <PluginPoint wrapIn={Wrapper} name="LandingView" />
-      </GridList>
-    </div>
-
-    <div>
-      <Button variant="contained" color="primary" onClick={toggle}>
-        Toggle&nbsp;
-        {bool ? 'yes' : 'no'}
-      </Button>
-    </div>
-  </>
+const LandingView = ({ classes }) => (
+  <div className={classes.root}>
+    <GridList
+      cellHeight={160}
+      cols={3}
+      spacing={2}
+      className={classes.gridList}
+    >
+      <PluginPoint wrapIn={Wrapper} name="LandingView" />
+    </GridList>
+  </div>
 );
 
 LandingView.pageTitle = 'Dashboard';
 
 LandingView.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  bool: PropTypes.bool.isRequired,
-  toggle: PropTypes.func.isRequired,
 };
 
-export const StyledLandingView = withStyles(styles)(LandingView);
-
-const mapStateToProps = ({ landing: { bool } }) => ({ bool: !!bool });
-
-const mapDispatchToProps = (dispatch) => ({
-  toggle: () => {
-    setTimeout(() => dispatch(toggleBool()), 500);
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(StyledLandingView);
+export default withStyles(styles)(LandingView);

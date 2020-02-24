@@ -9,6 +9,7 @@ import { LoadingFallback as Fallback } from 'eazin-core/ui';
 const styles = (theme) => ({
   root: {
     flexGrow: 1,
+    maxWidth: '100%',
     '& > div': {
       display: 'flex',
       flexDirection: 'column',
