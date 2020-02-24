@@ -50,7 +50,7 @@ describe('Two Factor Authentication', () => {
   });
 
   it('extends the User schema', async () => {
-    expect(user).toHaveProperty('secret');
+    expect(user).toHaveProperty('totp.secret');
   });
 
   describe('setup', () => {
@@ -59,22 +59,32 @@ describe('Two Factor Authentication', () => {
     it('requires a bearer authentication', () => post('/api/2fa/setup').expect(401));
 
     it('provides a QR code', async () => {
-      const { body } = await post('/api/2fa/setup')
+      const res = await post('/api/2fa/setup')
         .set('Authorization', `Bearer ${user.token}`)
         .expect(200);
-      secret = body.secret;
+
+      user = await User.findById(user._id);
+
+      expect(res).toHaveProperty('body.qr');
+      expect(res).toHaveProperty('body.secret');
+      secret = res.body.secret;
+
+      expect(user).toHaveProperty('totp.secretVerification', secret);
+      expect(user).toHaveProperty('totp.secret', null);
     });
 
     it('verifies the QR code', async () => {
       const code = totp(`${secret}AAA`);
+
       await post('/api/2fa/verify')
         .set('Authorization', `Bearer ${user.token}`)
-        .send({ code, secret })
+        .send({ code })
         .expect(204);
 
       user = await User.findById(user._id);
 
-      expect(user).toHaveProperty('secret', secret);
+      expect(user).toHaveProperty('totp.secretVerification', null);
+      expect(user).toHaveProperty('totp.secret', secret);
     });
   });
 
@@ -91,7 +101,10 @@ describe('Two Factor Authentication', () => {
 
       expect(res).toHaveProperty('status', 400);
       expect(res).toHaveProperty('body.error.fields.code', '2FA code is required');
-      expect(user.token).toBe(previousToken);
+
+      expect(user).toHaveProperty('token', previousToken);
+      expect(user).toHaveProperty('totp.secretVerification', null);
+      expect(user).toHaveProperty('totp.secret');
     });
 
     it('logs in with valid code', async () => {
@@ -100,7 +113,7 @@ describe('Two Factor Authentication', () => {
         .send({
           email,
           password: '1234567890Aa!',
-          code: totp(`${user.secret}AAA`),
+          code: totp(`${user.totp.secret}AAA`),
         });
 
       user = await User.findById(user._id);
@@ -108,6 +121,8 @@ describe('Two Factor Authentication', () => {
       expect(res).toHaveProperty('status', 200);
       expect(res).toHaveProperty('body.email', email);
       expect(res).toHaveProperty('body.token', user.token);
+
+      expect(user).toHaveProperty('token');
       expect(user.token).not.toBe(previousToken);
     });
   });

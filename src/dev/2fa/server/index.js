@@ -11,40 +11,75 @@ const { totp } = require('notp');
 const TwoFAStartegy = require('passport-2fa-totp').Strategy;
 const GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
 
+const bearer = passport.authenticate('bearer', { session: false });
+
 const router = Router();
+router.get('/setup',
+  bearer,
+  requestHook('request 2fa status'),
+  (req, res) => res.send(!!(req.user.totp || {}).secret));
 
 router.post('/setup',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('request 2fa secret'),
   (req, res, next) => {
     const siteName = req.app.get('siteName');
     if (!siteName) return next(httperrors.InternalServerError('Missing siteName'));
-    res.send(GoogleAuthenticator.register(`${siteName} (${req.user.email})`));
+    if (req.user.totp.secretVerification) {
+      return next(httperrors.InternalServerError('2FA setup already in progress'));
+    }
+
+    const info = GoogleAuthenticator.register(`${siteName} (${req.user.email})`);
+    info.qr64 = `data:image/svg+xml;base64,${Buffer.from(info.qr).toString('base64')}`;
+
+    req.user.totp.secretVerification = info.secret;
+    req.user.save((err) => {
+      if (err) return next(err);
+      res.send(info);
+    });
   });
 
 router.post('/verify',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('verify 2fa secret'),
   (req, res, next) => {
-    if (!req.body.code) {
+    const {
+      user,
+      body: {
+        code,
+      },
+    } = req;
+
+    if (!code) {
       const missingCodeError = httperrors.BadRequest('Missing 2FA code');
       missingCodeError.fields = { code: '2FA code is required' };
-      next(missingCodeError);
-      return;
+      return next(missingCodeError);
     }
 
-    const secret = GoogleAuthenticator.decodeSecret(req.body.secret);
-    const verif = totp.verify(req.body.code, secret, {
+    const secret = GoogleAuthenticator.decodeSecret(user.totp.secretVerification);
+    const verif = totp.verify(code, secret, {
       window: 6,
       time: 30,
     });
 
     if (!verif || typeof verif.delta === 'undefined') {
-      next(httperrors.BadRequest('2FA code verification error'));
-      return;
+      return next(httperrors.BadRequest('2FA code verification error'));
     }
 
-    req.user.secret = req.body.secret;
+    user.totp.secret = user.totp.secretVerification;
+    user.totp.secretVerification = null;
+    user.save((err) => {
+      if (err) return next(err);
+      res.status(204).end();
+    });
+  });
+
+router.delete('/',
+  bearer,
+  requestHook('clear 2fa'),
+  (req, res, next) => {
+    req.user.totp.secret = null;
+    req.user.totp.secretVerification = null;
     req.user.save((err) => {
       if (err) return next(err);
       res.status(204).end();
@@ -57,7 +92,13 @@ module.exports = {
       modelName: 'User',
       plugin: (schema) => {
         schema.add({
-          secret: String,
+          totp: {
+            type: new mongoose.Schema({
+              secret: { type: String, default: null },
+              secretVerification: { type: String, default: null },
+            }),
+            default: () => ({}),
+          },
         });
       },
     },
@@ -97,9 +138,9 @@ module.exports = {
           user.authenticate(password, (err) => {
             if (err) return done(err);
 
-            if (!user.secret) {
+            if (!user.totp.secret) {
               req.res.send({
-                ...User.sanitizeOutput(),
+                ...User.sanitizeOutput(user),
                 token: user.token,
               });
             } else {
@@ -108,10 +149,10 @@ module.exports = {
           });
         });
       }, (req, user, done) => {
-        if (!user.secret) {
+        if (!user.totp.secret) {
           done(new Error('Google Authenticator not set'));
         } else {
-          done(null, GoogleAuthenticator.decodeSecret(user.secret), 30);
+          done(null, GoogleAuthenticator.decodeSecret(user.totp.secret), 30);
         }
       }));
     },
