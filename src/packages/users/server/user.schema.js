@@ -1,6 +1,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable prefer-arrow-callback */
 const mongoose = require('mongoose');
+const { deprecate } = require('util');
 
 const { Schema } = mongoose;
 const passportLocalMongoose = require('passport-local-mongoose');
@@ -97,7 +98,7 @@ schema.statics.invite = async function inviteUser(baseURL, email, {
   });
 };
 
-schema.statics.sanitizeInput = ({
+schema.statics.sanitizeInput = deprecate(({
   email,
   roles,
   firstName,
@@ -107,26 +108,28 @@ schema.statics.sanitizeInput = ({
   roles,
   firstName,
   lastName,
-});
+}), 'use validation');
 
-schema.statics.sanitizeOutput = ({
-  _id: id,
-  email,
-  roles,
-  firstName,
-  lastName,
-  isVerified,
-  createdAt,
-  updatedAt,
-}) => ({
-  id,
-  email,
-  roles,
-  firstName,
-  lastName,
-  isVerified,
-  createdAt,
-  updatedAt,
-});
+schema.methods.toJSON = function toJSON(opts) {
+  const {
+    password,
+    token,
+    verifToken,
+    emailToVerify,
+
+    _id: id,
+    ...rest
+  } = this.toObject(opts);
+  return {
+    id,
+    ...rest,
+  };
+};
+
+schema.statics.sanitizeOutput = deprecate((user) => {
+  const json = user.toJSON();
+  const { _id: id } = json;
+  return { ...json, id };
+}, 'toJSON should be altered instead');
 
 module.exports = schema;
