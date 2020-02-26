@@ -1,4 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
+const crypto = require('crypto');
 const {
   httperrors,
   Router,
@@ -12,6 +13,31 @@ const TwoFAStartegy = require('passport-2fa-totp').Strategy;
 const GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
 
 const bearer = passport.authenticate('bearer', { session: false });
+
+const randomStr = (len = 12) => {
+  const arr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let ans = '';
+  for (let i = len; i > 0; i -= 1) {
+    ans += arr[Math.floor(Math.random() * arr.length)];
+  }
+  return ans;
+};
+
+const generateCodes = (count = 10, secret = process.env.EAZIN_OTP_BACKUP_SECRET) => {
+  const returned = {
+    plain: [],
+    hashed: [],
+  };
+  for (let c = 0; c < count; c += 1) {
+    const code = randomStr();
+    returned.hashed.push(crypto.createHmac('sha256', secret || 'sl1ghtlyUns4f3')
+      .update(code)
+      .digest('hex')
+      .toString());
+    returned.plain.push(code);
+  }
+  return returned;
+};
 
 const router = Router();
 router.get('/setup',
@@ -45,9 +71,7 @@ router.post('/verify',
   (req, res, next) => {
     const {
       user,
-      body: {
-        code,
-      },
+      body: { code },
     } = req;
 
     if (!code) {
@@ -68,9 +92,14 @@ router.post('/verify',
 
     user.totp.secret = user.totp.secretVerification;
     user.totp.secretVerification = null;
+    const backupCodes = generateCodes(10);
+    user.totp.backupCodes = backupCodes.hashed;
+
     user.save((err) => {
       if (err) return next(err);
-      res.status(204).end();
+      res.status(200).send({
+        backupCodes: backupCodes.plain,
+      });
     });
   });
 
@@ -96,9 +125,20 @@ module.exports = {
             type: new mongoose.Schema({
               secret: { type: String, default: null },
               secretVerification: { type: String, default: null },
+              backupCodes: [{
+                type: String,
+                default: null,
+              }],
             }),
             default: () => ({}),
           },
+        });
+
+        const { toJSON: original } = schema.methods;
+        schema.method('toJSON', function toJSON(opts) {
+          const result = original ? original.call(this) : this.toObject(opts);
+          result.totp = !!result.totp.secret;
+          return result;
         });
       },
     },
@@ -126,7 +166,7 @@ module.exports = {
             return done(userErr);
           }
 
-          if (!req.body.code) {
+          if (user.totp.secret && !req.body.code) {
             const missingCodeError = httperrors.BadRequest('Missing 2FA code');
             missingCodeError.fields = {
               code: '2FA code is required',
@@ -140,20 +180,34 @@ module.exports = {
 
             if (!user.totp.secret) {
               req.res.send({
-                ...User.sanitizeOutput(user),
+                ...user.toJSON(),
                 token: user.token,
               });
             } else {
+              const hashed = crypto.createHmac('sha256', process.env.EAZIN_OTP_BACKUP_SECRET || 'sl1ghtlyUns4f3')
+                .update(req.body.code)
+                .digest('hex')
+                .toString();
+              const idx = user.totp.backupCodes.indexOf(hashed);
+
+              if (idx > -1) {
+                user.totp.backupCodes.splice(idx, 1);
+                user.save()
+                  .then(() => req.res.send({
+                    ...user.toJSON(),
+                    token: user.token,
+                  }))
+                  .catch(done);
+                return;
+              }
               done(null, user);
             }
           });
         });
       }, (req, user, done) => {
-        if (!user.totp.secret) {
-          done(new Error('Google Authenticator not set'));
-        } else {
-          done(null, GoogleAuthenticator.decodeSecret(user.totp.secret), 30);
-        }
+        const decoded = GoogleAuthenticator.decodeSecret(user.totp.secret);
+
+        done(null, decoded, 30);
       }));
     },
   ],
