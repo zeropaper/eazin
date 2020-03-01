@@ -19,10 +19,8 @@ import twoFA from '../dev/2fa/ui';
 import kitchenSink from '../dev/kitchen-sink/ui';
 import organisations from '../dev/organisations/ui';
 import groups from '../dev/groups/ui';
-import docs from '../dev/docs/ui';
 import activities from '../dev/activities/ui';
 import clients from '../dev/clients/ui';
-import repositories from '../dev/repositories/ui';
 
 import BreadCrumbs from './BreadCrumbs';
 import EmptyFallback from './EmptyFallback';
@@ -100,8 +98,6 @@ export default () => (
       clients,
       groups,
       organisations,
-      repositories,
-      docs,
       kitchenSink,
     }}
   />
