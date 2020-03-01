@@ -1,7 +1,27 @@
+/* eslint-disable react/prop-types */
 import { stringify as toQuerystring } from 'querystring';
 import React from 'react';
 
 import { queryAPI, Table, TimeAgo } from 'eazin-core/ui';
+import { withStyles } from '@material-ui/core';
+
+const styles = () => ({
+  root: {
+    flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    '& > div': {
+      flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    '& > div > div:nth-child(2)': {
+      flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
+});
 
 class ClientsView extends React.Component {
   state = {
@@ -87,27 +107,30 @@ class ClientsView extends React.Component {
   );
 
   render() {
+    const { classes } = this.props;
     return (
-      <Table
-        title="API Clients"
-        columns={this.columns}
-        data={this.query}
-        editable={{
-          onRowAdd: this.handleRowAdd,
-          onRowUpdate: this.handleRowUpdate,
-          onRowDelete: this.handleRowDelete,
-        }}
-        options={{
-          search: false,
-          fAddiltering: true,
-          sorting: true,
-          pageSize: 10,
-          pageSizeOptions: [10, 20, 50, 100],
-        }}
-        detailPanel={this.renderdetailPanel}
-      />
+      <div className={classes.root}>
+        <Table
+          title="API Clients"
+          columns={this.columns}
+          data={this.query}
+          editable={{
+            onRowAdd: this.handleRowAdd,
+            onRowUpdate: this.handleRowUpdate,
+            onRowDelete: this.handleRowDelete,
+          }}
+          options={{
+            search: false,
+            fAddiltering: true,
+            sorting: true,
+            pageSize: 10,
+            pageSizeOptions: [10, 20, 50, 100],
+          }}
+          detailPanel={this.renderdetailPanel}
+        />
+      </div>
     );
   }
 }
 
-export default ClientsView;
+export default withStyles(styles)(ClientsView);
