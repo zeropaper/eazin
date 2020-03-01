@@ -23,7 +23,10 @@ const useStyles = makeStyles((theme) => createStyles({
 }));
 
 const PaletteColorPopper = ({
-  id, anchorEl, onPick, onClose,
+  id,
+  anchorEl,
+  onPick,
+  onClose,
 }) => {
   const handleClick = (color) => () => {
     onPick(color);
@@ -53,6 +56,17 @@ const PaletteColorPopper = ({
       </ClickAwayListener>
     </Popper>
   );
+};
+
+PaletteColorPopper.propTypes = {
+  id: PropTypes.string.isRequired,
+  anchorEl: PropTypes.node,
+  onPick: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+PaletteColorPopper.defaultProps = {
+  anchorEl: null,
 };
 
 const PaletteColorPicker = (props) => {
@@ -107,6 +121,9 @@ const PaletteColorPicker = (props) => {
 PaletteColorPicker.propTypes = {
   field: PropTypes.string.isRequired,
   initialValue: PropTypes.string,
+  api: PropTypes.shape({
+    setValue: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 PaletteColorPicker.defaultProps = {
