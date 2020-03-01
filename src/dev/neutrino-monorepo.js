@@ -48,11 +48,12 @@ const hooks = (conf = {}) => (neutrino) => {
 
 const pkgToPackage = ({
   name,
-  dependencies,
+  peerDependencies,
 }, {
   optionalDependencies,
   husky,
   scripts,
+  dependencies,
   ...pkg
 }, version) => ({
   ...pkg,
@@ -62,7 +63,7 @@ const pkgToPackage = ({
     ...pkg.repository || {},
     directory: `${pkgSrcs}/${name}`,
   },
-  dependencies,
+  peerDependencies,
   main: 'server/index.js',
   module: 'ui/index.js',
   version,
@@ -73,13 +74,18 @@ const stripExt = (str) => {
   return parts.length > 1 ? parts.slice(0, -1).join('.') : str;
 };
 
-const packagePeerDependencies = (dependencies, available) => Object
+const packagePeerDependencies = (dependencies, available, projectName, currentVersion) => Object
   .keys(dependencies)
   .sort()
-  .reduce((deps, name) => ({
-    ...deps,
-    [name]: `^${available[name] || dependencies[name]}`,
-  }), {});
+  .reduce((deps, name) => {
+    const version = name.startsWith(projectName)
+      ? currentVersion
+      : `${available[name] || dependencies[name]}`;
+    return {
+      ...deps,
+      [name]: version,
+    };
+  }, {});
 
 const recurseDirComponent = (dir) => readdirSync(dir)
   .reduce((paths, filename) => {
@@ -173,7 +179,7 @@ module.exports = (neutrino, options) => () => {
 
       let content = pkgToPackage({
         name,
-        dependencies: packagePeerDependencies(basePkg.dependencies || {}, allDeps),
+        peerDependencies: packagePeerDependencies(basePkg.dependencies || {}, allDeps, pkg.name, lernaJSON.version),
       }, pkg, lernaJSON.version);
       content = `${JSON.stringify(content, null, 2)}\n`;
       wpWriteFile(compilation, `${pkg.name}-${name}/package.json`, content);
