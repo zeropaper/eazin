@@ -111,7 +111,10 @@ class FormBase extends React.Component {
     return values;
   };
 
-  setErrors = () => {};
+  setErrors = (errors = null, message = null, cb = () => {}) => this.setState({
+    error: message || (Object.keys(errors || {}).length && 'Some problems found'),
+    errors,
+  }, cb);
 
   registerFormAPI = (api) => {
     this.api = api;
@@ -156,7 +159,7 @@ class FormBase extends React.Component {
     failure: this.props.errorMessage || err.message,
   }), () => {
     const { onError, resetOnError } = this.props;
-    if (typeof onError === 'function') onError(err);
+    if (typeof onError === 'function') onError(err, this.setErrors, this.api);
     if (resetOnError && this.api) this.api.reset();
     // throw err;
   });
