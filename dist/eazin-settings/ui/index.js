@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 206);
+/******/ 	return __webpack_require__(__webpack_require__.s = 213);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,7 +103,7 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ 139:
+/***/ 138:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -175,35 +175,35 @@ var restore = function restore() {
 
 /***/ }),
 
-/***/ 14:
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-
-/***/ 141:
+/***/ 140:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/IconButton");
 
 /***/ }),
 
-/***/ 142:
+/***/ 141:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/icons/InvertColors");
 
 /***/ }),
 
-/***/ 143:
+/***/ 142:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/icons/Settings");
 
 /***/ }),
 
-/***/ 153:
+/***/ 15:
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+
+/***/ 154:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -266,20 +266,20 @@ var mapStateToProps = function mapStateToProps(_ref2) {
 
 /***/ }),
 
-/***/ 154:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(141);
+/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(140);
 /* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(142);
+/* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(141);
 /* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
+/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
 
 
 
@@ -319,14 +319,14 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
-/***/ 155:
+/***/ 156:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(143);
+/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(142);
 /* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__);
@@ -353,26 +353,26 @@ module.exports = require("core-js/modules/es.array.filter");
 
 /***/ }),
 
-/***/ 206:
+/***/ 213:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(207);
+module.exports = __webpack_require__(214);
 
 
 /***/ }),
 
-/***/ 207:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _settings_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(139);
+/* harmony import */ var _settings_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(138);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "restore", function() { return _settings_reducer__WEBPACK_IMPORTED_MODULE_0__["restore"]; });
 
-/* harmony import */ var _SettingsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(153);
-/* harmony import */ var _SettingsHeaderLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(154);
-/* harmony import */ var _SettingsDrawer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(155);
-/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(48);
+/* harmony import */ var _SettingsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
+/* harmony import */ var _SettingsHeaderLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(155);
+/* harmony import */ var _SettingsDrawer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(156);
+/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return _settings_actions__WEBPACK_IMPORTED_MODULE_4__; });
 
 
@@ -413,7 +413,7 @@ module.exports = require("core-js/modules/es.symbol");
 
 /***/ }),
 
-/***/ 48:
+/***/ 49:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

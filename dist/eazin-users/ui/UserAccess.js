@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 217);
+/******/ 	return __webpack_require__(__webpack_require__.s = 226);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -124,7 +124,7 @@ var UserPropTypes = {
 
 /***/ }),
 
-/***/ 14:
+/***/ 15:
 /***/ (function(module, exports) {
 
 module.exports = require("react-redux");
@@ -139,7 +139,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapStateToProps", function() { return mapStateToProps; });
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(14);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(15);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _user_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(108);
 
@@ -153,7 +153,7 @@ var UserAccess = function UserAccess(_ref) {
       renderUnverified = _ref.renderUnverified,
       renderForRole = _ref.renderForRole;
   if (!user || !user.isVerified) return renderUnverified && renderUnverified() || null;
-  if (user.isAdmin) return renderAdmin() || null;
+  if (typeof renderAdmin === 'function' && user.isAdmin) return renderAdmin() || null;
   if (renderForRole) return renderForRole(user.roles) || null;
   return render() || null;
 };
@@ -181,7 +181,7 @@ var mapStateToProps = function mapStateToProps(_ref2) {
 
 /***/ }),
 
-/***/ 217:
+/***/ 226:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(151);

@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 177);
+/******/ 	return __webpack_require__(__webpack_require__.s = 184);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,15 +103,15 @@ module.exports = require("core-js/modules/es.array.concat");
 
 /***/ }),
 
-/***/ 177:
+/***/ 184:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(60);
+module.exports = __webpack_require__(61);
 
 
 /***/ }),
 
-/***/ 60:
+/***/ 61:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -127,14 +127,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   return {
     root: {
-      width: '20vw',
       display: 'flex',
       flexDirection: 'column',
       flexGrow: 1,
       justifyContent: 'space-between'
     },
     top: {
-      maxWidth: '100%'
+      maxWidth: '100%',
+      padding: 0
     },
     bottom: {
       margin: theme.spacing(1)

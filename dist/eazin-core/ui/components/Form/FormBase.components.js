@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 171);
+/******/ 	return __webpack_require__(__webpack_require__.s = 178);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -100,6 +100,13 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ (function(module, exports) {
 
 module.exports = require("react");
+
+/***/ }),
+
+/***/ 102:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/web.timers");
 
 /***/ }),
 
@@ -124,7 +131,7 @@ module.exports = require("core-js/modules/es.array.concat");
 
 /***/ }),
 
-/***/ 15:
+/***/ 14:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core");
@@ -145,10 +152,10 @@ module.exports = require("core-js/modules/web.dom-collections.iterator");
 
 /***/ }),
 
-/***/ 171:
+/***/ 178:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(76);
+module.exports = __webpack_require__(75);
 
 
 /***/ }),
@@ -223,7 +230,7 @@ module.exports = require("core-js/modules/es.regexp.to-string");
 
 /***/ }),
 
-/***/ 39:
+/***/ 33:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.string.trim");
@@ -262,7 +269,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(11);
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(39);
+/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(33);
 /* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(8);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11__);
@@ -270,7 +277,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(77);
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(76);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_14__);
 
 
@@ -310,8 +317,7 @@ var Fields = function Fields(_ref) {
       state = _ref.state,
       api = _ref.api,
       fieldClassName = _ref.fieldClassName,
-      Components = _ref.components,
-      component = _ref.component;
+      Components = _ref.components;
   return Object.keys(fields).map(function (field) {
     var props = fields[field];
     var type = props.type,
@@ -319,7 +325,8 @@ var Fields = function Fields(_ref) {
         _props$fields = props.fields,
         subFields = _props$fields === void 0 ? {} : _props$fields,
         className = props.className,
-        access = props.access;
+        access = props.access,
+        Component = props.component;
     if (!checkAccess(access, state.values)) return null;
     var subField = prefix ? "".concat(prefix, ".").concat(field) : field;
     var currentFieldClassName = "".concat(fieldClassName || '', " ").concat(className || '').trim();
@@ -336,11 +343,11 @@ var Fields = function Fields(_ref) {
     });
 
     if (typeof component === 'string') {
-      var Comp = Components[component];
+      var Comp = Components[Component];
       return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Comp, _objectSpread({}, componentProps));
     }
 
-    if (component) return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("component", _objectSpread({}, componentProps));
+    if (Component) return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Component, _objectSpread({}, componentProps));
     if (type === 'fieldset') return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Components.FieldSet, _objectSpread({}, componentProps));
     if (type === 'checkbox') return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Components.CheckBox, _objectSpread({}, componentProps));
 
@@ -368,7 +375,7 @@ module.exports = require("@material-ui/core/CircularProgress");
 
 /***/ }),
 
-/***/ 43:
+/***/ 44:
 /***/ (function(module, exports) {
 
 module.exports = require("informed");
@@ -396,7 +403,7 @@ module.exports = require("core-js/modules/es.object.get-own-property-descriptor"
 
 /***/ }),
 
-/***/ 63:
+/***/ 64:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -433,11 +440,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(17);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(92);
+/* harmony import */ var core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(102);
 /* harmony import */ var core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(15);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(14);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(26);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_19__);
@@ -495,9 +502,12 @@ var styles = function styles(theme) {
   return {
     root: {
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       justifyContent: 'flex-end',
+      justifySelf: 'flex-end',
+      flexGrow: 1,
       '& > button': {
+        flexGrow: 0,
         marginLeft: theme.spacing(2)
       }
     }
@@ -667,7 +677,7 @@ ActionButtons.defaultProps = {
 
 /***/ }),
 
-/***/ 64:
+/***/ 65:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -734,7 +744,7 @@ FieldSet.defaultProps = {
 
 /***/ }),
 
-/***/ 65:
+/***/ 66:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -759,7 +769,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(43);
+/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(44);
 /* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(informed__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(88);
 /* harmony import */ var _material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_TextField__WEBPACK_IMPORTED_MODULE_11__);
@@ -884,7 +894,7 @@ module.exports = require("@material-ui/core/MenuItem");
 
 /***/ }),
 
-/***/ 76:
+/***/ 75:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -892,16 +902,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(41);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Fields", function() { return _Fields__WEBPACK_IMPORTED_MODULE_0__["default"]; });
 
-/* harmony import */ var _FieldSet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(64);
+/* harmony import */ var _FieldSet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(65);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "FieldSet", function() { return _FieldSet__WEBPACK_IMPORTED_MODULE_1__["default"]; });
 
 /* harmony import */ var _CheckBox__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(91);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "CheckBox", function() { return _CheckBox__WEBPACK_IMPORTED_MODULE_2__["default"]; });
 
-/* harmony import */ var _TextField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(65);
+/* harmony import */ var _TextField__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(66);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "TextField", function() { return _TextField__WEBPACK_IMPORTED_MODULE_3__["default"]; });
 
-/* harmony import */ var _ActionButtons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(63);
+/* harmony import */ var _ActionButtons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(64);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "Buttons", function() { return _ActionButtons__WEBPACK_IMPORTED_MODULE_4__["default"]; });
 
 
@@ -912,7 +922,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 77:
+/***/ 76:
 /***/ (function(module, exports) {
 
 module.exports = require("lodash.get");
@@ -998,7 +1008,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(43);
+/* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(44);
 /* harmony import */ var informed__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(informed__WEBPACK_IMPORTED_MODULE_9__);
 /* harmony import */ var _material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(83);
 /* harmony import */ var _material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Checkbox__WEBPACK_IMPORTED_MODULE_10__);
@@ -1110,13 +1120,6 @@ CheckBox.defaultProps = {
   fullWidth: null
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object(informed__WEBPACK_IMPORTED_MODULE_9__["asField"])(CheckBox));
-
-/***/ }),
-
-/***/ 92:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/web.timers");
 
 /***/ })
 

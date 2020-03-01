@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 169);
+/******/ 	return __webpack_require__(__webpack_require__.s = 176);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -131,18 +131,18 @@ module.exports = require("core-js/modules/es.array.iterator");
 
 /***/ }),
 
-/***/ 169:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(64);
-
-
-/***/ }),
-
 /***/ 17:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/web.dom-collections.iterator");
+
+/***/ }),
+
+/***/ 176:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(65);
+
 
 /***/ }),
 
@@ -181,7 +181,7 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 39:
+/***/ 33:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.string.trim");
@@ -220,7 +220,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(11);
 /* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(39);
+/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(33);
 /* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_10__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(8);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_11__);
@@ -228,7 +228,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(77);
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(76);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_14__);
 
 
@@ -268,8 +268,7 @@ var Fields = function Fields(_ref) {
       state = _ref.state,
       api = _ref.api,
       fieldClassName = _ref.fieldClassName,
-      Components = _ref.components,
-      component = _ref.component;
+      Components = _ref.components;
   return Object.keys(fields).map(function (field) {
     var props = fields[field];
     var type = props.type,
@@ -277,7 +276,8 @@ var Fields = function Fields(_ref) {
         _props$fields = props.fields,
         subFields = _props$fields === void 0 ? {} : _props$fields,
         className = props.className,
-        access = props.access;
+        access = props.access,
+        Component = props.component;
     if (!checkAccess(access, state.values)) return null;
     var subField = prefix ? "".concat(prefix, ".").concat(field) : field;
     var currentFieldClassName = "".concat(fieldClassName || '', " ").concat(className || '').trim();
@@ -294,11 +294,11 @@ var Fields = function Fields(_ref) {
     });
 
     if (typeof component === 'string') {
-      var Comp = Components[component];
+      var Comp = Components[Component];
       return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Comp, _objectSpread({}, componentProps));
     }
 
-    if (component) return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("component", _objectSpread({}, componentProps));
+    if (Component) return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Component, _objectSpread({}, componentProps));
     if (type === 'fieldset') return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Components.FieldSet, _objectSpread({}, componentProps));
     if (type === 'checkbox') return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Components.CheckBox, _objectSpread({}, componentProps));
 
@@ -333,7 +333,7 @@ module.exports = require("core-js/modules/es.object.get-own-property-descriptor"
 
 /***/ }),
 
-/***/ 64:
+/***/ 65:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -407,7 +407,7 @@ module.exports = require("core-js/modules/es.object.get-own-property-descriptors
 
 /***/ }),
 
-/***/ 77:
+/***/ 76:
 /***/ (function(module, exports) {
 
 module.exports = require("lodash.get");

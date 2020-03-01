@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 167);
+/******/ 	return __webpack_require__(__webpack_require__.s = 174);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,6 +103,13 @@ module.exports = require("react");
 
 /***/ }),
 
+/***/ 102:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/web.timers");
+
+/***/ }),
+
 /***/ 11:
 /***/ (function(module, exports) {
 
@@ -110,7 +117,7 @@ module.exports = require("core-js/modules/es.object.to-string");
 
 /***/ }),
 
-/***/ 15:
+/***/ 14:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core");
@@ -124,18 +131,18 @@ module.exports = require("core-js/modules/es.array.iterator");
 
 /***/ }),
 
-/***/ 167:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(63);
-
-
-/***/ }),
-
 /***/ 17:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/web.dom-collections.iterator");
+
+/***/ }),
+
+/***/ 174:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(64);
+
 
 /***/ }),
 
@@ -237,7 +244,7 @@ module.exports = require("core-js/modules/es.object.get-own-property-descriptor"
 
 /***/ }),
 
-/***/ 63:
+/***/ 64:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -274,11 +281,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_14__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(17);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(92);
+/* harmony import */ var core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(102);
 /* harmony import */ var core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_timers__WEBPACK_IMPORTED_MODULE_16__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_17__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(15);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(14);
 /* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(26);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_19__);
@@ -336,9 +343,12 @@ var styles = function styles(theme) {
   return {
     root: {
       display: 'flex',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       justifyContent: 'flex-end',
+      justifySelf: 'flex-end',
+      flexGrow: 1,
       '& > button': {
+        flexGrow: 0,
         marginLeft: theme.spacing(2)
       }
     }
@@ -526,13 +536,6 @@ module.exports = require("core-js/modules/web.dom-collections.for-each");
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/styles/withStyles");
-
-/***/ }),
-
-/***/ 92:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/web.timers");
 
 /***/ })
 
