@@ -18,10 +18,12 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1",
-    "httperrors": "^2.3.0",
-    "passport-http-bearer": "^1.0.1"
+  "peerDependencies": {
+    "eazin-core": "0.0.1-wip.14",
+    "eazin-mailer": "0.0.1-wip.14",
+    "express": "4.17.1",
+    "httperrors": "2.3.0",
+    "passport-http-bearer": "1.0.1"
   },
   "main": "server/index.js",
   "module": "ui/index.js"

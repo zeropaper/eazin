@@ -18,14 +18,14 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
-  "dependencies": {
-    "eazin-core": "^file:./dist/eazin-core",
-    "express": "^4.17.1",
-    "httperrors": "^2.3.0",
-    "mongoose": "^5.8.11",
-    "notp": "^*",
-    "passport-totp-totp": "^*",
-    "totp-generator": "^0.0.7"
+  "peerDependencies": {
+    "eazin-core": "0.0.1-wip.14",
+    "express": "4.17.1",
+    "httperrors": "2.3.0",
+    "mongoose": "5.8.11",
+    "notp": "2.0.3",
+    "passport-2fa-totp": "0.0.1",
+    "totp-generator": "0.0.7"
   },
   "main": "server/index.js",
   "module": "ui/index.js"

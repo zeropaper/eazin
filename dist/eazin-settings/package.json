@@ -18,9 +18,9 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
-  "dependencies": {
-    "express": "^4.17.1",
-    "httperrors": "^2.3.0"
+  "peerDependencies": {
+    "express": "4.17.1",
+    "httperrors": "2.3.0"
   },
   "main": "server/index.js",
   "module": "ui/index.js"

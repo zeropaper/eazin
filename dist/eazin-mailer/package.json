@@ -18,8 +18,8 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
-  "dependencies": {
-    "nodemailer": "^6.4.2"
+  "peerDependencies": {
+    "nodemailer": "6.4.2"
   },
   "main": "server/index.js",
   "module": "ui/index.js"
