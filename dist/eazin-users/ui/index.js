@@ -330,8 +330,7 @@ var clearUser = function clearUser() {
 /***/ }),
 /* 41 */,
 /* 42 */,
-/* 43 */,
-/* 44 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -379,6 +378,7 @@ var resetSettings = function resetSettings() {
 };
 
 /***/ }),
+/* 44 */,
 /* 45 */,
 /* 46 */,
 /* 47 */,
@@ -872,7 +872,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(9);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _user_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(40);
-/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(44);
+/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(43);
 /* harmony import */ var _AnonForms_Links__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(70);
 /* harmony import */ var _user_validators__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(38);
 
@@ -1076,7 +1076,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var querystring__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(querystring__WEBPACK_IMPORTED_MODULE_13__);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(9);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(44);
+/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(43);
 /* harmony import */ var _user_actions__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(40);
 /* harmony import */ var _user_validators__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(38);
 
@@ -1214,7 +1214,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_19__);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(9);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(44);
+/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(43);
 /* harmony import */ var _user_actions__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(40);
 
 
@@ -2518,7 +2518,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "bootstrap", function() { return bootstrap; });
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(9);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(44);
+/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(43);
 /* harmony import */ var _user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(40);
 /* harmony import */ var _users_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(143);
 /* harmony import */ var _user_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(158);

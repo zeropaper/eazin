@@ -19,11 +19,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepack": "node ../src/dev/prepack.js"
+    "prepack": "node ../../src/dev/prepack.js"
   },
   "peerDependencies": {
-    "eazin-core": "0.0.1-wip.18",
-    "eazin-mailer": "0.0.1-wip.18",
+    "eazin-core": "0.0.1-wip.19",
+    "eazin-mailer": "0.0.1-wip.19",
     "express": "4.17.1",
     "httperrors": "2.3.0",
     "passport-http-bearer": "1.0.1"

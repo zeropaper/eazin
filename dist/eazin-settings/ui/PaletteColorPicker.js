@@ -245,7 +245,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_Popper__WEBPACK_IMPORTED_MODULE_17___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Popper__WEBPACK_IMPORTED_MODULE_17__);
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(77);
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_18__);
-/* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(43);
+/* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(45);
 /* harmony import */ var _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_colors__WEBPACK_IMPORTED_MODULE_19__);
 /* harmony import */ var _material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(166);
 /* harmony import */ var _material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_InputAdornment__WEBPACK_IMPORTED_MODULE_20__);
@@ -351,12 +351,11 @@ PaletteColorPopper.defaultProps = {
 };
 
 var PaletteColorPicker = function PaletteColorPicker(props) {
-  var classes = useStyles();
-  var val = props.initialValue;
-  console.info(val);
+  var classes = useStyles(); // const val = props.initialValue;
+  // console.info(val);
 
   var setValue = function setValue(newVal) {
-    console.info('new val', newVal, _material_ui_core_colors__WEBPACK_IMPORTED_MODULE_19__[newVal]);
+    // console.info('new val', newVal, colors[newVal]);
     props.api.setValue(newVal);
   };
 
@@ -429,7 +428,7 @@ module.exports = require("core-js/modules/es.symbol");
 
 /***/ }),
 
-/***/ 43:
+/***/ 45:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/colors");

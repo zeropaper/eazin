@@ -137,7 +137,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(141);
 /* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(44);
+/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43);
 
 
 
@@ -185,7 +185,7 @@ module.exports = __webpack_require__(155);
 
 /***/ }),
 
-/***/ 44:
+/***/ 43:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

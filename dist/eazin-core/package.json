@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepack": "node ../src/dev/prepack.js"
+    "prepack": "node ../../src/dev/prepack.js"
   },
   "peerDependencies": {
     "@material-ui/core": "4.9.1",
