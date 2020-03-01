@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "eazin-core": "*",
+    "mongoose": "*",
+    "notp": "*",
+    "passport-2fa-totp": "*",
+    "totp-generator": "*",
+    "express": "*",
+    "httperrors": "*"
+  }
+}

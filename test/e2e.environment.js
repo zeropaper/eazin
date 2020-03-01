@@ -18,6 +18,7 @@ const eazin = require('../src/packages/core/server');
 
 const plugins = [
   require('../src/packages/users/server'),
+  require('../src/packages/2fa/server'),
 
   require('../src/dev/groups/server'),
   require('../src/dev/organisations/server'),

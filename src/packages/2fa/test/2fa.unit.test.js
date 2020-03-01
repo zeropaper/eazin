@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const totp = require('totp-generator');
 const prepare = require('../../../../test/server/prepare-server');
 
-const usersPlugin = require('../../../packages/users/server');
+const usersPlugin = require('../../users/server');
 const twoFAPlugin = require('../server');
 
 const email = 'john@eazin.dev';

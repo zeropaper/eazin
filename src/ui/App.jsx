@@ -11,11 +11,11 @@ import {
   PluginPoint,
 } from 'eazin-core/ui';
 import users, { UserAccess, AnonForms } from 'eazin-users/ui';
-
 import landing from 'eazin-landing/ui';
 import settings from 'eazin-settings/ui';
+import twoFA from 'eazin-2fa/ui';
+import TwoFALoginForm from 'eazin-2fa/ui/TwoFALoginForm';
 
-import twoFA from '../dev/2fa/ui';
 import kitchenSink from '../dev/kitchen-sink/ui';
 import organisations from '../dev/organisations/ui';
 import groups from '../dev/groups/ui';
@@ -24,7 +24,6 @@ import clients from '../dev/clients/ui';
 
 import BreadCrumbs from './BreadCrumbs';
 import EmptyFallback from './EmptyFallback';
-import TwoFALoginForm from '../dev/2fa/ui/TwoFALoginForm';
 
 const App = ({ children, plugins, siteName }) => (plugins && (
   <AppContextProvider siteName={siteName} plugins={plugins}>

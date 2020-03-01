@@ -9,7 +9,7 @@ import { setUser } from 'eazin-users/ui/user.actions';
 import Links from 'eazin-users/ui/AnonForms.Links';
 import { validMail } from 'eazin-users/ui/user.validators';
 
-import { setSetting } from '../../../packages/settings/ui/settings.actions';
+import { setSetting } from '../../settings/ui/settings.actions';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 
