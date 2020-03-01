@@ -2,20 +2,23 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const packageJSON = require('../../package.json');
+const { version: lernaVersion } = require('../../lerna.json');
 
 fs.readdirSync(path.resolve(__dirname, '../../dist')).forEach((pkgName) => {
   const jsonFilepath = path.resolve(__dirname, '../../dist', pkgName, 'package.json');
   const pkg = fs.readJSONSync(jsonFilepath);
-  console.info(pkg);
-  fs.writeFileSync(jsonFilepath, `${JSON.stringify({
+  const content = {
     ...pkg,
-    peerDependencies: Object.keys(pkg.peerDependencies).reduce((obj, key) => ({
-      ...obj,
-      [key]: key.startsWith(packageJSON.name)
-        ? pkg.version
-        : pkg.peerDependencies[key],
-    }), {}),
-  }, null, 2)}\n`);
-});
+    peerDependencies: Object.keys(pkg.peerDependencies)
+      .reduce((deps, name) => ({
+        ...deps,
+        [name]: name.startsWith(packageJSON.name)
+          ? pkg.version
+          : pkg.peerDependencies[name],
+      }), {}),
+  };
 
-console.info('@#@@######### POST PACK');
+  console.info('PRE', lernaVersion, pkg.version, pkg.peerDependencies);
+
+  fs.writeFileSync(jsonFilepath, `${JSON.stringify(content, null, 2)}\n`);
+});
