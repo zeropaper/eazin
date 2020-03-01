@@ -42,12 +42,12 @@ const generateCodes = (count = 10, secret = process.env.EAZIN_OTP_BACKUP_SECRET)
 const router = Router();
 router.get('/setup',
   bearer,
-  requestHook('request 2fa status'),
+  requestHook('request totp status'),
   (req, res) => res.send(!!(req.user.totp || {}).secret));
 
 router.post('/setup',
   bearer,
-  requestHook('request 2fa secret'),
+  requestHook('request totp secret'),
   (req, res, next) => {
     const siteName = req.app.get('siteName');
     if (!siteName) return next(httperrors.InternalServerError('Missing siteName'));
@@ -64,7 +64,7 @@ router.post('/setup',
 
 router.post('/verify',
   bearer,
-  requestHook('verify 2fa secret'),
+  requestHook('verify totp secret'),
   (req, res, next) => {
     const {
       user,
@@ -102,7 +102,7 @@ router.post('/verify',
 
 router.delete('/',
   bearer,
-  requestHook('clear 2fa'),
+  requestHook('clear totp'),
   (req, res, next) => {
     req.user.totp.secret = null;
     req.user.totp.secretVerification = null;
@@ -144,7 +144,7 @@ module.exports = {
     () => {
       const User = mongoose.model('User');
 
-      passport.use('2fa-node', new TwoFAStartegy({
+      passport.use('totp-node', new TwoFAStartegy({
         usernameField: 'email',
         passwordField: 'password',
         codeField: 'code',
@@ -210,7 +210,7 @@ module.exports = {
   ],
   apiRouter: [
     {
-      path: '/2fa',
+      path: '/totp',
       router,
     },
   ],
@@ -218,7 +218,7 @@ module.exports = {
     (description, req, res, next) => {
       if (!req.originalUrl.endsWith('/user/login')) return next();
 
-      passport.authenticate('2fa-node')(req, res, next);
+      passport.authenticate('totp-node')(req, res, next);
     },
   ],
 };

@@ -59,10 +59,10 @@ describe('Two Factor Authentication', () => {
   describe('setup', () => {
     let secret;
 
-    it('requires a bearer authentication', () => post('/api/2fa/setup').expect(401));
+    it('requires a bearer authentication', () => post('/api/totp/setup').expect(401));
 
     it('provides a QR code', async () => {
-      const res = await post('/api/2fa/setup')
+      const res = await post('/api/totp/setup')
         .set('Authorization', `Bearer ${user.token}`)
         .expect(200);
 
@@ -79,7 +79,7 @@ describe('Two Factor Authentication', () => {
     it('verifies the QR code', async () => {
       const code = totp(`${secret}AAA`);
 
-      const res = await post('/api/2fa/verify')
+      const res = await post('/api/totp/verify')
         .set('Authorization', `Bearer ${user.token}`)
         .send({ code });
 
@@ -141,7 +141,7 @@ describe('Two Factor Authentication', () => {
         user = await User.findById(user._id);
       });
 
-      it('is generated at 2fa setup', async () => {
+      it('is generated at totp setup', async () => {
         expect(user.totp.backupCodes).toHaveLength(10);
         backupCodes.forEach((code) => expect(code).toHaveLength(12));
       });

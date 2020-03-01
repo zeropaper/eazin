@@ -1,5 +1,5 @@
 {
-  "name": "eazin-2fa",
+  "name": "eazin-totp",
   "main": "server/index.js",
   "module": "ui/index.js",
   "private": true

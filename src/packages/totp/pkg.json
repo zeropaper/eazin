@@ -3,7 +3,7 @@
     "eazin-core": "*",
     "mongoose": "*",
     "notp": "*",
-    "passport-2fa-totp": "*",
+    "passport-totp-totp": "*",
     "totp-generator": "*",
     "express": "*",
     "httperrors": "*"

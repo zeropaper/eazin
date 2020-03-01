@@ -13,8 +13,8 @@ import {
 import users, { UserAccess, AnonForms } from 'eazin-users/ui';
 import landing from 'eazin-landing/ui';
 import settings from 'eazin-settings/ui';
-import twoFA from 'eazin-2fa/ui';
-import TwoFALoginForm from 'eazin-2fa/ui/TwoFALoginForm';
+import twoFA from 'eazin-totp/ui';
+import TwoFALoginForm from 'eazin-totp/ui/TwoFALoginForm';
 
 import kitchenSink from '../dev/kitchen-sink/ui';
 import organisations from '../dev/organisations/ui';

@@ -49,7 +49,7 @@ class TwoFASetupForm extends React.Component {
   async componentDidMount() {
     const { api: { get } } = this.props;
     try {
-      const setup = await get('/api/2fa/setup');
+      const setup = await get('/api/totp/setup');
       this.setState({ setup });
     } catch (err) {
       this.setState({ setup: false, error: err });
@@ -58,7 +58,7 @@ class TwoFASetupForm extends React.Component {
 
   clearSetup = () => {
     const { api: { delete: del } } = this.props;
-    del('/api/2fa')
+    del('/api/totp')
       .then(() => this.setState({ error: null, requested: false, setup: false }))
       .catch((err) => this.setState({ error: err, requested: false, setup: false }));
   };
@@ -74,7 +74,7 @@ class TwoFASetupForm extends React.Component {
     try {
       this.setState({
         requested: true,
-        info: await post('/api/2fa/setup'),
+        info: await post('/api/totp/setup'),
         setup: false,
         error: null,
       });
@@ -93,7 +93,7 @@ class TwoFASetupForm extends React.Component {
     const { api: { post } } = this.props;
     const { target: form } = evt;
     const code = form.querySelector('[name="code"]').value;
-    post('/api/2fa/verify', {
+    post('/api/totp/verify', {
       body: { code },
     })
       .then(() => this.setState({ setup: true }))
@@ -163,7 +163,7 @@ class TwoFASetupForm extends React.Component {
     }
 
     return (
-      <Wrapper title="Two-factors authentication" data-testid="2fa-setup">
+      <Wrapper title="Two-factors authentication" data-testid="totp-setup">
         <SetupAlert
           setup={!!setup}
           error={error}
