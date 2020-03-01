@@ -1,4 +1,5 @@
 {
+  "description": "eazin core",
   "name": "eazin-core",
   "main": "server/index.js",
   "module": "ui/index.js",
