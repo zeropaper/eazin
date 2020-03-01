@@ -19,54 +19,78 @@ const required = {
   validateOnChange: true,
   validateOnBlur: true,
 };
-const schema = {
-  email: {
-    label: 'Email',
-    type: 'email',
-    ...required,
-    validate: validMail,
-  },
-  password: {
-    label: 'Password',
-    type: 'password',
-    ...required,
-  },
-  code: {
-    label: 'Two-factor authentication',
-  },
+
+const TwoFALoginForm = ({ dispatch, history: { push } }) => {
+  const [needsCode, setNeedsCode] = React.useState(false);
+  // const [credentials, setCredentials] = React.useState(null);
+
+  return (
+    <>
+      <Typography variant="h5">Login</Typography>
+
+      <Form
+        method="post"
+        url="/api/user/login"
+        onSuccess={(data) => {
+          dispatch(setUser(data));
+          dispatch(setSetting('userToken', data.token));
+          push('/');
+        }}
+        onError={(err, setErrors) => {
+          setNeedsCode(needsCode || err.fields.code);
+          setErrors();
+        }}
+        fields={{
+          email: {
+            label: 'Email',
+            type: 'email',
+            ...required,
+            validate: validMail,
+            InputProps: {
+              readOnly: needsCode,
+            },
+          },
+          password: {
+            label: 'Password',
+            type: 'password',
+            ...required,
+            InputProps: {
+              readOnly: needsCode,
+            },
+          },
+          code: {
+            disabled: !needsCode,
+            ...(needsCode ? {
+              // required: true,
+              // error: null,
+              validate: false,
+              placeholder: '654321',
+              InputLabelProps: {
+                shrink: true,
+              },
+            } : {}),
+            label: 'Two-factor authentication',
+          },
+        }}
+        buttons={({ invalid, pristine, loading }) => [
+          {
+            text: 'Login',
+            type: 'submit',
+            disabled: invalid || pristine || loading,
+          },
+        ]}
+      />
+
+      <Links current="login" />
+    </>
+  );
 };
 
-const UserLogin = ({ dispatch, history: { push } }) => (
-  <>
-    <Typography variant="h5">Login</Typography>
-
-    <Form
-      method="post"
-      url="/api/user/login"
-      onSuccess={(data) => {
-        dispatch(setUser(data));
-        dispatch(setSetting('userToken', data.token));
-        push('/');
-      }}
-      fields={schema}
-      buttons={({ invalid, pristine, loading }) => [
-        {
-          text: 'Login',
-          type: 'submit',
-          disabled: invalid || pristine || loading,
-        },
-      ]}
-    />
-
-    <Links current="login" />
-  </>
-);
-
-UserLogin.propTypes = {
+TwoFALoginForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default connect(() => ({}))(UserLogin);
+export default connect(() => ({}))(TwoFALoginForm);
