@@ -71,10 +71,10 @@ PaletteColorPopper.defaultProps = {
 
 const PaletteColorPicker = (props) => {
   const classes = useStyles();
-  const val = props.initialValue;
-  console.info(val);
+  // const val = props.initialValue;
+  // console.info(val);
   const setValue = (newVal) => {
-    console.info('new val', newVal, colors[newVal]);
+    // console.info('new val', newVal, colors[newVal]);
     props.api.setValue(newVal);
   };
 
