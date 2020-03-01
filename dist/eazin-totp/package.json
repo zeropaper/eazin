@@ -1,6 +1,6 @@
 {
   "private": false,
-  "name": "eazin-mailer",
+  "name": "eazin-totp",
   "version": "0.0.1-wip.13",
   "description": "",
   "engines": {
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zeropaper/eazin.git",
-    "directory": "src/packages/mailer"
+    "directory": "src/packages/totp"
   },
   "author": {
     "name": "Valentin Vago",
@@ -19,7 +19,13 @@
   },
   "license": "MIT",
   "dependencies": {
-    "nodemailer": "^6.4.2"
+    "eazin-core": "^file:./dist/eazin-core",
+    "express": "^4.17.1",
+    "httperrors": "^2.3.0",
+    "mongoose": "^5.8.11",
+    "notp": "^*",
+    "passport-totp-totp": "^*",
+    "totp-generator": "^0.0.7"
   },
   "main": "server/index.js",
   "module": "ui/index.js"

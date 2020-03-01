@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("eazin-settings/ui/SettingsView", [], factory);
+		define("eazin-totp/ui/TwoFALoginForm", [], factory);
 	else if(typeof exports === 'object')
-		exports["eazin-settings/ui/SettingsView"] = factory();
+		exports["eazin-totp/ui/TwoFALoginForm"] = factory();
 	else
-		root["eazin-settings/ui/SettingsView"] = factory();
+		root["eazin-totp/ui/TwoFALoginForm"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 223);
+/******/ 	return __webpack_require__(__webpack_require__.s = 228);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,7 +103,57 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ 154:
+/***/ 15:
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+
+/***/ 171:
+/***/ (function(module, exports) {
+
+module.exports = require("eazin-users/ui/user.actions");
+
+/***/ }),
+
+/***/ 172:
+/***/ (function(module, exports) {
+
+module.exports = require("eazin-users/ui/AnonForms.Links");
+
+/***/ }),
+
+/***/ 173:
+/***/ (function(module, exports) {
+
+module.exports = require("eazin-users/ui/user.validators");
+
+/***/ }),
+
+/***/ 18:
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/core/Typography");
+
+/***/ }),
+
+/***/ 2:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.array.filter");
+
+/***/ }),
+
+/***/ 228:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(229);
+
+
+/***/ }),
+
+/***/ 229:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -120,12 +170,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(3);
 /* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(9);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(35);
+/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(8);
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(15);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(18);
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(9);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(171);
+/* harmony import */ var eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(172);
+/* harmony import */ var eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(173);
+/* harmony import */ var eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(44);
+
 
 
 
@@ -143,41 +207,70 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-var yesNo = function yesNo(bool) {
-  return bool ? 'yes' : 'no';
+
+
+
+
+
+
+var notEmpty = function notEmpty(val) {
+  return val && val.trim() ? undefined : 'A value is required';
 };
 
-var SettingsView = function SettingsView(_ref) {
-  var darkMode = _ref.darkMode;
-  return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, "Dark Mode:\xA0", yesNo(darkMode));
+var required = {
+  required: true,
+  validate: notEmpty,
+  validateOnChange: true,
+  validateOnBlur: true
+};
+var schema = {
+  email: _objectSpread({
+    label: 'Email',
+    type: 'email'
+  }, required, {
+    validate: eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_14__["validMail"]
+  }),
+  password: _objectSpread({
+    label: 'Password',
+    type: 'password'
+  }, required),
+  code: {
+    label: 'Two-factor authentication'
+  }
 };
 
-SettingsView.pageTitle = 'Settings';
-SettingsView.defaultProps = {
-  darkMode: null
+var UserLogin = function UserLogin(_ref) {
+  var dispatch = _ref.dispatch,
+      push = _ref.history.push;
+  return react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_8___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10___default.a, {
+    variant: "h5"
+  }, "Login"), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(eazin_core_ui__WEBPACK_IMPORTED_MODULE_11__["Form"], {
+    method: "post",
+    url: "/api/user/login",
+    onSuccess: function onSuccess(data) {
+      dispatch(Object(eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_12__["setUser"])(data));
+      dispatch(Object(_settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_15__["setSetting"])('userToken', data.token));
+      push('/');
+    },
+    fields: schema,
+    buttons: function buttons(_ref2) {
+      var invalid = _ref2.invalid,
+          pristine = _ref2.pristine,
+          loading = _ref2.loading;
+      return [{
+        text: 'Login',
+        type: 'submit',
+        disabled: invalid || pristine || loading
+      }];
+    }
+  }), react__WEBPACK_IMPORTED_MODULE_8___default.a.createElement(eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_13___default.a, {
+    current: "login"
+  }));
 };
 
-var mapStateToProps = function mapStateToProps(_ref2) {
-  var settings = _ref2.settings;
-  return _objectSpread({}, settings);
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(eazin_core_ui__WEBPACK_IMPORTED_MODULE_8__["connect"])(mapStateToProps)(SettingsView));
-
-/***/ }),
-
-/***/ 2:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.array.filter");
-
-/***/ }),
-
-/***/ 223:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(154);
-
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_9__["connect"])(function () {
+  return {};
+})(UserLogin));
 
 /***/ }),
 
@@ -188,10 +281,66 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
+/***/ 35:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.string.trim");
+
+/***/ }),
+
 /***/ 4:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.symbol");
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSetting", function() { return setSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetSetting", function() { return resetSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearSetting", function() { return clearSetting; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setSettings", function() { return setSettings; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resetSettings", function() { return resetSettings; });
+var setSetting = function setSetting(key, value) {
+  return {
+    type: 'SET_SETTING',
+    payload: {
+      key: key,
+      value: value
+    }
+  };
+};
+var resetSetting = function resetSetting(key) {
+  return {
+    type: 'RESET_SETTING',
+    payload: {
+      key: key
+    }
+  };
+};
+var clearSetting = function clearSetting(key) {
+  return {
+    type: 'CLEAR_SETTING',
+    payload: {
+      key: key
+    }
+  };
+};
+var setSettings = function setSettings(payload) {
+  return {
+    type: 'SET_SETTINGS',
+    payload: payload
+  };
+};
+var resetSettings = function resetSettings() {
+  return {
+    type: 'RESET_SETTINGS'
+  };
+};
 
 /***/ }),
 
