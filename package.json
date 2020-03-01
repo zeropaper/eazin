@@ -10,6 +10,8 @@
   "scripts": {
     "ngrok:dev": "ngrok http 5001",
     "prelerna:publish": "npm test && git add dist && git commit --no-verify --allow-empty -m \"core(dist) update dist builds\"",
+    "prepack": "node ./src/dev/prepack.js",
+    "postpack": "node ./src/dev/postpack.js",
     "lerna:publish": "lerna publish",
     "build:components:dev": "nodemon -e js,jsx,json,yml,yaml -w './src/packages/*/ui/**/*' -x 'npm run build'",
     "lint": "eslint src test stories",
