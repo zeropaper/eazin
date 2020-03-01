@@ -51,9 +51,6 @@ router.post('/setup',
   (req, res, next) => {
     const siteName = req.app.get('siteName');
     if (!siteName) return next(httperrors.InternalServerError('Missing siteName'));
-    if (req.user.totp.secretVerification) {
-      return next(httperrors.InternalServerError('2FA setup already in progress'));
-    }
 
     const info = GoogleAuthenticator.register(`${siteName} (${req.user.email})`);
     info.qr64 = `data:image/svg+xml;base64,${Buffer.from(info.qr).toString('base64')}`;
