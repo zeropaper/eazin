@@ -11,7 +11,7 @@ const UserAccess = ({
   renderForRole,
 }) => {
   if (!user || !user.isVerified) return (renderUnverified && renderUnverified()) || null;
-  if (user.isAdmin) return renderAdmin() || null;
+  if (typeof renderAdmin === 'function' && user.isAdmin) return renderAdmin() || null;
   if (renderForRole) return renderForRole(user.roles) || null;
   return render() || null;
 };
