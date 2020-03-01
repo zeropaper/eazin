@@ -17,7 +17,6 @@ const Fields = ({
   api,
   fieldClassName,
   components: Components,
-  component,
 }) => Object.keys(fields)
   .map((field) => {
     const props = fields[field];
@@ -28,6 +27,7 @@ const Fields = ({
       fields: subFields = {},
       className,
       access,
+      component: Component,
     } = props;
 
     if (!checkAccess(access, state.values)) return null;
@@ -48,11 +48,11 @@ const Fields = ({
     };
 
     if (typeof component === 'string') {
-      const Comp = Components[component];
+      const Comp = Components[Component];
       return <Comp {...componentProps} />;
     }
 
-    if (component) return <component {...componentProps} />;
+    if (Component) return <Component {...componentProps} />;
 
     if (type === 'fieldset') return <Components.FieldSet {...componentProps} />;
 
