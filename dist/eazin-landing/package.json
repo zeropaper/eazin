@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-landing",
-  "version": "0.0.1-wip.17",
+  "version": "0.0.1-wip.18",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
@@ -18,6 +18,9 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
+  "scripts": {
+    "prepack": "node ../src/dev/prepack.js"
+  },
   "peerDependencies": {
     "express": "4.17.1",
     "httperrors": "2.3.0"

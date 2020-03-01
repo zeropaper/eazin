@@ -18,6 +18,9 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
+  "scripts": {
+    "prepack": "node ../src/dev/prepack.js"
+  },
   "peerDependencies": {
     "express": "4.17.1",
     "httperrors": "2.3.0"
