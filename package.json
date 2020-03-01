@@ -99,7 +99,7 @@
     "passport": "0.4.1",
     "passport-2fa-totp": "0.0.1",
     "passport-http-bearer": "1.0.1",
-    "passport-local-mongoose": "5.0.1",
+    "passport-local-mongoose": "6.0.1",
     "prop-types": "15.7.2",
     "puppeteer": "2.1.1",
     "react": "16.12.0",
