@@ -10,6 +10,8 @@ const mailSend = require('eazin-mailer/server');
 
 const router = express.Router();
 
+const bearer = passport.authenticate('bearer', { session: false });
+
 const addUser = (additionMethod, req, res, next) => {
   if (!req.body) return next(new Error('No Body'));
 
@@ -46,7 +48,7 @@ const addUser = (additionMethod, req, res, next) => {
 };
 
 router.post('/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('<%= user.email %> invites <%= body.email %>'),
   (req, res, next) => addUser('invite', req, res, (err) => {
     if (err) return next(err);
@@ -123,8 +125,8 @@ router.post('/password',
       user.verifToken = null;
       await user.save();
       res.send({
+        ...user.toJSON(),
         token: user.token,
-        ...User.sanitizeOutput(user),
       });
     } catch (err) {
       next(err);
@@ -132,7 +134,7 @@ router.post('/password',
   });
 
 router.patch('/password',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('<%= user.email %> changes password'),
   (req, res, next) => {
     const { user, body: { current, password } } = req;
@@ -188,11 +190,10 @@ router.post('/email',
   });
 
 router.patch('/email',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('<%= body.email %> changes email'),
   (req, res, next) => {
     const { user, body: { email, token } } = req;
-    const { sanitizeOutput } = mongoose.model('User');
 
     if (token) {
       if (!user.emailToVerify) {
@@ -209,7 +210,7 @@ router.patch('/email',
 
       user.save((err) => {
         if (err) return next(err);
-        res.status(204).send(sanitizeOutput(user));
+        res.status(204).send(user);
       });
       return;
     }
@@ -248,7 +249,7 @@ router.post('/login',
   });
 
 router.get('/logout',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('logout'),
   (req, res) => {
     res.status(204);
@@ -259,24 +260,22 @@ router.get('/logout',
   });
 
 router.get('/me',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   (req, res) => {
     if (!req.user) return res.send({});
-    const User = mongoose.model('User');
-    return res.send(User.sanitizeOutput(req.user));
+    return res.send(req.user);
   });
 
 router.patch('/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   requestHook('update self'),
   (req, res, next) => {
     if (!req.user) return next(httperrors.Unauthorized());
-    const { sanitizeOutput } = mongoose.model('User');
     req.user.firstName = req.body.firstName;
     req.user.lastName = req.body.lastName;
     req.user.save((err) => {
       if (err) return next(err);
-      res.send(sanitizeOutput(req.user));
+      res.send(req.user);
     });
   });
 
