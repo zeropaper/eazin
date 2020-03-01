@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "eazin-totp",
-  "version": "0.0.1-wip.14",
+  "version": "0.0.1-wip.15",
   "description": "",
   "engines": {
     "npm": "^6.13.0",
