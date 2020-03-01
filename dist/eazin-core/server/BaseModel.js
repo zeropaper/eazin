@@ -1,9 +1,5 @@
 /* eslint-disable class-methods-use-this */
 module.exports = class EazinModelBase {
-  constructor(...args) {
-    console.info('new EazinModelBase', ...args);
-  }
-
   static get eazinModel() { return true; }
 
   get eazinDocument() { return true; }

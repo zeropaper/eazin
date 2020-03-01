@@ -2847,7 +2847,15 @@ var FormBase = /*#__PURE__*/function (_React$Component) {
       return values;
     };
 
-    _this.setErrors = function () {};
+    _this.setErrors = function () {
+      var errors = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var message = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      var cb = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : function () {};
+      return _this.setState({
+        error: message || Object.keys(errors || {}).length && 'Some problems found',
+        errors: errors
+      }, cb);
+    };
 
     _this.registerFormAPI = function (api) {
       _this.api = api;
@@ -2903,7 +2911,7 @@ var FormBase = /*#__PURE__*/function (_React$Component) {
         var _this$props2 = _this.props,
             onError = _this$props2.onError,
             resetOnError = _this$props2.resetOnError;
-        if (typeof onError === 'function') onError(err);
+        if (typeof onError === 'function') onError(err, _this.setErrors, _this.api);
         if (resetOnError && _this.api) _this.api.reset(); // throw err;
       });
     };

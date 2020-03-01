@@ -346,6 +346,10 @@ var PaletteColorPopper = function PaletteColorPopper(_ref) {
   })))));
 };
 
+PaletteColorPopper.defaultProps = {
+  anchorEl: null
+};
+
 var PaletteColorPicker = function PaletteColorPicker(props) {
   var classes = useStyles();
   var val = props.initialValue;

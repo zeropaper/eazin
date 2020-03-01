@@ -1382,21 +1382,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
-
-var styles = function styles(theme) {
-  return {
+var useStyles = Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["makeStyles"])(function (theme) {
+  return Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["createStyles"])({
     paper: _defineProperty({
       padding: theme.spacing(1)
     }, theme.breakpoints.up('md'), {
       padding: theme.spacing(2)
     })
-  };
-};
+  });
+});
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_4__["withStyles"])(styles)(function (_ref) {
-  var classes = _ref.classes,
-      _ref$LoginForm = _ref.LoginForm,
-      LoginForm = _ref$LoginForm === void 0 ? _UserLogin__WEBPACK_IMPORTED_MODULE_6__["default"] : _ref$LoginForm;
+var AnonForms = function AnonForms(_ref) {
+  var LoginForm = _ref.LoginForm;
+  var classes = useStyles();
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Grid__WEBPACK_IMPORTED_MODULE_2___default.a, {
     container: true,
     alignItems: "center",
@@ -1425,9 +1423,14 @@ var styles = function styles(theme) {
     component: _UserResetSend__WEBPACK_IMPORTED_MODULE_7__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: ['/', '/login'],
-    component: LoginForm
+    component: LoginForm || _UserLogin__WEBPACK_IMPORTED_MODULE_6__["default"]
   })))));
-}));
+};
+
+AnonForms.defaultProps = {
+  LoginForm: null
+};
+/* harmony default export */ __webpack_exports__["default"] = (AnonForms);
 
 /***/ }),
 /* 138 */,

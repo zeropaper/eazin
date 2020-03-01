@@ -19,8 +19,8 @@
   },
   "license": "MIT",
   "peerDependencies": {
-    "eazin-core": "0.0.1-wip.16",
-    "eazin-mailer": "0.0.1-wip.16",
+    "eazin-core": "0.0.1-wip.17",
+    "eazin-mailer": "0.0.1-wip.17",
     "express": "4.17.1",
     "httperrors": "2.3.0",
     "passport-http-bearer": "1.0.1"
