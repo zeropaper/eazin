@@ -59,6 +59,9 @@ const pkgToPackage = ({
   ...pkg,
   name: `${pkg.name}-${name}`,
   private: false,
+  scripts: {
+    prepack: 'node ../src/dev/prepack.js',
+  },
   repository: {
     ...pkg.repository || {},
     directory: `${pkgSrcs}/${name}`,

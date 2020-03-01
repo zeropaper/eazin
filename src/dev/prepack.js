@@ -2,7 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const packageJSON = require('../../package.json');
-// const { version: lernaVersion } = require('../../lerna.json');
+const { version: lernaVersion } = require('../../lerna.json');
 
 fs.readdirSync(path.resolve(__dirname, '../../dist')).forEach((pkgName) => {
   const jsonFilepath = path.resolve(__dirname, '../../dist', pkgName, 'package.json');
@@ -13,7 +13,7 @@ fs.readdirSync(path.resolve(__dirname, '../../dist')).forEach((pkgName) => {
       .reduce((deps, name) => ({
         ...deps,
         [name]: name.startsWith(packageJSON.name)
-          ? pkg.version
+          ? lernaVersion // pkg.version
           : pkg.peerDependencies[name],
       }), {}),
   };
