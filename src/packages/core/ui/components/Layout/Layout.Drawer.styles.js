@@ -8,6 +8,7 @@ export default (theme) => ({
 
   top: {
     maxWidth: '100%',
+    padding: 0,
   },
 
   bottom: {

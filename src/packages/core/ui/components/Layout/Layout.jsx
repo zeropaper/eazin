@@ -27,11 +27,19 @@ const styles = (theme) => ({
   root: fullHeight,
   layoutContent: {
     ...fullHeight,
-    overflow: 'auto',
+    overflowY: 'hidden',
+    overflowX: 'auto',
     position: 'relative',
+    display: 'flex',
+    flexDirection: 'column',
     padding: theme.spacing(1),
     [theme.breakpoints.up('md')]: {
       padding: theme.spacing(2),
+    },
+    '& > .anon, & > .auth': {
+      display: 'flex',
+      flexDirection: 'column',
+      flexGrow: 1,
     },
   },
   justifyCenter: {
