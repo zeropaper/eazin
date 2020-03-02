@@ -14,7 +14,7 @@ import { validMail, validPassword } from '../src/packages/users/ui/user.validato
 
 
 export default {
-  title: 'Form',
+  title: 'packages/core/components/Form',
   decorators: [withKnobs],
 };
 

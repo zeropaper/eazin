@@ -14,7 +14,7 @@ import ActionButtons from '../src/packages/core/ui/components/Form/ActionButtons
 import Form from '../src/packages/core/ui/components/Form';
 
 export default {
-  title: 'Form/Button',
+  title: 'packages/core/components/Form/Button',
 };
 
 const marginBottom = { marginBottom: 20 };
