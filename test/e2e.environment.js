@@ -13,6 +13,7 @@ const {
   pathExists,
 } = require('fs-extra');
 const { dir: tmpDir } = require('tmp-promise');
+const superagent = require('superagent');
 
 const eazin = require('../src/packages/core/server');
 
@@ -80,6 +81,13 @@ class PuppeteerEnvironment extends NodeEnvironment {
     try {
       this.app = await eazin({ plugins });
       this.global.baseURL = this.app.get('localURL');
+
+      if (TEST_KEEP_BROWSER) {
+        try {
+          await superagent.post(`${this.global.baseURL}/kill`);
+        } catch (e) { /* */ }
+      }
+
       await this.app.listen();
     } catch (err) {
       console.error('[E2E] serving error', err.stack);
