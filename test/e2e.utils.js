@@ -1,4 +1,4 @@
-/* globals screenshotsPath, screenshotsSlug, testPages, screenshots */
+/* globals screenshotsPath, screenshotsSlug, testPages, screenshots, baseURL */
 import path from 'path';
 import http from 'http';
 import { mkdirp } from 'fs-extra';
@@ -19,6 +19,15 @@ export {
   sneakMessage,
   clearSneakMessages,
   noop,
+};
+
+export const fastLogin = async (page, apiToken = 'user-api-token') => {
+  await page.goto(baseURL);
+  await page.evaluate((token) => {
+    localStorage.setItem('eazin-1', `{"userToken":"${token}"}`);
+  }, apiToken);
+  await page.reload();
+  await page.goto(`${baseURL}/account`);
 };
 
 export const getTextareaValue = (page, testId) => page
@@ -133,4 +142,5 @@ export default {
   request,
   fixtures,
   clearFixtures,
+  fastLogin,
 };
