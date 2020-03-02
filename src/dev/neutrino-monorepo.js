@@ -92,7 +92,12 @@ const packagePeerDependencies = (dependencies, available, projectName, currentVe
 
 const recurseDirComponent = (dir) => readdirSync(dir)
   .reduce((paths, filename) => {
-    if (filename === 'test' || filename.startsWith('_')) return paths;
+    if (
+      filename === 'test'
+      || filename.startsWith('_')
+      || filename.indexOf('.stories.') > 0
+    ) return paths;
+
     let sub = [];
     const subPath = join(dir, filename);
 
