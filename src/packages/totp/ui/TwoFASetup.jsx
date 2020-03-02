@@ -40,10 +40,10 @@ const SetupAlert = ({ setup, error, className }) => ((error && (
 
 class TwoFASetupForm extends React.Component {
   state = {
-    requested: false,
     setup: false,
     info: null,
     error: null,
+    backupCodes: null,
   };
 
   async componentDidMount() {
@@ -59,13 +59,18 @@ class TwoFASetupForm extends React.Component {
   clearSetup = () => {
     const { api: { delete: del } } = this.props;
     del('/api/totp')
-      .then(() => this.setState({ error: null, requested: false, setup: false }))
-      .catch((err) => this.setState({ error: err, requested: false, setup: false }));
+      .then(() => this.setState({
+        error: null,
+        setup: false,
+      }))
+      .catch((err) => this.setState({
+        error: err,
+        setup: false,
+      }));
   };
 
 
   requestSetup = () => this.setState({
-    requested: true,
     info: null,
     setup: false,
     error: null,
@@ -73,14 +78,12 @@ class TwoFASetupForm extends React.Component {
     const { api: { post } } = this.props;
     try {
       this.setState({
-        requested: true,
         info: await post('/api/totp/setup'),
         setup: false,
         error: null,
       });
     } catch (err) {
       this.setState({
-        requested: true,
         info: null,
         setup: false,
         error: err,
@@ -96,34 +99,53 @@ class TwoFASetupForm extends React.Component {
     post('/api/totp/verify', {
       body: { code },
     })
-      .then(() => this.setState({ setup: true }))
+      .then(({ backupCodes }) => this.setState({ setup: true, backupCodes }))
       .catch((err) => this.setState({ error: err }));
   };
 
   render() {
     const {
-      requested,
       info,
       setup,
       error,
+      backupCodes,
     } = this.state;
     const { wrapIn: Wrapper, classes } = this.props;
 
     let content = (
-      <Button className={classes.processButton} onClick={this.requestSetup}>
+      <Button
+        variant="contained"
+        className={classes.processButton}
+        onClick={this.requestSetup}
+        data-testid="totp-setup-button"
+      >
         Setup two-factor authentication
       </Button>
     );
 
-    if (error || setup) {
+    if (backupCodes) {
       content = (
-        <Button className={classes.processButton} onClick={this.clearSetup}>
+        <Typography component="div">
+          <Typography gutterBottom component="p" variant="body1">
+            Store these backup codes in a safe place.
+            <br />
+            You may use them if you lose the device used for authentication.
+          </Typography>
+          <ol data-testid="totp-backup-codes">
+            {backupCodes.map((bCode) => (<li key={bCode}>{bCode}</li>))}
+          </ol>
+        </Typography>
+      );
+    } else if (error || setup) {
+      content = (
+        <Button
+          variant="contained"
+          className={classes.processButton}
+          onClick={this.clearSetup}
+          data-testid="totp-clear-setup"
+        >
           Clear two-factor authentication
         </Button>
-      );
-    } else if (requested && !info) {
-      content = (
-        <div>loading</div>
       );
     } else if (info) {
       content = (
@@ -137,24 +159,31 @@ class TwoFASetupForm extends React.Component {
             src={info.qr64}
             alt="QR code"
             title="Scan this QR code with Google Authenticator"
+            data-testid="totp-qr-code"
           />
 
           <Typography gutterBottom component="p" variant="body1">
             Or use the following code:
             <br />
-            <code>{info.secret}</code>
+            <code data-testid="totp-secret">{info.secret}</code>
             <br />
             And then verify the setup with a generated code.
           </Typography>
 
           <form onSubmit={this.verifyCode} className={classes.codeForm}>
             <TextField
+              data-testid="totp-code-verif-field"
               required
               label="Code"
               name="code"
             />
 
-            <Button color="primary" variant="contained" type="submit">
+            <Button
+              data-testid="totp-code-verif-submit"
+              color="primary"
+              variant="contained"
+              type="submit"
+            >
               Verify setup
             </Button>
           </form>

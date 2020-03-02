@@ -22,7 +22,6 @@ const required = {
 
 const TwoFALoginForm = ({ dispatch, history: { push } }) => {
   const [needsCode, setNeedsCode] = React.useState(false);
-  // const [credentials, setCredentials] = React.useState(null);
 
   return (
     <>
