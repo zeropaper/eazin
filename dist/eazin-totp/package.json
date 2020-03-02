@@ -5,7 +5,7 @@
   "description": "",
   "engines": {
     "npm": "^6.13.0",
-    "node": "^12.13.0"
+    "node": "^10.13.0"
   },
   "repository": {
     "type": "git",
@@ -22,8 +22,8 @@
     "prepack": "node ../../src/dev/prepack.js"
   },
   "peerDependencies": {
-    "eazin-core": "0.0.1-wip.19",
-    "eazin-users": "0.0.1-wip.19",
+    "eazin-core": "0.0.1-wip.20",
+    "eazin-users": "0.0.1-wip.20",
     "express": "4.17.1",
     "httperrors": "2.3.0",
     "mongoose": "5.9.2",

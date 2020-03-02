@@ -302,8 +302,7 @@ var TwoFALoginForm = function TwoFALoginForm(_ref) {
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_15___default.a.useState(false),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       needsCode = _React$useState2[0],
-      setNeedsCode = _React$useState2[1]; // const [credentials, setCredentials] = React.useState(null);
-
+      setNeedsCode = _React$useState2[1];
 
   return react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_15___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_15___default.a.createElement(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_17___default.a, {
     variant: "h5"

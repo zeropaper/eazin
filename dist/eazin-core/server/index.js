@@ -184,7 +184,13 @@ const eazin = async ({
 
   app.set('db', db);
 
-  if (config.env !== 'production') app.use('/fixtures', fixtures(db));
+  if (config.env !== 'production') {
+    app.use('/fixtures', fixtures(db));
+    app.use('/kill', (req, res) => {
+      res.status(204).end();
+      httpServer.close();
+    });
+  }
 
   app.use(errorHandler);
 

@@ -120,14 +120,14 @@ module.exports = require("@material-ui/core/styles");
 /***/ 13:
 /***/ (function(module, exports) {
 
-module.exports = require("core-js/modules/es.array.concat");
+module.exports = require("@material-ui/core");
 
 /***/ }),
 
 /***/ 14:
 /***/ (function(module, exports) {
 
-module.exports = require("@material-ui/core");
+module.exports = require("core-js/modules/es.array.concat");
 
 /***/ }),
 
@@ -142,32 +142,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_description__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(21);
 /* harmony import */ var core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol_iterator__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 /* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(16);
 /* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32);
-/* harmony import */ var core_js_modules_es_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(33);
-/* harmony import */ var core_js_modules_es_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(11);
-/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(24);
-/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(22);
-/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(17);
-/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(28);
-/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(14);
-/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(12);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(55);
-/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(23);
+/* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_es_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(32);
+/* harmony import */ var core_js_modules_es_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_prototype_of__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_es_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(33);
+/* harmony import */ var core_js_modules_es_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_set_prototype_of__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(11);
+/* harmony import */ var core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_to_string__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(24);
+/* harmony import */ var core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_promise__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(22);
+/* harmony import */ var core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_iterator__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(17);
+/* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(28);
+/* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_12__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(0);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_13__);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(13);
+/* harmony import */ var _material_ui_core__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(12);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_15__);
+/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(55);
+/* harmony import */ var _material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_16__);
+
 
 
 
@@ -232,13 +235,13 @@ var SetupAlert = function SetupAlert(_ref) {
   var setup = _ref.setup,
       error = _ref.error,
       className = _ref.className;
-  return error && react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_15___default.a, {
+  return error && react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_16___default.a, {
     className: className,
     severity: "error"
-  }, error.message) || (setup ? react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_15___default.a, {
+  }, error.message) || (setup ? react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_16___default.a, {
     className: className,
     severity: "info"
-  }, "Two-factor authentication is setup") : react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_15___default.a, {
+  }, "Two-factor authentication is setup") : react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_lab_Alert__WEBPACK_IMPORTED_MODULE_16___default.a, {
     className: className,
     severity: "warning"
   }, "Two-factor authentication is not setup"));
@@ -260,10 +263,10 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(TwoFASetupForm)).call.apply(_getPrototypeOf2, [this].concat(args)));
     _this.state = {
-      requested: false,
       setup: false,
       info: null,
-      error: null
+      error: null,
+      backupCodes: null
     };
 
     _this.clearSetup = function () {
@@ -271,13 +274,11 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
       del('/api/totp').then(function () {
         return _this.setState({
           error: null,
-          requested: false,
           setup: false
         });
       }).catch(function (err) {
         return _this.setState({
           error: err,
-          requested: false,
           setup: false
         });
       });
@@ -285,7 +286,6 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
 
     _this.requestSetup = function () {
       return _this.setState({
-        requested: true,
         info: null,
         setup: false,
         error: null
@@ -304,7 +304,6 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
               case 5:
                 _context.t1 = _context.sent;
                 _context.t2 = {
-                  requested: true,
                   info: _context.t1,
                   setup: false,
                   error: null
@@ -320,7 +319,6 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
                 _context.t3 = _context["catch"](1);
 
                 _this.setState({
-                  requested: true,
                   info: null,
                   setup: false,
                   error: _context.t3
@@ -344,9 +342,11 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
         body: {
           code: code
         }
-      }).then(function () {
+      }).then(function (_ref3) {
+        var backupCodes = _ref3.backupCodes;
         return _this.setState({
-          setup: true
+          setup: true,
+          backupCodes: backupCodes
         });
       }).catch(function (err) {
         return _this.setState({
@@ -406,59 +406,80 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       var _this$state = this.state,
-          requested = _this$state.requested,
           info = _this$state.info,
           setup = _this$state.setup,
-          error = _this$state.error;
+          error = _this$state.error,
+          backupCodes = _this$state.backupCodes;
       var _this$props = this.props,
           Wrapper = _this$props.wrapIn,
           classes = _this$props.classes;
-      var content = react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__["Button"], {
+      var content = react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Button"], {
+        variant: "contained",
         className: classes.processButton,
-        onClick: this.requestSetup
+        onClick: this.requestSetup,
+        "data-testid": "totp-setup-button"
       }, "Setup two-factor authentication");
 
-      if (error || setup) {
-        content = react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__["Button"], {
-          className: classes.processButton,
-          onClick: this.clearSetup
-        }, "Clear two-factor authentication");
-      } else if (requested && !info) {
-        content = react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", null, "loading");
-      } else if (info) {
-        content = react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("div", {
-          className: classes.qrContent
-        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__["Typography"], {
+      if (backupCodes) {
+        content = react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Typography"], {
+          component: "div"
+        }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Typography"], {
           gutterBottom: true,
           component: "p",
           variant: "body1"
-        }, "Scan this QR code with Google Authenticator"), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("img", {
+        }, "Store these backup codes in a safe place.", react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("br", null), "You may use them if you lose the device used for authentication."), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("ol", {
+          "data-testid": "totp-backup-codes"
+        }, backupCodes.map(function (bCode) {
+          return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("li", {
+            key: bCode
+          }, bCode);
+        })));
+      } else if (error || setup) {
+        content = react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Button"], {
+          variant: "contained",
+          className: classes.processButton,
+          onClick: this.clearSetup,
+          "data-testid": "totp-clear-setup"
+        }, "Clear two-factor authentication");
+      } else if (info) {
+        content = react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("div", {
+          className: classes.qrContent
+        }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Typography"], {
+          gutterBottom: true,
+          component: "p",
+          variant: "body1"
+        }, "Scan this QR code with Google Authenticator"), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("img", {
           className: classes.qrCode,
           src: info.qr64,
           alt: "QR code",
-          title: "Scan this QR code with Google Authenticator"
-        }), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__["Typography"], {
+          title: "Scan this QR code with Google Authenticator",
+          "data-testid": "totp-qr-code"
+        }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Typography"], {
           gutterBottom: true,
           component: "p",
           variant: "body1"
-        }, "Or use the following code:", react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("code", null, info.secret), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("br", null), "And then verify the setup with a generated code."), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement("form", {
+        }, "Or use the following code:", react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("code", {
+          "data-testid": "totp-secret"
+        }, info.secret), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("br", null), "And then verify the setup with a generated code."), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement("form", {
           onSubmit: this.verifyCode,
           className: classes.codeForm
-        }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__["TextField"], {
+        }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["TextField"], {
+          "data-testid": "totp-code-verif-field",
           required: true,
           label: "Code",
           name: "code"
-        }), react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_13__["Button"], {
+        }), react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(_material_ui_core__WEBPACK_IMPORTED_MODULE_14__["Button"], {
+          "data-testid": "totp-code-verif-submit",
           color: "primary",
           variant: "contained",
           type: "submit"
         }, "Verify setup")));
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(Wrapper, {
+      return react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(Wrapper, {
         title: "Two-factors authentication",
         "data-testid": "totp-setup"
-      }, react__WEBPACK_IMPORTED_MODULE_12___default.a.createElement(SetupAlert, {
+      }, react__WEBPACK_IMPORTED_MODULE_13___default.a.createElement(SetupAlert, {
         setup: !!setup,
         error: error,
         className: classes.alert
@@ -467,9 +488,9 @@ var TwoFASetupForm = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return TwoFASetupForm;
-}(react__WEBPACK_IMPORTED_MODULE_12___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_13___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_14__["withStyles"])(styles)(TwoFASetupForm));
+/* harmony default export */ __webpack_exports__["default"] = (Object(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_15__["withStyles"])(styles)(TwoFASetupForm));
 
 /***/ }),
 
@@ -505,6 +526,13 @@ module.exports = require("core-js/modules/es.symbol.iterator");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.string.iterator");
+
+/***/ }),
+
+/***/ 23:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.array.map");
 
 /***/ }),
 
