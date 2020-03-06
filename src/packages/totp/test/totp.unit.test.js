@@ -77,7 +77,7 @@ describe('Two Factor Authentication', () => {
     });
 
     it('verifies the QR code', async () => {
-      const code = totp(`${secret}AAA`);
+      const code = totp(secret);
 
       const res = await post('/api/totp/verify')
         .set('Authorization', `Bearer ${user.token}`)
@@ -122,7 +122,7 @@ describe('Two Factor Authentication', () => {
         .send({
           email,
           password: '1234567890Aa!',
-          code: totp(`${user.totp.secret}AAA`),
+          code: totp(user.totp.secret),
         });
 
       user = await User.findById(user._id);

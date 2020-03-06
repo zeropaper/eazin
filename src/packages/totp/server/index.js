@@ -10,7 +10,7 @@ const passport = require('passport');
 
 const { totp } = require('notp');
 const TwoFAStartegy = require('passport-2fa-totp').Strategy;
-const GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
+const GoogleAuthenticator = require('./GoogleAuthenticator');
 
 const bearer = passport.authenticate('bearer', { session: false });
 

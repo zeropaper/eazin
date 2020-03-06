@@ -41,7 +41,7 @@ describe('TOTP', () => {
     await page.waitForSelector(secretSelector);
     secret = await page.$eval(secretSelector, (el) => el.textContent);
 
-    const code = totp(`${secret}AAA`);
+    const code = totp(secret);
     await page.type(`${totpSelector} input[name="code"]`, code);
     await page.click(setupBtnSelector);
 
@@ -69,7 +69,7 @@ describe('TOTP', () => {
     // // throw new Error('Wait...');
     // await page.click('[name="code"]', { clickCount: 3 });
 
-    await page.type('[name="code"]', totp(`${secret}AAA`));
+    await page.type('[name="code"]', totp(secret));
     await page.click('[type="submit"]');
     await page.waitForSelector('.auth');
   });
