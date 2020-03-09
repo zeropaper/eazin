@@ -27,6 +27,7 @@ const styles = (theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    textAlign: 'center',
     margin: 'auto',
     marginBottom: 0 - (theme.spacing(1) + 45),
     position: 'relative',
