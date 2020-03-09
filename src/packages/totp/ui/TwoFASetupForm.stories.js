@@ -10,6 +10,7 @@ export default {
 };
 
 const handle = (method) => (...args) => {
+  // eslint-disable-next-line no-console
   console.info('handle: ', method, ...args);
   return new Promise((res) => setTimeout(() => {
     if (args[0] === '/api/totp/setup') {
