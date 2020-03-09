@@ -25,22 +25,19 @@ jobs:
         mongoDBVersion: ${{ matrix.mongodb-version }}
     - name: npm install
       run: |
-        npm i
+        npm ci
       env:
-        CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
     - name: npm unit test
       run: |
         npm run test:unit
       env:
-        CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
     - name: npm E2E test
       run: |
         npm run build:html
         npm run test:e2e
       env:
-        CI: true
         EAZIN_RC_PATH: ./test/ci.eazinrc.js
         JEST_SERVE: 3030
         TEST_SENDER_FILE: /tmp/eazin-testsender.json
