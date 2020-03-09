@@ -30,7 +30,7 @@ module.exports = {
     // Google Authenticator ignores '='
     secret = secret.toString().replace(/=/g, '');
 
-    const authUrl = util.format('otpauth://totp/%s?secret=%s', username, secret);
+    const authUrl = util.format('otpauth://totp/%s?secret=%s', encodeURI(username), secret);
     const qrCode = qr.imageSync(authUrl, { type: 'svg' });
 
     return {
