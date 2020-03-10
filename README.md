@@ -8,13 +8,20 @@ TODO
 
 TODO
 
-## Packages
+## NPM packages
 
-Sources are in the `packages` directory of the repository.
+Packages are published to NPM.
+Sources are in the `src/packages` directory of the repository.
+
+## Dev packages
+
+The packages which are located in the `src/dev` directory are not meant to be published to NPM
 
 ### Structure
 
-TODO
+Each "packages" should follow the following scaffolding:
+* Can have a `server` directory
+* Can have a `ui` directory
 
 ### Output
 
