@@ -127,7 +127,7 @@ const eazin = async ({
 
   // ##### call passportPrepareHooks plugin point
   plugins.forEach(({ passportPrepareHooks = [] } = {}) => {
-    passportPrepareHooks.forEach((fn) => fn(passport, mongoose));
+    passportPrepareHooks.forEach((fn) => fn(config, passport, mongoose));
   });
 
   app.disable('x-powered-by');
