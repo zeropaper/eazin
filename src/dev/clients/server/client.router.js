@@ -127,9 +127,7 @@ router.delete(
   (req, res, next) => req.loadedParams.apiClient.remove((err) => {
     if (err) return next(err);
 
-    mongoose.model('APIToken').remove({
-      client: req.loadedParams.apiClient._id,
-    }, (err) => {
+    mongoose.model('APIToken').deleteOne({ client: req.apiClient }, (err) => {
       if (err) return next(err);
       res.status(204).end();
     });
