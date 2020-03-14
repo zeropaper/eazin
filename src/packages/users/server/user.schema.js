@@ -38,11 +38,12 @@ schema.methods.login = async function login(password) {
     res.error.fields = { password: res.error.message };
     throw res.error;
   }
-  this.token = uid(20);
-  await this.save();
+  const user = this;
+  user.token = uid(20);
+  await user.save();
   return {
-    ...schema.statics.sanitizeOutput(this),
-    token: this.token,
+    ...user.toJSON(),
+    token: user.token,
   };
 };
 
@@ -60,6 +61,32 @@ schema.methods.changePassword = async function changeUserPassword(current, passw
   }
   await this.setPassword(password);
   await this.save();
+};
+
+schema.methods.toJSON = function toJSON(opts) {
+  const {
+    password,
+    token,
+    verifToken,
+    emailToVerify,
+    __v,
+
+    _id: id,
+    ...rest
+  } = this.toObject(opts);
+  return {
+    id,
+    ...rest,
+  };
+};
+
+schema.methods.ensureRoles = function ensureRoles(roles, next) {
+  this.roles = Array.from((new Set([
+    ...roles,
+    ...this.roles,
+  ])).values());
+  if (typeof next === 'function') return this.save(next);
+  if (next) return this.save();
 };
 
 schema.statics.invite = async function inviteUser(baseURL, email, {
@@ -109,22 +136,6 @@ schema.statics.sanitizeInput = deprecate(({
   firstName,
   lastName,
 }), 'use validation');
-
-schema.methods.toJSON = function toJSON(opts) {
-  const {
-    password,
-    token,
-    verifToken,
-    emailToVerify,
-
-    _id: id,
-    ...rest
-  } = this.toObject(opts);
-  return {
-    id,
-    ...rest,
-  };
-};
 
 schema.statics.sanitizeOutput = deprecate((user) => {
   const json = user.toJSON();

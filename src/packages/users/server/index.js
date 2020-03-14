@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const BearerStrategy = require('passport-http-bearer').Strategy;
 
 module.exports = {
+  name: 'Users',
   apiRouter: [
     {
       path: '/user',
