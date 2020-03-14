@@ -99,7 +99,7 @@ const eazin = async ({
     schemas.forEach(({
       modelName,
       schema,
-      addSearch,
+      noSearch,
       searchOptions = {},
     }) => {
       if (!modelName || !schema) return;
@@ -114,7 +114,8 @@ const eazin = async ({
         });
       });
 
-      if (!addSearch) searchPlugin(schema, searchOptions);
+      // that smells
+      if (!noSearch) searchPlugin(schema, searchOptions);
       mongoose.model(modelName, schema);
     });
   });
