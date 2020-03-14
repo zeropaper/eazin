@@ -59,6 +59,7 @@ describe('access check', () => {
     const req = {
       user: {
         roles: [],
+        isVerified: true,
         isAdmin: true,
       },
     };
