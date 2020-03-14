@@ -13,11 +13,14 @@ const {
 
 const router = Router();
 
-modelRequestParam('APIClient', router, 'apiClientId');
+const bearer = passport.authenticate('bearer', { session: false });
+
+modelRequestParam('APIClient', router, 'apiClient');
+modelRequestParam('APIToken', router, 'apiToken');
 
 router.get(
   '/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['get:clients']),
   requestHook('list clients'),
   (req, res, next) => {
@@ -37,7 +40,7 @@ router.get(
 
 router.post(
   '/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['post:clients']),
   requestHook('create client'),
   (req, res, next) => {
@@ -48,7 +51,7 @@ router.post(
     const handleCreation = (err, created) => {
       if (err) return next(err);
 
-      res.status(201).send(APIClient.sanitizeOutput(created));
+      res.status(201).send(created);
     };
 
     APIClient.findOne({ name }, (err, client) => {
@@ -66,43 +69,70 @@ router.post(
 );
 
 router.get(
-  '/:clientId',
-  passport.authenticate('bearer', { session: false }),
-  check(['get:clients/:clientId']),
+  '/:apiClient',
+  bearer,
+  check(['get:clients/:apiClient']),
   requestHook('get client details'),
-  (req, res) => res.send(mongoose.model('APIClient').sanitizeOutput(req.loadedParams.clientId)),
+  (req, res) => res.send(req.loadedParams.apiClient),
 );
 
 router.patch(
-  '/:clientId',
-  passport.authenticate('bearer', { session: false }),
-  check(['patch:clients/:clientId']),
+  '/:apiClient',
+  bearer,
+  check(['patch:clients/:apiClient']),
   requestHook('update client'),
   (req, res, next) => {
-    const { clientId: client } = (req.loadedParams || {});
+    const { apiClient: client } = (req.loadedParams || {});
     const APIClient = mongoose.model('APIClient');
     const sanitized = APIClient.sanitizeInput(req.body);
 
-    Object.keys(sanitized)
-      .forEach((key) => {
-        if (typeof sanitized[key] !== 'undefined') client[key] = sanitized[key];
-      });
+    Object.keys(sanitized).forEach((key) => {
+      if (typeof sanitized[key] !== 'undefined') client[key] = sanitized[key];
+    });
 
     client.save((err, updated) => {
       if (err) return next(err);
-      res.send(APIClient.sanitizeOutput(updated));
+      res.send(updated);
+    });
+  },
+);
+
+router.post(
+  '/:apiClient',
+  bearer,
+  check(['post:clients/:apiClient']),
+  requestHook('creates an API client token'),
+  (req, res, next) => {
+    const APIToken = mongoose.model('APIToken');
+    const dbToken = new APIToken({
+      owner: req.user,
+      client: req.params.apiClient,
+    });
+
+    dbToken.save((err, saved) => {
+      if (err) return next(err);
+      res.send({
+        ...saved.toJSON(),
+        token: saved.token,
+      });
     });
   },
 );
 
 router.delete(
-  '/:clientId',
-  passport.authenticate('bearer', { session: false }),
-  check(['delete:clients/:clientId']),
+  '/:apiClient',
+  bearer,
+  check(['delete:clients/:apiClient']),
   requestHook('delete client'),
-  (req, res, next) => req.loadedParams.clientId.remove((err) => {
+  (req, res, next) => req.loadedParams.apiClient.remove((err) => {
     if (err) return next(err);
-    res.send({});
+
+    mongoose.model('APIToken').remove({
+      client: req.loadedParams.apiClient._id,
+    }, (err) => {
+      if (err) return next(err);
+      res.status(204).end();
+    });
   }),
 );
 

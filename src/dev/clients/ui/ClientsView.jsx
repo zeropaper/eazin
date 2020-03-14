@@ -14,11 +14,20 @@ const styles = () => ({
       flexGrow: 1,
       display: 'flex',
       flexDirection: 'column',
+      boxShadow: 'none',
+      color: 'inherit',
+      backgroundColor: 'transparent',
     },
     '& > div > div:nth-child(2)': {
       flexGrow: 1,
       display: 'flex',
       flexDirection: 'column',
+    },
+    '& th': {
+      backgroundColor: 'transparent',
+    },
+    '& tfoot td': {
+      border: 0,
     },
   },
 });
