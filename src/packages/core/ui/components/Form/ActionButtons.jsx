@@ -19,6 +19,7 @@ const styles = (theme) => ({
     justifySelf: 'flex-end',
     flexGrow: 1,
     '& > button': {
+      minWidth: 0,
       flexGrow: 0,
       marginLeft: theme.spacing(2),
     },
