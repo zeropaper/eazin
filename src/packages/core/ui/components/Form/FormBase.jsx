@@ -19,7 +19,8 @@ const styles = (theme) => ({
     flexDirection: 'column',
   },
   field: {
-    width: '100%',
+    width: 'auto',
+    maxWidth: '100%',
     marginBottom: theme.spacing(2),
     '&:last-child': {
       marginBottom: 0,
