@@ -1,3 +1,5 @@
+const { deprecate } = require('util');
+
 const {
   abs,
   min,
@@ -27,8 +29,9 @@ const parseFilters = (filtersJSON) => {
 
 module.exports = function modelSearchPlugin(schema) { // , options) {
   schema.static('search', function modelSearch(query, next) {
+    const Model = this;
+
     return new Promise((resolve, reject) => {
-      const Model = this;
       const res = (result) => {
         if (typeof next === 'function') next(null, result);
         resolve(result);
@@ -65,7 +68,8 @@ module.exports = function modelSearchPlugin(schema) { // , options) {
             try {
               res({
                 data: Model.sanitizeOutput
-                  ? data.map(Model.sanitizeOutput)
+                  // eslint-disable-next-line max-len
+                  ? data.map(deprecate(Model.sanitizeOutput, `'override toJSON instead of implementing ${Model.modelName}.sanitizeOutput()'`))
                   : data,
                 page: min(max(0, floor(skip / absLimit)), floor(totalCount / absLimit)) || 0,
                 totalCount,
