@@ -36,6 +36,40 @@ const Fields = ({
     const currentFieldClassName = `${fieldClassName || ''} ${className || ''}`.trim();
 
     const componentProps = {
+      // setting props of TextField is meant to
+      // prevent a setMemo() usage error
+      // due to mismatching amount of props
+      autoComplete: undefined,
+      autoFocus: undefined,
+      classes: undefined,
+      color: undefined,
+      defaultValue: undefined,
+      disabled: undefined,
+      error: undefined,
+      // seems to cause problems...
+      // FormHelperTextProps: undefined,
+      fullWidth: undefined,
+      helperText: undefined,
+      id: undefined,
+      InputLabelProps: undefined,
+      InputProps: undefined,
+      inputProps: undefined,
+      inputRef: undefined,
+      margin: undefined,
+      multiline: undefined,
+      name: undefined,
+      onChange: undefined,
+      placeholder: undefined,
+      required: undefined,
+      rows: undefined,
+      rowsMax: undefined,
+      select: undefined,
+      SelectProps: undefined,
+      size: undefined,
+      type: undefined,
+      value: undefined,
+      variant: undefined,
+
       ...props,
       components: Components,
       key: field,
@@ -60,6 +94,13 @@ const Fields = ({
 
     if (type === 'fields' || Object.keys(subFields).length) {
       return <Fields {...componentProps} />;
+    }
+
+    if (componentProps.required
+      && typeof componentProps.validate !== 'function') {
+      componentProps.validate = (val) => {
+        if (!(val || '').trim()) return 'The field cannot be empty';
+      };
     }
 
     return <Components.TextField {...componentProps} />;
