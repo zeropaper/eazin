@@ -137,10 +137,4 @@ schema.statics.sanitizeInput = deprecate(({
   lastName,
 }), 'use validation');
 
-schema.statics.sanitizeOutput = deprecate((user) => {
-  const json = user.toJSON();
-  const { _id: id } = json;
-  return { ...json, id };
-}, 'toJSON should be altered instead');
-
 module.exports = schema;
