@@ -4,8 +4,16 @@ import PropTypes from 'prop-types';
 import { asField } from 'informed';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(() => createStyles({
+  root: {
+    minWidth: '15ch',
+  },
+}));
 
 const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
+  const classes = useStyles();
   const { value, touched } = fieldState;
   const { setValue, setTouched } = fieldApi;
   const {
@@ -36,18 +44,32 @@ const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
   if (typeof options === 'function') {
     renderedOptions = options();
   } else if (Array.isArray(options)) {
-    renderedOptions = options.map((option) => (
-      typeof option === 'string'
-        ? (
+    renderedOptions = options.map((option) => {
+      if (typeof option === 'string') {
+        return (
           <MenuItem key={option} value={option}>{option}</MenuItem>
-        )
-        : (
-          <MenuItem key={option.value} value={option.value}>
-            {option.label || option.value}
-          </MenuItem>
-        )
+        );
+      }
+
+      return (
+        <MenuItem key={option.value} value={option.value}>
+          {option.label || option.value}
+        </MenuItem>
+      );
+    });
+  } else if (options) {
+    renderedOptions = Object.keys(options).map((key) => (
+      <MenuItem key={key} value={key}>{options[key]}</MenuItem>
     ));
   }
+
+  if (!rest.required && Array.isArray(renderedOptions)) {
+    renderedOptions.unshift(
+      <MenuItem key="__empty__" value={null}>&nbsp;</MenuItem>,
+    );
+  }
+
+  rest.className = `${rest.className} ${classes.root}`.trim();
 
   // eslint-disable-next-line react/destructuring-assignment
   const errorText = props.error || fieldState.error || fieldState.asyncError;
@@ -59,6 +81,7 @@ const InformedTextField = ({ fieldState, fieldApi, ...props }) => {
       inputRef={forwardedRef}
       value={fieldValue}
       inputProps={{
+        ...(rest.inputProps || {}),
         onChange: (e) => {
           setValue(e.target.value);
           if (onChange) onChange(e);
@@ -88,6 +111,11 @@ InformedTextField.propTypes = {
   initialValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
   defaultValue: PropTypes.oneOf([PropTypes.string, PropTypes.number]),
   options: PropTypes.oneOfType([
+    PropTypes.objectOf(PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+    ])),
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.arrayOf(PropTypes.shape({
       value: PropTypes.oneOfType([
