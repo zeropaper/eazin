@@ -80,11 +80,17 @@ class FormBase extends React.Component {
     } = this.state;
     const { messageInButton } = this.props;
     const formState = this.api.getState();
-    const touched = !!Object.keys(formState.touched).length;
     const values = this.getValues();
-    const pristine = !touched && isEqual(values, formState.values);
+    const touchedFields = {};
+    Object.keys(formState.touched)
+      .forEach((key) => {
+        if (values[key]) touchedFields[key] = true;
+      });
+    const isTouched = !!Object.keys(touchedFields).length;
+    const pristine = !isTouched && isEqual(values, formState.values);
     return {
       ...formState,
+      touched: touchedFields,
       pristine,
       dirty: !pristine,
       loading,
