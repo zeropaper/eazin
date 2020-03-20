@@ -42,7 +42,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@babel/core": "7.8.7",
+    "@babel/core": "7.9.0",
     "@material-ui/core": "4.9.5",
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "4.0.0-alpha.45",
@@ -57,7 +57,7 @@
     "@storybook/addons": "5.3.14",
     "@storybook/react": "5.3.14",
     "async-series": "0.0.1",
-    "babel-loader": "8.0.6",
+    "babel-loader": "8.1.0",
     "classnames": "2.2.6",
     "compression": "1.7.4",
     "cookie-parser": "1.4.4",
