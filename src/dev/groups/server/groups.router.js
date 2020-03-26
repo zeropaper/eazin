@@ -93,7 +93,7 @@ router.get(
     const User = mongoose.model('User');
     User.find({ _id: [...members, admin] }, (err, users) => {
       if (err) return next(err);
-      res.status(200).send((users || []).map(User.sanitizeOutput));
+      res.status(200).send((users || []));
     });
   },
 );
