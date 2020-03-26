@@ -10,13 +10,15 @@ const {
 
 const check = require('./user.auth.checkRoles');
 
+const bearer = passport.authenticate('bearer', { session: false });
+
 const router = Router();
 
 modelRequestParam('User', router);
 
 router.get(
   '/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['get:users']),
   requestHook('list users'),
   (req, res, next) => {
@@ -31,7 +33,7 @@ router.get(
 
 router.post(
   '/invite',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['invite']),
   requestHook('invite'),
   (req, res, next) => next(httperrors.NotImplemented()),
@@ -39,7 +41,7 @@ router.post(
 
 router.patch(
   '/:userId',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['patch:user']),
   requestHook('update user'),
   async (req, res, next) => {
@@ -55,14 +57,14 @@ router.patch(
     user.save((err, updated) => {
       if (err) return next(err);
       res.status(200);
-      res.send(User.sanitizeOutput(updated));
+      res.send(updated);
     });
   },
 );
 
 router.delete(
   '/:userId',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['delete:user']),
   requestHook('delete user'),
   (req, res, next) => {

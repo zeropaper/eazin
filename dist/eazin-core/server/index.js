@@ -99,7 +99,7 @@ const eazin = async ({
     schemas.forEach(({
       modelName,
       schema,
-      addSearch,
+      noSearch,
       searchOptions = {},
     }) => {
       if (!modelName || !schema) return;
@@ -114,7 +114,8 @@ const eazin = async ({
         });
       });
 
-      if (!addSearch) searchPlugin(schema, searchOptions);
+      // that smells
+      if (!noSearch) searchPlugin(schema, searchOptions);
       mongoose.model(modelName, schema);
     });
   });
@@ -126,7 +127,7 @@ const eazin = async ({
 
   // ##### call passportPrepareHooks plugin point
   plugins.forEach(({ passportPrepareHooks = [] } = {}) => {
-    passportPrepareHooks.forEach((fn) => fn(passport, mongoose));
+    passportPrepareHooks.forEach((fn) => fn(config, passport, mongoose));
   });
 
   app.disable('x-powered-by');

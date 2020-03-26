@@ -10,9 +10,13 @@ const passport = require('passport');
 
 const { totp } = require('notp');
 const TwoFAStartegy = require('passport-2fa-totp').Strategy;
-const GoogleAuthenticator = require('passport-2fa-totp').GoogeAuthenticator;
+const GoogleAuthenticator = require('./GoogleAuthenticator');
 
 const bearer = passport.authenticate('bearer', { session: false });
+
+const {
+  EAZIN_OTP_BACKUP_SECRET = 'sl1ghtlyUns4f3',
+} = process.env;
 
 const randomStr = (len = 12) => {
   const arr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -23,14 +27,14 @@ const randomStr = (len = 12) => {
   return ans;
 };
 
-const generateCodes = (count = 10, secret = process.env.EAZIN_OTP_BACKUP_SECRET) => {
+const generateCodes = (secret, count = 10) => {
   const returned = {
     plain: [],
     hashed: [],
   };
   for (let c = 0; c < count; c += 1) {
     const code = randomStr();
-    returned.hashed.push(crypto.createHmac('sha256', secret || 'sl1ghtlyUns4f3')
+    returned.hashed.push(crypto.createHmac('sha256', secret)
       .update(code)
       .digest('hex')
       .toString());
@@ -89,13 +93,13 @@ router.post('/verify',
 
     user.totp.secret = user.totp.secretVerification;
     user.totp.secretVerification = null;
-    const backupCodes = generateCodes(10);
-    user.totp.backupCodes = backupCodes.hashed;
+    const { hashed, plain } = generateCodes(EAZIN_OTP_BACKUP_SECRET, 10);
+    user.totp.backupCodes = hashed;
 
     user.save((err) => {
       if (err) return next(err);
       res.status(200).send({
-        backupCodes: backupCodes.plain,
+        backupCodes: plain,
       });
     });
   });
@@ -113,6 +117,7 @@ router.delete('/',
   });
 
 module.exports = {
+  name: 'TOTP',
   schemaPlugins: [
     {
       modelName: 'User',
@@ -144,12 +149,36 @@ module.exports = {
     () => {
       const User = mongoose.model('User');
 
-      passport.use('totp-node', new TwoFAStartegy({
-        usernameField: 'email',
-        passwordField: 'password',
-        codeField: 'code',
-        passReqToCallback: true,
-      }, (req, email, password, done) => {
+      const authUser = (req, email, password, done) => {
+        const handleAuth = (user) => (err) => {
+          if (err) return done(err);
+
+          if (!user.totp.secret) {
+            req.res.send({
+              ...user.toJSON(),
+              token: user.token,
+            });
+          } else {
+            const hashed = crypto.createHmac('sha256', EAZIN_OTP_BACKUP_SECRET)
+              .update(req.body.code)
+              .digest('hex')
+              .toString();
+            const idx = user.totp.backupCodes.indexOf(hashed);
+
+            if (idx > -1) {
+              user.totp.backupCodes.splice(idx, 1);
+              user.save()
+                .then(() => req.res.send({
+                  ...user.toJSON(),
+                  token: user.token,
+                }))
+                .catch(done);
+              return;
+            }
+            done(null, user);
+          }
+        };
+
         User.findByUsername(email, (err, user) => {
           if (err) return done(err);
 
@@ -172,40 +201,22 @@ module.exports = {
             return;
           }
 
-          user.authenticate(password, (err) => {
-            if (err) return done(err);
-
-            if (!user.totp.secret) {
-              req.res.send({
-                ...user.toJSON(),
-                token: user.token,
-              });
-            } else {
-              const hashed = crypto.createHmac('sha256', process.env.EAZIN_OTP_BACKUP_SECRET || 'sl1ghtlyUns4f3')
-                .update(req.body.code)
-                .digest('hex')
-                .toString();
-              const idx = user.totp.backupCodes.indexOf(hashed);
-
-              if (idx > -1) {
-                user.totp.backupCodes.splice(idx, 1);
-                user.save()
-                  .then(() => req.res.send({
-                    ...user.toJSON(),
-                    token: user.token,
-                  }))
-                  .catch(done);
-                return;
-              }
-              done(null, user);
-            }
-          });
+          user.authenticate(password, handleAuth(user));
         });
-      }, (req, user, done) => {
+      };
+
+      const verify = (req, user, done) => {
         const decoded = GoogleAuthenticator.decodeSecret(user.totp.secret);
 
         done(null, decoded, 30);
-      }));
+      };
+
+      passport.use('totp-node', new TwoFAStartegy({
+        usernameField: 'email',
+        passwordField: 'password',
+        codeField: 'code',
+        passReqToCallback: true,
+      }, authUser, verify));
     },
   ],
   apiRouter: [
