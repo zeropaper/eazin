@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Typography } from '@material-ui/core';
 
 const TimeAgo = ({
   date,
@@ -20,18 +21,10 @@ const TimeAgo = ({
   if (!date) return null;
 
   const mom = moment(date);
-  if (component === 'div') {
-    return (
-      <div title={mom.format('YYYY-MM-DD HH:mm')}>
-        {mom.fromNow()}
-      </div>
-    );
-  }
-
   return (
-    <span title={mom.format('YYYY-MM-DD HH:mm')}>
+    <Typography component={component} title={mom.format('YYYY-MM-DD HH:mm')}>
       {mom.fromNow()}
-    </span>
+    </Typography>
   );
 };
 

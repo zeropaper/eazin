@@ -2,11 +2,15 @@ import PropTypes from 'prop-types';
 
 import { withAppContext, appContextShape } from '../core/AppContext';
 
-const Str = ({ en: value }) => value;
+const Str = ({ en: value }) => (value || null);
 
-Str.propTypes = {
+const WithContext = withAppContext(Str);
+
+WithContext.displayName = 'Str';
+
+WithContext.propTypes = {
   ...appContextShape,
   en: PropTypes.string.isRequired,
 };
 
-export default withAppContext(Str);
+export default WithContext;
