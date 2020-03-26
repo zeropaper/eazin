@@ -162,6 +162,7 @@ describe('client', () => {
       const res = await utils
         .post(`/api/clients/${client.id}`)
         .set('Authorization', `Bearer ${creator.token}`)
+        .send({ note: 'required note' })
         .expect(200);
       expect(res.body).toHaveProperty('token');
       expect(res.body).toHaveProperty('id');
@@ -196,6 +197,7 @@ describe('client', () => {
     beforeAll(async () => {
       token = (await utils.post(`/api/clients/${client.id}`)
         .set('Authorization', `Bearer ${creator.token}`)
+        .send({ note: 'note' })
         .expect(200)).body;
     });
 
