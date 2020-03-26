@@ -76,6 +76,19 @@ router.get(
   (req, res) => res.send(req.loadedParams.apiClient),
 );
 
+router.get(
+  '/:apiClient/tokens',
+  bearer,
+  check(['get:clients/:apiClient']),
+  (req, res, next) => {
+    const APIToken = mongoose.model('APIToken');
+    APIToken.find({ client: req.params.apiClient }, (err, tokens) => {
+      if (err) return next(err);
+      res.send(tokens);
+    });
+  },
+);
+
 router.patch(
   '/:apiClient',
   bearer,
@@ -105,6 +118,8 @@ router.post(
   (req, res, next) => {
     const APIToken = mongoose.model('APIToken');
     const dbToken = new APIToken({
+      note: req.body.note,
+      expiresAt: req.body.expiresAt,
       owner: req.user,
       client: req.params.apiClient,
     });

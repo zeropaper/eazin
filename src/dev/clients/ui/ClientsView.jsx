@@ -5,6 +5,8 @@ import React from 'react';
 import { queryAPI, Table, TimeAgo } from 'eazin-core/ui';
 import { withStyles } from '@material-ui/core';
 
+const ClientTokens = React.lazy(() => import(/* webpackChunkName: "clientTokens" */'./ClientsView.Tokens'));
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -34,7 +36,9 @@ const styles = () => ({
 
 class ClientsView extends React.Component {
   state = {
-    hiddenColumns: ['updatedAt'],
+    hiddenColumns: [
+      // 'updatedAt'
+    ],
     // eslint-disable-next-line
     data: [],
   };
@@ -73,6 +77,7 @@ class ClientsView extends React.Component {
   }));
 
   query = async (query) => {
+    const { api: { get } } = this.props;
     const url = `/api/clients?${toQuerystring({
       limit: query.pageSize,
       offset: query.pageSize * query.page,
@@ -85,8 +90,12 @@ class ClientsView extends React.Component {
       }))),
     })}`;
 
-    // eslint-disable-next-line
-    return this.props.api.get(url);
+    return get(url);
+  };
+
+  queryTokens = (clientId) => {
+    const { api: { get } } = this.props;
+    return get(`/api/clients/${clientId}/tokens`);
   };
 
   handleRowAdd = (newData) => queryAPI('/api/clients', {
@@ -106,13 +115,14 @@ class ClientsView extends React.Component {
   // eslint-disable-next-line
   handleRowDelete = ({ id }) => this.props.api.delete(`/api/clients/${id}`);
 
-  renderdetailPanel = (rowData, ...rest) => (
-    <div>
-      {
-        // eslint-disable-next-line no-console
-        console.info('details', rowData, ...rest)
-      }
-    </div>
+  renderdetailPanel = ({ tableData, ...client }) => (
+    <React.Suspense fallback="loading">
+      <ClientTokens
+        client={client}
+        query={this.queryTokens}
+        listTokens={this.queryTokens}
+      />
+    </React.Suspense>
   );
 
   render() {

@@ -5,7 +5,7 @@ const uid = require('eazin-core/server/util/uid');
 const { Schema } = mongoose;
 
 const tokenSchema = new Schema({
-  note: String,
+  note: { type: String, required: true },
   owner: { type: Schema.Types.ObjectId, ref: 'User', required: true },
   client: { type: Schema.Types.ObjectId, ref: 'APIClient', required: true },
   scope: { type: Schema.Types.Mixed, default: () => ({}), required: true },
@@ -15,8 +15,10 @@ const tokenSchema = new Schema({
 
 tokenSchema.statics.sanitizeInput = ({
   note,
+  expiresAt,
 }) => ({
   note,
+  expiresAt,
 });
 
 tokenSchema.methods.toJSON = function toJSON(opts) {
@@ -30,9 +32,9 @@ tokenSchema.methods.toJSON = function toJSON(opts) {
     ...rest
   } = this.toObject(opts);
   return {
+    ...rest,
     id,
     owner: owner._id,
-    ...rest,
   };
 };
 
