@@ -42,6 +42,10 @@ module.exports = ({ type = 'unit' }) => {
         // absPath('src/server/**/*.js'),
         absPath('src/**/server/**/*.js'),
       ],
+      modulePathIgnorePatterns: [
+        '<rootDir>/build',
+        '<rootDir>/src/packages',
+      ],
     }
     : {
       ...jestCommon,
