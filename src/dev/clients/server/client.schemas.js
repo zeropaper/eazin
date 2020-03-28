@@ -82,6 +82,11 @@ clientSchema.pre('save', function preSaveAPIClient(next) {
   }
 });
 
+// eslint-disable-next-line prefer-arrow-callback
+clientSchema.post('remove', async function postRemoveClient(doc) {
+  await mongoose.model('APIToken').deleteMany({ client: doc._id });
+});
+
 clientSchema.methods.toJSON = function toJSON(opts) {
   const {
     token,

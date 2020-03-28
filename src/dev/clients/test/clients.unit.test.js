@@ -85,32 +85,32 @@ describe('client', () => {
     APIToken = mongoose.model('APIToken');
   });
 
-  it('can be created by an authenticated user', () => utils
-    .post('/api/clients')
-    .send({
-      name: 'ACME',
-      redirectURI: 'eazin://auth',
-    })
-    .set('Authorization', `Bearer ${creator.token}`)
-    .expect(201)
-    .then(async (res) => {
-      expect(res.body).toHaveProperty('id');
-      expect(res.body).toHaveProperty('name', 'ACME');
-      expect(res.body).toHaveProperty('owner', creator.id);
-      client = res.body;
+  it('can be created by an authenticated user', async () => {
+    const res = await utils
+      .post('/api/clients')
+      .send({
+        name: 'ACME',
+        redirectURI: 'eazin://auth',
+      })
+      .set('Authorization', `Bearer ${creator.token}`)
+      .expect(201);
+    expect(res.body).toHaveProperty('id');
+    expect(res.body).toHaveProperty('name', 'ACME');
+    expect(res.body).toHaveProperty('owner', creator.id);
+    client = res.body;
 
-      const found = await APIClient.findOne({ _id: client.id });
-      expect(found.id).toBe(client.id);
+    const found = await APIClient.findOne({ _id: client.id });
+    expect(found.id).toBe(client.id);
 
-      creator = await User.findById(creator._id);
-      expect(creator.roles).toEqual(expect.arrayContaining([
-        'post:clients',
-        `get:clients/${client.id}`,
-        `patch:clients/${client.id}`,
-        `delete:clients/${client.id}`,
-        `post:clients/${client.id}`,
-      ]));
-    }));
+    creator = await User.findById(creator._id);
+    expect(creator.roles).toEqual(expect.arrayContaining([
+      'post:clients',
+      `get:clients/${client.id}`,
+      `patch:clients/${client.id}`,
+      `delete:clients/${client.id}`,
+      `post:clients/${client.id}`,
+    ]));
+  });
 
   it('can be read by its creator', () => utils
     .get(`/api/clients/${client.id}`)
@@ -163,7 +163,7 @@ describe('client', () => {
         .post(`/api/clients/${client.id}`)
         .set('Authorization', `Bearer ${creator.token}`)
         .send({ note: 'required note' })
-        .expect(200);
+        .expect(201);
       expect(res.body).toHaveProperty('token');
       expect(res.body).toHaveProperty('id');
       expect(res.body).toHaveProperty('createdAt');
@@ -190,15 +190,39 @@ describe('client', () => {
         .set('Authorization', `Bearer ${token.token}`)
         .expect(204);
     });
+
+    it('is deleted when its client is deleted', async () => {
+      const dbClient = await APIClient.findById(token.client);
+      await (new APIToken({
+        note: 'note',
+        client: dbClient._id,
+        owner: dbClient.owner,
+      })).save();
+      let dbTokens = await APIToken.find({ client: token.client });
+      expect(dbTokens).toHaveLength(2);
+
+      await utils.delete(`/api/clients/${client.id}`)
+        .set('Authorization', `Bearer ${creator.token}`)
+        .expect(204);
+      dbTokens = await APIToken.find({ client: token.client });
+      expect(dbTokens).toHaveLength(0);
+    });
   });
 
   describe('composite authentication', () => {
     let token;
     beforeAll(async () => {
+      client = (await utils.post('/api/clients')
+        .set('Authorization', `Bearer ${creator.token}`)
+        .send({
+          name: 'ACME',
+          redirectURI: 'eazin://auth',
+        })
+        .expect(201)).body;
       token = (await utils.post(`/api/clients/${client.id}`)
         .set('Authorization', `Bearer ${creator.token}`)
         .send({ note: 'note' })
-        .expect(200)).body;
+        .expect(201)).body;
     });
 
     it('can use an API token', () => utils

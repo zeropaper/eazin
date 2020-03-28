@@ -1,27 +1,29 @@
 const passport = require('passport');
 const mongoose = require('mongoose');
 
-const check = require('../../../packages/users/server/user.auth.checkRoles');
-
 const {
   Router,
   httperrors,
-  requestHook,
   uid,
+  requestHook,
   modelRequestParam,
+  // makePostHandler,
+  makeGetHandler,
+  makePatchHandler,
+  makeDeleteHandler,
 } = require('../../../packages/core/server');
 
-const router = Router();
+const clientRouter = Router();
+const tokenRouter = Router();
 
 const bearer = passport.authenticate('bearer', { session: false });
 
-modelRequestParam('APIClient', router, 'apiClient');
-modelRequestParam('APIToken', router, 'apiToken');
+modelRequestParam('APIClient', clientRouter, 'apiClient');
+modelRequestParam('APIToken', tokenRouter, 'apiToken');
 
-router.get(
+clientRouter.get(
   '/',
   bearer,
-  check(['get:clients']),
   requestHook('list clients'),
   (req, res, next) => {
     const APIClient = mongoose.model('APIClient');
@@ -38,10 +40,15 @@ router.get(
   },
 );
 
-router.post(
+// makePostHandler({
+//   auth: bearer,
+//   router: clientRouter,
+//   name: 'client',
+//   modelName: 'APIClient',
+// });
+clientRouter.post(
   '/',
   bearer,
-  check(['post:clients']),
   requestHook('create client'),
   (req, res, next) => {
     const APIClient = mongoose.model('APIClient');
@@ -54,7 +61,10 @@ router.post(
       res.status(201).send(created);
     };
 
-    APIClient.findOne({ name }, (err, client) => {
+    APIClient.findOne({
+      owner: req.user._id,
+      name,
+    }, (err, client) => {
       if (err) return next(err);
       if (client) return next(httperrors.UnprocessableEntity());
 
@@ -68,18 +78,16 @@ router.post(
   },
 );
 
-router.get(
-  '/:apiClient',
-  bearer,
-  check(['get:clients/:apiClient']),
-  requestHook('get client details'),
-  (req, res) => res.send(req.loadedParams.apiClient),
-);
+makeGetHandler({
+  auth: bearer,
+  router: clientRouter,
+  name: 'client',
+  idName: 'apiClient',
+});
 
-router.get(
+clientRouter.get(
   '/:apiClient/tokens',
   bearer,
-  check(['get:clients/:apiClient']),
   (req, res, next) => {
     const APIToken = mongoose.model('APIToken');
     APIToken.find({ client: req.params.apiClient }, (err, tokens) => {
@@ -89,31 +97,17 @@ router.get(
   },
 );
 
-router.patch(
+makePatchHandler({
+  auth: bearer,
+  router: clientRouter,
+  name: 'client',
+  modelName: 'APIClient',
+  idName: 'apiClient',
+});
+
+clientRouter.post(
   '/:apiClient',
   bearer,
-  check(['patch:clients/:apiClient']),
-  requestHook('update client'),
-  (req, res, next) => {
-    const { apiClient: client } = (req.loadedParams || {});
-    const APIClient = mongoose.model('APIClient');
-    const sanitized = APIClient.sanitizeInput(req.body);
-
-    Object.keys(sanitized).forEach((key) => {
-      if (typeof sanitized[key] !== 'undefined') client[key] = sanitized[key];
-    });
-
-    client.save((err, updated) => {
-      if (err) return next(err);
-      res.send(updated);
-    });
-  },
-);
-
-router.post(
-  '/:apiClient',
-  bearer,
-  check(['post:clients/:apiClient']),
   requestHook('creates an API client token'),
   (req, res, next) => {
     const APIToken = mongoose.model('APIToken');
@@ -126,7 +120,7 @@ router.post(
 
     dbToken.save((err, saved) => {
       if (err) return next(err);
-      res.send({
+      res.status(201).send({
         ...saved.toJSON(),
         token: saved.token,
       });
@@ -134,19 +128,27 @@ router.post(
   },
 );
 
-router.delete(
-  '/:apiClient',
-  bearer,
-  check(['delete:clients/:apiClient']),
-  requestHook('delete client'),
-  (req, res, next) => req.loadedParams.apiClient.remove((err) => {
-    if (err) return next(err);
+makeDeleteHandler({
+  auth: bearer,
+  router: clientRouter,
+  name: 'client',
+  idName: 'apiClient',
+});
 
-    mongoose.model('APIToken').deleteOne({ client: req.apiClient }, (err) => {
-      if (err) return next(err);
-      res.status(204).end();
-    });
-  }),
-);
+makeDeleteHandler({
+  auth: bearer,
+  router: tokenRouter,
+  name: 'token',
+  idName: 'apiToken',
+});
 
-module.exports = router;
+module.exports = [
+  {
+    path: '/clients',
+    router: clientRouter,
+  },
+  {
+    path: '/tokens',
+    router: tokenRouter,
+  },
+];
