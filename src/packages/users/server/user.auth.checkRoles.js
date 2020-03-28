@@ -43,32 +43,44 @@ const expandRoles = (params) => (role) => {
 };
 
 // eslint-disable-next-line no-unused-vars
-module.exports = (rolesToCheck) => (req, res, next) => {
-  if (!req.user) return next(httperrors.Unauthorized());
-  const {
-    isAdmin,
-    isVerified,
-  } = req.user;
-  if (!isVerified) {
-    res.status(403);
-    return next(new Error('User Need Verification'));
+module.exports = (rolesToCheck) => async (req, res, next) => {
+  const done = (err) => {
+    if (typeof next === 'function') {
+      next(err);
+    } else if (err) {
+      throw err;
+    }
+  };
+
+  try {
+    if (!req.user) throw httperrors.Unauthorized();
+    const {
+      isAdmin,
+      isVerified,
+    } = req.user;
+    if (!isVerified) {
+      res.status(403);
+      throw new Error('User Need Verification');
+    }
+    if (isAdmin) return done();
+
+    const expandedRoles = rolesToCheck.map(expandRoles(req.params));
+    const userRoles = req.user.roles;
+
+    let exited;
+    expandedRoles
+      .forEach((role) => {
+        if (exited) return;
+        if (!userRoles.includes(role)) {
+          exited = true;
+          const err = httperrors.Forbidden();
+          err.reason = `Missing "${role}" role`;
+          throw err;
+        }
+      });
+
+    done();
+  } catch (err) {
+    done(err);
   }
-  if (isAdmin) return next();
-
-  const expandedRoles = rolesToCheck.map(expandRoles(req.params));
-  const userRoles = req.user.roles;
-
-  let exited;
-  expandedRoles
-    .forEach((role) => {
-      if (exited) return;
-      if (!userRoles.includes(role)) {
-        exited = true;
-        const err = httperrors.Forbidden();
-        err.reason = `Missing "${role}" role`;
-        next(err);
-      }
-    });
-
-  return next();
 };
