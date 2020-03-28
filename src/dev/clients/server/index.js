@@ -37,9 +37,12 @@ module.exports = {
             apiToken,
           },
         } = req;
+        if (['/tokens', '/clients'].indexOf(routerPath) < 0) {
+          return done();
+        }
         const lcMethod = method.toLowerCase();
 
-        if (lcMethod === 'post' && routerPath === '/clients') {
+        if (lcMethod === 'post') {
           checks.push('post:clients');
         }
 
@@ -51,7 +54,7 @@ module.exports = {
 
         if (apiToken) checks.push(`${lcMethod}:tokens/:apiToken`);
 
-        await check(checks)(req, res);
+        if (checks.length) await check(checks)(req, res);
         done();
       } catch (err) {
         done(err);
