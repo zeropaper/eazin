@@ -13,18 +13,24 @@ import UsersView from './UsersView';
 import UserDrawer from './UserDrawer';
 import UserDrawerLow from './UserDrawerLow';
 
-export const bootstrap = (state, dispatch) => queryAPI.get('/api/user/me')
-  .then((res) => {
-    if (!res.id) throw new Error('No id');
-    dispatch(setUser(res));
-    queryAPI.get('/api/users')
-      .then((users) => dispatch(upsertManyUsers((users || {}).data)));
-  })
-  .catch(() => {
-    dispatch(clearUser());
-    dispatch(clearUsers());
-    dispatch(clearSetting('userToken'));
-  });
+export const bootstrap = (state, dispatch) => {
+  if (!state.settings.userToken) return;
+
+  return queryAPI.get('/api/user/me')
+    .then((res) => {
+      if (!res.id) throw new Error('No id');
+      dispatch(setUser(res));
+      if (res.isAdmin || res.roles.indexOf('get:users') > -1) {
+        queryAPI.get('/api/users')
+          .then((users) => dispatch(upsertManyUsers((users || {}).data)));
+      }
+    })
+    .catch(() => {
+      dispatch(clearUser());
+      dispatch(clearUsers());
+      dispatch(clearSetting('userToken'));
+    });
+};
 
 const routes = [
   {
