@@ -115,12 +115,18 @@ class ClientsView extends React.Component {
   // eslint-disable-next-line
   handleRowDelete = ({ id }) => this.props.api.delete(`/api/clients/${id}`);
 
+  deleteToken = async ({ id } = {}) => {
+    const { api: { delete: del } } = this.props;
+    return del(`/api/tokens/${id}`);
+  };
+
   renderdetailPanel = ({ tableData, ...client }) => (
     <React.Suspense fallback="loading">
       <ClientTokens
         client={client}
         query={this.queryTokens}
         listTokens={this.queryTokens}
+        onDeleteToken={this.deleteToken}
       />
     </React.Suspense>
   );

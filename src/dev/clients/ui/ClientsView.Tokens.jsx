@@ -36,60 +36,69 @@ export const LoadingState = () => (
 const UnstyledListState = ({
   tokens,
   classes,
-  // onDeleteToken,
-}) => (
-  <Grid container spacing={2}>
-    {!tokens || !tokens.length
-      ? (
-        <Grid item sm={12}>
-          <Paper className={classes.paper}>
-            No tokens
-          </Paper>
-        </Grid>
-      )
-      : tokens.map(({
-        id,
-        note,
-        token,
-        createdAt,
-        expiresAt,
-      }) => (
-        <Grid sm={12} md={6} lg={4} item key={id}>
-          <Paper className={classes.paper}>
-            <div>
+  onDeleteToken,
+}) => {
+  const handleDeleteToken = (id) => () => onDeleteToken({ id });
+  return (
+    <Grid container spacing={2}>
+      {!tokens || !tokens.length
+        ? (
+          <Grid item sm={12}>
+            <Paper className={classes.paper}>
+              No tokens
+            </Paper>
+          </Grid>
+        )
+        : tokens.map(({
+          id,
+          note,
+          token,
+          createdAt,
+          expiresAt,
+        }) => (
+          <Grid sm={12} md={6} lg={4} item key={id}>
+            <Paper className={classes.paper}>
               <div>
-                {note}
-              </div>
+                <div>
+                  {note}
+                </div>
 
-              {token && (
+                {token && (
                 <div>
                   Token:
                   <pre>{token}</pre>
                   <Typography>
-                    You should save this. It will never be display again.
+                    You should save this. It will never be shown again.
                   </Typography>
                 </div>
-              )}
+                )}
 
-              <div>
-                {'Created '}
-                <TimeAgo date={createdAt} />
+                <div>
+                  {'Created '}
+                  <TimeAgo date={createdAt} />
+                </div>
+
+                <div>
+                  {'Expires '}
+                  <TimeAgo date={expiresAt} />
+                </div>
               </div>
 
               <div>
-                {'Expires '}
-                <TimeAgo date={expiresAt} />
+                <DangerButton
+                  dialogTitle="Are you sure about deleting that token?"
+                  dialogContent="It may stop third party services to work properly."
+                  onClick={handleDeleteToken(id)}
+                >
+                  Delete
+                </DangerButton>
               </div>
-            </div>
-
-            <div>
-              <DangerButton />
-            </div>
-          </Paper>
-        </Grid>
-      ))}
-  </Grid>
-);
+            </Paper>
+          </Grid>
+        ))}
+    </Grid>
+  );
+};
 
 UnstyledListState.propTypes = {
   tokens: PropTypes.arrayOf(PropTypes.shape({
@@ -104,7 +113,7 @@ UnstyledListState.propTypes = {
       PropTypes.string,
     ]).isRequired,
   })),
-  // onDeleteToken: PropTypes.func.isRequired,
+  onDeleteToken: PropTypes.func.isRequired,
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
 
@@ -188,6 +197,7 @@ const ClientTokens = (props) => {
   const {
     client,
     listTokens,
+    onDeleteToken,
   } = props;
 
   const [tokenRequested, setTokenRequested] = React.useState(false);
@@ -200,6 +210,11 @@ const ClientTokens = (props) => {
 
   const handleTokenCreation = (token) => {
     setTokens([...tokens || [], token]);
+  };
+
+  const handleDeleteToken = async (token) => {
+    await onDeleteToken(token);
+    handleReload();
   };
 
   if (!tokenRequested && !tokens) {
@@ -220,7 +235,7 @@ const ClientTokens = (props) => {
     );
   } else {
     content = (
-      <ListState tokens={tokens} />
+      <ListState tokens={tokens} onDeleteToken={handleDeleteToken} />
     );
   }
 
@@ -241,8 +256,7 @@ ClientTokens.propTypes = {
     id: PropTypes.string.isRequired,
   }).isRequired,
   listTokens: PropTypes.func.isRequired,
-  // createQuery: PropTypes.func.isRequired,
-  // deleteQuery: PropTypes.func.isRequired,
+  onDeleteToken: PropTypes.func.isRequired,
 };
 
 export default ClientTokens;
