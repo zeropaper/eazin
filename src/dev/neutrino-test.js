@@ -25,8 +25,8 @@ const jestType = (type) => ({
     ],
   ],
   testMatch: [
-    absPath(`test/**/*${type}.test.js`),
-    absPath(`src/**/test/**/*${type}.test.js?(x)`),
+    absPath(`test/**/*.${type}.test.js`),
+    absPath(`src/**/test/**/*.${type}.test.js?(x)`),
   ],
   coverageDirectory: absPath(`test-results/${type}`),
 });
@@ -44,7 +44,7 @@ module.exports = ({ type = 'unit' }) => {
       ],
       modulePathIgnorePatterns: [
         '<rootDir>/build',
-        '<rootDir>/src/packages',
+        '<rootDir>/dist',
       ],
     }
     : {
