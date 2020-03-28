@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 
-// eslint-disable-next-line import/no-cycle
 import Fields from './Fields';
 
 const styles = (theme) => ({
   root: {
-    border: 1,
-    borderStyle: 'solid',
-    borderColor: theme.palette.grey[500],
-    margin: `${theme.spacing(1)}px 0`,
-    padding: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
   legend: {
     padding: theme.spacing(1),
+  },
+  fields: {
+    padding: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1) - 1,
+    borderLeft: '1px solid currentColor',
   },
 });
 
@@ -30,19 +32,18 @@ const FieldSet = ({
   api,
   components,
 }) => (
-  <fieldset className={classNames(classes.root, className)}>
-    <Typography className={classes.legend} component="legend">
-      {label}
-    </Typography>
+  <FormControl component="fieldset" className={classNames(classes.root, className)}>
+    <FormLabel component="legend">{label}</FormLabel>
 
     <Fields
+      className={classes.fields}
       components={components}
       state={state}
       api={api}
       fields={fields}
       field={field}
     />
-  </fieldset>
+  </FormControl>
 );
 
 FieldSet.propTypes = {
