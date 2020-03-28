@@ -1,4 +1,5 @@
 const httperrors = require('httperrors');
+const eazinRc = require('eazin-core/server/util/eazinrc');
 
 // 0: "method:resource"
 // 1: "method"
@@ -44,6 +45,7 @@ const expandRoles = (params) => (role) => {
 
 // eslint-disable-next-line no-unused-vars
 module.exports = (rolesToCheck) => async (req, res, next) => {
+  const { env } = eazinRc();
   const done = (err) => {
     if (typeof next === 'function') {
       next(err);
@@ -73,7 +75,7 @@ module.exports = (rolesToCheck) => async (req, res, next) => {
         if (exited) return;
         if (!userRoles.includes(role)) {
           exited = true;
-          const err = httperrors.Forbidden();
+          const err = httperrors.Forbidden(env !== 'production' ? `Missing "${role}" role` : 'Forbidden');
           err.reason = `Missing "${role}" role`;
           throw err;
         }
