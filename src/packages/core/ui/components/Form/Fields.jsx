@@ -23,6 +23,7 @@ const Fields = ({
     .map((field) => {
       const props = fields[field];
 
+      /* eslint-disable react/prop-types */
       const {
         type,
         label,
@@ -31,6 +32,7 @@ const Fields = ({
         access,
         component: Component,
       } = props;
+      /* eslint-enable react/prop-types */
 
       if (!checkAccess(access, state.values)) return null;
 
@@ -122,6 +124,8 @@ Fields.propTypes = {
     label: PropTypes.string,
     fields: PropTypes.object,
     className: PropTypes.string,
+    component: PropTypes.elementType,
+    access: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
   })).isRequired,
   field: PropTypes.string,
   className: PropTypes.string,
