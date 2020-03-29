@@ -157,6 +157,18 @@ schema.statics.sanitizeOutput = ({
   updatedAt,
 });
 
+schema.methods.toJSON = function toJSON(opts) {
+  const {
+    _id: id,
+    ...rest
+  } = this.toObject(opts);
+  return {
+    ...rest,
+    id,
+  };
+};
+
+
 modelSearchPlugin(schema);
 
 module.exports = schema;
