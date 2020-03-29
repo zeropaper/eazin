@@ -7,6 +7,7 @@ const prepare = require('../../../../test/server/prepare-server');
 
 const usersPlugin = require('../../../packages/users/server');
 const groupsPlugin = require('../server');
+const groupsExamplePlugin = require('../server/groups.example');
 
 let noAccess;
 let creator;
@@ -15,13 +16,10 @@ let member2;
 let admin;
 let utils;
 
-beforeAll(async () => {
-  utils = await prepare({
-    plugins: [
-      usersPlugin,
-      groupsPlugin,
-    ],
-  });
+const setup = (plugins) => async () => {
+  if (utils) await utils.tearDown();
+
+  utils = await prepare({ plugins });
   const { app } = utils;
   const { models: { User } } = mongoose;
   await User.deleteMany({});
@@ -58,7 +56,12 @@ beforeAll(async () => {
     isAdmin: true,
     isVerified: true,
   }, '1234567890Aa!!!');
-});
+};
+
+beforeAll(setup([
+  usersPlugin,
+  groupsPlugin,
+]));
 
 afterAll(async () => utils.tearDown());
 
@@ -76,7 +79,8 @@ const makeGroup = (i, user) => utils
     approvalType: 'members',
   })
   .set('Authorization', `Bearer ${user.token}`)
-  .expect(201);
+  .expect(201)
+  .then(({ body }) => body);
 
 const makeGroups = (count = 10, user = admin) => {
   const promises = [];
@@ -305,6 +309,203 @@ describe('group', () => {
           expect(result.body).toHaveProperty('page', 0);
           expect(result.body).toHaveProperty('totalCount', 50);
         });
+    });
+  });
+
+  describe('content', () => {
+    // let groups;
+    // let members;
+    // let nonMembers;
+    // let admins;
+
+    const scopes = {};
+
+    let User;
+    let Group;
+    let GroupExampleDocument;
+
+    const prepareSuit = async () => {
+      await User.deleteMany({});
+      await Group.deleteMany({});
+      await GroupExampleDocument.deleteMany({});
+
+      const admins = [
+        await User.register({
+          email: 'admin1@eazin.local',
+          isAdmin: true,
+          isVerified: true,
+        }, '1234567890Aa!!!'),
+        await User.register({
+          email: 'admin2@eazin.local',
+          isAdmin: true,
+          isVerified: true,
+        }, '1234567890Aa!!!'),
+      ];
+
+      const nonMembers = [
+        await User.register({
+          email: 'non.member1@eazin.local',
+          isVerified: true,
+          roles: ['post:groups', 'get:groups'],
+        }, '1234567890Aa!!!'),
+        await User.register({
+          email: 'non.member2@eazin.local',
+          isVerified: true,
+          roles: ['post:groups', 'get:groups'],
+        }, '1234567890Aa!!!'),
+      ];
+
+      const members = [
+        await User.register({
+          email: 'group1.member1@eazin.local',
+          isVerified: true,
+          roles: ['post:groups', 'get:groups'],
+        }, '1234567890Aa!!!'),
+        await User.register({
+          email: 'group1.member2@eazin.local',
+          isVerified: true,
+          roles: ['post:groups', 'get:groups'],
+        }, '1234567890Aa!!!'),
+      ];
+
+      const groups = [
+        await (new Group({
+          name: 'Group 1',
+          members,
+          approvalType: 'members',
+          admin: await User.register({
+            email: 'group1.creator@eazin.local',
+            isVerified: true,
+            roles: ['post:groups', 'get:groups'],
+          }, '1234567890Aa!!!'),
+        })).save(),
+
+        await (new Group({
+          name: 'Group 2',
+          approvalType: 'open',
+          admin: await User.register({
+            email: 'group2.creator@eazin.local',
+            isVerified: true,
+            roles: ['post:groups', 'get:groups'],
+          }, '1234567890Aa!!!'),
+        })).save(),
+      ];
+
+      const documents = [
+        [
+          await (new GroupExampleDocument({
+            group: groups[0],
+            title: 'Group 1 Doc A',
+          })).save(),
+          await (new GroupExampleDocument({
+            group: groups[0],
+            title: 'Group 1 Doc B',
+          })).save(),
+          await (new GroupExampleDocument({
+            group: groups[0],
+            title: 'Group 1 Doc C',
+          })).save(),
+        ],
+        [
+          await (new GroupExampleDocument({
+            group: groups[1],
+            title: 'Group 2 Doc A',
+          })).save(),
+          await (new GroupExampleDocument({
+            group: groups[1],
+            title: 'Group 2 Doc B',
+          })).save(),
+          await (new GroupExampleDocument({
+            group: groups[1],
+            title: 'Group 2 Doc C',
+          })).save(),
+        ],
+      ];
+
+      scopes.groups = groups;
+      scopes.documents = documents;
+      scopes.members = members;
+      scopes.nonMembers = nonMembers;
+      scopes.admins = admins;
+    };
+
+    const scopePromises = (scope, method, path, expected) => (scopes[scope] || [])
+      .map((user) => {
+        const met = method.toLowerCase();
+        const urlPath = path
+          .replace(':groupExampleDocumentId', scopes.documents[0][0]._id);
+        const url = `/api/group-documents${urlPath}`;
+
+        let req = utils[met](url);
+        if (user) {
+          req = req.set('Authorization', `Bearer ${user.token}`);
+        }
+
+        if (['patch', 'post'].indexOf(met) > -1) {
+          req = req
+            .send({ title: 'title', content: 'content' });
+        }
+
+        return req
+          .then((res) => {
+            if (res.status !== expected) {
+              console.info('%s %s %s\n%s\n%s', scope, method, url, expected, res.status);
+            }
+            expect(res.status).toBe(expected);
+          });
+      });
+
+    beforeAll(async () => {
+      await setup([
+        usersPlugin,
+        groupsExamplePlugin,
+        groupsPlugin,
+      ])();
+
+      User = mongoose.model('User');
+      Group = mongoose.model('Group');
+      GroupExampleDocument = mongoose.model('GroupExampleDocument');
+    });
+
+    describe('access', () => {
+      describe.each([
+        ['default', prepareSuit, {
+          forbids: [
+            ['anons', 'POST', '/', 404],
+            ['anons', 'GET', '/', 404],
+            ['anons', 'GET', '/:groupExampleDocumentId', 404],
+            ['anons', 'PATCH', '/:groupExampleDocumentId', 404],
+            ['anons', 'DELETE', '/:groupExampleDocumentId', 404],
+
+            ['nonMembers', 'POST', '/', 501],
+            ['nonMembers', 'GET', '/', 501],
+            ['nonMembers', 'GET', '/:groupExampleDocumentId', 501],
+            ['nonMembers', 'PATCH', '/:groupExampleDocumentId', 501],
+            ['nonMembers', 'DELETE', '/:groupExampleDocumentId', 501],
+          ],
+          allows: [
+            ['members', 'POST', '/', 501],
+            ['members', 'GET', '/', 501],
+            ['members', 'GET', '/:groupExampleDocumentId', 501],
+            ['members', 'PATCH', '/:groupExampleDocumentId', 501],
+            ['members', 'DELETE', '/:groupExampleDocumentId', 501],
+
+            ['admins', 'POST', '/', 501],
+            ['admins', 'GET', '/', 501],
+            ['admins', 'GET', '/:groupExampleDocumentId', 501],
+            ['admins', 'PATCH', '/:groupExampleDocumentId', 501],
+            ['admins', 'DELETE', '/:groupExampleDocumentId', 501],
+          ],
+        }],
+      ])('%s type group document', (type, prepareTests, expectations) => {
+        beforeAll(prepareTests);
+
+        Object.keys(expectations)
+          .forEach((grant) => {
+            it.each(expectations[grant])(`${grant} %s %s /api/group-documents%s requests`, (scope, method, path, expected) => Promise
+              .all(scopePromises(scope, method, path, expected)));
+          });
+      });
     });
   });
 });
