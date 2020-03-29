@@ -8,9 +8,9 @@ module.exports = {
   name: 'API Clients',
   apiRouter: require('./client.router'),
   schemas: require('./client.schemas'),
-  schemaPlugins: [
-    require('./client.schemaPlugin')(authServer),
-  ],
+  // schemaPlugins: [
+  //   require('./client.schemaPlugin')(authServer),
+  // ],
   dbReadyHooks: [
     require('./client.dbReady')(authServer),
   ],
