@@ -43,6 +43,8 @@ module.exports = ({ type = 'unit' }) => {
         absPath('src/**/server/**/*.js'),
       ],
       modulePathIgnorePatterns: [
+        '<rootDir>/build',
+        '<rootDir>/dist',
         '<rootDir>/build/**/*',
         '<rootDir>/dist/**/*',
         '<rootDir>/node_modules/eazin-*/**/*',
