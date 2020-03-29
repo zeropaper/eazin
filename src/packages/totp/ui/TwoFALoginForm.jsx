@@ -36,7 +36,7 @@ const TwoFALoginForm = ({ dispatch, history: { push } }) => {
           push('/');
         }}
         onError={(err, setErrors) => {
-          setNeedsCode(needsCode || err.fields.code);
+          setNeedsCode(needsCode || !!err.fields.code);
           setErrors();
         }}
         fields={{
@@ -48,6 +48,7 @@ const TwoFALoginForm = ({ dispatch, history: { push } }) => {
             InputProps: {
               readOnly: needsCode,
             },
+            autoFocus: !needsCode,
           },
           password: {
             label: 'Password',
@@ -67,6 +68,7 @@ const TwoFALoginForm = ({ dispatch, history: { push } }) => {
               InputLabelProps: {
                 shrink: true,
               },
+              autoFocus: true,
             } : {}),
             label: 'Two-factor authentication',
           },
