@@ -9,6 +9,7 @@ const config = require(rcpath);
 if (!config.port) throw new Error('.eazinrc.js error: missing port');
 if (!config.host) throw new Error('.eazinrc.js error: missing host');
 if (!config.dbURL) throw new Error('.eazinrc.js error: missing dbURL');
+if (!config.baseURL) throw new Error('.eazinrc.js error: missing baseURL');
 
 log(`config loaded from ${rcpath}.js`);
 

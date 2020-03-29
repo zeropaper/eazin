@@ -10,6 +10,7 @@ const config = {
   env: 'test',
   port: PORT,
   host: 'localhost',
+  baseURL: 'http://localhost:3030',
   dbURL: `mongodb://localhost:27017/eazin-${TEST_TYPE}-test`,
   siteName: `eazin ${TEST_TYPE} test`,
   publicDir: './html-build',
