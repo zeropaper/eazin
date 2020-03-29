@@ -11,6 +11,7 @@ const compression = require('compression');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const series = require('async-series');
+const capitalize = require('lodash.capitalize');
 
 const initWS = require('./core/ws');
 const modelRequestParam = require('./core/modelRequestParam');
@@ -150,9 +151,34 @@ const eazin = async ({
   });
 
   // ##### call apiRouter plugin point
-  plugins.forEach(({ apiRouter: apiPlugins = [] } = {}) => {
+  plugins.forEach(({ name, apiRouter: apiPlugins = [] }) => {
     apiPlugins.forEach(({ path: routerPath, router }) => {
       if (!routerPath || !router) return;
+
+      if (name) {
+        const subRouterPluginHook = `api${capitalize(name)}SubRouter`;
+        plugins.forEach(({
+          [subRouterPluginHook]: subApiPlugins = [],
+        } = {}) => {
+          subApiPlugins.forEach(({
+            path: subRouterParentPath,
+            subPath: subRouterPath,
+            router: subRouter,
+          }) => {
+            if (
+              subRouterParentPath !== routerPath
+              || !subRouter
+            ) return;
+
+            router.use(subRouterPath || '/', (req, res, next) => {
+              req.routingLevels = [apiPath, routerPath, subRouterPath]
+                .filter(Boolean);
+              next();
+            }, subRouter);
+          });
+        });
+      }
+
       apiRouter.use(routerPath, (req, res, next) => {
         req.routingLevels = [apiPath, routerPath];
         next();
