@@ -58,7 +58,7 @@ router.post(
       const sanitized = Group.sanitizeInput(req.body);
       sanitized.admin = req.user._id;
       const group = await Group.create(sanitized);
-      res.status(201).send(Group.sanitizeOutput(group));
+      res.status(201).send(group);
     } catch (err) {
       next(err);
     }
@@ -70,7 +70,7 @@ router.get(
   passport.authenticate('bearer', { session: false }),
   check(['get:groups/:groupId']),
   requestHook('get group details'),
-  (req, res) => res.send(mongoose.model('Group').sanitizeOutput(req.loadedParams.groupId)),
+  (req, res) => res.send(req.loadedParams.groupId),
 );
 
 router.post(
@@ -125,7 +125,7 @@ router.patch(
 
     group.save(sanitized, (err, updated) => {
       if (err) return next(err);
-      res.send(Group.sanitizeOutput(updated));
+      res.send(updated);
     });
   },
 );
