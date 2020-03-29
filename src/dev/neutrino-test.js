@@ -45,9 +45,7 @@ module.exports = ({ type = 'unit' }) => {
       modulePathIgnorePatterns: [
         '<rootDir>/build',
         '<rootDir>/dist',
-        '<rootDir>/build/**/*',
-        '<rootDir>/dist/**/*',
-        '<rootDir>/node_modules/eazin-*/**/*',
+        '<rootDir>/node_modules/eazin-*',
       ],
     }
     : {
