@@ -5,6 +5,8 @@ import { Table, Form, TimeAgo } from 'eazin-core/ui';
 import { UserName } from 'eazin-users/ui';
 
 class GroupsView extends React.Component {
+  static pageTitle = 'Groups';
+
   constructor(props) {
     super(props);
 
@@ -57,8 +59,6 @@ class GroupsView extends React.Component {
       disabled: pristine || invalid || loading,
     },
   ]);
-
-  static pageTitle = 'Groups';
 
   render() {
     return (

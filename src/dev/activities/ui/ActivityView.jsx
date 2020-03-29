@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import { Table, TimeAgo } from 'eazin-core/ui';
 
 class ActivityView extends React.Component {
+  static pageTitle = 'Activity';
+
   data = (query) => {
     const { api: { get } } = this.props;
     return get(`/api/activities?${Table.paginationQuerystring(query)}`);
   };
-
-  static pageTitle = 'Activity';
 
   render() {
     return (
