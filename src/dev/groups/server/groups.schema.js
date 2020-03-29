@@ -137,26 +137,6 @@ schema.statics.sanitizeInput = ({
   approvalType,
 });
 
-schema.statics.sanitizeOutput = ({
-  name,
-  type,
-  approvalType,
-  members,
-  admin,
-  _id: id,
-  createdAt,
-  updatedAt,
-} = {}) => ({
-  name,
-  type,
-  approvalType,
-  members,
-  admin,
-  id,
-  createdAt,
-  updatedAt,
-});
-
 schema.methods.toJSON = function toJSON(opts) {
   const {
     _id: id,
