@@ -26,7 +26,7 @@ const DangerButton = ({
     }
   };
 
-  const handleCancelation = () => {
+  const handleClose = () => {
     setOpen(false);
     storeTarget(null);
   };
@@ -38,7 +38,7 @@ const DangerButton = ({
       originalTarget.click();
     }
 
-    handleCancelation();
+    handleClose();
   };
 
   return (
@@ -57,7 +57,7 @@ const DangerButton = ({
         confirmLabel={okLabel}
         rejectLabel={cancelLabel}
         onConfirm={handleConfirmation}
-        onReject={handleCancelation}
+        onReject={handleClose}
       >
         {dialogContent}
       </ConfirmationDialog>
@@ -73,6 +73,7 @@ DangerButton.propTypes = {
   dialogContent: PropTypes.node,
   okLabel: PropTypes.string,
   cancelLabel: PropTypes.string,
+  type: PropTypes.string,
 };
 
 DangerButton.defaultProps = {
@@ -80,6 +81,7 @@ DangerButton.defaultProps = {
   dialogContent: null,
   okLabel: null,
   cancelLabel: null,
+  type: 'button',
 };
 
 export default DangerButton;
