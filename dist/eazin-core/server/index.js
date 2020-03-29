@@ -20,6 +20,10 @@ const errorHandler = require('./core/errorHandler');
 const requestHook = require('./util/requestHook');
 const uid = require('./util/uid');
 const log = require('./util/log');
+const makePostHandler = require('./util/makePostHandler');
+const makeGetHandler = require('./util/makeGetHandler');
+const makePatchHandler = require('./util/makePatchHandler');
+const makeDeleteHandler = require('./util/makeDeleteHandler');
 
 const eazinRC = require('./util/eazinrc');
 
@@ -134,6 +138,7 @@ const eazin = async ({
   app.use(helmet());
 
   const apiRouter = express.Router();
+  const apiPath = '/api';
   apiRouter.use(express.json());
   apiRouter.use(express.urlencoded({ extended: true }));
   apiRouter.use(passport.initialize());
@@ -146,9 +151,12 @@ const eazin = async ({
 
   // ##### call apiRouter plugin point
   plugins.forEach(({ apiRouter: apiPlugins = [] } = {}) => {
-    apiPlugins.forEach(({ path: apiPath, router }) => {
-      if (!apiPath || !router) return;
-      apiRouter.use(apiPath, router);
+    apiPlugins.forEach(({ path: routerPath, router }) => {
+      if (!routerPath || !router) return;
+      apiRouter.use(routerPath, (req, res, next) => {
+        req.routingLevels = [apiPath, routerPath];
+        next();
+      }, router);
     });
   });
 
@@ -156,7 +164,7 @@ const eazin = async ({
 
   if (config.env === 'production') app.use(compression());
 
-  app.use('/api', apiRouter);
+  app.use(apiPath, apiRouter);
 
   if (config.publicDir) {
     const staticIndexPath = path.resolve(process.cwd(), config.publicDir, 'index.html');
@@ -221,6 +229,10 @@ eazin.requestHook = requestHook;
 eazin.uid = uid;
 eazin.log = log;
 eazin.modelRequestParam = modelRequestParam;
+eazin.makePostHandler = makePostHandler;
+eazin.makeGetHandler = makeGetHandler;
+eazin.makePatchHandler = makePatchHandler;
+eazin.makeDeleteHandler = makeDeleteHandler;
 eazin.eazinRC = eazinRC;
 eazin.model = (name) => mongoose.model(name);
 

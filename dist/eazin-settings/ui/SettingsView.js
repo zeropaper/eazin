@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 231);
+/******/ 	return __webpack_require__(__webpack_require__.s = 232);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -110,7 +110,7 @@ module.exports = require("eazin-core/ui");
 
 /***/ }),
 
-/***/ 159:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -156,7 +156,7 @@ var yesNo = function yesNo(bool) {
 
 var SettingsView = function SettingsView(_ref) {
   var darkMode = _ref.darkMode;
-  return react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, "Dark Mode:\xA0", yesNo(darkMode));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_7___default.a.createElement("div", null, "Dark Mode:\xA0", yesNo(darkMode));
 };
 
 SettingsView.pageTitle = 'Settings';
@@ -180,10 +180,10 @@ module.exports = require("core-js/modules/es.array.filter");
 
 /***/ }),
 
-/***/ 231:
+/***/ 232:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(159);
+module.exports = __webpack_require__(160);
 
 
 /***/ }),
