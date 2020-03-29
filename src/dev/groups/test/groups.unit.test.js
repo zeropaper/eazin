@@ -95,6 +95,7 @@ const findGroupById = (id) => {
   return Group.findById(id);
 };
 
+
 describe('group', () => {
   describe('access', () => {
     let group;
@@ -313,11 +314,6 @@ describe('group', () => {
   });
 
   describe('content', () => {
-    // let groups;
-    // let members;
-    // let nonMembers;
-    // let admins;
-
     const scopes = {};
 
     let User;
@@ -429,31 +425,27 @@ describe('group', () => {
       scopes.admins = admins;
     };
 
-    const scopePromises = (scope, method, path, expected) => (scopes[scope] || [])
-      .map((user) => {
-        const met = method.toLowerCase();
-        const urlPath = path
-          .replace(':groupExampleDocumentId', scopes.documents[0][0]._id);
-        const url = `/api/group-documents${urlPath}`;
+    const makeRequest = (scope, method, path, expected) => (user) => {
+      const met = method.toLowerCase();
+      const urlPath = path
+        .replace(':groupExampleDocumentId', scopes.documents[0][0]._id);
+      const url = `/api/group-documents${urlPath}`;
 
-        let req = utils[met](url);
-        if (user) {
-          req = req.set('Authorization', `Bearer ${user.token}`);
-        }
+      let req = utils[met](url);
+      if (user) {
+        req = req.set('Authorization', `Bearer ${user.token}`);
+      }
 
-        if (['patch', 'post'].indexOf(met) > -1) {
-          req = req
-            .send({ title: 'title', content: 'content' });
-        }
+      if (['patch', 'post'].indexOf(met) > -1) {
+        req = req
+          .send({ title: 'title', content: 'content' });
+      }
 
-        return req
-          .then((res) => {
-            if (res.status !== expected) {
-              console.info('%s %s %s\n%s\n%s', scope, method, url, expected, res.status);
-            }
-            expect(res.status).toBe(expected);
-          });
-      });
+      return req.then((res) => expect(res.status).toBe(expected));
+    };
+
+    const makePromises = (scope, ...rest) => Promise
+      .all((scopes[scope] || []).map(makeRequest(scope, ...rest)));
 
     beforeAll(async () => {
       await setup([
@@ -502,8 +494,7 @@ describe('group', () => {
 
         Object.keys(expectations)
           .forEach((grant) => {
-            it.each(expectations[grant])(`${grant} %s %s /api/group-documents%s requests`, (scope, method, path, expected) => Promise
-              .all(scopePromises(scope, method, path, expected)));
+            it.each(expectations[grant])(`${grant} %s %s /api/group-documents%s requests`, makePromises);
           });
       });
     });
