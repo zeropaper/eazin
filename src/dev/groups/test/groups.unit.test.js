@@ -96,6 +96,30 @@ const findGroupById = (id) => {
 };
 
 
+const accesses = (userType, granted = false) => [
+  userType,
+  [
+    ['POST', '/groups/:groupId/documents/', granted ? 201 : 401],
+    ['GET', '/groups/:groupId/documents/', granted ? 200 : 401],
+    ['GET', '/groups/:groupId/documents/:groupExampleDocumentId', granted ? 200 : 401],
+    ['PATCH', '/groups/:groupId/documents/:groupExampleDocumentId', granted ? 200 : 401],
+    ['DELETE', '/groups/:groupId/documents/:groupExampleDocumentId', granted ? 204 : 401],
+  ],
+];
+const testData = [
+  ['default', {
+    forbids: [
+      accesses('anons'),
+      accesses('nonMembers'),
+    ],
+    allows: [
+      accesses('admins', true),
+      accesses('members', true),
+    ],
+  }],
+];
+
+
 describe('group', () => {
   describe('access', () => {
     let group;
@@ -314,13 +338,45 @@ describe('group', () => {
   });
 
   describe('content', () => {
-    const scopes = {};
+    const env = {
+      anons: [null],
+    };
 
     let User;
     let Group;
     let GroupExampleDocument;
 
-    const prepareSuit = async () => {
+    const makeRequest = (method, path, expected) => (user) => {
+      const met = method.toLowerCase();
+      const urlPath = path
+        .replace(':groupId', env.groups[0]._id)
+        .replace(':groupExampleDocumentId', env.documents[0][0]._id);
+      const url = `/api${urlPath}`;
+
+      let req = utils[met](url);
+
+      if (user) {
+        req = req.set('Authorization', `Bearer ${user.token}`);
+      }
+
+      if (['patch', 'post'].indexOf(met) > -1) {
+        req = req.send({
+          group: env.groups[0]._id,
+          title: 'title',
+          content: 'content',
+        });
+      }
+
+      return req.then((res) => {
+        // console.info('%s: %s %s', user && user.email, method, url, expected, res.status);
+        expect(res.status).toBe(expected);
+      });
+    };
+
+    const makePromises = (users, ...rest) => Promise
+      .all(users.map(makeRequest(...rest)));
+
+    const prepareTests = async () => {
       await User.deleteMany({});
       await Group.deleteMany({});
       await GroupExampleDocument.deleteMany({});
@@ -328,11 +384,6 @@ describe('group', () => {
       const admins = [
         await User.register({
           email: 'admin1@eazin.local',
-          isAdmin: true,
-          isVerified: true,
-        }, '1234567890Aa!!!'),
-        await User.register({
-          email: 'admin2@eazin.local',
           isAdmin: true,
           isVerified: true,
         }, '1234567890Aa!!!'),
@@ -344,21 +395,11 @@ describe('group', () => {
           isVerified: true,
           roles: ['post:groups', 'get:groups'],
         }, '1234567890Aa!!!'),
-        await User.register({
-          email: 'non.member2@eazin.local',
-          isVerified: true,
-          roles: ['post:groups', 'get:groups'],
-        }, '1234567890Aa!!!'),
       ];
 
       const members = [
         await User.register({
           email: 'group1.member1@eazin.local',
-          isVerified: true,
-          roles: ['post:groups', 'get:groups'],
-        }, '1234567890Aa!!!'),
-        await User.register({
-          email: 'group1.member2@eazin.local',
           isVerified: true,
           roles: ['post:groups', 'get:groups'],
         }, '1234567890Aa!!!'),
@@ -418,35 +459,12 @@ describe('group', () => {
         ],
       ];
 
-      scopes.groups = groups;
-      scopes.documents = documents;
-      scopes.members = members;
-      scopes.nonMembers = nonMembers;
-      scopes.admins = admins;
+      env.groups = groups;
+      env.documents = documents;
+      env.members = members;
+      env.nonMembers = nonMembers;
+      env.admins = admins;
     };
-
-    const makeRequest = (scope, method, path, expected) => (user) => {
-      const met = method.toLowerCase();
-      const urlPath = path
-        .replace(':groupExampleDocumentId', scopes.documents[0][0]._id);
-      const url = `/api/group-documents${urlPath}`;
-
-      let req = utils[met](url);
-      if (user) {
-        req = req.set('Authorization', `Bearer ${user.token}`);
-      }
-
-      if (['patch', 'post'].indexOf(met) > -1) {
-        req = req
-          .send({ title: 'title', content: 'content' });
-      }
-
-      return req.then((res) => expect(res.status).toBe(expected));
-    };
-
-    const makePromises = (scope, ...rest) => Promise
-      .all((scopes[scope] || []).map(makeRequest(scope, ...rest)));
-
     beforeAll(async () => {
       await setup([
         usersPlugin,
@@ -459,43 +477,18 @@ describe('group', () => {
       GroupExampleDocument = mongoose.model('GroupExampleDocument');
     });
 
-    describe('access', () => {
+    describe.each(testData)('access %s type group document', (type, expectations) => {
       describe.each([
-        ['default', prepareSuit, {
-          forbids: [
-            ['anons', 'POST', '/', 404],
-            ['anons', 'GET', '/', 404],
-            ['anons', 'GET', '/:groupExampleDocumentId', 404],
-            ['anons', 'PATCH', '/:groupExampleDocumentId', 404],
-            ['anons', 'DELETE', '/:groupExampleDocumentId', 404],
+        ['forbids', expectations.forbids],
+        ['allows', expectations.allows],
+      ])('%s', (grant, grantExpectations) => {
+        describe.each(grantExpectations)('%s user', (userType, scopeExpectations) => {
+          beforeAll(prepareTests);
 
-            ['nonMembers', 'POST', '/', 404],
-            ['nonMembers', 'GET', '/', 404],
-            ['nonMembers', 'GET', '/:groupExampleDocumentId', 404],
-            ['nonMembers', 'PATCH', '/:groupExampleDocumentId', 404],
-            ['nonMembers', 'DELETE', '/:groupExampleDocumentId', 404],
-          ],
-          allows: [
-            ['members', 'POST', '/', 201],
-            ['members', 'GET', '/', 200],
-            ['members', 'GET', '/:groupExampleDocumentId', 200],
-            ['members', 'PATCH', '/:groupExampleDocumentId', 200],
-            ['members', 'DELETE', '/:groupExampleDocumentId', 204],
+          const makeMethods = (...rest) => makePromises(env[userType], ...rest);
 
-            ['admins', 'POST', '/', 201],
-            ['admins', 'GET', '/', 200],
-            ['admins', 'GET', '/:groupExampleDocumentId', 200],
-            ['admins', 'PATCH', '/:groupExampleDocumentId', 200],
-            ['admins', 'DELETE', '/:groupExampleDocumentId', 204],
-          ],
-        }],
-      ])('%s type group document', (type, prepareTests, expectations) => {
-        beforeAll(prepareTests);
-
-        Object.keys(expectations)
-          .forEach((grant) => {
-            it.each(expectations[grant])(`${grant} %s %s /api/group-documents%s requests`, makePromises);
-          });
+          it.each(scopeExpectations)('%s /api%s requests with %s', makeMethods);
+        });
       });
     });
   });

@@ -4,16 +4,15 @@ const httperrors = require('httperrors');
 const mongoose = require('mongoose');
 
 const {
-  // requestHook,
   modelRequestParam,
   log,
-  // makePostHandler,
-  // makeGetHandler,
-  // makePatchHandler,
-  // makeDeleteHandler,
 } = require('../../../packages/core/server');
-
-// const groupContentPlugin = require('./group-content-plugin');
+const requestHook = require('../../../packages/core/server/util/requestHook');
+const makePostHandler = require('../../../packages/core/server/util/makePostHandler');
+const makeGetHandler = require('../../../packages/core/server/util/makeGetHandler');
+const makePatchHandler = require('../../../packages/core/server/util/makePatchHandler');
+const makeDeleteHandler = require('../../../packages/core/server/util/makeDeleteHandler');
+const check = require('../../../packages/users/server/user.auth.checkRoles');
 
 // --------------------------------------------
 
@@ -24,36 +23,94 @@ const documentModelName = 'GroupExampleDocument';
 // --------------------------------------------
 
 const bearer = passport.authenticate('bearer', { session: false });
-// const bearer = (req, res, next) => next();
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 const paramName = modelRequestParam(documentModelName, router);
 
-const logReq = (req, res, next) => {
-  // const { user } = req;
-  // log(`${documentModelName} ${req.method}(${user && user.email}) request ${req.originalUrl}`, req.params);
-  next();
+const opts = {
+  router,
+  auth: bearer,
+  name: 'group document',
+  idName: paramName,
+  modelName: documentModelName,
 };
-const notImplemented = (req, res, next) => next(httperrors.NotImplemented());
-const idPath = `/:${paramName}`;
 
-router.use(bearer);
+makePostHandler(opts);
 
-router.get('/', logReq, notImplemented);
+router.get('/',
+  bearer,
+  requestHook(`list ${opts.name}s`),
+  (req, res, next) => {
+    const Model = mongoose.model(documentModelName);
 
-router.post('/', logReq, notImplemented);
+    const handle = (err, activities) => {
+      if (err) return next(err);
+      res.send(activities);
+    };
 
-router.get(idPath, logReq, notImplemented);
+    const query = { ...req.query };
+    if (req.user.isAdmin) return Model.search(query, handle);
 
-router.patch(idPath, logReq, notImplemented);
+    query.group = req.params.groupId;
+    return Model.search(query, handle);
+  });
 
-router.delete(idPath, logReq, notImplemented);
+makeGetHandler(opts);
 
+makePatchHandler(opts);
+
+makeDeleteHandler(opts);
+
+// --------------------------------------------
+
+const checkGroupMember = async (groupId, userId) => {
+  const group = await mongoose.model('Group').findById(groupId);
+  if (group.members.indexOf(userId) < 0) {
+    throw httperrors.Unauthorized('Not Group Member');
+  }
+};
+
+const accessCheck = async (description, req, res, next) => {
+  const {
+    user,
+    routingLevels: [, routerPath, subRouterPath],
+    params,
+  } = req;
+
+  const done = (err) => {
+    if (typeof next === 'function') {
+      next(err);
+    } else if (err) {
+      throw err;
+    }
+  };
+
+  if (!user) return done(httperrors.NotFound());
+
+  if (
+    user.isAdmin
+    || routerPath !== '/groups'
+    || subRouterPath !== '/:groupId/documents'
+  ) {
+    return done();
+  }
+
+  try {
+    const checks = [];
+    await checkGroupMember(params.groupId, user._id);
+
+    if (checks.length) await check(checks)(req, res);
+    done();
+  } catch (err) {
+    done(err);
+  }
+};
 
 // --------------------------------------------
 
 const schema = new mongoose.Schema({
+  group: { type: 'ObjectId', required: true, ref: 'Group' },
   title: { type: String, required: true },
   content: String,
 });
@@ -61,10 +118,10 @@ const schema = new mongoose.Schema({
 // --------------------------------------------
 
 module.exports = {
-  apiRouter: [
+  apiGroupsSubRouter: [
     {
-      path: '/group-documents',
-      // path: '/groups/:groupId/documents',
+      path: '/groups',
+      subPath: '/:groupId/documents',
       router,
     },
   ],
@@ -73,5 +130,8 @@ module.exports = {
       modelName: documentModelName,
       schema,
     },
+  ],
+  requestHooks: [
+    accessCheck,
   ],
 };
