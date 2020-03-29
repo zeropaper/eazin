@@ -10,11 +10,13 @@ const check = require('../../../packages/users/server/user.auth.checkRoles');
 
 const router = Router();
 
+const bearer = passport.authenticate('bearer', { session: false });
+
 modelRequestParam('Group', router);
 
 router.get(
   '/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['get:groups']),
   requestHook('list groups'),
   (req, res, next) => {
@@ -49,7 +51,7 @@ router.get(
 
 router.post(
   '/',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['post:groups']),
   requestHook('create group'),
   async (req, res, next) => {
@@ -67,7 +69,7 @@ router.post(
 
 router.get(
   '/:groupId',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['get:groups/:groupId']),
   requestHook('get group details'),
   (req, res) => res.send(req.loadedParams.groupId),
@@ -75,7 +77,7 @@ router.get(
 
 router.post(
   '/:groupId/members',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['invite:groups/:groupId']),
   requestHook('add group member'),
   (req, res, next) => req.loadedParams.groupId.addMembers(req.body)
@@ -85,7 +87,7 @@ router.post(
 
 router.get(
   '/:groupId/members',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['get:groups/:groupId']),
   requestHook('get group members'),
   async (req, res, next) => {
@@ -100,7 +102,7 @@ router.get(
 
 router.post(
   '/:groupId/invite',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['invite:groups/:groupId']),
   requestHook('invite group member'),
   (req, res, next) => req.loadedParams.groupId.inviteMember(req.body.email)
@@ -110,7 +112,7 @@ router.post(
 
 router.patch(
   '/:groupId',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['patch:groups/:groupId']),
   requestHook('update group'),
   (req, res, next) => {
@@ -132,7 +134,7 @@ router.patch(
 
 router.delete(
   '/:groupId/members',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['revoke:groups/:groupId']),
   requestHook('remove group member'),
   (req, res, next) => req.loadedParams.groupId.removeMembers(req.body)
@@ -142,7 +144,7 @@ router.delete(
 
 router.delete(
   '/:groupId',
-  passport.authenticate('bearer', { session: false }),
+  bearer,
   check(['delete:groups/:groupId']),
   requestHook('delete group'),
   (req, res, next) => req.loadedParams.groupId.remove(async (err) => {
