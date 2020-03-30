@@ -18,7 +18,7 @@ const check = require('../../../packages/users/server/user.auth.checkRoles');
 
 log('Group examples in use!');
 
-const documentModelName = 'GroupExampleDocument';
+const documentModelName = 'GroupDocument';
 
 // --------------------------------------------
 

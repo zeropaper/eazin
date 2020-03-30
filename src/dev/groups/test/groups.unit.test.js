@@ -2,6 +2,7 @@
 /* eslint-disable jest/expect-expect */
 /* eslint-disable jest/no-standalone-expect */
 const mongoose = require('mongoose');
+const lowercase = require('lodash.lowercase');
 
 const prepare = require('../../../../test/server/prepare-server');
 
@@ -95,15 +96,14 @@ const findGroupById = (id) => {
   return Group.findById(id);
 };
 
-
 const accesses = (userType, granted = false) => [
   userType,
   [
     ['POST', '/groups/:groupId/documents/', granted ? 201 : 401],
     ['GET', '/groups/:groupId/documents/', granted ? 200 : 401],
-    ['GET', '/groups/:groupId/documents/:groupExampleDocumentId', granted ? 200 : 401],
-    ['PATCH', '/groups/:groupId/documents/:groupExampleDocumentId', granted ? 200 : 401],
-    ['DELETE', '/groups/:groupId/documents/:groupExampleDocumentId', granted ? 204 : 401],
+    ['GET', '/groups/:groupId/documents/:groupDocumentId', granted ? 200 : 401],
+    ['PATCH', '/groups/:groupId/documents/:groupDocumentId', granted ? 200 : 401],
+    ['DELETE', '/groups/:groupId/documents/:groupDocumentId', granted ? 204 : 401],
   ],
 ];
 const testData = [
@@ -334,162 +334,6 @@ describe('group', () => {
           expect(result.body).toHaveProperty('page', 0);
           expect(result.body).toHaveProperty('totalCount', 50);
         });
-    });
-  });
-
-  describe('content', () => {
-    const env = {
-      anons: [null],
-    };
-
-    let User;
-    let Group;
-    let GroupExampleDocument;
-
-    const makeRequest = (method, path, expected) => (user) => {
-      const met = method.toLowerCase();
-      const urlPath = path
-        .replace(':groupId', env.groups[0]._id)
-        .replace(':groupExampleDocumentId', env.documents[0][0]._id);
-      const url = `/api${urlPath}`;
-
-      let req = utils[met](url);
-
-      if (user) {
-        req = req.set('Authorization', `Bearer ${user.token}`);
-      }
-
-      if (['patch', 'post'].indexOf(met) > -1) {
-        req = req.send({
-          group: env.groups[0]._id,
-          title: 'title',
-          content: 'content',
-        });
-      }
-
-      return req.then((res) => {
-        // console.info('%s: %s %s', user && user.email, method, url, expected, res.status);
-        expect(res.status).toBe(expected);
-      });
-    };
-
-    const makePromises = (users, ...rest) => Promise
-      .all(users.map(makeRequest(...rest)));
-
-    const prepareTests = async () => {
-      await User.deleteMany({});
-      await Group.deleteMany({});
-      await GroupExampleDocument.deleteMany({});
-
-      const admins = [
-        await User.register({
-          email: 'admin1@eazin.local',
-          isAdmin: true,
-          isVerified: true,
-        }, '1234567890Aa!!!'),
-      ];
-
-      const nonMembers = [
-        await User.register({
-          email: 'non.member1@eazin.local',
-          isVerified: true,
-          roles: ['post:groups', 'get:groups'],
-        }, '1234567890Aa!!!'),
-      ];
-
-      const members = [
-        await User.register({
-          email: 'group1.member1@eazin.local',
-          isVerified: true,
-          roles: ['post:groups', 'get:groups'],
-        }, '1234567890Aa!!!'),
-      ];
-
-      const groups = [
-        await (new Group({
-          name: 'Group 1',
-          members,
-          approvalType: 'members',
-          admin: await User.register({
-            email: 'group1.creator@eazin.local',
-            isVerified: true,
-            roles: ['post:groups', 'get:groups'],
-          }, '1234567890Aa!!!'),
-        })).save(),
-
-        await (new Group({
-          name: 'Group 2',
-          approvalType: 'open',
-          admin: await User.register({
-            email: 'group2.creator@eazin.local',
-            isVerified: true,
-            roles: ['post:groups', 'get:groups'],
-          }, '1234567890Aa!!!'),
-        })).save(),
-      ];
-
-      const documents = [
-        [
-          await (new GroupExampleDocument({
-            group: groups[0],
-            title: 'Group 1 Doc A',
-          })).save(),
-          await (new GroupExampleDocument({
-            group: groups[0],
-            title: 'Group 1 Doc B',
-          })).save(),
-          await (new GroupExampleDocument({
-            group: groups[0],
-            title: 'Group 1 Doc C',
-          })).save(),
-        ],
-        [
-          await (new GroupExampleDocument({
-            group: groups[1],
-            title: 'Group 2 Doc A',
-          })).save(),
-          await (new GroupExampleDocument({
-            group: groups[1],
-            title: 'Group 2 Doc B',
-          })).save(),
-          await (new GroupExampleDocument({
-            group: groups[1],
-            title: 'Group 2 Doc C',
-          })).save(),
-        ],
-      ];
-
-      env.groups = groups;
-      env.documents = documents;
-      env.members = members;
-      env.nonMembers = nonMembers;
-      env.admins = admins;
-    };
-    beforeAll(async () => {
-      await setup([
-        usersPlugin,
-        groupsExamplePlugin,
-        groupsPlugin,
-      ])();
-
-      User = mongoose.model('User');
-      Group = mongoose.model('Group');
-      GroupExampleDocument = mongoose.model('GroupExampleDocument');
-    });
-
-    describe.each(testData)('access %s type group document', (type, expectations) => {
-      describe.each([
-        ['forbids', expectations.forbids],
-        ['allows', expectations.allows],
-      ])('%s', (grant, grantExpectations) => {
-        describe.each(grantExpectations)('%s user', (userType, scopeExpectations) => {
-          beforeAll(prepareTests);
-
-          const makeMethods = (...rest) => makePromises(env[userType], ...rest);
-
-          it.each(scopeExpectations)('%s /api%s requests with %s', makeMethods);
-        });
-      });
     });
   });
 });
