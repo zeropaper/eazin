@@ -6,7 +6,6 @@ import Typography from '@material-ui/core/Typography';
 import { Form } from 'eazin-core/ui';
 
 import { setUser } from 'eazin-users/ui/user.actions';
-import Links from 'eazin-users/ui/AnonForms.Links';
 import { validMail } from 'eazin-users/ui/user.validators';
 
 import { setSetting } from '../../settings/ui/settings.actions';
@@ -58,18 +57,15 @@ const TwoFALoginForm = ({ dispatch, history: { push } }) => {
               readOnly: needsCode,
             },
           },
-          code: {
-            disabled: !needsCode,
-            ...(needsCode ? {
-              // required: true,
-              // error: null,
-              validate: false,
-              placeholder: '654321',
-              InputLabelProps: {
-                shrink: true,
-              },
-              autoFocus: true,
-            } : {}),
+          noCode: !needsCode && {
+            disabled: true,
+            validate: false,
+            placeholder: '654321',
+            label: 'Two-factor authentication',
+          },
+          code: needsCode && {
+            placeholder: '654321',
+            autoFocus: true,
             label: 'Two-factor authentication',
           },
         }}
@@ -81,8 +77,6 @@ const TwoFALoginForm = ({ dispatch, history: { push } }) => {
           },
         ]}
       />
-
-      <Links current="login" />
     </>
   );
 };
