@@ -22,6 +22,7 @@ const Fields = ({
   const els = Object.keys(fields)
     .map((field) => {
       const props = fields[field];
+      if (!props) return null;
 
       /* eslint-disable react/prop-types */
       const {
@@ -119,14 +120,17 @@ const Fields = ({
 };
 
 Fields.propTypes = {
-  fields: PropTypes.objectOf(PropTypes.shape({
-    type: PropTypes.string,
-    label: PropTypes.string,
-    fields: PropTypes.object,
-    className: PropTypes.string,
-    component: PropTypes.elementType,
-    access: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-  })).isRequired,
+  fields: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.shape({
+      type: PropTypes.string,
+      label: PropTypes.string,
+      fields: PropTypes.object,
+      className: PropTypes.string,
+      component: PropTypes.elementType,
+      access: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    }),
+    PropTypes.bool,
+  ])).isRequired,
   field: PropTypes.string,
   className: PropTypes.string,
   fieldClassName: PropTypes.string,

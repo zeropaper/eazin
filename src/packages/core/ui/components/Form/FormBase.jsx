@@ -30,7 +30,7 @@ const styles = (theme) => ({
 
 export const recurseErrors = (subFields, subErrors = {}) => {
   Object.keys(subFields).forEach((fieldName) => {
-    if (subFields[fieldName].fields) {
+    if (subFields[fieldName] && subFields[fieldName].fields) {
       return recurseErrors(subFields[fieldName].fields, subErrors[fieldName]);
     }
     if (!subFields[fieldName] || typeof subFields[fieldName] === 'string') return;
@@ -39,6 +39,29 @@ export const recurseErrors = (subFields, subErrors = {}) => {
   });
   return subFields;
 };
+
+const standardButtons = (text, resetButton) => ({
+  pristine,
+  invalid,
+  loading,
+  success,
+  failure,
+}) => [
+  resetButton && {
+    type: 'reset',
+    text: typeof resetButton !== 'boolean' ? resetButton : 'Reset',
+    disabled: pristine,
+  },
+  {
+    key: 'submit',
+    type: 'submit',
+    text,
+    loading,
+    success,
+    error: failure,
+    disabled: pristine || invalid,
+  },
+].filter(Boolean);
 
 class FormBase extends React.Component {
   state = {
@@ -105,6 +128,8 @@ class FormBase extends React.Component {
   getValues = (subFields = this.fields) => {
     const values = {};
     Object.keys(subFields).forEach((fieldName) => {
+      if (!subFields[fieldName]) return;
+
       const { initialValue, fields } = subFields[fieldName];
       if (typeof initialValue === 'undefined' && !fields) return;
       if (fields) {
@@ -115,6 +140,7 @@ class FormBase extends React.Component {
         values[fieldName] = initialValue;
       }
     });
+
     return values;
   };
 
@@ -258,7 +284,14 @@ class FormBase extends React.Component {
   };
 
   renderButtons = () => {
-    const { props: { buttons, classes }, formState } = this;
+    const {
+      props: {
+        buttons = standardButtons('Send'),
+        classes,
+      },
+      formState,
+    } = this;
+
     return (
       <Buttons
         buttons={typeof buttons === 'function'
@@ -306,7 +339,17 @@ FormBase.propTypes = {
   onSubmit: PropTypes.func,
   onSuccess: PropTypes.func,
   onError: PropTypes.func,
-  fields: PropTypes.objectOf(PropTypes.object).isRequired,
+  fields: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.shape({
+      type: PropTypes.string,
+      label: PropTypes.string,
+      fields: PropTypes.object,
+      className: PropTypes.string,
+      component: PropTypes.elementType,
+      access: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    }),
+    PropTypes.bool,
+  ])).isRequired,
   render: PropTypes.func,
   fieldClassName: PropTypes.string,
   buttons: PropTypes.oneOfType([
@@ -345,4 +388,10 @@ FormBase.defaultProps = {
   messageInButton: false,
 };
 
-export default withErrorBoundary(withStyles(styles)(FormBase));
+const EazinForm = withErrorBoundary(withStyles(styles)(FormBase));
+
+EazinForm.displayName = 'EazinForm';
+
+EazinForm.standardButtons = standardButtons;
+
+export default EazinForm;
