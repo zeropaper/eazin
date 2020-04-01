@@ -39,7 +39,7 @@ schema.methods.login = async function login(password) {
     throw res.error;
   }
   const user = this;
-  user.token = uid(20);
+  user.token = uid(40);
   await user.save();
   return {
     ...user.toJSON(),
@@ -48,7 +48,7 @@ schema.methods.login = async function login(password) {
 };
 
 schema.methods.logout = async function logout() {
-  this.token = uid(20);
+  this.token = uid(40);
   await this.save();
 };
 
