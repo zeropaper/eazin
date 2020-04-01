@@ -17,24 +17,6 @@ class GroupsView extends React.Component {
     const { api: { get } } = this.props;
     return get(`/api/groups?${Table.paginationQuerystring(query)}`);
   };
-  // data = async (query = {}) => {
-  //   const { api: { get } } = this.props;
-  //   const response = await get(`/api/groups?${Table.paginationQuerystring(query)}`);
-  //   const returned = {
-  //     ...response,
-  //     data: response.data.reduce((arr, group) => [
-  //       ...arr,
-  //       group,
-  //       ...(group.members || []).map((memberId) => ({
-  //         ...group,
-  //         id: memberId,
-  //         groupId: group.id,
-  //       })),
-  //     ], []),
-  //   };
-  //   console.info('groups data', returned.data);
-  //   return returned;
-  // };
 
   handleCreateSuccess = () => {
     const { current } = this.tableRef;

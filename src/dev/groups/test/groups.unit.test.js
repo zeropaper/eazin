@@ -8,7 +8,6 @@ const prepare = require('../../../../test/server/prepare-server');
 
 const usersPlugin = require('../../../packages/users/server');
 const groupsPlugin = require('../server');
-const groupsExamplePlugin = require('../server/groups.example');
 
 let noAccess;
 let creator;

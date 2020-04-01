@@ -8,7 +8,7 @@ const prepare = require('../../../../test/server/prepare-server');
 
 const usersPlugin = require('../../../packages/users/server');
 const groupsPlugin = require('../server');
-const groupsExamplePlugin = require('../server/groups.example');
+const groupsExamplePlugin = require('./groups.example');
 
 let utils;
 const env = {
@@ -33,14 +33,19 @@ const setup = (plugins) => async () => {
   await GroupDocument.deleteMany({});
 };
 
+const dot = (str) => str
+  .toLowerCase()
+  .split(/[^0-9a-z]+/)
+  .join('.');
+
 const mkDbAdmin = (email) => User.register({
-  email: `${email}.admin@eazin.test`,
+  email: `${dot(email)}.admin@eazin.test`,
   isAdmin: true,
   isVerified: true,
 }, '1234567890Aa!!!');
 
 const mkDbUser = (email, roles) => User.register({
-  email: `${email}@eazin.test`,
+  email: `${dot(email)}@eazin.test`,
   roles: roles || ['post:groups', 'get:groups'],
   isVerified: true,
 }, '1234567890Aa!!!');
@@ -49,7 +54,7 @@ const mkDbGroup = async (name, members) => (new Group({
   name,
   members: members || [],
   approvalType: 'members',
-  admin: await mkDbUser(`${lowercase(name)}.creator`),
+  admin: await mkDbUser(`${name}.creator`),
 })).save();
 
 const mkDbGroupDoc = (title, group) => (new GroupDocument({
@@ -90,7 +95,7 @@ const prepareTests = async () => {
   await GroupDocument.deleteMany({});
 
   const admins = [
-    await mkDbAdmin('admin1'),
+    await mkDbAdmin('one'),
   ];
 
   const nonMembers = [
@@ -182,6 +187,10 @@ describe('group content', () => {
   describe('listing', () => {
     beforeAll(prepareTests);
 
-    it('tests', () => {});
+    it('only lists the groups a user has access to', () => {
+      const { groups: [group], members = [] } = env;
+      const users = [group.admin, ...members];
+      console.info('users', ...users);
+    });
   });
 });
