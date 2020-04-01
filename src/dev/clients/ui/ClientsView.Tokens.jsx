@@ -176,13 +176,7 @@ export const CreateToken = ({ onSuccess, client }) => (
       note,
       expiresAt: moment().add(amount, unit).toDate(),
     })}
-    buttons={({ pristine, loading, invalid }) => [
-      {
-        type: 'submit',
-        text: 'Create',
-        disabled: pristine || loading || invalid,
-      },
-    ]}
+    buttons={Form.standardButtons('Create')}
   />
 );
 
