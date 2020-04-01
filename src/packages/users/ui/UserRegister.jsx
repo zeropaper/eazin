@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 
 import { Form, queryAPI } from 'eazin-core/ui';
 import { validMail, validPassword } from './user.validators';
-import Links from './AnonForms.Links';
 
 const required = {
   required: true,
@@ -72,28 +71,27 @@ const UserRegister = () => {
       <Form
         onSubmit={handleSubmit}
         fields={schema}
-        buttons={({
-          pristine,
-          invalid,
-          loading,
-          values: {
-            email,
-            passwordConfirm,
-          },
-        }) => ([
-          {
-            text: 'Register',
-            type: 'submit',
-            disabled: pristine
-              || invalid
-              || loading
-              || !email
-              || !passwordConfirm,
-          },
-        ])}
+        buttons={Form.standardButtons('Register')}
+        // buttons={({
+        //   pristine,
+        //   invalid,
+        //   loading,
+        //   values: {
+        //     email,
+        //     passwordConfirm,
+        //   },
+        // }) => ([
+        //   {
+        //     text: 'Register',
+        //     type: 'submit',
+        //     disabled: pristine
+        //       || invalid
+        //       || loading
+        //       || !email
+        //       || !passwordConfirm,
+        //   },
+        // ])}
       />
-
-      <Links current="register" />
     </>
   );
 };

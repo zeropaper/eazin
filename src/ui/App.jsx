@@ -11,6 +11,7 @@ import {
   PluginPoint,
 } from 'eazin-core/ui';
 import users, { UserAccess, AnonForms } from 'eazin-users/ui';
+import UserRegister from 'eazin-users/ui/UserRegister';
 import landing from 'eazin-landing/ui';
 import settings from 'eazin-settings/ui';
 import twoFA from 'eazin-totp/ui';
@@ -25,7 +26,12 @@ import clients from '../dev/clients/ui';
 import BreadCrumbs from './BreadCrumbs';
 import EmptyFallback from './EmptyFallback';
 
-const App = ({ children, plugins, siteName }) => (plugins && (
+const App = ({
+  children,
+  plugins,
+  siteName,
+  preventRegistration = false,
+}) => (plugins && (
   <AppContextProvider siteName={siteName} plugins={plugins}>
     <Layout
       siteName={siteName}
@@ -46,8 +52,10 @@ const App = ({ children, plugins, siteName }) => (plugins && (
           renderUnverified={() => (
             <>
               <LayoutDrawerLink to="/login">Login</LayoutDrawerLink>
-              <LayoutDrawerLink to="/register">Register</LayoutDrawerLink>
-              <LayoutDrawerLink to="/reset">Password Reset</LayoutDrawerLink>
+              {!preventRegistration && (
+                <LayoutDrawerLink to="/register">Register</LayoutDrawerLink>
+              )}
+              <LayoutDrawerLink to="/reset">Password reset</LayoutDrawerLink>
             </>
           )}
           render={() => <LayoutDrawer />}
@@ -57,7 +65,10 @@ const App = ({ children, plugins, siteName }) => (plugins && (
       {children || (
         <UserAccess
           renderUnverified={() => (
-            <AnonForms LoginForm={TwoFALoginForm} />
+            <AnonForms
+              LoginForm={TwoFALoginForm}
+              RegisterForm={preventRegistration ? false : UserRegister}
+            />
           )}
           render={() => (
             <PluginPoint
@@ -78,15 +89,18 @@ App.propTypes = {
   plugins: PropTypes.objectOf(PropTypes.any).isRequired,
   children: PropTypes.node,
   siteName: PropTypes.string,
+  preventRegistration: PropTypes.bool,
 };
 
 App.defaultProps = {
   children: null,
   siteName: null,
+  preventRegistration: false,
 };
 
 export default () => (
   <App
+    preventRegistration
     siteName="eazin.local"
     plugins={{
       landing,

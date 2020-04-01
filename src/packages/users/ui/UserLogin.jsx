@@ -7,7 +7,6 @@ import { Form } from 'eazin-core/ui';
 
 import { setUser } from './user.actions';
 import { setSetting } from '../../settings/ui/settings.actions';
-import Links from './AnonForms.Links';
 import { validMail } from './user.validators';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
@@ -45,16 +44,15 @@ const UserLogin = ({ dispatch, history: { push } }) => (
         push('/');
       }}
       fields={schema}
-      buttons={({ invalid, pristine, loading }) => [
-        {
-          text: 'Login',
-          type: 'submit',
-          disabled: invalid || pristine || loading,
-        },
-      ]}
+      buttons={Form.standardButtons('Register')}
+      // buttons={({ invalid, pristine, loading }) => [
+      //   {
+      //     text: 'Login',
+      //     type: 'submit',
+      //     disabled: invalid || pristine || loading,
+      //   },
+      // ]}
     />
-
-    <Links current="login" />
   </>
 );
 

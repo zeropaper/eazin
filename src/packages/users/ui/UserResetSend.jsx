@@ -3,7 +3,6 @@ import Typography from '@material-ui/core/Typography';
 
 import { Form } from 'eazin-core/ui';
 import { validMail } from './user.validators';
-import Links from './AnonForms.Links';
 
 const notEmpty = (val) => (val && val.trim() ? undefined : 'A value is required');
 
@@ -30,14 +29,7 @@ export default () => (
           validate: validMail,
         },
       }}
-      buttons={[
-        {
-          type: 'submit',
-          text: 'Send reset email',
-        },
-      ]}
+      buttons={Form.standardButtons('Send reset email')}
     />
-
-    <Links current="reset" />
   </>
 );

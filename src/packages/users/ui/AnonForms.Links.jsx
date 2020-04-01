@@ -4,13 +4,12 @@ import { withStyles } from '@material-ui/styles';
 
 import { Link } from 'eazin-core/ui';
 
-const styles = (theme) => ({
+const styles = () => ({
   root: {
     width: '100%',
     display: 'flex',
     justifyContent: 'space-evenly',
     margin: 0,
-    marginTop: theme.spacing(2),
     padding: 0,
     listStyle: 'none',
   },
@@ -20,25 +19,33 @@ const styles = (theme) => ({
   },
 });
 
-const links = {
-  login: <Link to="/login">Login</Link>,
-  register: <Link to="/register">Register</Link>,
-  reset: <Link to="/reset">Password Reset</Link>,
-};
-
 const Links = ({
   classes,
+  links,
   current = 'login',
 }) => (
   <ul className={classes.root}>
     {Object.keys(links)
-      .filter((key) => key !== current)
-      .map((key) => <li key={key} className={classes.item}>{links[key]}</li>)}
+      .filter((key) => key !== current && links[key])
+      .map((key) => (
+        <li key={key} className={classes.item}>
+          <Link to={links[key].to}>
+            {links[key].text}
+          </Link>
+        </li>
+      ))}
   </ul>
 );
 
 Links.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  links: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.shape({
+      to: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+    }),
+    PropTypes.bool,
+  ])).isRequired,
   current: PropTypes.string,
 };
 

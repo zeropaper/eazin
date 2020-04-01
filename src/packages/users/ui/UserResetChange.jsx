@@ -16,6 +16,25 @@ const required = {
   validateOnBlur: true,
 };
 
+const fields = {
+  password: {
+    label: 'Password',
+    type: 'password',
+    ...required,
+    validate: validPassword,
+  },
+  passwordConfirm: {
+    label: 'Password Confirmation',
+    type: 'password',
+    ...required,
+    validate: (val = '', vals) => {
+      if (val !== vals.password) return 'Passwords don\'t match';
+    },
+  },
+};
+
+const buttons = Form.standardButtons('Reset password');
+
 export default withAppContext((props) => {
   const {
     api: { post },
@@ -27,45 +46,29 @@ export default withAppContext((props) => {
   } = props;
   const { token } = parse(search.slice(1));
 
+  const handleSubmit = ({ password }) => post('/api/user/password', {
+    body: {
+      token,
+      password,
+    },
+  });
+
+  const handleSuccess = (user) => {
+    dispatch(setUser(user));
+    dispatch(setSetting('userToken', user.token));
+    push('/account');
+  };
+
   return (
     <>
       <Typography variant="h5">Password reset</Typography>
 
       {!!token && (
         <Form
-          onSubmit={({ password }) => post('/api/user/password', {
-            body: {
-              token,
-              password,
-            },
-          })}
-          onSuccess={(user) => {
-            dispatch(setUser(user));
-            dispatch(setSetting('userToken', user.token));
-            push('/account');
-          }}
-          fields={{
-            password: {
-              label: 'Password',
-              type: 'password',
-              ...required,
-              validate: validPassword,
-            },
-            passwordConfirm: {
-              label: 'Password Confirmation',
-              type: 'password',
-              ...required,
-              validate: (val = '', vals) => {
-                if (val !== vals.password) return 'Passwords don\'t match';
-              },
-            },
-          }}
-          buttons={[
-            {
-              type: 'submit',
-              text: 'Reset',
-            },
-          ]}
+          onSubmit={handleSubmit}
+          onSuccess={handleSuccess}
+          fields={fields}
+          buttons={buttons}
         />
       )}
     </>
