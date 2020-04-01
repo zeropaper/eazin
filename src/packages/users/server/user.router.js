@@ -191,13 +191,17 @@ router.post('/email',
 
 router.patch('/email',
   bearer,
-  requestHook('<%= body.email %> changes email'),
+  requestHook('<%= body.email %> wants to change email'),
   (req, res, next) => {
     const { user, body: { email, token } } = req;
 
     if (token) {
       if (!user.emailToVerify) {
         return next(httperrors.BadRequest('No email to verify'));
+      }
+
+      if (user.emailToVerify === user.email) {
+        return next(httperrors.BadRequest('Same email address'));
       }
 
       if (token !== user.verifToken) {
@@ -262,7 +266,7 @@ router.get('/logout',
 router.get('/me',
   bearer,
   (req, res) => {
-    if (!req.user) return res.send({});
+    if (!req.user) return res.send({ firstName: 'Anon', lastName: 'Ymous' });
     return res.send(req.user);
   });
 
