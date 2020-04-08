@@ -21,7 +21,7 @@ function padKey(SecretKey) {
 
 module.exports = {
   // with bytesLength = 18, the generated secret is a string of 32 characters
-  register(username, bytesLength = 18) {
+  register(username, issuer, bytesLength = 18) {
     if (!username) {
       throw new TypeError('Username is required');
     }
@@ -30,7 +30,7 @@ module.exports = {
     // Google Authenticator ignores '='
     secret = secret.toString().replace(/=/g, '');
 
-    const authUrl = util.format('otpauth://totp/%s?secret=%s', encodeURI(username), secret);
+    const authUrl = util.format('otpauth://totp/%s?secret=%s&issuer=%s', encodeURI(username), secret, issuer);
     const qrCode = qr.imageSync(authUrl, { type: 'svg' });
 
     return {

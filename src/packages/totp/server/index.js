@@ -56,7 +56,7 @@ router.post('/setup',
     const siteName = req.app.get('siteName');
     if (!siteName) return next(httperrors.InternalServerError('Missing siteName'));
 
-    const info = GoogleAuthenticator.register(`${siteName} (${req.user.email})`);
+    const info = GoogleAuthenticator.register(req.user.email, siteName);
     info.qr64 = `data:image/svg+xml;base64,${Buffer.from(info.qr).toString('base64')}`;
 
     req.user.totp.secretVerification = info.secret;
