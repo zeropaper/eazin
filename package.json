@@ -128,7 +128,9 @@
     "webpack": "4.42.1",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.10.3",
-    "webpack-node-externals": "1.7.2"
+    "webpack-node-externals": "1.7.2",
+    "eslint-import-resolver-webpack": "0.12.1",
+    "eslint-plugin-import": "2.20.2"
   },
   "optionalDependencies": {
     "ngrok": "3.2.7"

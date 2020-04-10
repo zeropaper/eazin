@@ -41,6 +41,8 @@ module.exports = {
             'import/internal-regex': new RegExp(`^${pkgJson.name}-`),
           },
           extends: [
+            'plugin:import/errors',
+            'plugin:import/warnings',
             'plugin:jest/recommended',
           ],
         },
