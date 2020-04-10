@@ -100,7 +100,6 @@ App.defaultProps = {
 
 export default () => (
   <App
-    preventRegistration
     siteName="eazin.local"
     plugins={{
       landing,
