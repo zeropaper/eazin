@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 190);
+/******/ 	return __webpack_require__(__webpack_require__.s = 194);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -131,10 +131,10 @@ module.exports = require("core-js/modules/web.dom-collections.iterator");
 
 /***/ }),
 
-/***/ 190:
+/***/ 194:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(45);
+module.exports = __webpack_require__(47);
 
 
 /***/ }),
@@ -146,7 +146,7 @@ module.exports = require("core-js/modules/es.array.filter");
 
 /***/ }),
 
-/***/ 23:
+/***/ 29:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.array.map");
@@ -174,7 +174,7 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 45:
+/***/ 47:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -189,7 +189,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(15);
 /* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(23);
+/* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(29);
 /* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(6);
 /* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_6__);
@@ -207,7 +207,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_iterator__WEBPACK_IMPORTED_MODULE_12__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(80);
+/* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(83);
 /* harmony import */ var lodash_get__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(lodash_get__WEBPACK_IMPORTED_MODULE_14__);
 
 
@@ -251,6 +251,7 @@ var Fields = function Fields(_ref) {
       Components = _ref.components;
   var els = Object.keys(fields).map(function (field) {
     var props = fields[field];
+    if (!props) return null;
     /* eslint-disable react/prop-types */
 
     var type = props.type,
@@ -282,8 +283,8 @@ var Fields = function Fields(_ref) {
       fullWidth: undefined,
       helperText: undefined,
       id: undefined,
-      InputLabelProps: undefined,
-      InputProps: undefined,
+      // InputLabelProps: undefined,
+      // InputProps: undefined,
       inputProps: undefined,
       inputRef: undefined,
       margin: undefined,
@@ -293,9 +294,9 @@ var Fields = function Fields(_ref) {
       placeholder: undefined,
       required: undefined,
       rows: undefined,
-      rowsMax: undefined,
+      // rowsMax: undefined,
       select: undefined,
-      SelectProps: undefined,
+      // SelectProps: undefined,
       size: undefined,
       type: undefined,
       value: undefined,
@@ -376,7 +377,7 @@ module.exports = require("core-js/modules/web.dom-collections.for-each");
 
 /***/ }),
 
-/***/ 80:
+/***/ 83:
 /***/ (function(module, exports) {
 
 module.exports = require("lodash.get");

@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 226);
+/******/ 	return __webpack_require__(__webpack_require__.s = 230);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,14 +103,14 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ 10:
+/***/ 13:
 /***/ (function(module, exports) {
 
 module.exports = require("eazin-core/ui");
 
 /***/ }),
 
-/***/ 140:
+/***/ 148:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -182,28 +182,28 @@ var restore = function restore() {
 
 /***/ }),
 
-/***/ 146:
+/***/ 150:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/IconButton");
 
 /***/ }),
 
-/***/ 147:
+/***/ 151:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/icons/InvertColors");
 
 /***/ }),
 
-/***/ 148:
+/***/ 152:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/icons/Settings");
 
 /***/ }),
 
-/***/ 160:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -224,7 +224,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(10);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(13);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_8__);
 
 
@@ -266,7 +266,7 @@ var mapStateToProps = function mapStateToProps(_ref2) {
 
 /***/ }),
 
-/***/ 161:
+/***/ 166:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -275,11 +275,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(17);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(146);
+/* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(150);
 /* harmony import */ var _material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_IconButton__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(147);
+/* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(151);
 /* harmony import */ var _material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_InvertColors__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
+/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
 
 
 
@@ -319,16 +319,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
-/***/ 162:
+/***/ 167:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(148);
+/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(152);
 /* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(10);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__);
 
 
@@ -360,26 +360,26 @@ module.exports = require("core-js/modules/es.array.filter");
 
 /***/ }),
 
-/***/ 226:
+/***/ 230:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(227);
+module.exports = __webpack_require__(231);
 
 
 /***/ }),
 
-/***/ 227:
+/***/ 231:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _settings_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(140);
+/* harmony import */ var _settings_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(148);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "restore", function() { return _settings_reducer__WEBPACK_IMPORTED_MODULE_0__["restore"]; });
 
-/* harmony import */ var _SettingsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(160);
-/* harmony import */ var _SettingsHeaderLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(161);
-/* harmony import */ var _SettingsDrawer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(162);
-/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(47);
+/* harmony import */ var _SettingsView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(165);
+/* harmony import */ var _SettingsHeaderLinks__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(166);
+/* harmony import */ var _SettingsDrawer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(167);
+/* harmony import */ var _settings_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(49);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "actions", function() { return _settings_actions__WEBPACK_IMPORTED_MODULE_4__; });
 
 
@@ -420,7 +420,7 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 47:
+/***/ 49:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

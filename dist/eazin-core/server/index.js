@@ -11,6 +11,7 @@ const compression = require('compression');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const series = require('async-series');
+const capitalize = require('lodash.capitalize');
 
 const initWS = require('./core/ws');
 const modelRequestParam = require('./core/modelRequestParam');
@@ -150,9 +151,34 @@ const eazin = async ({
   });
 
   // ##### call apiRouter plugin point
-  plugins.forEach(({ apiRouter: apiPlugins = [] } = {}) => {
-    apiPlugins.forEach(({ path: routerPath, router }) => {
+  plugins.forEach(({ name, apiRouter: routingPlugins = [] }) => {
+    routingPlugins.forEach(({ path: routerPath, router }) => {
       if (!routerPath || !router) return;
+
+      if (name) {
+        const subRouterPluginHook = `api${capitalize(name)}SubRouter`;
+        plugins.forEach(({
+          [subRouterPluginHook]: subPlugins = [],
+        } = {}) => {
+          subPlugins.forEach(({
+            path: subRouterParentPath,
+            subPath: subRouterPath,
+            router: subRouter,
+          }) => {
+            if (
+              subRouterParentPath !== routerPath
+              || !subRouter
+            ) return;
+
+            router.use(subRouterPath || '/', (req, res, next) => {
+              req.routingLevels = [apiPath, routerPath, subRouterPath]
+                .filter(Boolean);
+              next();
+            }, subRouter);
+          });
+        });
+      }
+
       apiRouter.use(routerPath, (req, res, next) => {
         req.routingLevels = [apiPath, routerPath];
         next();
@@ -185,6 +211,45 @@ const eazin = async ({
       log('Cannot serve "%s"', staticIndexPath);
     }
   }
+
+  // ##### call siteRouter plugin point
+  const siteRouter = express.Router();
+  plugins.forEach(({ name, siteRouter: routingPlugins = [] }) => {
+    routingPlugins.forEach(({ path: routerPath, router }) => {
+      if (!routerPath || !router) return;
+
+      if (name) {
+        const subRouterPluginHook = `site${capitalize(name)}SubRouter`;
+        plugins.forEach(({
+          [subRouterPluginHook]: subPlugins = [],
+        } = {}) => {
+          subPlugins.forEach(({
+            path: subRouterParentPath,
+            subPath: subRouterPath,
+            router: subRouter,
+          }) => {
+            if (
+              subRouterParentPath !== routerPath
+              || !subRouter
+            ) return;
+
+            router.use(subRouterPath || '/', (req, res, next) => {
+              req.routingLevels = [routerPath, subRouterPath]
+                .filter(Boolean);
+              next();
+            }, subRouter);
+          });
+        });
+      }
+
+      siteRouter.use(routerPath, (req, res, next) => {
+        req.routingLevels = [routerPath];
+        next();
+      }, router);
+    });
+  });
+
+  app.use(siteRouter);
 
   const db = await mongoose.connect(config.dbURL, {
     useNewUrlParser: true,

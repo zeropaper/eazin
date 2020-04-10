@@ -23,9 +23,9 @@ const makePostHandler = ({
 
     const doc = new Model(data);
 
-    doc.save((err, updated) => {
+    doc.save((err, saved) => {
       if (err) return next(err);
-      res.status(201).send(updated);
+      res.status(201).send(saved);
     });
   });
 

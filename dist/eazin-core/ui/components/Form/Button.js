@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("eazin-core/ui/components/Form/ActionButtons", [], factory);
+		define("eazin-core/ui/components/Form/Button", [], factory);
 	else if(typeof exports === 'object')
-		exports["eazin-core/ui/components/Form/ActionButtons"] = factory();
+		exports["eazin-core/ui/components/Form/Button"] = factory();
 	else
-		root["eazin-core/ui/components/Form/ActionButtons"] = factory();
+		root["eazin-core/ui/components/Form/Button"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 189);
+/******/ 	return __webpack_require__(__webpack_require__.s = 190);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -138,18 +138,18 @@ module.exports = require("core-js/modules/es.symbol.description");
 
 /***/ }),
 
-/***/ 189:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(70);
-
-
-/***/ }),
-
 /***/ 19:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.symbol.iterator");
+
+/***/ }),
+
+/***/ 190:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(37);
+
 
 /***/ }),
 
@@ -199,13 +199,6 @@ module.exports = require("core-js/modules/es.array.index-of");
 /***/ (function(module, exports) {
 
 module.exports = require("classnames");
-
-/***/ }),
-
-/***/ 29:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.array.map");
 
 /***/ }),
 
@@ -438,13 +431,6 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 48:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/CircularProgress");
-
-/***/ }),
-
 /***/ 5:
 /***/ (function(module, exports) {
 
@@ -466,154 +452,6 @@ module.exports = require("core-js/modules/es.object.get-own-property-descriptors
 
 /***/ }),
 
-/***/ 70:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_array_index_of__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(26);
-/* harmony import */ var core_js_modules_es_array_index_of__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_index_of__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(29);
-/* harmony import */ var core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_map__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(7);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(4);
-/* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(27);
-/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var _material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(87);
-/* harmony import */ var _material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var _material_ui_core_CircularProgress__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(48);
-/* harmony import */ var _material_ui_core_CircularProgress__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_CircularProgress__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var _Button__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(37);
-
-
-
-
-
-
-
-
-
-
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function _objectWithoutProperties(source, excluded) { if (source == null) return {}; var target = _objectWithoutPropertiesLoose(source, excluded); var key, i; if (Object.getOwnPropertySymbols) { var sourceSymbolKeys = Object.getOwnPropertySymbols(source); for (i = 0; i < sourceSymbolKeys.length; i++) { key = sourceSymbolKeys[i]; if (excluded.indexOf(key) >= 0) continue; if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue; target[key] = source[key]; } } return target; }
-
-function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
-
-
-
-
-
-
-
-var styles = function styles(theme) {
-  return {
-    root: {
-      display: 'flex',
-      alignItems: 'flex-end',
-      justifyContent: 'flex-end',
-      justifySelf: 'flex-end',
-      flexGrow: 1,
-      '& > button': {
-        minWidth: 0,
-        flexGrow: 0,
-        marginLeft: theme.spacing(2)
-      }
-    }
-  };
-};
-
-var ActionButtons = function ActionButtons() {
-  var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-    className: null,
-    buttons: [],
-    classes: {}
-  },
-      _ref$className = _ref.className,
-      className = _ref$className === void 0 ? null : _ref$className,
-      _ref$buttons = _ref.buttons,
-      buttons = _ref$buttons === void 0 ? [] : _ref$buttons,
-      classes = _ref.classes,
-      color = _ref.color,
-      fullWidth = _ref.fullWidth,
-      btnDefaults = _objectWithoutProperties(_ref, ["className", "buttons", "classes", "color", "fullWidth"]);
-
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement("div", {
-    className: classnames__WEBPACK_IMPORTED_MODULE_10___default()(classes.root, className)
-  }, (buttons || []).map(function (info) {
-    var children = info.children,
-        text = info.text,
-        key = info.key,
-        loading = info.loading,
-        defaultStartIcon = info.startIcon,
-        size = info.size,
-        disabled = info.disabled,
-        success = info.success,
-        error = info.error,
-        rest = _objectWithoutProperties(info, ["children", "text", "key", "loading", "startIcon", "size", "disabled", "success", "error"]);
-
-    var startIcon = loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_material_ui_core_CircularProgress__WEBPACK_IMPORTED_MODULE_12___default.a, {
-      color: "inherit" // eslint-disable-next-line no-nested-ternary
-      ,
-      size: size === 'large' ? 22 : size === 'small' ? 18 : 20
-    }) || defaultStartIcon;
-
-    var props = _objectSpread({
-      color: rest.type === 'submit' ? 'primary' : 'default'
-    }, btnDefaults, {
-      key: key || text,
-      type: 'button',
-      classes: classes
-    }, rest, {
-      size: size || btnDefaults.size,
-      disabled: disabled || loading,
-      startIcon: startIcon
-    });
-
-    if (success) {
-      props.success = 'Success';
-      if (typeof success === 'string') props.success = success;
-    }
-
-    if (error) {
-      props.error = 'Error';
-      if (typeof error === 'string') props.error = error;
-    } // console.info('props', btnDefaults.size, size, props.size);
-
-
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_9___default.a.createElement(_Button__WEBPACK_IMPORTED_MODULE_13__["default"], _objectSpread({}, props), children || text);
-  }));
-};
-
-ActionButtons.defaultProps = {
-  className: null,
-  buttons: [],
-  variant: 'text',
-  color: 'default',
-  fullWidth: null
-};
-/* harmony default export */ __webpack_exports__["default"] = (_material_ui_core_styles_withStyles__WEBPACK_IMPORTED_MODULE_11___default()(styles)(ActionButtons));
-
-/***/ }),
-
 /***/ 8:
 /***/ (function(module, exports) {
 
@@ -625,13 +463,6 @@ module.exports = require("core-js/modules/web.dom-collections.for-each");
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/web.timers");
-
-/***/ }),
-
-/***/ 87:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/styles/withStyles");
 
 /***/ })
 

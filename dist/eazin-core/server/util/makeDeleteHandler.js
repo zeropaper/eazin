@@ -7,7 +7,6 @@ const makeDeleteHandler = ({
   idName = `${name}Id`,
 }) => router.delete(`/:${idName}`,
   auth,
-  // check([`delete:${name}s/:${idName}`]),
   requestHook(`delete ${name}`),
   (req, res, next) => req.loadedParams[idName].remove((err) => {
     if (err) return next(err);

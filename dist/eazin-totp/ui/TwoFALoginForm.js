@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 237);
+/******/ 	return __webpack_require__(__webpack_require__.s = 241);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,17 +103,17 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ 10:
-/***/ (function(module, exports) {
-
-module.exports = require("eazin-core/ui");
-
-/***/ }),
-
 /***/ 12:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.object.to-string");
+
+/***/ }),
+
+/***/ 13:
+/***/ (function(module, exports) {
+
+module.exports = require("eazin-core/ui");
 
 /***/ }),
 
@@ -138,31 +138,24 @@ module.exports = require("react-redux");
 
 /***/ }),
 
-/***/ 177:
+/***/ 18:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.symbol.description");
+
+/***/ }),
+
+/***/ 182:
 /***/ (function(module, exports) {
 
 module.exports = require("eazin-users/ui/user.actions");
 
 /***/ }),
 
-/***/ 178:
-/***/ (function(module, exports) {
-
-module.exports = require("eazin-users/ui/AnonForms.Links");
-
-/***/ }),
-
-/***/ 179:
+/***/ 183:
 /***/ (function(module, exports) {
 
 module.exports = require("eazin-users/ui/user.validators");
-
-/***/ }),
-
-/***/ 18:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.symbol.description");
 
 /***/ }),
 
@@ -194,15 +187,36 @@ module.exports = require("core-js/modules/es.string.iterator");
 
 /***/ }),
 
-/***/ 237:
+/***/ 22:
+/***/ (function(module, exports) {
+
+module.exports = require("@material-ui/core/Typography");
+
+/***/ }),
+
+/***/ 23:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.array.slice");
+
+/***/ }),
+
+/***/ 24:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.function.name");
+
+/***/ }),
+
+/***/ 241:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(238);
+module.exports = __webpack_require__(242);
 
 
 /***/ }),
 
-/***/ 238:
+/***/ 242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -217,13 +231,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(5);
 /* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(31);
+/* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(30);
 /* harmony import */ var core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_from__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(15);
 /* harmony import */ var core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_iterator__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(25);
+/* harmony import */ var core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(23);
 /* harmony import */ var core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_slice__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(26);
+/* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(24);
 /* harmony import */ var core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_function_name__WEBPACK_IMPORTED_MODULE_8__);
 /* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(6);
 /* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_9__);
@@ -247,17 +261,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_18___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_18__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(17);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_19___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_19__);
-/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(24);
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(22);
 /* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_20___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_20__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(10);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(13);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_21___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_21__);
-/* harmony import */ var eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(177);
+/* harmony import */ var eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(182);
 /* harmony import */ var eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_22___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_22__);
-/* harmony import */ var eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(178);
-/* harmony import */ var eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_23__);
-/* harmony import */ var eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(179);
-/* harmony import */ var eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_24___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_24__);
-/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(47);
+/* harmony import */ var eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(183);
+/* harmony import */ var eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_23___default = /*#__PURE__*/__webpack_require__.n(eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_23__);
+/* harmony import */ var _settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(49);
 
 
 
@@ -303,7 +315,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var notEmpty = function notEmpty(val) {
   return val && val.trim() ? undefined : 'A value is required';
 };
@@ -331,11 +342,11 @@ var TwoFALoginForm = function TwoFALoginForm(_ref) {
     url: "/api/user/login",
     onSuccess: function onSuccess(data) {
       dispatch(Object(eazin_users_ui_user_actions__WEBPACK_IMPORTED_MODULE_22__["setUser"])(data));
-      dispatch(Object(_settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_25__["setSetting"])('userToken', data.token));
+      dispatch(Object(_settings_ui_settings_actions__WEBPACK_IMPORTED_MODULE_24__["setSetting"])('userToken', data.token));
       push('/');
     },
     onError: function onError(err, setErrors) {
-      setNeedsCode(needsCode || err.fields.code);
+      setNeedsCode(needsCode || !!err.fields.code);
       setErrors();
     },
     fields: {
@@ -343,10 +354,11 @@ var TwoFALoginForm = function TwoFALoginForm(_ref) {
         label: 'Email',
         type: 'email'
       }, required, {
-        validate: eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_24__["validMail"],
+        validate: eazin_users_ui_user_validators__WEBPACK_IMPORTED_MODULE_23__["validMail"],
         InputProps: {
           readOnly: needsCode
-        }
+        },
+        autoFocus: !needsCode
       }),
       password: _objectSpread({
         label: 'Password',
@@ -356,19 +368,17 @@ var TwoFALoginForm = function TwoFALoginForm(_ref) {
           readOnly: needsCode
         }
       }),
-      code: _objectSpread({
-        disabled: !needsCode
-      }, needsCode ? {
-        // required: true,
-        // error: null,
+      noCode: !needsCode && {
+        disabled: true,
         validate: false,
         placeholder: '654321',
-        InputLabelProps: {
-          shrink: true
-        }
-      } : {}, {
         label: 'Two-factor authentication'
-      })
+      },
+      code: needsCode && {
+        placeholder: '654321',
+        autoFocus: true,
+        label: 'Two-factor authentication'
+      }
     },
     buttons: function buttons(_ref2) {
       var invalid = _ref2.invalid,
@@ -380,35 +390,12 @@ var TwoFALoginForm = function TwoFALoginForm(_ref) {
         disabled: invalid || pristine || loading
       }];
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_18___default.a.createElement(eazin_users_ui_AnonForms_Links__WEBPACK_IMPORTED_MODULE_23___default.a, {
-    current: "login"
   }));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_19__["connect"])(function () {
   return {};
 })(TwoFALoginForm));
-
-/***/ }),
-
-/***/ 24:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/Typography");
-
-/***/ }),
-
-/***/ 25:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.array.slice");
-
-/***/ }),
-
-/***/ 26:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.function.name");
 
 /***/ }),
 
@@ -419,7 +406,7 @@ module.exports = require("core-js/modules/es.symbol");
 
 /***/ }),
 
-/***/ 31:
+/***/ 30:
 /***/ (function(module, exports) {
 
 module.exports = require("core-js/modules/es.array.from");
@@ -440,7 +427,7 @@ module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
-/***/ 47:
+/***/ 49:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

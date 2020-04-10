@@ -2,11 +2,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
 	else if(typeof define === 'function' && define.amd)
-		define("eazin-settings/ui/SettingsDrawer", [], factory);
+		define("eazin-users/ui/user.connector", [], factory);
 	else if(typeof exports === 'object')
-		exports["eazin-settings/ui/SettingsDrawer"] = factory();
+		exports["eazin-users/ui/user.connector"] = factory();
 	else
-		root["eazin-settings/ui/SettingsDrawer"] = factory();
+		root["eazin-users/ui/user.connector"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -91,63 +91,43 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 234);
+/******/ 	return __webpack_require__(__webpack_require__.s = 262);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 0:
-/***/ (function(module, exports) {
-
-module.exports = require("react");
-
-/***/ }),
-
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = require("eazin-core/ui");
-
-/***/ }),
-
-/***/ 152:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/icons/Settings");
-
-/***/ }),
-
-/***/ 167:
+/***/ 145:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(152);
-/* harmony import */ var _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapStateToProps", function() { return mapStateToProps; });
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_0__);
 
-
-
-
-var SettingsDrawer = function SettingsDrawer() {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(eazin_core_ui__WEBPACK_IMPORTED_MODULE_2__["LayoutDrawerLink"], {
-    to: "/settings",
-    Icon: _material_ui_icons_Settings__WEBPACK_IMPORTED_MODULE_1___default.a
-  }, "Settings");
+var mapStateToProps = function mapStateToProps(_ref) {
+  var user = _ref.user.user;
+  return {
+    user: user
+  };
 };
-
-SettingsDrawer.weight = 10;
-/* harmony default export */ __webpack_exports__["default"] = (SettingsDrawer);
+/* harmony default export */ __webpack_exports__["default"] = (function (Comp) {
+  return Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps)(Comp);
+});
 
 /***/ }),
 
-/***/ 234:
+/***/ 17:
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
+
+/***/ }),
+
+/***/ 262:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(167);
+module.exports = __webpack_require__(145);
 
 
 /***/ })
