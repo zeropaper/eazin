@@ -190,7 +190,7 @@ describe('group content', () => {
     it('only lists the groups a user has access to', () => {
       const { groups: [group], members = [] } = env;
       const users = [group.admin, ...members];
-      console.info('users', ...users);
+      // console.info('users', ...users);
     });
   });
 });
