@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
+import userConnector from './user.connector';
 import UserPropTypes from './user.propTypes';
 
-const UserAccess = ({
+const UserAccess = userConnector(({
   user,
   render,
   renderAdmin,
@@ -14,7 +14,7 @@ const UserAccess = ({
   if (typeof renderAdmin === 'function' && user.isAdmin) return renderAdmin() || null;
   if (renderForRole) return renderForRole(user.roles) || null;
   return render() || null;
-};
+});
 
 UserAccess.propTypes = {
   user: PropTypes.shape(UserPropTypes),
@@ -31,6 +31,6 @@ UserAccess.defaultProps = {
   renderForRole: null,
 };
 
-export const mapStateToProps = ({ user: { user } }) => ({ user });
+UserAccess.displayName = 'UserAccess';
 
-export default connect(mapStateToProps)(UserAccess);
+export default UserAccess;
