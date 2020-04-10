@@ -67,7 +67,25 @@ const UserVerify = ({
           push('/');
         }}
         fields={schema}
-        buttons={Form.standardButtons('Finish up')}
+        buttons={({
+          pristine,
+          invalid,
+          loading,
+          values: {
+            firstName,
+            lastName,
+          },
+        }) => ([
+          {
+            text: 'Register',
+            type: 'submit',
+            disabled: pristine
+              || invalid
+              || loading
+              || !firstName
+              || !lastName,
+          },
+        ])}
       />
     </>
   );
