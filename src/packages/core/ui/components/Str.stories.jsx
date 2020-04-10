@@ -7,10 +7,10 @@ export default {
   title: 'packages/core/components',
 };
 
-export const Basic = () => (
+export const str = () => (
   <Str />
 );
 
-Basic.story = {
+str.story = {
   name: 'Str',
 };

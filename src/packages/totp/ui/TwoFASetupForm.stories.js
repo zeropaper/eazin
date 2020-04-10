@@ -6,7 +6,7 @@ import React from 'react';
 import TwoFASetup from './TwoFASetup';
 
 export default {
-  title: 'packages/totp/Setup Form',
+  title: 'packages/totp',
 };
 
 const handle = (method) => (...args) => {
@@ -47,13 +47,13 @@ const api = {
   delete: handle('delete'),
 };
 
-export const initialState = () => (
+export const setupForm = () => (
   <TwoFASetup
     api={api}
     wrapIn={({ children }) => (<>{children}</>)}
   />
 );
 
-initialState.story = {
-  name: 'Initial state',
+setupForm.story = {
+  name: 'Setup Form',
 };

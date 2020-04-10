@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@material-ui/core';
 
 import ConfirmationDialog from '../ConfirmationDialog';
+import Button from './Button';
 
 const DangerButton = ({
   children,
@@ -12,6 +12,7 @@ const DangerButton = ({
   dialogTitle,
   okLabel,
   cancelLabel,
+  loading,
 
   type,
   ...buttonPropRest
@@ -53,6 +54,7 @@ const DangerButton = ({
 
       <ConfirmationDialog
         open={open}
+        loading={loading}
         title={dialogTitle}
         confirmLabel={okLabel}
         rejectLabel={cancelLabel}
@@ -69,18 +71,18 @@ DangerButton.propTypes = {
   children: PropTypes.node.isRequired,
   onClick: PropTypes.func.isRequired,
   dialogTitle: PropTypes.string.isRequired,
-  dialogMessage: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
   dialogContent: PropTypes.node,
   okLabel: PropTypes.string,
   cancelLabel: PropTypes.string,
+  loading: PropTypes.bool,
   type: PropTypes.string,
 };
 
 DangerButton.defaultProps = {
-  dialogMessage: null,
   dialogContent: null,
   okLabel: null,
   cancelLabel: null,
+  loading: false,
   type: 'button',
 };
 

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+
+import Button from './Form/Button';
 
 const useStyles = makeStyles((theme) => createStyles({
   text: {
@@ -41,11 +42,21 @@ const ConfirmationDialog = ({
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={handleClose}>
+        <Button
+          type="button"
+          variant="text"
+          onClick={handleClose}
+        >
           {rejectLabel || 'Cancel'}
         </Button>
 
-        <Button onClick={handleConfirm} autoFocus>
+        <Button
+          type="button"
+          variant="contained"
+          color="primary"
+          onClick={handleConfirm}
+          autoFocus
+        >
           {confirmLabel || 'Proceed'}
         </Button>
       </DialogActions>

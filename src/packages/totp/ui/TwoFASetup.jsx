@@ -4,6 +4,8 @@ import { Button, Typography, TextField } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
+import { DangerButton } from 'eazin-core/ui/components/Form';
+
 const styles = (theme) => ({
   root: {},
   qrContent: {
@@ -138,14 +140,16 @@ class TwoFASetupForm extends React.Component {
       );
     } else if (error || setup) {
       content = (
-        <Button
+        <DangerButton
+          dialogTitle="Remove two-factor authentication?"
+          dialogContent="This will reduce the security of your account."
           variant="contained"
           className={classes.processButton}
           onClick={this.clearSetup}
           data-testid="totp-clear-setup"
         >
           Clear two-factor authentication
-        </Button>
+        </DangerButton>
       );
     } else if (info) {
       content = (
@@ -192,7 +196,7 @@ class TwoFASetupForm extends React.Component {
     }
 
     return (
-      <Wrapper title="Two-factors authentication" data-testid="totp-setup">
+      <Wrapper title="Two-factor authentication" data-testid="totp-setup">
         <SetupAlert
           setup={!!setup}
           error={error}

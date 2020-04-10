@@ -7,10 +7,10 @@ export default {
   title: 'packages/core/components',
 };
 
-export const Basic = () => (
+export const loadingFallback = () => (
   <LoadingFallback />
 );
 
-Basic.story = {
+loadingFallback.story = {
   name: 'LoadingFallback',
 };
