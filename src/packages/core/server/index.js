@@ -151,16 +151,16 @@ const eazin = async ({
   });
 
   // ##### call apiRouter plugin point
-  plugins.forEach(({ name, apiRouter: apiPlugins = [] }) => {
-    apiPlugins.forEach(({ path: routerPath, router }) => {
+  plugins.forEach(({ name, apiRouter: routingPlugins = [] }) => {
+    routingPlugins.forEach(({ path: routerPath, router }) => {
       if (!routerPath || !router) return;
 
       if (name) {
         const subRouterPluginHook = `api${capitalize(name)}SubRouter`;
         plugins.forEach(({
-          [subRouterPluginHook]: subApiPlugins = [],
+          [subRouterPluginHook]: subPlugins = [],
         } = {}) => {
-          subApiPlugins.forEach(({
+          subPlugins.forEach(({
             path: subRouterParentPath,
             subPath: subRouterPath,
             router: subRouter,
