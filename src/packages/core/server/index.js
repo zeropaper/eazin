@@ -212,6 +212,45 @@ const eazin = async ({
     }
   }
 
+  // ##### call siteRouter plugin point
+  const siteRouter = express.Router();
+  plugins.forEach(({ name, siteRouter: routingPlugins = [] }) => {
+    routingPlugins.forEach(({ path: routerPath, router }) => {
+      if (!routerPath || !router) return;
+
+      if (name) {
+        const subRouterPluginHook = `site${capitalize(name)}SubRouter`;
+        plugins.forEach(({
+          [subRouterPluginHook]: subPlugins = [],
+        } = {}) => {
+          subPlugins.forEach(({
+            path: subRouterParentPath,
+            subPath: subRouterPath,
+            router: subRouter,
+          }) => {
+            if (
+              subRouterParentPath !== routerPath
+              || !subRouter
+            ) return;
+
+            router.use(subRouterPath || '/', (req, res, next) => {
+              req.routingLevels = [routerPath, subRouterPath]
+                .filter(Boolean);
+              next();
+            }, subRouter);
+          });
+        });
+      }
+
+      siteRouter.use(routerPath, (req, res, next) => {
+        req.routingLevels = [routerPath];
+        next();
+      }, router);
+    });
+  });
+
+  app.use(siteRouter);
+
   const db = await mongoose.connect(config.dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
