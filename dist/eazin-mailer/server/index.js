@@ -7,6 +7,10 @@ const nodemailer = require('nodemailer');
 
 const eazinRc = require('eazin-core/server/util/eazinrc');
 
+const coreTemplates = require('eazin-core/server/email.templates');
+
+const mailerTemplates = require('./email.templates');
+
 const {
   TEST_SENDER_FILE = '/tmp/test-sender-messages.json',
 } = process.env;
@@ -50,7 +54,7 @@ const prepareMail = (options, fn) => {
 };
 
 module.exports = async ({
-  template,
+  template = 'email',
   ...options
 }) => {
   const rc = eazinRc();
@@ -62,10 +66,19 @@ module.exports = async ({
     } = {},
   } = rc;
 
-  if (typeof templates[template] !== 'function') throw new Error(`Could not find email template for "${template}"`);
+  const allTemplates = {
+    ...mailerTemplates,
+    ...coreTemplates,
+    ...templates,
+  };
+
+  if (typeof allTemplates[template] !== 'function') {
+    throw new Error(`Could not find email template for "${template}"`);
+  }
+
   const vars = {
     from: siteSender,
-    ...prepareMail({ ...options }, templates[template]),
+    ...prepareMail({ ...options }, allTemplates[template]),
     to: options.to,
   };
 
