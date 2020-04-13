@@ -108,7 +108,8 @@ const prepareTests = async () => {
 
   const groups = [
     await mkDbGroup('Group 1', members),
-    await mkDbGroup('Group 2'),
+    await mkDbGroup('Group 2', members),
+    await mkDbGroup('Group 3'),
   ];
 
   const documents = [
@@ -187,10 +188,26 @@ describe('group content', () => {
   describe('listing', () => {
     beforeAll(prepareTests);
 
-    it('only lists the groups a user has access to', () => {
-      const { groups: [group], members = [] } = env;
-      const users = [group.admin, ...members];
-      // console.info('users', ...users);
+    it('only lists the groups a user has access to', async () => {
+      const { admins: [root], groups: [group], members: [member] } = env;
+
+      const { body: groupAdminGroups } = await utils
+        .get('/api/groups')
+        .set('Authorization', `Bearer ${group.admin.token}`);
+      expect(groupAdminGroups).toHaveProperty('data');
+      expect(groupAdminGroups.data).toHaveLength(1);
+
+      const { body: memberGroups } = await utils
+        .get('/api/groups')
+        .set('Authorization', `Bearer ${member.token}`);
+      expect(memberGroups).toHaveProperty('data');
+      expect(memberGroups.data).toHaveLength(2);
+
+      const { body: rootGroups } = await utils
+        .get('/api/groups')
+        .set('Authorization', `Bearer ${root.token}`);
+      expect(rootGroups).toHaveProperty('data');
+      expect(rootGroups.data).toHaveLength(3);
     });
   });
 });
