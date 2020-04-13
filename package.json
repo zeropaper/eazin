@@ -25,8 +25,8 @@
     "test:unit": "jest --runInBand --config test/server/jest.config.js",
     "test": "npm run build:html && run-s test:*",
     "dev:test:e2e": "TEST_KEEP_BROWSER=1 jest --watch --runInBand --config test/ui/jest.config.js",
-    "watch:test:e2e": "jest --watch --runInBand --config test/ui/jest.config.js",
-    "watch:test:unit": "jest --runInBand --watch --config test/server/jest.config.js",
+    "test:e2e:watch": "jest --watch --runInBand --config test/ui/jest.config.js",
+    "test:unit:watch": "jest --runInBand --watch --config test/server/jest.config.js",
     "postinstall": "npm run build",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
