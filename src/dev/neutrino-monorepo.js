@@ -60,7 +60,7 @@ const pkgToPackage = ({
   name: `${pkg.name}-${name}`,
   private: false,
   scripts: {
-    prepack: 'node ../../src/dev/prepack.js',
+    prepublish: 'node ../../src/dev/prepack.js',
   },
   repository: {
     ...pkg.repository || {},
