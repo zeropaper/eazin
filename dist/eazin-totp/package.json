@@ -19,11 +19,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepack": "node ../../src/dev/prepack.js"
+    "prepublish": "node ../../src/dev/prepack.js"
   },
   "peerDependencies": {
-    "eazin-core": "0.0.1-wip.26",
-    "eazin-users": "0.0.1-wip.26",
+    "eazin-core": "0.0.1-wip.27",
+    "eazin-users": "0.0.1-wip.27",
     "express": "4.17.1",
     "httperrors": "2.3.0",
     "mongoose": "5.9.9",

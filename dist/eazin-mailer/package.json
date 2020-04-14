@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepack": "node ../../src/dev/prepack.js"
+    "prepublish": "node ../../src/dev/prepack.js"
   },
   "peerDependencies": {
     "nodemailer": "6.4.6"
