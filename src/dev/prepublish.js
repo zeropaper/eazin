@@ -17,12 +17,12 @@ fs.readdirSync(distDir).forEach((pkgName) => {
         : pkg.peerDependencies[name],
     }), {});
 
-  console.table({
-    pkgName,
-    lernaVersion,
-    local: pkg.version,
-    root: packageJSON.version,
-  });
+  // console.table({
+  //   pkgName,
+  //   lernaVersion,
+  //   local: pkg.version,
+  //   root: packageJSON.version,
+  // });
 
   const content = {
     ...pkg,
