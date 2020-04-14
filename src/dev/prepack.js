@@ -4,18 +4,24 @@ const path = require('path');
 const packageJSON = require('../../package.json');
 const { version: lernaVersion } = require('../../lerna.json');
 
-fs.readdirSync(path.resolve(__dirname, '../../dist')).forEach((pkgName) => {
-  const jsonFilepath = path.resolve(__dirname, '../../dist', pkgName, 'package.json');
+const distDir = path.resolve(__dirname, '../../dist');
+
+fs.readdirSync(distDir).forEach((pkgName) => {
+  const jsonFilepath = path.resolve(distDir, pkgName, 'package.json');
   const pkg = fs.readJSONSync(jsonFilepath);
+  const peerDependencies = Object.keys(pkg.peerDependencies)
+    .reduce((deps, name) => ({
+      ...deps,
+      [name]: name.startsWith(packageJSON.name)
+        ? lernaVersion // pkg.version
+        : pkg.peerDependencies[name],
+    }), {});
+
+  console.table({ pkgName, lernaVersion, root: packageJSON.version });
+
   const content = {
     ...pkg,
-    peerDependencies: Object.keys(pkg.peerDependencies)
-      .reduce((deps, name) => ({
-        ...deps,
-        [name]: name.startsWith(packageJSON.name)
-          ? lernaVersion // pkg.version
-          : pkg.peerDependencies[name],
-      }), {}),
+    peerDependencies,
   };
 
   fs.writeFileSync(jsonFilepath, `${JSON.stringify(content, null, 2)}\n`);
