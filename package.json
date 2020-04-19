@@ -10,7 +10,7 @@
   "scripts": {
     "ngrok:dev": "ngrok http 5001",
     "prelerna:publish": "rimraf dist/* && npm test && git add dist && git commit --no-verify --allow-empty -m \"core(dist) update dist builds\"",
-    "lerna:publish": "lerna publish",
+    "lerna:publish": "lerna publish --force-publish",
     "build:components:dev": "nodemon -e js,jsx,json,yml,yaml -w './src/packages/*/ui/**/*' -x 'npm run build'",
     "lint": "eslint src test stories",
     "dbg:neutrino:dev": "neutrino --inspect --mode development",
