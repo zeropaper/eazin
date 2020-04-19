@@ -19,7 +19,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "prepublish": "node ../../src/dev/prepack.js"
+    "prepublish": "node ../../src/dev/prepublish.js"
   },
   "peerDependencies": {
     "express": "4.17.1",
