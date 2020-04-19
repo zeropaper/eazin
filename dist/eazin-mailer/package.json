@@ -18,9 +18,6 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
-  "scripts": {
-    "prepublish": "node ../../src/dev/prepublish.js"
-  },
   "peerDependencies": {
     "nodemailer": "6.4.6"
   },
