@@ -18,9 +18,12 @@
     "url": "http://irata.graphics/"
   },
   "license": "MIT",
+  "scripts": {
+    "prepublish": "node ../../src/dev/prepublish.js"
+  },
   "peerDependencies": {
-    "eazin-core": "0.0.1-wip.32",
-    "eazin-users": "0.0.1-wip.32",
+    "eazin-core": "0.0.1-wip.33",
+    "eazin-users": "0.0.1-wip.33",
     "express": "4.17.1",
     "httperrors": "2.3.0",
     "mongoose": "5.9.9",
