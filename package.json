@@ -121,7 +121,7 @@
     "source-map-support": "0.5.19",
     "superagent": "5.2.2",
     "supertest": "4.0.2",
-    "tmp-promise": "2.0.2",
+    "tmp-promise": "2.1.0",
     "totp-generator": "0.0.7",
     "typeface-roboto": "0.0.75",
     "validator": "13.0.0",
