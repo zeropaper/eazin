@@ -26,7 +26,7 @@
     "eazin-users": "0.0.1-wip.33",
     "express": "4.17.1",
     "httperrors": "2.3.0",
-    "mongoose": "5.9.12",
+    "mongoose": "5.9.13",
     "notp": "2.0.3",
     "passport-2fa-totp": "0.0.1",
     "totp-generator": "0.0.7"
