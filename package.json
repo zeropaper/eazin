@@ -43,9 +43,9 @@
   "license": "MIT",
   "dependencies": {
     "@babel/core": "7.9.6",
-    "@material-ui/core": "4.9.13",
+    "@material-ui/core": "4.9.14",
     "@material-ui/icons": "4.9.1",
-    "@material-ui/lab": "4.0.0-alpha.52",
+    "@material-ui/lab": "4.0.0-alpha.53",
     "@neutrinojs/airbnb": "9.1.0",
     "@neutrinojs/banner": "9.1.0",
     "@neutrinojs/copy": "9.1.0",
