@@ -85,7 +85,7 @@
     "jest-circus": "26.0.1",
     "jest-environment-node": "26.0.1",
     "jest-junit": "10.0.0",
-    "lerna": "3.20.2",
+    "lerna": "3.21.0",
     "lodash.capitalize": "4.2.1",
     "lodash.get": "4.4.2",
     "lodash.isequal": "4.5.0",
