@@ -71,7 +71,7 @@
     "eazin-users": "file:./dist/eazin-users",
     "eslint": "7.0.0",
     "eslint-plugin-jest": "23.10.0",
-    "eslint-plugin-react-hooks": "4.0.0",
+    "eslint-plugin-react-hooks": "4.0.2",
     "express": "4.17.1",
     "faker": "4.1.0",
     "fetch-mock": "9.9.0",
