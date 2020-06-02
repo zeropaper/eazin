@@ -93,7 +93,7 @@
     "lodash.template": "4.5.0",
     "material-table": "1.57.2",
     "moment": "2.26.0",
-    "mongoose": "5.9.15",
+    "mongoose": "5.9.17",
     "neutrino": "9.1.0",
     "nodemailer": "6.4.6",
     "nodemon": "2.0.4",
