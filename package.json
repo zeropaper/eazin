@@ -95,7 +95,7 @@
     "moment": "2.26.0",
     "mongoose": "5.9.18",
     "neutrino": "9.2.0",
-    "nodemailer": "6.4.6",
+    "nodemailer": "6.4.8",
     "nodemon": "2.0.4",
     "notp": "2.0.3",
     "npm-run-all": "4.1.5",
