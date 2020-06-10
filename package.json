@@ -76,7 +76,7 @@
     "faker": "4.1.0",
     "fetch-mock": "9.9.0",
     "fs-extra": "9.0.0",
-    "helmet": "3.22.0",
+    "helmet": "3.22.1",
     "history": "4.10.1",
     "httperrors": "2.3.0",
     "husky": "4.2.5",
