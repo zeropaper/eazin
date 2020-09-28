@@ -130,7 +130,7 @@
     "webpack-dev-server": "3.11.0",
     "webpack-node-externals": "2.5.1",
     "eslint-import-resolver-webpack": "0.12.2",
-    "eslint-plugin-import": "2.20.2"
+    "eslint-plugin-import": "2.22.1"
   },
   "optionalDependencies": {
     "ngrok": "3.2.7"
