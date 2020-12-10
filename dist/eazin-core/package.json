@@ -37,7 +37,7 @@
     "lodash.isequal": "4.5.0",
     "material-table": "1.68.1",
     "moment": "2.27.0",
-    "mongoose": "5.9.20",
+    "mongoose": "5.11.6",
     "passport": "0.4.1",
     "prop-types": "15.7.2",
     "react": "16.13.1",
