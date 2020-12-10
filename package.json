@@ -79,7 +79,7 @@
     "helmet": "3.22.1",
     "history": "4.10.1",
     "httperrors": "2.3.0",
-    "husky": "4.2.5",
+    "husky": "4.3.5",
     "informed": "3.9.0",
     "jest": "26.1.0",
     "jest-circus": "26.1.0",
