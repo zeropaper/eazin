@@ -14,9 +14,12 @@ jobs:
         node-version: [
           # 10.x,
           12.x,
-          14.x,
+          14.x
         ]
-        mongodb-version: ["4.2"]
+        mongodb-version: [
+          "4.2",
+          "4.4"
+        ]
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
