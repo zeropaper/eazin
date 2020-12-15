@@ -22,14 +22,14 @@
     "prepublish": "node ../../src/dev/prepublish.js"
   },
   "peerDependencies": {
-    "eazin-core": "0.0.1-wip.33",
-    "eazin-users": "0.0.1-wip.33",
+    "eazin-core": "0.0.1-wip.34",
+    "eazin-users": "0.0.1-wip.34",
     "express": "4.17.1",
     "httperrors": "2.3.0",
-    "mongoose": "5.9.20",
+    "mongoose": "5.11.8",
     "notp": "2.0.3",
     "passport-2fa-totp": "0.0.1",
-    "totp-generator": "0.0.7"
+    "totp-generator": "0.0.8"
   },
   "main": "server/index.js",
   "module": "ui/index.js"

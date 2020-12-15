@@ -12,7 +12,6 @@ import { setUser } from './user.actions';
 import UserPropTypes from './user.propTypes';
 import Wrapper from './UserAccountView.Wrapper';
 
-
 export const defaultButtons = ({ pristine, invalid, loading }) => ([
   {
     text: 'Reset',
@@ -86,7 +85,6 @@ export const PasswordChangeForm = () => (
         },
       },
     }}
-
     buttons={({
       pristine,
       invalid,

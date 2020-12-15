@@ -45,7 +45,6 @@ const Wrapper = ({
   </Grid>
 );
 
-
 Wrapper.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   children: PropTypes.node.isRequired,

@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 225);
+/******/ 	return __webpack_require__(__webpack_require__.s = 215);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,45 +103,31 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = require("eazin-core/ui");
-
-/***/ }),
-
-/***/ 139:
+/***/ 129:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/GridListTile");
 
 /***/ }),
 
-/***/ 14:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.array.concat");
-
-/***/ }),
-
-/***/ 144:
+/***/ 134:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(14);
+/* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(6);
 /* harmony import */ var core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_concat__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(34);
+/* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(19);
 /* harmony import */ var core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_string_trim__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(79);
+/* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(67);
 /* harmony import */ var _material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_Paper__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(139);
+/* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(129);
 /* harmony import */ var _material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_GridListTile__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(9);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(2);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(13);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(5);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_6__);
 
 
@@ -217,14 +203,14 @@ Wrapper.defaultProps = {
 
 /***/ }),
 
-/***/ 149:
+/***/ 139:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/GridList");
 
 /***/ }),
 
-/***/ 163:
+/***/ 153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -239,20 +225,20 @@ var toggleBool = function toggleBool() {
 
 /***/ }),
 
-/***/ 164:
+/***/ 154:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(149);
+/* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(139);
 /* harmony import */ var _material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_GridList__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(9);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_material_ui_core_styles__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(13);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(5);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _LandingView_Wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(144);
+/* harmony import */ var _LandingView_Wrapper__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(134);
 
 
 
@@ -293,50 +279,35 @@ LandingView.pageTitle = 'Dashboard';
 
 /***/ }),
 
+/***/ 19:
+/***/ (function(module, exports) {
+
+module.exports = require("core-js/modules/es.string.trim");
+
+/***/ }),
+
 /***/ 2:
 /***/ (function(module, exports) {
 
-module.exports = require("core-js/modules/es.array.filter");
+module.exports = require("@material-ui/core/styles");
 
 /***/ }),
 
-/***/ 225:
+/***/ 215:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(226);
+module.exports = __webpack_require__(216);
 
 
 /***/ }),
 
-/***/ 226:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
-/* harmony import */ var core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_symbol__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_filter__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(5);
-/* harmony import */ var core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_array_for_each__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(6);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(7);
-/* harmony import */ var core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_get_own_property_descriptors__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(4);
-/* harmony import */ var core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es_object_keys__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(8);
-/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _landing_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(163);
-/* harmony import */ var _LandingView__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(164);
-
-
-
-
-
-
-
-
+/* harmony import */ var _landing_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(153);
+/* harmony import */ var _LandingView__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(154);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -349,7 +320,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var routes = [{
   exact: true,
   path: '/',
-  View: _LandingView__WEBPACK_IMPORTED_MODULE_8__["default"]
+  View: _LandingView__WEBPACK_IMPORTED_MODULE_1__["default"]
 }];
 var store = {
   landing: {}
@@ -361,7 +332,7 @@ var landing = function landing() {
 
   switch (action.type) {
     case 'LANDING_TOGGLE_BOOL':
-      return _objectSpread({}, state, {
+      return _objectSpread(_objectSpread({}, state), {}, {
         bool: !state.bool
       });
 
@@ -376,71 +347,29 @@ var landing = function landing() {
   reducers: {
     landing: landing
   },
-  actions: _landing_actions__WEBPACK_IMPORTED_MODULE_7__
+  actions: _landing_actions__WEBPACK_IMPORTED_MODULE_0__
 });
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.symbol");
-
-/***/ }),
-
-/***/ 34:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.string.trim");
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.object.keys");
 
 /***/ }),
 
 /***/ 5:
 /***/ (function(module, exports) {
 
-module.exports = require("core-js/modules/es.array.for-each");
+module.exports = require("eazin-core/ui");
 
 /***/ }),
 
 /***/ 6:
 /***/ (function(module, exports) {
 
-module.exports = require("core-js/modules/es.object.get-own-property-descriptor");
+module.exports = require("core-js/modules/es.array.concat");
 
 /***/ }),
 
-/***/ 7:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/es.object.get-own-property-descriptors");
-
-/***/ }),
-
-/***/ 79:
+/***/ 67:
 /***/ (function(module, exports) {
 
 module.exports = require("@material-ui/core/Paper");
-
-/***/ }),
-
-/***/ 8:
-/***/ (function(module, exports) {
-
-module.exports = require("core-js/modules/web.dom-collections.for-each");
-
-/***/ }),
-
-/***/ 9:
-/***/ (function(module, exports) {
-
-module.exports = require("@material-ui/core/styles");
 
 /***/ })
 

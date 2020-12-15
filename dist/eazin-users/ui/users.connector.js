@@ -91,33 +91,26 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 267);
+/******/ 	return __webpack_require__(__webpack_require__.s = 257);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 17:
-/***/ (function(module, exports) {
-
-module.exports = require("react-redux");
-
-/***/ }),
-
-/***/ 267:
+/***/ 257:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(268);
+module.exports = __webpack_require__(258);
 
 
 /***/ }),
 
-/***/ 268:
+/***/ 258:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapStateToProps", function() { return mapStateToProps; });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_0__);
 
 var mapStateToProps = function mapStateToProps(_ref) {
@@ -129,6 +122,13 @@ var mapStateToProps = function mapStateToProps(_ref) {
 /* harmony default export */ __webpack_exports__["default"] = (function (Comp) {
   return Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps)(Comp);
 });
+
+/***/ }),
+
+/***/ 8:
+/***/ (function(module, exports) {
+
+module.exports = require("react-redux");
 
 /***/ })
 

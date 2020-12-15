@@ -91,19 +91,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 266);
+/******/ 	return __webpack_require__(__webpack_require__.s = 256);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = require("eazin-core/ui");
-
-/***/ }),
-
-/***/ 154:
+/***/ 144:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -113,7 +106,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeManyUsers", function() { return removeManyUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "upsertManyUsers", function() { return upsertManyUsers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearUsers", function() { return clearUsers; });
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__);
 
 
@@ -131,11 +124,18 @@ var _buildActions = Object(eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__["buildActi
 
 /***/ }),
 
-/***/ 266:
+/***/ 256:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(154);
+module.exports = __webpack_require__(144);
 
+
+/***/ }),
+
+/***/ 5:
+/***/ (function(module, exports) {
+
+module.exports = require("eazin-core/ui");
 
 /***/ })
 

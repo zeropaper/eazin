@@ -91,24 +91,17 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 269);
+/******/ 	return __webpack_require__(__webpack_require__.s = 259);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 13:
-/***/ (function(module, exports) {
-
-module.exports = require("eazin-core/ui");
-
-/***/ }),
-
-/***/ 170:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(13);
+/* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5);
 /* harmony import */ var eazin_core_ui__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(eazin_core_ui__WEBPACK_IMPORTED_MODULE_0__["buildReducer"])({
@@ -117,11 +110,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 269:
+/***/ 259:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(170);
+module.exports = __webpack_require__(160);
 
+
+/***/ }),
+
+/***/ 5:
+/***/ (function(module, exports) {
+
+module.exports = require("eazin-core/ui");
 
 /***/ })
 

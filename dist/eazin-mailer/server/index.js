@@ -30,7 +30,6 @@ const testSend = async (vars) => {
   return vars;
 };
 
-
 const prepareMail = (options, fn) => {
   const {
     env,

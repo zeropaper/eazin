@@ -91,7 +91,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 249);
+/******/ 	return __webpack_require__(__webpack_require__.s = 239);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -103,7 +103,7 @@ module.exports = require("prop-types");
 
 /***/ }),
 
-/***/ 115:
+/***/ 105:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -124,13 +124,13 @@ var UserPropTypes = {
 
 /***/ }),
 
-/***/ 145:
+/***/ 135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapStateToProps", function() { return mapStateToProps; });
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(17);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(8);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_redux__WEBPACK_IMPORTED_MODULE_0__);
 
 var mapStateToProps = function mapStateToProps(_ref) {
@@ -145,15 +145,15 @@ var mapStateToProps = function mapStateToProps(_ref) {
 
 /***/ }),
 
-/***/ 162:
+/***/ 152:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var prop_types__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(prop_types__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _user_connector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(145);
-/* harmony import */ var _user_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(115);
+/* harmony import */ var _user_connector__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(135);
+/* harmony import */ var _user_propTypes__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(105);
 
 
 
@@ -186,18 +186,18 @@ UserAccess.displayName = 'UserAccess';
 
 /***/ }),
 
-/***/ 17:
-/***/ (function(module, exports) {
+/***/ 239:
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("react-redux");
+module.exports = __webpack_require__(152);
+
 
 /***/ }),
 
-/***/ 249:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 8:
+/***/ (function(module, exports) {
 
-module.exports = __webpack_require__(162);
-
+module.exports = require("react-redux");
 
 /***/ })
 

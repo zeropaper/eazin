@@ -71,7 +71,6 @@ class TwoFASetupForm extends React.Component {
       }));
   };
 
-
   requestSetup = () => this.setState({
     info: null,
     setup: false,

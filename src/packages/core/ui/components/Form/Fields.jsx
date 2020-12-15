@@ -124,6 +124,7 @@ Fields.propTypes = {
     PropTypes.shape({
       type: PropTypes.string,
       label: PropTypes.string,
+      // eslint-disable-next-line
       fields: PropTypes.object,
       className: PropTypes.string,
       component: PropTypes.elementType,

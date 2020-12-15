@@ -1,4 +1,3 @@
-
 const crypto = require('crypto');
 const util = require('util');
 const base32 = require('thirty-two');

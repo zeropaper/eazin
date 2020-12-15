@@ -91,20 +91,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 223);
+/******/ 	return __webpack_require__(__webpack_require__.s = 213);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ 223:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(33);
-
-
-/***/ }),
-
-/***/ 33:
+/***/ 17:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -119,6 +111,14 @@ var storeName = 'eazin-1';
     console.warn('reading ', e);
   }
 });
+
+/***/ }),
+
+/***/ 213:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(17);
+
 
 /***/ })
 
