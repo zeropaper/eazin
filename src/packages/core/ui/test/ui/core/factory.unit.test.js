@@ -125,7 +125,6 @@ describe('factory', () => {
     // });
   });
 
-
   describe('buildReducer', () => {
     it('creates an object of functions', () => {
       expect(true).toBeTruthy();

@@ -1,4 +1,3 @@
-
 import reducer, { restore } from './settings.reducer';
 
 import SettingsView from './SettingsView';

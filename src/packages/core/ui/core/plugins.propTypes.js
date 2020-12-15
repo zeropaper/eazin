@@ -5,6 +5,7 @@ export const View = {
     push: PropTypes.func.isRequired,
   }),
   match: PropTypes.shape({
+    // eslint-disable-next-line
     params: PropTypes.any,
   }),
   location: PropTypes.shape({

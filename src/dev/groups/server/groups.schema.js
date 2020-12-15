@@ -148,7 +148,6 @@ schema.methods.toJSON = function toJSON(opts) {
   };
 };
 
-
 modelSearchPlugin(schema);
 
 module.exports = schema;

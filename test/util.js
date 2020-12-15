@@ -36,7 +36,6 @@ export const waitFor = (check, timeout = 1000, debug = false) => (new Promise((r
   }, 1);
 }));
 
-
 function sneak() {
   if (!existsSync(TEST_SENDER_FILE)) throw new Error(`TEST_SENDER_FILE ${TEST_SENDER_FILE} does not exists`);
   return JSON.parse(readFileSync(TEST_SENDER_FILE, 'utf8'));

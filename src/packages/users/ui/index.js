@@ -1,4 +1,3 @@
-
 import { queryAPI } from 'eazin-core/ui';
 import { clearSetting } from '../../settings/ui/settings.actions';
 

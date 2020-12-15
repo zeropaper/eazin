@@ -26,7 +26,6 @@ describe('plain setup', () => {
   });
 });
 
-
 describe('setup with plugins', () => {
   let testSetup;
   beforeAll(async () => {

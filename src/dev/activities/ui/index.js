@@ -1,9 +1,7 @@
-
 import ActivityDrawer from /* webpackChunkName: "ActivityDrawer" */ './ActivityDrawer';
 // eslint-disable-next-line max-len
 import ActivityLandingView from /* webpackChunkName: "ActivityLandingView" */ './ActivityLandingView';
 import ActivityView from /* webpackChunkName: "ActivityView" */ './ActivityView';
-
 
 const wsBootstrap = (socket, dispatch, getState) => {
   // eslint-disable-next-line no-console

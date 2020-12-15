@@ -1,9 +1,7 @@
-
 import ClientsDrawer from /* webpackChunkName: "ClientsDrawer" */ './ClientsDrawer';
 // eslint-disable-next-line max-len
 import ClientsLandingView from /* webpackChunkName: "ClientsLandingView" */ './ClientsLandingView';
 import ClientsView from /* webpackChunkName: "ClientsView" */ './ClientsView';
-
 
 const wsBootstrap = (socket, dispatch, getState) => {
   // eslint-disable-next-line no-console

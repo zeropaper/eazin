@@ -12,7 +12,6 @@ import SaveIcon from '@material-ui/icons/Save';
 import Form from '../src/packages/core/ui/components/Form/FormBase';
 import { validMail, validPassword } from '../src/packages/users/ui/user.validators';
 
-
 export default {
   title: 'packages/core/components/Form',
   decorators: [withKnobs],
@@ -90,7 +89,6 @@ const fields = {
 
 const logSubmit = action('Submit');
 const logPromise = action('promise');
-
 
 const handleSubmit = (rejection, resolveMessage, timeout) => (...args) => {
   logSubmit(...args);

@@ -1,4 +1,3 @@
-
 import GroupsLandingView from './GroupsLandingView';
 import GroupsDrawer from './GroupsDrawer';
 import GroupsView from './GroupsView';

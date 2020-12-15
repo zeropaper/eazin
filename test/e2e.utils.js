@@ -127,7 +127,6 @@ export const fixtures = async (data) => request('/fixtures', typeof data === 'st
 
 export const clearFixtures = () => request('/fixtures', {}, 'delete');
 
-
 export default {
   testidSelector,
   waitMs,

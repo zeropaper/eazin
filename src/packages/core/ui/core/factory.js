@@ -192,7 +192,6 @@ export const buildConnector = ({
     }), {}));
 };
 
-
 export default ({
   singular,
   endpoint,

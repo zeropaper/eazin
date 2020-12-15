@@ -59,7 +59,6 @@ createToken.story = {
   name: 'Create token form',
 };
 
-
 export const loadingState = () => (
   <Typography component="div">
     <LoadingState />
@@ -69,7 +68,6 @@ export const loadingState = () => (
 loadingState.story = {
   name: 'Loading state',
 };
-
 
 export const loadingErrorState = () => (
   <Typography component="div">
@@ -84,7 +82,6 @@ loadingErrorState.story = {
   name: 'Loading error state',
 };
 
-
 export const listState = () => (
   <Typography component="div">
     <ListState tokens={tokensFixture} />
@@ -94,7 +91,6 @@ export const listState = () => (
 listState.story = {
   name: 'List state',
 };
-
 
 export const clientTokens = () => (
   <Typography component="div">

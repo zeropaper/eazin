@@ -31,7 +31,6 @@ ${link}
   };
 };
 
-
 templates.reset = ({
   subject,
   token,
@@ -61,7 +60,6 @@ ${link}
   };
 };
 
-
 templates.emailChange = ({
   subject,
   token,
@@ -90,7 +88,6 @@ ${link}
     // amp: '',
   };
 };
-
 
 templates.invite = ({
   subject,

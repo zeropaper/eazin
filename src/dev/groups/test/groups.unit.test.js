@@ -118,7 +118,6 @@ const testData = [
   }],
 ];
 
-
 describe('group', () => {
   describe('access', () => {
     let group;
