@@ -125,7 +125,7 @@
     "totp-generator": "0.0.8",
     "typeface-roboto": "1.1.13",
     "validator": "13.5.2",
-    "webpack": "^4.44.2",
+    "webpack": "4.44.2",
     "webpack-cli": "4.2.0",
     "webpack-dev-server": "3.11.0",
     "webpack-node-externals": "2.5.2",
